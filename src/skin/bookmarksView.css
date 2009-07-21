@@ -1,0 +1,109 @@
+.notselected
+{
+}
+
+.selected
+{
+	background-color: #FEF0A7;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#content
+{
+	width: inherit;
+}
+
+ul
+{
+	overflow: hidden;
+}
+
+li 
+{
+	list-style-type: none;
+	margin-bottom: 5px;
+	white-space:nowrap;
+}
+
+li a:hover
+{
+	background-color: #E0EBFF;
+}
+
+li a:visited
+{
+	color: rgb(0,0,238);
+}
+
+.window
+{
+	background-color: #FFFFFF;
+	font-family: Cursive;
+	font-size: small;
+}
+
+h1
+{
+	padding: 10px 0px 10px 20px;
+}
+
+h4
+{
+	margin: 0px 0px 0px 20px;
+}
+
+.bookmarksBox
+{
+	overflow-x: hidden;
+	width: 30%;
+	background-color: #FEF0A7;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#tagfooter
+{
+	height: 100px;
+}
+
+#tagfooter ul
+{
+	display: inline;
+}
+
+#tagfooter li
+{
+	display: inline;
+	margin-top: 10px;
+	/*padding-left: 5px;*/
+}
+
+#tagfooter li:after
+{
+	content: ", ";
+}
+
+#tagfooter a
+{
+	padding: 5px 3px 5px 3px;
+}
+
+#tagfooter a:hover
+{
+	background-color: #E0EBFF;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#tags box
+{
+	display:block;
+	float:left;
+	margin-top: 5px;
+	margin-bottom:5px;
+}

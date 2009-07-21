@@ -1,0 +1,172 @@
+﻿<?xml version="1.0"?>
+<!--
+**** BEGIN LICENSE BLOCK *****
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is New Tab JumpStart.
+
+The Initial Developer of the Original Code is Mihailo Lalevic.
+Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
+
+Contributor(s): 
+**** END LICENSE BLOCK ****
+-->
+
+<!DOCTYPE window SYSTEM "chrome://jumpstart/locale/bookmarksView.dtd">
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://jumpstart/skin/bookmarksView.css"?>
+<?xml-stylesheet href="chrome://browser/content/places/places.css"?>
+<?xul-overlay href="chrome://browser/content/places/placesOverlay.xul"?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        title="&title;"
+        class="window"
+        onload="mlalevic.JumpStart.Bookmarks.Loaded();"
+         >
+  
+  <script type="application/x-javascript" src="bookmarksView.js" />
+
+  <hbox flex="1" id="content">
+    <vbox class="bookmarksBox" flex="1" width="33%">
+      <html:h1>&latest;</html:h1>
+      <html:ul>
+        <box style="display:inline;width:inherit;" datasources="profile:places.sqlite" ref="*" querytype="storage" id="tlatest">
+          <template>
+            <query id="qlatest">
+              select case b.title when '' then p.url else b.title end as title, p.url as url
+              from moz_bookmarks b
+              join moz_places p on b.fk = p.id
+
+              where b.type = 1 and b.parent not in (
+                select a.item_id
+                from moz_anno_attributes n
+                join moz_items_annos a on n.id = a.anno_attribute_id
+                where n.name in ('livemark/feedURI', 'placesInternal/READ_ONLY' ))
+              and p.rev_host &lt;> ''
+
+              order by b.dateAdded desc
+              limit 30
+            </query>
+            <action>
+              <box uri="?" style="display:inline;width:inherit;">
+              <html:li title="?title">
+                  <html:a href="?url" title="?title" onclick="mlalevic.JumpStart.Bookmarks.FollowAsBookmark(this);">
+                    <textnode value="?title" />
+                </html:a>
+              </html:li>
+              </box>
+            </action>
+          </template>
+        </box>
+      </html:ul>
+    </vbox>
+    <vbox class="bookmarksBox" flex="1" width="33%">
+      <html:h1>&recent;</html:h1>
+      <html:ul>
+        <box style="display:inline;" datasources="profile:places.sqlite" ref="*" querytype="storage" id="trecent">
+          <template>
+            <query id="qrecent">
+              select case b.title when '' then p.url else b.title end as title, p.url as url
+              from moz_bookmarks b
+              join moz_places p on b.fk = p.id
+              join
+              (select h.place_id as pid, max(visit_date) as dt from moz_historyvisits h
+              group by h.place_id
+              ) h
+              on p.id = h.pid
+              where b.type = 1 and b.parent not in (
+                  select a.item_id
+                  from moz_anno_attributes n
+                  join moz_items_annos a on n.id = a.anno_attribute_id
+                  where n.name in ('livemark/feedURI', 'placesInternal/READ_ONLY' ))
+              and p.rev_host &lt;> ''
+              order by h.dt desc
+              limit 30
+            </query>
+            <action>
+              <box uri="?" style="display:inline;">
+                <html:li title="?title">
+                  <html:a href="?url" title="?title" onclick="mlalevic.JumpStart.Bookmarks.FollowAsBookmark(this);">
+                    <textnode value="?title" />
+                  </html:a>
+                </html:li>
+              </box>
+            </action>
+          </template>
+        </box>
+      </html:ul>
+    </vbox>
+    <vbox class="bookmarksBox" flex="1" width="33%">
+      <html:h1>&frequent;</html:h1>
+      <html:ul>
+        <box style="display:inline;" datasources="profile:places.sqlite" ref="*" querytype="storage" id="tfrequent">
+          <template>
+            <query id="qfrequent">
+              select case b.title when '' then p.url else b.title end as title, p.url as url
+              from moz_bookmarks b
+              join moz_places p on b.fk = p.id
+              where b.type = 1 and b.parent not in (
+                select a.item_id
+                from moz_anno_attributes n
+                join moz_items_annos a on n.id = a.anno_attribute_id
+                where n.name in ('livemark/feedURI', 'placesInternal/READ_ONLY' ))
+              and p.rev_host &lt;> ''
+              order by p.frecency desc
+              limit 30
+            </query>
+            <action>
+              <box uri="?" style="display:inline;">
+                <html:li title="?title">
+                  <html:a href="?url" title="?title" onclick="mlalevic.JumpStart.Bookmarks.FollowAsBookmark(this);">
+                      <textnode value="?title" />
+                  </html:a>
+                </html:li>
+              </box>
+            </action>
+          </template>
+        </box>
+      </html:ul>
+    </vbox>
+  </hbox>
+  <box id="tagfooter" style="display:block;">
+    <html:h4>&tags;</html:h4>
+    <box hidden="true" id="tagnotice">
+      <label value="&tagNotice;" />
+      <html:a href="&tagsLink;">&tagsNow;</html:a>
+    </box>
+          <html:ul style="display:block; float:left;">
+            <box datasources="profile:places.sqlite" ref="*" querytype="storage" id="tags" style="display:inline;">
+              <template>
+                <query>
+                  select tags.title as title, count(*) as count
+                    from moz_bookmarks_roots r
+                    join moz_bookmarks tagsRoot on r.folder_id = tagsRoot.id
+                    join moz_bookmarks tags on tagsRoot.id = tags.parent
+                    join moz_bookmarks tagged on tagged.parent = tags.id
+                  where r.root_name = 'tags'
+                  group by tags.title
+                </query>
+                <action>
+                  <box uri="?">
+                    <html:li>
+                      <html:a href="#" title="?title" class="notselected" value="?title" onclick="mlalevic.JumpStart.Bookmarks.TagClicked(this);">
+                        <textnode value="?title (?count^)" />
+                      </html:a>
+                    </html:li>
+                  </box>
+                </action>
+              </template>
+            </box>
+          </html:ul>
+  </box>
+</window>

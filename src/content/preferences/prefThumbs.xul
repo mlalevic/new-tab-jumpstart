@@ -1,0 +1,61 @@
+﻿<?xml version="1.0"?>
+<!--
+**** BEGIN LICENSE BLOCK *****
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is New Tab JumpStart.
+
+The Initial Developer of the Original Code is Mihailo Lalevic.
+Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
+
+Contributor(s): 
+**** END LICENSE BLOCK ****
+-->
+
+<!DOCTYPE window SYSTEM "chrome://jumpstart/locale/prefThumbs.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+         >
+  <prefpane id="paneThumbs" label="&title;" image="chrome://jumpstart/skin/img/ThumbsConfig.png">
+    <preferences>
+      <!--<preference id="thumbZoom" name="mlalevic.jumpstart.thumbs.zoom" type="bool"/>-->
+      <preference id="thumbShowSmall" name="mlalevic.jumpstart.thumbs.ShowSmallThumbs" type="bool"/>
+      <preference id="thumbLines" name="mlalevic.jumpstart.thumbs.lines" type="int"/>
+      <preference id="thumbCount" name="mlalevic.jumpstart.thumbs.count" type="int"/>
+
+      <preference id="containerWidth" name="mlalevic.jumpstart.thumbs.ContainerWidth" type="int"/>
+      <preference id="containerHeight" name="mlalevic.jumpstart.thumbs.ContainerHeight" type="int"/>
+
+      <preference id="normalWidth" name="mlalevic.jumpstart.thumbs.NormalWidth" type="int"/>
+      <preference id="normalHeight" name="mlalevic.jumpstart.thumbs.NormalHeight" type="int"/>
+
+      <!-- preference id="smallWidth" name="mlalevic.jumpstart.thumbs.SmallWidth" type="int"/ -->
+      <!-- preference id="smallHeight" name="mlalevic.jumpstart.thumbs.SmallHeight" type="int"/ -->
+
+    </preferences>
+    <spacer flex="1"/>
+    <vbox>
+      <hbox>
+        <toolbarbutton id="largeThumbsButton" type="radio" group="thumbSizes" tooltiptext="Big Thumbnails" image="chrome://jumpstart/skin/img/bigthumb.png" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
+        <spacer width="20"/>
+        <toolbarbutton id="smallThumbsButton" type="radio" group="thumbSizes" tooltiptext="Small Thumbnails" image="chrome://jumpstart/skin/img/smallthumb.png" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
+      </hbox>
+      <hbox>
+        <scale id="thumbsNumberScale" flex="1" min="0" max="0" increment="1" pageincrement="3" onchange="mlalevic.JumpStart.Preferences.Thumbs.OnChange(this, mlalevic.JumpStart.Preferences.Thumbs);" />
+        <hbox width="50" align="right">
+          <label id="numberOfThumbs" value="" align="baseline" />
+        </hbox>
+      </hbox>
+    </vbox>
+    <spacer flex="1"/>
+  </prefpane>
+</overlay>

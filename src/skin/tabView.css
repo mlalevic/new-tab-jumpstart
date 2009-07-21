@@ -1,0 +1,305 @@
+/*body
+{
+	background-color: #FFFFFF;
+}*/
+
+.thumbBox {
+  -moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#siteThumbnail");
+}
+
+.thumbContainerBinding {
+  -moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#thumbnailContainer");
+}
+
+.recentlyClosedItemBinding
+{
+  -moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#closedTabLink");
+}
+
+.thumbImageUrl
+{
+	border: none;
+}
+
+.thumbImage
+{
+	border:none;
+	width : 196px;
+    height: 136px;
+}
+
+.rounded
+{
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
+.contentContainer
+{
+	padding-top: 10px;
+	-moz-box-align: center;
+	/*background-color: #FFFFFF;*/
+}
+
+.outerContent
+{
+	text-align:center; 
+	/*background-color: #FFFFFF;*/
+}
+
+.mainContent 
+{
+	float:left;
+	text-align:left;
+	/*width: 860px;*/
+	padding: 5px 5px 5px 5px;
+}
+
+.mainSearch
+{
+	float:left;
+	text-align:left;
+	width: 860px;
+	height: 498px;
+	padding: 5px 5px 5px 5px;
+}
+
+.mainSearch .sidebar-placesTree
+{
+	height:inherit;
+	width:inherit;
+}
+
+.thumbs
+{
+	width: 630px;
+	height: 498px;
+	float:left;
+}
+
+.thumb
+{
+	/*width:196px;*/
+	width:inherit;
+	float:left;
+	margin-right:14px;
+	margin-bottom: 10px;
+	height:156px;
+}
+
+/*.thumb > .thumb
+{
+	position:relative;
+}*/
+
+.thumb .head
+{
+	width:inherit;
+	height:20px;
+	overflow: hidden;
+	white-space:nowrap;
+}
+
+.thumb .head .thumblink
+{
+	/*width:inherit;
+	white-space:nowrap;
+	overflow: hidden;
+	height:inherit;
+	display:inline;*/
+	margin: 0px 0px 0px 5px;
+}
+
+.thumb .image
+{
+	width:inherit;
+	height:136px;
+	border: solid 1px #6B90DA;
+	position:relative;
+}
+
+.sidebar
+{
+	width: 225px;
+	height:498px;
+	margin-left: 5px;
+	/*background-color: #F9F9F9; /*#EEEEEE;*/
+	/*background-color: #FFFFFF;*/
+	float:left;
+}
+
+.sidebar .search
+{
+	width:inherit;
+	height: 50px;
+	margin: 5px 0px 5px 0px;
+	background-color: #E0EBFF;
+}
+
+.sidebar .bookmarks
+{
+	width:inherit;
+	height: auto;
+	max-height: 210px;
+	height: inherit;
+	margin: 5px 0px 5px 0px;
+	background-color: #E0EBFF;
+}
+
+span.title
+{
+	display:block;
+	font: normal normal bold 13px Verdana;
+	margin: 5px 0px 5px 5px;
+}
+
+.title
+{
+	display:block;
+	font: normal normal bold 13px Verdana;
+	margin: 5px 0px 5px 5px;
+}
+
+.sidebar .closed
+{
+	width:inherit;
+	height: auto;
+	max-height: 210px;
+	height:inherit;
+	margin: 5px 0px 5px 0px;
+	background-color: #FEF0A7;
+	overflow:hidden;
+}
+
+.sidebar .search .text
+{
+	font: normal normal bold 13px Verdana;
+	margin: 0px 0px 10px 5px;
+}
+
+treecol
+{
+	background-color: #E0EBFF;
+}
+
+.sidebar-placesTreechildren
+{
+	background-color: #E0EBFF;
+}
+
+.recentlyClosedItem
+{
+	/*padding: 0px 0px 0px 7px;*/
+	/*display:block;*/
+	-moz-appearance: none;
+	overflow-y:hidden;
+	overflow-x:hidden;
+	cursor:pointer;
+	color: -moz-fieldtext;
+	text-decoration: none;
+	border: none;
+	text-align:left;
+	-moz-box-align:start;
+	background-color: Transparent;
+	width: inherit;
+	margin: 0px 0px 0px 10px;
+	-moz-box-align: start;
+}
+
+.closedTabFavIcon
+{
+	height: 16px;
+	width: 16px;
+	display: inline;
+}
+
+.closedTabLabel
+{
+	cursor: pointer;
+	text-decoration: none;
+	margin: 0px 0px 0px 0px;
+	display: inline;
+	width: inherit;
+}
+
+.closedTabLabel:hover
+{
+	text-decoration: underline;
+	margin: 0px 0px 0px 0px;
+}
+
+.recentlyClosedItem:hover
+{
+	text-decoration:underline;
+}
+
+.searchTextBox
+{
+	text-align:left;
+}
+
+.thumbPin
+{
+	background-color: Transparent;
+	float: right;
+	top: 0px;
+	width: 20px;
+	height: 20px;
+	display:block;
+	margin: 3px 3px;
+	background-color: #6B90DA;
+	opacity: 0.5;
+}
+
+.thumbPin:hover
+{
+	background-color: #6B90DA;
+	opacity: 1;
+}
+
+.thumbOverlay{
+	position:absolute; 
+	height:100%; 
+	width:100%; 
+	top: 0; 
+	left: 0; 
+	z-index:9; 
+	/*background-color: red; 
+	opacity: 0.9;*/
+}
+
+.removeLink
+{
+	background-image: url("chrome://jumpstart/skin/img/close.png");
+}
+
+.toRemove
+{
+	background-color: Red;
+}
+
+.toRemove:hover
+{
+	background-color: Red;
+}
+
+.pinLink
+{
+	background-image: url("chrome://jumpstart/skin/img/pin.png");
+}
+
+.pinned
+{
+	background-color: Red;
+}
+
+.pinned:hover
+{
+	background-color: Red;
+}
+
+.chooseLink
+{
+	background-image: url("chrome://jumpstart/skin/img/add.gif");
+	display: none;
+}

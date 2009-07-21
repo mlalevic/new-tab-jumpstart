@@ -1,0 +1,143 @@
+﻿<?xml version="1.0"?>
+<!--
+**** BEGIN LICENSE BLOCK *****
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is New Tab JumpStart.
+
+The Initial Developer of the Original Code is Mihailo Lalevic.
+Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
+
+Contributor(s): 
+**** END LICENSE BLOCK ****
+-->
+<!DOCTYPE window SYSTEM "chrome://jumpstart/locale/tabView.dtd">
+
+<?xml-stylesheet href="chrome://jumpstart/skin/tabView.css"?>
+
+<?xml-stylesheet href="chrome://browser/content/places/places.css"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/places/places.css"?>
+
+<?xul-overlay href="chrome://global/content/editMenuOverlay.xul"?>
+<?xul-overlay href="chrome://browser/content/places/placesOverlay.xul"?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        onload="mlalevic.ChromeDial.Show();"
+        onunload="mlalevic.ChromeDial.Unload();"
+        title="&title;"
+        style="background-color: #FFFFFF;"
+         >
+
+ <stringbundleset id="strbundles">
+    <stringbundle id="strings" src="chrome://jumpstart/locale/tabView.properties"/>
+  </stringbundleset>
+  <script type="application/x-javascript"
+          src="chrome://browser/content/bookmarks/sidebarUtils.js"/>
+  <script type="application/x-javascript" src="tabView.js" />
+  <html:link rel="icon" href="chrome://jumpstart/skin/img/jumpstart16.png"/>
+
+
+  <commandset id="editMenuCommands"/>
+  <commandset id="placesCommands"/>
+  <keyset id="editMenuKeys">
+  </keyset>
+
+  <vbox align="center" class="contentContainer" hidden="false" id="mainBox">
+  <html:div class="outerContent">
+    <html:div class="mainContent">
+      <html:div id="thumbsContainer" class="thumbs thumbContainerBinding">
+        <html:span class="title">&mostVisited;</html:span>
+      </html:div>
+      <html:div class="sidebar">
+        <html:div align="right">
+          <toolbarbutton type="menu" image="chrome://jumpstart/skin/img/JumpStart32.png">
+            <menupopup id="jumpstartMenu" onpopupshowing="return mlalevic.ChromeDial.prepareMenu();">
+              <menuitem label="&menu.showOnNewTab;" id="menu_newtab" autocheck="false" type="checkbox"
+                        oncommand="mlalevic.ChromeDial.invertPrefValue('hook_up_new_tab');" />
+              <menuitem label="&menu.showOnStartup;" id="menu_startup" autocheck="false" type="checkbox"
+                        oncommand="mlalevic.ChromeDial.invertPrefValue('show_on_startup');" />
+              <menuitem label="&menu.showToolbarButton;" id="menu_toolbar" autocheck="false" type="checkbox"
+                        oncommand="mlalevic.ChromeDial.invertPrefValue('show_toolbar_button');" />
+              <menuitem label="&menu.showInHistory;" id="menu_history" autocheck="false" type="checkbox"
+                        oncommand="mlalevic.ChromeDial.invertPrefValue('persist_in_history');" />
+              <menuitem label="&menu.bigThumbs;" id="menu_big" autocheck="false" type="checkbox"
+                        oncommand="mlalevic.ChromeDial.invertThumbPrefValue('ShowSmallThumbs');mlalevic.ChromeDial.checkThumbNumber();" />
+              <menuseparator />
+              <menuitem label="&menu.moreOptions;" oncommand="mlalevic.ChromeDial.onMenuItemProperties();"/>
+            </menupopup>
+          </toolbarbutton>
+          
+        </html:div>
+        <html:div class="search rounded">
+          <html:span class="title">&search;</html:span>
+          <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="timed" timeout="0" class="text" oncommand="historySearch(this.value);" />
+        </html:div>
+        <vbox class="bookmarks rounded" flex="1" id="recentBookmarksBox">
+          <html:span class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;">&recentBookmarks.linkText;</html:a></html:span>
+        <tree id="bookmarksTree"
+                class="sidebar-placesTree"
+                flex="1"
+                type="places"
+                place="place:folder=BOOKMARKS_MENU&amp;folder=UNFILED_BOOKMARKS&amp;folder=TOOLBAR&amp;queryType=1&amp;sort=12&amp;excludeItemIfParentHasAnnotation=livemark%2FfeedURI&amp;maxResults=10&amp;excludeQueries=1"
+                onkeypress="SidebarUtils.handleTreeKeyPress(event);"
+                onclick="SidebarUtils.handleTreeClick(this, event, true);"
+                hidecolumnpicker="true">
+            <!-- onmousemove="SidebarUtils.handleTreeMouseMove(event);"
+                  onmouseout="SidebarUtils.clearURLFromStatusBar();"
+                  -->
+            <treecols>
+              <treecol id="title" flex="1" primary="true" hideheader="true"/>
+            </treecols>
+            <treechildren class="sidebar-placesTreechildren" flex="1"/>
+          </tree>
+        </vbox>
+        <vbox class="closed rounded" id="recentlyClosedBox" flex="1">
+          <html:span class="title">&recentlyClosed;</html:span>
+          <vbox id="recentlyClosedBoxItems" flex="1"></vbox>
+        </vbox>
+      </html:div>
+    </html:div>
+  </html:div>
+  </vbox>
+
+  <vbox align="center" class="contentContainer" hidden="true" id="searchBox">
+    <vbox class="outerContent">
+      <hbox flex="1">
+        <label value="&search;" class="title"
+               control="search-box2"/>
+        <textbox id="search-box2" flex="1" emptyText="&search2.emptyText;" empty="true" type="timed" timeout="500"
+                 oncommand="historySearch(this.value);" class="searchTextBox" />
+      </hbox>
+      <vbox>
+        <html:a href="#" onclick="showThumbs();">&back;</html:a>
+      </vbox>
+      <vbox class="mainSearch">
+        <tree id="historyTree"
+              class="sidebar-placesTree"
+              flex="1"
+              type="places"
+              hidecolumnpicker="true"
+              onkeypress="SidebarUtils.handleTreeKeyPress(event);"
+                onclick="SidebarUtils.handleTreeClick(this, event, true);"
+                onmousemove="SidebarUtils.handleTreeMouseMove(event);"
+                onmouseout="SidebarUtils.clearURLFromStatusBar();"
+              >
+          <treecols>
+            <treecol id="title" flex="1" primary="true" hideheader="true"/>
+          </treecols>
+          <treechildren class="sidebar-placesTreechildren" flex="1"/>
+        </tree>
+      </vbox>
+    </vbox>
+  </vbox>
+</window>

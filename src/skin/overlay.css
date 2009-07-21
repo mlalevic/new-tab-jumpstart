@@ -1,0 +1,16 @@
+/*.tabs-alltabs-popup {
+  -moz-binding: url("chrome://jumpstart/content/myBindings.xml#tabbrowser-alltabs-popup");
+}*/
+
+.jumpstartbutton
+{
+	background-image: none;
+}
+
+#jumpStartOpenDialButton{
+	list-style-image: url("chrome://jumpstart/skin/img/JumpStart24.png");
+}
+
+toolbar[iconsize="small"] #jumpStartOpenDialButton{
+	list-style-image: url("chrome://jumpstart/skin/img/JumpStart16.png");
+}

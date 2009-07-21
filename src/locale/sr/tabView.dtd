@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ENTITY title "Нови језичак - Појачан">
+<!ENTITY mostVisited "Најпосећеније">
+<!ENTITY menu.showOnNewTab "Прикажи на новом језичку">
+<!ENTITY menu.showOnStartup "Прикажи при покретању">
+<!ENTITY menu.showToolbarButton "Прикажи дугме на алатној траци">
+<!ENTITY menu.showInHistory "Прикажи у историјату">
+<!ENTITY menu.bigThumbs "Велике сличице">
+<!ENTITY menu.moreOptions "Још подешавања ...">
+<!ENTITY search.emptyText "Претражи историјат">
+<!ENTITY recentBookmarks.recent "Најновије">
+<!ENTITY recentBookmarks.tooltip "Још забелешки">
+<!ENTITY recentBookmarks.linkText "Забелешке" >
+<!ENTITY recentlyClosed "Последње затворено" >
+<!ENTITY search "Претражи" >
+<!ENTITY search2.emptyText "Претражи историјат" >
+<!ENTITY back "Назад на приказ предгледа" >
+
+
+

@@ -1,0 +1,424 @@
+<?xml version="1.0"?>
+
+<bindings id="thumbnail"
+          xmlns="http://www.mozilla.org/xbl"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <binding id="thumbnailContainer">
+    <content>
+      <children />
+    </content>
+    <implementation>
+      <field name="config">null</field>
+      <field name="contentWidth">0</field>
+      <field name="contentHeight">0</field>
+      <field name="thumbCount">0</field>
+      <field name="thumbColumns">0</field>
+      <field name="followedPageHandler">null</field>
+      <method name="setup">
+        <parameter name="config" />
+        <parameter name="followedPageHandler" />
+        <body>
+          <![CDATA[
+          this.config = config;
+          this.contentWidth = config.ContainerWidth;
+          this.contentHeight = config.ContainerHeight;
+          this.thumbCount = config.Count;
+          this.thumbColumns = config.Columns;
+          this.followedPageHandler = followedPageHandler;
+          ]]>
+        </body>
+      </method>
+      <method name="draw">
+        <parameter name="thumbData" />
+        <parameter name="pinHandler" />
+        <parameter name="removeHandler" />
+        <body>
+          <![CDATA[
+          
+            this.width = this.contentWidth;
+            this.height = this.contentHeight;
+            this.style.width = this.contentWidth + 'px';
+            this.style.height = this.contentHeight + 'px';
+            
+            let data = thumbData;
+            let container = this;
+      
+            let length = this.thumbCount;
+
+            if (data && data.length > 0) {
+                if (data.length < length) {
+                    length = data.length;
+                }
+            } else {
+                length = 0;
+            }
+        
+            let tmpBoxes = [];
+            
+           for (var i = 0; i < length; i++) {
+            var box = document.createElement("box");
+            box.setAttribute("class", "thumbBox thumb");
+            container.appendChild(box);
+            box.draw(this.config, data[i], this.followedPageHandler);
+            box.pinHandler = pinHandler;
+            box.removeHandler = removeHandler;
+            box.index = i;
+            tmpBoxes.push(box);
+          }
+      
+          let thumbsPerRow = this.thumbColumns;
+          
+          for(var i = 0; i < length; i++){
+            let box = tmpBoxes[i];
+            let boxes = [];
+            let rowPosition = i%thumbsPerRow;
+            if(rowPosition == 0){
+              box.style.clear = 'left';
+            }
+            
+            let startIndex = i - rowPosition;
+            
+            for(var j = startIndex; j < (startIndex + thumbsPerRow) && j < length; j++){
+              if(j != i){
+                boxes.push(tmpBoxes[j]);
+              }
+            }
+            
+            /*box.dispatchToggleNormal = function(){
+              for(var a = 0; a < boxes.length; a++){
+                boxes[a].makeNormal();
+                boxes[a].style.marginTop = '0px'; //TODO: read this from config
+              }
+            };
+            box.dispatchToggleSmall = function(){
+              for(var a = 0; a < boxes.length; a++){
+                boxes[a].makeSmaller();
+                boxes[a].style.marginTop = '50px'; //TODO: read this from config
+              }
+            };*/
+          }
+          ]]>
+        </body>
+      </method>
+      <method name="refreshThumb">
+        <parameter name="host" />
+        <parameter name="thumbData" />
+        <body>
+          <![CDATA[
+            for(var i = 0; i < this.childNodes.length; i++){
+              if(this.childNodes[i].host != undefined && this.childNodes[i].host == host){
+                this.childNodes[i].refreshButtonStatus(thumbData);
+                return;
+              }
+            }
+          ]]>
+        </body>
+      </method>
+    </implementation>
+  </binding>
+
+  <binding id="siteThumbnail">
+    <content>
+      <xul:vbox class="thumb">
+        <xul:hbox class="head">
+          <html:img anonid="img" />
+          <html:a anonid="url" class="thumblink" />
+        </xul:hbox>
+        <html:div class="image">
+          <html:a href="#" class="thumbImageUrl">
+            <html:img class="thumbImage" />
+            <html:div class="thumbOverlay" style="display:none;">
+              <html:a anonid="pinLink" class="thumbPin pinLink" href="#"></html:a>
+              <html:a anonid="chooseLink" class="thumbPin chooseLink" href="#"></html:a>
+              <html:a anonid="removeLink" class="thumbPin removeLink" href="#"></html:a>
+            </html:div>
+          </html:a>
+        </html:div>
+      </xul:vbox>
+    </content>
+    <implementation>
+      <field name="index">-1</field>
+      <field name="dispatchToggleNormal">null</field>
+      <field name="dispatchToggleSmall">null</field>
+      <field name="handleMouse">false</field>
+      <field name="largeWidth">0</field>
+      <field name="largeHeight">0</field>
+      <field name="smallWidth">0</field>
+      <field name="smallHeight">0</field>
+      <field name="normalWidth">0</field>
+      <field name="normalHeight">0</field>
+      <field name="host"></field>
+      <field name="url"></field>
+      <field name="title"></field>
+      <field name="fav"></field>
+      <field name="toRemove">false</field>
+      <field name="pinned">false</field>
+      <field name="removeHandler">null</field>
+      <field name="pinHandler">null</field>
+      <field name="followedPageHandler">null</field>
+      <constructor>
+        <![CDATA[
+          
+        ]]>
+      </constructor>
+      <method name="setup">
+        <parameter name="config" />
+        <body>
+          <![CDATA[
+          //this.handleMouse = config.Zoom;
+          this.largeWidth = config.LargeWidth;
+          this.largeHeight = config.LargeHeight;
+          this.smallWidth = config.SmallWidth;
+          this.smallHeight = config.SmallHeight;
+          this.normalWidth = config.NormalWidth;
+          this.normalHeight = config.NormalHeight;  
+          ]]>
+        </body>
+      </method>
+      <method name="draw">
+        <parameter name="config" />
+        <parameter name="thumbData" />
+        <parameter name="followedPageHandler" />
+        <body>
+          <![CDATA[
+            function htmlEncode(s){
+              return s.replace(/&(?!\w+([;\s]|$))/g, "&amp;")
+                .replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            }
+            
+            this.setup(config);
+            
+            
+            this.host = thumbData.host;
+            this.url = thumbData.url;
+            this.title = thumbData.title;
+            this.fav = thumbData.fav;
+            var header = document.getAnonymousElementByAttribute(this, 'class', 'head');
+            var image = document.getAnonymousElementByAttribute(this, 'class', 'thumbImage');
+            var imageAnchor = document.getAnonymousElementByAttribute(this, 'class', 'thumbImageUrl');
+            var a = document.getAnonymousElementByAttribute(this, 'anonid', 'url');
+            var img = document.getAnonymousElementByAttribute(this, 'anonid', 'img');
+            
+            if (thumbData.fav != '') {
+                img.src = thumbData.fav;
+            }else{
+                img.style.display = 'none';
+            }
+            
+            var url = thumbData.originalUrl ? thumbData.originalUrl : thumbData.url;
+            
+            a.href = url;
+            var txt = document.createTextNode(thumbData.title != '' ? thumbData.title : url);
+            a.appendChild(txt);
+
+            a.setAttribute("title",  (thumbData.title != '' ? thumbData.title : url));
+            header.setAttribute("tooltiptext", (thumbData.title != '' ? thumbData.title : url));
+            
+            a.addEventListener("click", followedPageHandler, true);
+            
+            image.src = thumbData.thumb;
+            imageAnchor.href = url;
+
+            imageAnchor.addEventListener("click", followedPageHandler, true);
+            
+            this.hookUpButtons();
+            this.refreshButtonStatus(thumbData);
+            
+            this.makeNormal();
+          ]]>
+        </body>
+      </method>
+      <method name="hookUpButtons">
+        <body>
+          <![CDATA[
+            let pinButton = document.getAnonymousElementByAttribute(this, "anonid", "pinLink");
+            //var chooseButton = document.getAnonymousElementByAttribute(this, "anonid", "chooseLink");
+            let removeButton = document.getAnonymousElementByAttribute(this, "anonid", "removeLink");
+            
+            pinButton.addEventListener("click", mlalevic.Utils.Binder.bind(this, this.handlePin), true);
+            removeButton.addEventListener("click", mlalevic.Utils.Binder.bind(this, this.handleRemove), true);
+          ]]>
+        </body>
+      </method>
+      <method name="refreshButtonStatus">
+        <parameter name="thumbData" />
+        <body>
+          <![CDATA[
+            this.toRemove = (thumbData.toRemove == undefined)?false:thumbData.toRemove;
+            this.pinned = (thumbData.pinned == undefined)?false:thumbData.pinned;
+            
+            let pinButton = document.getAnonymousElementByAttribute(this, "anonid", "pinLink");
+            //var chooseButton = document.getAnonymousElementByAttribute(this, "anonid", "chooseLink");
+            let removeButton = document.getAnonymousElementByAttribute(this, "anonid", "removeLink");
+            
+            if(this.pinned){
+              pinButton.setAttribute("class", "thumbPin pinLink pinned");
+            }else{
+              pinButton.setAttribute("class", "thumbPin pinLink");
+            }
+            
+            if(this.toRemove){
+              removeButton.setAttribute("class", "thumbPin removeLink toRemove");
+            }else{
+              removeButton.setAttribute("class", "thumbPin removeLink");
+            }
+            ]]>
+        </body>
+      </method>
+      <method name="handlePin">
+        <parameter name="aEvent" />
+        <body>
+          <![CDATA[
+            if (aEvent.button != 0) //left button
+              return;
+            aEvent.preventDefault();
+            aEvent.stopPropagation();
+            this.onPin();
+          ]]>
+        </body>
+      </method>
+      <method name="handleRemove">
+        <parameter name="aEvent" />
+        <body>
+          <![CDATA[
+            if (aEvent.button != 0) //left button
+              return;
+            aEvent.preventDefault();
+            aEvent.stopPropagation();
+            this.onRemove();
+          ]]>
+        </body>
+      </method>
+      <method name="onRemove">
+        <body>
+          <![CDATA[
+            if(this.removeHandler){
+              this.removeHandler(this.host);           
+            }
+          ]]>
+        </body>
+      </method>
+      <method name="onPin">
+        <body>
+          <![CDATA[
+            if(this.pinHandler){
+              this.pinHandler(this.url, this.host, this.title, this.fav);
+            }
+          ]]>
+        </body>
+      </method>
+      <method name="handleMouseOver">
+        <body>
+          <![CDATA[
+            //if(!this.handleMouse)
+            //  return;
+            //this.makeLarger();
+            var overlay = document.getAnonymousElementByAttribute(this, 'class', 'thumbOverlay');
+            overlay.style.display = '';
+            if(this.dispatchToggleSmall){
+              this.dispatchToggleSmall(this.index);
+            }
+          ]]>
+        </body>
+      </method>
+      <method name="handleMouseOut">
+        <body>
+        <![CDATA[
+          //if(!this.handleMouse)
+          //    return;
+          //this.makeNormal();
+          var overlay = document.getAnonymousElementByAttribute(this, 'class', 'thumbOverlay');
+          overlay.style.display = 'none';
+          if(this.dispatchToggleNormal){
+            this.dispatchToggleNormal(this.index);
+          }
+        ]]>
+        </body>
+      </method>
+      <method name="makeSmaller">
+        <body>
+        <![CDATA[
+          this.setSize(this.smallWidth, this.smallHeight);
+        ]]>
+        </body>
+      </method>
+      <method name="makeLarger">
+        <body>
+        <![CDATA[
+          this.setSize(this.largeWidth, this.largeHeight);
+        ]]>
+        </body>
+      </method>
+      <method name="makeNormal">
+        <body>
+          <![CDATA[
+          this.setSize(this.normalWidth, this.normalHeight);
+        ]]>
+        </body>
+      </method>
+      <method name="setSize">
+        <parameter name="width" />
+        <parameter name="height" />
+        <body>
+          <![CDATA[
+          var image = document.getAnonymousElementByAttribute(this, 'class', 'thumbImage');
+          var container = document.getAnonymousElementByAttribute(this, 'class', 'image');
+          image.width = width;
+          image.height = height;
+          image.style.height = height + 'px';
+          image.style.width = width + 'px';
+          this.width = width;
+          this.height = height + 20;
+          this.style.height = this.height + 'px';
+          this.style.width = this.width + 'px';
+          container.width = width;
+          container.height = height;
+          container.style.width = width + 'px';
+          container.style.height = height + 'px';
+        ]]>
+        </body>
+      </method>
+    </implementation>
+    <handlers>
+      <handler event="mouseover">
+        this.handleMouseOver();
+      </handler>
+      <handler event="mouseout">
+        this.handleMouseOut();
+      </handler>
+    </handlers>
+  </binding>
+
+  <binding id="closedTabLink">
+    <content>
+      <html:a href="#" class="closedTabLink">
+        <xul:image class="closedTabFavIcon" hidden="true" />
+        <xul:label crop="end" class="closedTabLabel" />
+      </html:a>
+    </content>
+    <implementation>
+      <method name="draw">
+        <parameter name="closedTabData" />
+        <parameter name="onClickHandler" />
+        <body>
+          <![CDATA[
+            var anchor = document.getAnonymousElementByAttribute(this, 'class', 'closedTabLink');
+            var image = document.getAnonymousElementByAttribute(this, 'class', 'closedTabFavIcon');
+            var label = document.getAnonymousElementByAttribute(this, 'class', 'closedTabLabel');
+            
+            label.value = closedTabData.title;
+            if (closedTabData.image){
+              image.src = closedTabData.image;
+              image.hidden = false;
+            }
+
+            anchor.addEventListener("click", onClickHandler, false);
+          ]]>
+        </body>
+      </method>
+    </implementation>
+  </binding>
+</bindings>

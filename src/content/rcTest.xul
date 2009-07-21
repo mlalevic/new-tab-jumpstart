@@ -1,0 +1,54 @@
+﻿<?xml version="1.0"?>
+<!--
+**** BEGIN LICENSE BLOCK *****
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is New Tab JumpStart.
+
+The Initial Developer of the Original Code is Mihailo Lalevic.
+Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
+
+Contributor(s): 
+**** END LICENSE BLOCK ****
+-->
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        title="RC Test - JumpStarted"
+         >
+  <script type="application/x-javascript" src="remoteCanvas.js" />
+  <script type="application/x-javascript">
+    function myCommand(){
+    var text = document.getElementById("myText").value;
+    mlalevic.Utils.UI.GetCanvasLoader(text, {save: function(data){var img = document.getElementById("myimg"); img.src = data;}}).Start();
+    }
+
+    function myWorkaround(){
+    var text = document.getElementById("myText").value;
+    var frame = document.getElementById("myFrame");
+    frame.setAttribute('src',  text);
+    }
+  </script>
+  <hbox>
+    <image id="myimg" width="294" height="204"/>
+    <spacer flex="1"/>
+  </hbox>
+  <hbox>
+    <textbox id="myText"/>
+    <button label="Load Canvas" oncommand="myCommand();" />
+  </hbox>
+  <hbox>
+    <button label="Workaround" oncommand="myWorkaround();" />
+  </hbox>
+  <hbox>
+    <!--<html:iframe id="myFrame" />-->
+  </hbox>
+</window>

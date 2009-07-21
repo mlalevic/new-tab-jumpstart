@@ -1,0 +1,7 @@
+content	jumpstart   content/
+overlay chrome://browser/content/browser.xul   chrome://jumpstart/content/overlay.xul
+skin jumpstart classic skin/
+resource modules content/modules/
+locale	jumpstart	sr	locale/sr/
+locale	jumpstart	en	locale/en/
+locale	jumpstart	ko-KR	locale/ko-KR/

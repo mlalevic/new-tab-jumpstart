@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ENTITY title "북마크 - JumpStarted">
+<!ENTITY latest "최신">
+<!ENTITY recent "최근 방문한 페이지">
+<!ENTITY frequent "자주 방문한 페이지">
+<!ENTITY tags "태그">
+<!ENTITY tagNotice "북마크 태그가 없습니다. 북마크에 태그를 붙이면 북마크를 관리하기가 쉬워집니다. 북마크에 태그를 추가해 보세요. ">
+<!ENTITY tagsLink "http://support.mozilla.com/en-US/kb/bookmark+tags">
+<!ENTITY tagsNow "지금!">
+
+
