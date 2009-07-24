@@ -85,13 +85,22 @@ let AnnoService = {
         var annoProperties = Converter.fromJSONString(anno);
         return annoProperties;
     },
-    getPropertyAnnotatedURIs : function(){
+    getProperties : function(){
         var count = {};
+
         var annoUris = this.annoService.getPagesWithAnnotation(this.propertiesAnno, count);
         if(count.value == 0){
             return [];
         }
-        return annoUris;
+
+        var result = [];
+        for(var i = 0; i < annoUris.lengt; i++){
+                var properties = this.getProperty(annoUris[i]);
+                properties.uri = annoUris[i];
+                result.push(properties);
+        }
+
+        return result;
     },
     removeProperties : function(uris){
         for(var i = 0; i < uris.lengt; i ++){

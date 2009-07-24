@@ -25,27 +25,30 @@ if (!mlalevic) {
 
 if (!mlalevic.Utils) {
     mlalevic.Utils = {};
-  }
+}
 
 Components.utils.import("resource://modules/Observers.js", mlalevic.Utils);
 Components.utils.import("resource://modules/utils.js", mlalevic.Utils);
 
 if (!mlalevic.ChromeDial) {
     mlalevic.ChromeDial = {};
-  }
+}
 
-  if (!mlalevic.JumpStart) {
+if (!mlalevic.JumpStart) {
     mlalevic.JumpStart = {};
-  }
+}
 
-  if (!mlalevic.JumpStart.Data) {
+if (!mlalevic.JumpStart.Data) {
     mlalevic.JumpStart.Data = {};
-  }
-  
+}
+
+if(!mlalevic.JumpStart.Components){
+    mlalevic.JumpStart.Components = {};
+}
   
 if (!mlalevic.JumpStart.Services) {
     mlalevic.JumpStart.Services = {};
-  }
+}
 Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
 
 //mlalevic.JumpStart
@@ -55,19 +58,7 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
   var configChanged = "mlalevic.JumpStart.configChanged";
   var tabViewUrl = 'chrome://jumpstart/content/tabView.xul';
   
-  /*var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
-                               .getService(Components.interfaces.nsIBrowserHistory);
-  // the IO service
-  var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-                            .getService(Components.interfaces.nsIIOService);
-
-  // create an nsIURI
-  var uri = ioService.newURI(tabViewUrl, null, null);
-
-  historyService.hidePage(uri);*/
   
-  
-  //var preloadedData = [];
   var Data = mlalevic.JumpStart.Data;
   var DataService = mlalevic.JumpStart.Services.DataService;
   var Config = mlalevic.JumpStart.Services.JumpstartConfiguration;
@@ -85,13 +76,8 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
     _thumbCount : Config.Thumbs.Count,
     loadedCallback: null,
     loadedCount: 0,
-    //thumbData: [], //TODO: (ML) use data service _service._mostFrequentData //change this with something better managable
-    //currentData: [], //TODO: (ML) use data service
     bookmarkData: [],
     closedTabsData: [],
-    /*loadMostUsedData: function() {
-      this.thumbData = this._service.getMostFrequentData();
-    },*/
 
     hookUpTabEvents: function() {
       var container = gBrowser.tabContainer;
@@ -99,7 +85,7 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         container.addEventListener("TabOpen", Utils.Binder.bind(this, this.tabAdded), false);
       }
       container.addEventListener("TabClose", Utils.Binder.bind(this, this.tabClosed), false);
-      container.addEventListener("TabSelect", Dial.clearUrlBarForOurTab, false);
+      //container.addEventListener("TabSelect", Dial.clearUrlBarForOurTab, false);
     },
 
     tabAdded: function(event) {
@@ -133,7 +119,6 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
     },
 
     loadData: function() {
-      //this.loadMostUsedData();
       this.loadClosedData();
       this.hookUpTabEvents();
       if (this._service.HasCachedData) {
@@ -145,30 +130,29 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
 
     loadThumbnails: function() {
       this.loadedCount = 0;
-      for (var i = 0; i < this._service._mostFrequentData.length; i++) {
-        //var handler = Utils.Binder.bindArguments(this._service, this._service.updateThumbData, i);
-        function dataHandler(dataService, index, properties){
-            this.service = dataService;
-            this.index = index;
-            this.properties = properties;
-            this.save = function(data){
-                this.service.updateThumbData(this.index, data);
-                var ds = new mlalevic.JumpStart.Data.Service();
-                ds.saveThumb(this.properties, data);
-            }
-        }
-        var index = i;
-        var service = this._service;
-        mlalevic.Utils.UI.GetCanvasLoader(
-          this._service._mostFrequentData[index].url, 
-          //{save: function(data){service.updateThumbData(index, data);}},
-          new dataHandler(service, index, this._service._mostFrequentData[index]),
-          Dial
-          )
-          .Start();
-        //var c = new RemoteCanvas(this._service._mostFrequentData[i].url, Utils.Binder.bindArguments(this._service, this._service.updateThumbData, i));
-        //c.load();
-      }
+      var refreshComponent = mlalevic.JumpStart.Components.RefreshComponentFactory(this._service._mostFrequentData);
+      refreshComponent.Start();
+      //for (var i = 0; i < this._service._mostFrequentData.length; i++) {
+      //  function dataHandler(dataService, index, properties){
+      //      this.service = dataService;
+      //      this.index = index;
+      //      this.properties = properties;
+      //      this.save = function(data){
+      //          this.service.updateThumbData(this.index, data);
+      //          /*var ds = new mlalevic.JumpStart.Data.Service();
+      //          ds.saveThumb(this.properties, data);*/
+      //      }
+      //  }
+      //  var index = i;
+      //  var service = this._service;
+      //  mlalevic.Utils.UI.GetCanvasLoader(
+      //    this._service._mostFrequentData[index].url,
+      //    //{save: function(data){service.updateThumbData(index, data);}},
+      //    new dataHandler(service, index, this._service._mostFrequentData[index]),
+      //    Dial
+      //    )
+      //    .Start();
+      //}
     },
     
     get currentData(){
@@ -202,8 +186,9 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
 
   Dial.load = function() {
     window.removeEventListener("load", mlalevic.ChromeDial.load, false);
-    //myInnerBrowser = document.getElementById('jumpstartHiddenContent');
-    //alert(myInnerBrowser);
+
+    mlalevic.JumpStart.Components.ClearUrlComponent.start();
+
     Utils.Observers.add(Dial.ConfigChanged, configChanged);
     
     Dial.ShowButtonBasedOnConfig();
@@ -255,7 +240,7 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
     dialService.refreshClosed();
   }
   
-  Dial.clearUrlBar = function(){
+  /*Dial.clearUrlBar = function(){
     if (gURLBar && gURLBar.value == tabViewUrl) { 
       gURLBar.value = ""; 
       gURLBar.focus();
@@ -264,10 +249,8 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
 
   Dial.clearUrlBarForOurTab = function() {
     window.setTimeout(Dial.clearUrlBar, 0);
-  }
-  
-  /*Dial.clearUrlBar = function(){
   }*/
+  
   
   Dial.followedPage = function(url){
     PlacesUIUtils.markPageAsTyped(url);
@@ -397,3 +380,100 @@ window.addEventListener("SSTabClosing", mlalevic.ChromeDial.ssClosing, false);
 
 var obs = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
 obs.addObserver(mlalevic.ChromeDial.onBeforeShowObserver, "browser-window-before-show", false);
+
+
+(function(){
+    //use comp for convenience
+    var comp = mlalevic.JumpStart.Components;
+
+    comp.ThumbDataHandler = function(dataService, properties){
+        this.service = dataService;
+        this.properties = properties;
+        this.save = function(data){
+            this.service.saveThumb(this.properties, data);
+        }
+    }
+
+    comp.RefreshComponent = function(dataToRefresh, dataUpdateService, getCanvasLoader){
+        this.listToRefresh = dataToRefresh;
+        this.service = dataUpdateService;
+        this.createLoader = getCanvasLoader;
+    }
+
+    comp.RefreshComponent.prototype = {
+        listToRefresh : null,
+        service : null,
+        createLoader : null,
+        Start : function(){
+            for (var i = 0; i < this.listToRefresh.length; i++) {
+                this.createLoader(
+                  this.listToRefresh[i].url,
+                  new comp.ThumbDataHandler(this.service, this.listToRefresh[i])
+                  )
+                  .Start();
+            }
+        }
+    }
+
+    comp.RefreshComponentFactory = function(dataToRefresh){
+        var getLoader = function(url, dataHandler){
+          return mlalevic.Utils.UI.GetCanvasLoader(
+              url, dataHandler, mlalevic.ChromeDial
+          );
+        }
+
+        return new comp.RefreshComponent(dataToRefresh, new mlalevic.JumpStart.Data.Service(),getLoader);
+    }
+})();
+
+(function(){
+    var tabViewUrl = 'chrome://jumpstart/content/tabView.xul';
+
+    //use comp for convenience
+    var comp = mlalevic.JumpStart.Components;
+
+    comp.ClearUrlComponentListener = {
+        QueryInterface: function(aIID) {
+            if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
+                aIID.equals(Components.interfaces.nsISupportsWeakReference) ||
+                aIID.equals(Components.interfaces.nsISupports))
+              return this;
+            throw Components.results.NS_NOINTERFACE;
+        },
+
+        onLocationChange: function(aWebProgress, aRequest, aURI) {
+            if (aURI.spec == tabViewUrl) {
+                gURLBar.value = "";
+                gURLBar.focus();
+                
+                /*window.setTimeout(function(){
+                    gURLBar.value = "";
+                    gURLBar.focus();
+                    //getBrowserFromContentWindow(window).userTypedValue = "";
+                    //gBrowser.userTypedValue = "";
+                }, 0);*/
+            }
+        },
+        onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
+            return 0;
+        },
+        onProgressChange: function() {},
+        onStatusChange: function() {},
+        onSecurityChange: function() {},
+        onLinkIconAvailable: function() {}
+    };
+
+    comp.ClearUrlComponent = {
+        start: function() {
+            gBrowser.addProgressListener(
+                comp.ClearUrlComponentListener,
+                Components.interfaces.nsIWebProgress.NOTIFY_STATE_DOCUMENT
+            );
+        },
+
+        stop: function() {
+            gBrowser.removeProgressListener(comp.ClearUrlComponentListener);
+        }
+    };
+    
+})();

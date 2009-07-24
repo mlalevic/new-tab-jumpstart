@@ -57,12 +57,38 @@
             }
         
             let tmpBoxes = [];
+
+            //translate data:
+            var translate = function(thumbData){
+                var annotationService = Components.classes["@mozilla.org/browser/annotation-service;1"]
+                                  .getService(Components.interfaces.nsIAnnotationService);
+                var faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
+                               .getService(Components.interfaces.nsIFaviconService);
+
+                function makeURI(aURL, aOriginCharset, aBaseURI) {
+                 var ioService = Components.classes["@mozilla.org/network/io-service;1"]
+                                            .getService(Components.interfaces.nsIIOService);
+                 return ioService.newURI(aURL, aOriginCharset, aBaseURI);
+                }
+
+                var uri = makeURI(thumbData.url);
+
+                var result = {
+                    host : thumbData.host,
+                    url : thumbData.url,
+                    title : thumbData.title,
+                    fav : faviconService.getFaviconImageForPage(uri).spec,
+                    originalUrl : thumbData.originalUrl,
+                    thumb : annotationService.getAnnotationURI(uri, "jumpstart/thumbs").spec,
+                }
+                return result;
+            }
             
            for (var i = 0; i < length; i++) {
             var box = document.createElement("box");
             box.setAttribute("class", "thumbBox thumb");
             container.appendChild(box);
-            box.draw(this.config, data[i], this.followedPageHandler);
+            box.draw(this.config, translate(data[i]), this.followedPageHandler);
             box.pinHandler = pinHandler;
             box.removeHandler = removeHandler;
             box.index = i;

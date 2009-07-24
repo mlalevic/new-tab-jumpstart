@@ -84,11 +84,9 @@ if (!mlalevic.JumpStart.Model) {
         latestCount : 0,
         readModel : function(){
             var model = new model.ThumbData();
-            var uris = this.dbService.getPropertyAnnotatedURIs();
-            for(var i = 0; i < uris.lengt; i++){
-                var properties = this.dbService.getProperty(uris[i]);
-                properties.uri = uris[i];
-                model.addOriginalEntry(properties);
+            var properties = this.dbService.getProperties();
+            for(var i = 0; i < properties.lengt; i++){
+                model.addOriginalEntry(properties[0]);
             }
             var latest = this.dbService.getMostVisitedData(this.latestCount);
             for(var i = 0; i < latest.count; i++){

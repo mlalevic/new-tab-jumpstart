@@ -121,7 +121,15 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
                    .getInterface(Components.interfaces.nsIDOMWindow);
 
     var topDial = mainWindow.mlalevic.ChromeDial;
-    
+
+/*
+    try{
+      topDial.clearUrlBar();
+      topDial.GetBrowser(window).userTypedValue = "";
+    }catch(ex){
+      Services.Logger.error("Error clearing url bar", ex.message);
+    }*/
+
     try{
       //set this entry not to be persisted if configured so
       if(!Config.PersistThumbViewInHistory){
@@ -132,21 +140,14 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       Services.Logger.error("Error getting history utility", ex.message);
     }
     
-    try{
-      topDial.clearUrlBar();
-      topDial.GetBrowser(window).userTypedValue = "";
-    }catch(ex){
-      Services.Logger.error("Error clearing url bar", ex.message);
-    }
-    
     var utils = mainWindow.mlalevic.Utils;
 
     var Dial = mlalevic.ChromeDial;
 
     Dial.Show = function() {
+        /*topDial.clearUrlBarForOurTab();
+        topDial.registerForUpdate(Dial.showClosed);*/
         Dial.draw();
-        topDial.clearUrlBarForOurTab();
-        topDial.registerForUpdate(Dial.showClosed);
     }
     
     Dial.Unload = function(){
