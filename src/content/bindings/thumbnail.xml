@@ -12,10 +12,9 @@
     </content>
     <implementation>
       <field name="config">null</field>
-      <field name="contentWidth">0</field>
-      <field name="contentHeight">0</field>
       <field name="thumbCount">0</field>
       <field name="thumbColumns">0</field>
+      <field name="thumbRows">0</field>
       <field name="followedPageHandler">null</field>
       <method name="setup">
         <parameter name="config" />
@@ -23,10 +22,9 @@
         <body>
           <![CDATA[
           this.config = config;
-          this.contentWidth = config.ContainerWidth;
-          this.contentHeight = config.ContainerHeight;
           this.thumbCount = config.Count;
           this.thumbColumns = config.Columns;
+          this.thumbRows = config.Lines;
           this.followedPageHandler = followedPageHandler;
           ]]>
         </body>
@@ -38,11 +36,6 @@
         <body>
           <![CDATA[
           
-            this.width = this.contentWidth;
-            this.height = this.contentHeight;
-            this.style.width = this.contentWidth + 'px';
-            this.style.height = this.contentHeight + 'px';
-            
             let data = thumbData;
             let container = this;
       
@@ -84,48 +77,35 @@
                 return result;
             }
             
-           for (var i = 0; i < length; i++) {
-            var box = document.createElement("box");
-            box.setAttribute("class", "thumbBox thumb");
-            container.appendChild(box);
-            box.draw(this.config, translate(data[i]), this.followedPageHandler);
-            box.pinHandler = pinHandler;
-            box.removeHandler = removeHandler;
-            box.index = i;
-            tmpBoxes.push(box);
-          }
-      
-          let thumbsPerRow = this.thumbColumns;
-          
-          for(var i = 0; i < length; i++){
-            let box = tmpBoxes[i];
-            let boxes = [];
-            let rowPosition = i%thumbsPerRow;
-            if(rowPosition == 0){
-              box.style.clear = 'left';
-            }
-            
-            let startIndex = i - rowPosition;
-            
-            for(var j = startIndex; j < (startIndex + thumbsPerRow) && j < length; j++){
-              if(j != i){
-                boxes.push(tmpBoxes[j]);
+            let thumbsPerRow = this.thumbColumns;
+            let columns = this.thumbColumns;
+            let rows = this.thumbRows;
+            var count = 0;
+
+            for (var i = 0; i < rows; i++) {
+              if (count == length)
+                break;
+
+              var row = document.createElement("hbox");
+              row.setAttribute("class", "thumbsRow");
+              container.appendChild(row);
+              for (var j = 0; j < columns; j++) {
+                if (count == length) {
+                  break;
+                }
+
+                var box = document.createElement("box");
+                box.setAttribute("class", "thumb");
+                row.appendChild(box);
+                box.draw(this.config, translate(data[count]), this.followedPageHandler);
+                box.pinHandler = pinHandler;
+                box.removeHandler = removeHandler;
+                box.index = count;
+                tmpBoxes.push(box);
+                count++;
               }
             }
-            
-            /*box.dispatchToggleNormal = function(){
-              for(var a = 0; a < boxes.length; a++){
-                boxes[a].makeNormal();
-                boxes[a].style.marginTop = '0px'; //TODO: read this from config
-              }
-            };
-            box.dispatchToggleSmall = function(){
-              for(var a = 0; a < boxes.length; a++){
-                boxes[a].makeSmaller();
-                boxes[a].style.marginTop = '50px'; //TODO: read this from config
-              }
-            };*/
-          }
+
           ]]>
         </body>
       </method>

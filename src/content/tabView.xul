@@ -17,6 +17,8 @@ The Initial Developer of the Original Code is Mihailo Lalevic.
 Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
 
 Contributor(s): 
+Christopher Cook (beerfan@gmail.com)
+
 **** END LICENSE BLOCK ****
 -->
 <!DOCTYPE window SYSTEM "chrome://jumpstart/locale/tabView.dtd">
@@ -35,10 +37,10 @@ Contributor(s):
         onload="mlalevic.ChromeDial.Show();"
         onunload="mlalevic.ChromeDial.Unload();"
         title="&title;"
-        style="background-color: #FFFFFF;"
+        id="tabViewWindow"
          >
 
- <stringbundleset id="strbundles">
+  <stringbundleset id="strbundles">
     <stringbundle id="strings" src="chrome://jumpstart/locale/tabView.properties"/>
   </stringbundleset>
   <script type="application/x-javascript"
@@ -52,38 +54,41 @@ Contributor(s):
   <keyset id="editMenuKeys">
   </keyset>
 
-  <vbox align="center" class="contentContainer" hidden="false" id="mainBox">
-  <html:div class="outerContent">
-    <html:div class="mainContent">
-      <html:div id="thumbsContainer" class="thumbs thumbContainerBinding">
-        <html:span class="title">&mostVisited;</html:span>
-      </html:div>
-      <html:div class="sidebar">
-        <html:div align="right">
-          <toolbarbutton type="menu" image="chrome://jumpstart/skin/img/JumpStart32.png">
-            <menupopup id="jumpstartMenu" onpopupshowing="return mlalevic.ChromeDial.prepareMenu();">
-              <menuitem label="&menu.showOnNewTab;" id="menu_newtab" autocheck="false" type="checkbox"
-                        oncommand="mlalevic.ChromeDial.invertPrefValue('hook_up_new_tab');" />
-              <menuitem label="&menu.showOnStartup;" id="menu_startup" autocheck="false" type="checkbox"
-                        oncommand="mlalevic.ChromeDial.invertPrefValue('show_on_startup');" />
-              <menuitem label="&menu.showToolbarButton;" id="menu_toolbar" autocheck="false" type="checkbox"
-                        oncommand="mlalevic.ChromeDial.invertPrefValue('show_toolbar_button');" />
-              <menuitem label="&menu.showInHistory;" id="menu_history" autocheck="false" type="checkbox"
-                        oncommand="mlalevic.ChromeDial.invertPrefValue('persist_in_history');" />
-              <menuitem label="&menu.bigThumbs;" id="menu_big" autocheck="false" type="checkbox"
-                        oncommand="mlalevic.ChromeDial.invertThumbPrefValue('ShowSmallThumbs');mlalevic.ChromeDial.checkThumbNumber();" />
-              <menuseparator />
-              <menuitem label="&menu.moreOptions;" oncommand="mlalevic.ChromeDial.onMenuItemProperties();"/>
-            </menupopup>
-          </toolbarbutton>
-          
-        </html:div>
-        <html:div class="search rounded">
-          <html:span class="title">&search;</html:span>
-          <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="timed" timeout="0" class="text" oncommand="historySearch(this.value);" />
-        </html:div>
-        <vbox class="bookmarks rounded" flex="1" id="recentBookmarksBox">
-          <html:span class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;">&recentBookmarks.linkText;</html:a></html:span>
+  <hbox id="mainBox" class="layoutContainer">
+    <spacer flex="1" />
+
+    <vbox id="thumbsContainer" class="contentContainer">
+      <description id="thumbsTitle" class="title">&mostVisited;</description>
+    </vbox>
+
+    <vbox id="sideContainer">
+
+      <box id="pageOptionsContainer" class="">
+        <toolbarbutton type="menu" image="chrome://jumpstart/skin/img/JumpStart32.png">
+          <menupopup id="jumpstartMenu" onpopupshowing="return mlalevic.ChromeDial.prepareMenu();">
+            <menuitem label="&menu.showOnNewTab;" id="menu_newtab" autocheck="false" type="checkbox"
+                      oncommand="mlalevic.ChromeDial.invertPrefValue('hook_up_new_tab');" />
+            <menuitem label="&menu.showOnStartup;" id="menu_startup" autocheck="false" type="checkbox"
+                      oncommand="mlalevic.ChromeDial.invertPrefValue('show_on_startup');" />
+            <menuitem label="&menu.showToolbarButton;" id="menu_toolbar" autocheck="false" type="checkbox"
+                      oncommand="mlalevic.ChromeDial.invertPrefValue('show_toolbar_button');" />
+            <menuitem label="&menu.showInHistory;" id="menu_history" autocheck="false" type="checkbox"
+                      oncommand="mlalevic.ChromeDial.invertPrefValue('persist_in_history');" />
+            <menuitem label="&menu.bigThumbs;" id="menu_big" autocheck="false" type="checkbox"
+                      oncommand="mlalevic.ChromeDial.invertThumbPrefValue('ShowSmallThumbs');mlalevic.ChromeDial.checkThumbNumber();" />
+            <menuseparator />
+            <menuitem label="&menu.moreOptions;" oncommand="mlalevic.ChromeDial.onMenuItemProperties();"/>
+          </menupopup>
+        </toolbarbutton>
+      </box>
+
+      <vbox id="searchContainer" class="contentContainer">
+        <description id="searchTitle" class="title">&search;</description>
+        <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="timed" timeout="0" class="text" oncommand="historySearch(this.value);" />
+      </vbox>
+
+      <vbox id="recentBookmarksBox" class="contentContainer">
+        <description id="recentBookmarksTitle" class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;">&recentBookmarks.linkText;</html:a></description>
         <tree id="bookmarksTree"
                 class="sidebar-placesTree"
                 flex="1"
@@ -92,23 +97,23 @@ Contributor(s):
                 onkeypress="SidebarUtils.handleTreeKeyPress(event);"
                 onclick="SidebarUtils.handleTreeClick(this, event, true);"
                 hidecolumnpicker="true">
-            <!-- onmousemove="SidebarUtils.handleTreeMouseMove(event);"
-                  onmouseout="SidebarUtils.clearURLFromStatusBar();"
-                  -->
+
             <treecols>
               <treecol id="title" flex="1" primary="true" hideheader="true"/>
             </treecols>
             <treechildren class="sidebar-placesTreechildren" flex="1"/>
-          </tree>
-        </vbox>
-        <vbox class="closed rounded" id="recentlyClosedBox" flex="1">
-          <html:span class="title">&recentlyClosed;</html:span>
-          <vbox id="recentlyClosedBoxItems" flex="1"></vbox>
-        </vbox>
-      </html:div>
-    </html:div>
-  </html:div>
-  </vbox>
+        </tree>
+      </vbox>
+
+      <vbox id="recentlyClosedBox" class="contentContainer">
+        <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>
+        <vbox id="recentlyClosedBoxItems" />
+      </vbox>
+
+	  <spacer flex="1" />
+    </vbox>
+    <spacer flex="1" />
+  </hbox>
 
   <vbox align="center" class="contentContainer" hidden="true" id="searchBox">
     <vbox class="outerContent">
@@ -140,4 +145,5 @@ Contributor(s):
       </vbox>
     </vbox>
   </vbox>
+
 </window>
