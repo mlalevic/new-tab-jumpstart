@@ -17,376 +17,31 @@ Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
 Contributor(s): 
 **** END LICENSE BLOCK **** */
 
-
 var mlalevic;
-if (!mlalevic) {
-    mlalevic = {};
-}
-
-if (!mlalevic.Utils) {
-    mlalevic.Utils = {};
-}
-
-Components.utils.import("resource://modules/Observers.js", mlalevic.Utils);
-Components.utils.import("resource://modules/utils.js", mlalevic.Utils);
-
-if (!mlalevic.ChromeDial) {
-    mlalevic.ChromeDial = {};
-}
-
-if (!mlalevic.JumpStart) {
-    mlalevic.JumpStart = {};
-}
-
-if (!mlalevic.JumpStart.Data) {
-    mlalevic.JumpStart.Data = {};
-}
-
-if(!mlalevic.JumpStart.Components){
-    mlalevic.JumpStart.Components = {};
-}
-  
-if (!mlalevic.JumpStart.Services) {
-    mlalevic.JumpStart.Services = {};
-}
-Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
-
-//mlalevic.JumpStart
-(function() {
-
-  var dataRefreshEvent = "mlalevic.JumpStart.refresh";
-  var configChanged = "mlalevic.JumpStart.configChanged";
-  var tabViewUrl = 'chrome://jumpstart/content/tabView.xul';
-  
-  
-  var Data = mlalevic.JumpStart.Data;
-  var DataService = mlalevic.JumpStart.Services.DataService;
-  var Config = mlalevic.JumpStart.Services.JumpstartConfiguration;
-
-  var Utils = mlalevic.Utils;
-  var Dial = mlalevic.ChromeDial;
-
-  Dial.Service = function(loadedCallback, dataService) {
-    this.loadedCallback = loadedCallback;
-    this._service = dataService;
-  }
-
-  Dial.Service.prototype = {
-    _service : null,
-    _thumbCount : Config.Thumbs.Count,
-    loadedCallback: null,
-    loadedCount: 0,
-    bookmarkData: [],
-    closedTabsData: [],
-
-    hookUpTabEvents: function() {
-      var container = gBrowser.tabContainer;
-      if(Config.HookUpNewTab){
-        container.addEventListener("TabOpen", Utils.Binder.bind(this, this.tabAdded), false);
-      }
-      container.addEventListener("TabClose", Utils.Binder.bind(this, this.tabClosed), false);
-      //container.addEventListener("TabSelect", Dial.clearUrlBarForOurTab, false);
-    },
-
-    tabAdded: function(event) {
-      if (event.target.linkedBrowser.userTypedValue === null) {
-        event.target.linkedBrowser.loadURI(tabViewUrl);
-        /*var internalHistory = event.target.linkedBrowser.sessionHistory.QueryInterface(Components.interfaces.nsISHistoryInternal);
-        internalHistory.rootTransaction.persist = false;*/
-      }
-    },
-
-    tabClosed: function(event) {
-      this.refreshClosed();
-    },
-    
-    refreshClosed: function(){
-      this.loadClosedData();
-      Utils.Observers.notify(null, dataRefreshEvent, null);
-    },
-
-    loadClosedData: function() {
-      var ss = Cc["@mozilla.org/browser/sessionstore;1"].
-           getService(Ci.nsISessionStore);
-
-      if (ss.getClosedTabCount(window) == 0) {
-        this.closedTabsData = [];
-        return;
-      }
-
-      // populate data
-      this.closedTabsData = eval("(" + ss.getClosedTabData(window) + ")");
-    },
-
-    loadData: function() {
-      this.loadClosedData();
-      this.hookUpTabEvents();
-      if (this._service.HasCachedData) {
-        window.setTimeout(Utils.Binder.bind(this, this.loadThumbnails), Config.LoadDelay);
-      } else {
-        this.loadThumbnails();
-      }
-    },
-
-    loadThumbnails: function() {
-      this.loadedCount = 0;
-      var refreshComponent = mlalevic.JumpStart.Components.RefreshComponentFactory(this._service._mostFrequentData);
-      refreshComponent.Start();
-      //for (var i = 0; i < this._service._mostFrequentData.length; i++) {
-      //  function dataHandler(dataService, index, properties){
-      //      this.service = dataService;
-      //      this.index = index;
-      //      this.properties = properties;
-      //      this.save = function(data){
-      //          this.service.updateThumbData(this.index, data);
-      //          /*var ds = new mlalevic.JumpStart.Data.Service();
-      //          ds.saveThumb(this.properties, data);*/
-      //      }
-      //  }
-      //  var index = i;
-      //  var service = this._service;
-      //  mlalevic.Utils.UI.GetCanvasLoader(
-      //    this._service._mostFrequentData[index].url,
-      //    //{save: function(data){service.updateThumbData(index, data);}},
-      //    new dataHandler(service, index, this._service._mostFrequentData[index]),
-      //    Dial
-      //    )
-      //    .Start();
-      //}
-    },
-    
-    get currentData(){
-      return this._service._mostFrequentData;
-    }
-  }
-
-  var dialService = null;
-  var loaded = false;
-  var myInnerBrowser = null;
-  
-  function getInnerBrowser(){
-    if(!myInnerBrowser){
-      //dynamically insert browser
-      var abox = document.getElementById('jumpstartHiddenBox');
-      myInnerBrowser = document.createElement('tabbrowser');
-      myInnerBrowser.setAttribute('id', 'jumpstartHiddenContent');
-      myInnerBrowser.setAttribute('disablehistory', 'true');
-      myInnerBrowser.setAttribute('hidden', 'false');
-      abox.appendChild(myInnerBrowser);
-
-      //myInnerBrowser = document.getElementById('jumpstartHiddenContent');
-    }
-    
-    return myInnerBrowser;
-  }
-  
-  Dial.getBrowser =function(){
-    return getInnerBrowser();
-  }
-
-  Dial.load = function() {
-    window.removeEventListener("load", mlalevic.ChromeDial.load, false);
-
-    mlalevic.JumpStart.Components.ClearUrlComponent.start();
-
-    Utils.Observers.add(Dial.ConfigChanged, configChanged);
-    
-    Dial.ShowButtonBasedOnConfig();
-
-    if (!Data.IsInitialised) {
-      Data.IsInitialised = true;
-      //alert('loading');
-      window.setTimeout(function() {
-        loaded = false;
-        dialService = new Dial.Service(null, DataService);
-        //dialService.currentData = Data.CurrentData;
-        dialService.loadData();
-      }, 0);
-    }
-    else {
-      loaded = false;
-      dialService = new Dial.Service(null, DataService);
-      //dialService.currentData = Data.CurrentData;
-      dialService.hookUpTabEvents();
-    } //window.setTimeout(Dial.draw, 10000);
-  }
-
-  Dial.getData = function() {
-    return dialService.currentData;
-  }
-  
-  Dial.getDataService = function(){
-    return DataService;
-  }
-  
-  Dial.registerForUpdate = function(aFunc){
-    Utils.Observers.add(aFunc, dataRefreshEvent);
-  }
-  
-  Dial.unRegisterForUpdate = function(aFunc){
-    Utils.Observers.remove(aFunc, dataRefreshEvent);
-  }
-
-  Dial.getClosedData = function() {
-    return dialService.closedTabsData;
-  }
-  
-  Dial.UndoClose = function(aValue, aEvent) {
-    if (aEvent.button != 0) //1) //left button
-      return;
-
-    undoCloseTab(aValue);
-    getBrowser().moveTabToEnd();
-    dialService.refreshClosed();
-  }
-  
-  /*Dial.clearUrlBar = function(){
-    if (gURLBar && gURLBar.value == tabViewUrl) { 
-      gURLBar.value = ""; 
-      gURLBar.focus();
-    }
-  }
-
-  Dial.clearUrlBarForOurTab = function() {
-    window.setTimeout(Dial.clearUrlBar, 0);
-  }*/
-  
-  
-  Dial.followedPage = function(url){
-    PlacesUIUtils.markPageAsTyped(url);
-  }
-  
-  Dial.onMenuItemProperties = function(e){
-      var strbundle = document.getElementById("jumpstart-strings");
-    window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
-    "chrome,toolbar,centerscreen").focus();
-  }
-  
-  Dial.onBeforeShowObserver = {
-    observe : function(){
-      var obs = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-      obs.removeObserver(mlalevic.ChromeDial.onBeforeShowObserver, "browser-window-before-show");
-
-      if(Config.OverrideHomepage){ //if we are showing our page on startup then load if there is only one tab and it is blank or hompage
-        if(gBrowser && gBrowser.tabContainer.itemCount == 1){
-          if('arguments' in window && window.arguments[0]){
-            let homepage = null;
-            try{
-              //load homepage from preferences
-              let prefs = Cc["@mozilla.org/preferences-service;1"]
-               .getService(Ci.nsIPrefService).getDefaultBranch(null);
-              homepage = prefs.getComplexValue("browser.startup.homepage",
-                                  Ci.nsIPrefLocalizedString).data; 
-            }catch(e){}
-
-            if(window.arguments[0] == "about:blank" || (homepage && window.arguments[0] == homepage)){
-              //if blank or homepage load tabview
-              window.setTimeout( function(){gBrowser.selectedBrowser.loadURI(tabViewUrl);}, 0); 
-            }
-          }
-        }
-      }
-    }
-  }
-  
-  Dial.onDialOpen = function(){
-      gBrowser.selectedBrowser.loadURI(tabViewUrl);
-  }
-  
-  Dial.ConfigChanged = function(){
-      Dial.ShowButtonBasedOnConfig();
-  }
-  
-  Dial.ShowButtonBasedOnConfig = function(){
-    if(Config.ShowToolbarButton){
-        Dial.ShowButton();
-      }else{
-        Dial.HideButton();
-      }
-  }
-  
-  Dial.ShowButton = function(){
-    var navBar = document.getElementById("nav-bar");
-    if(!navBar)
-      return;
-    
-    for(var i= 0; i < navBar.childNodes.length; i++){
-      if(navBar.childNodes[i].id == "jumpStartOpenDialButton"){
-        return;
-      }
-    }
-    
-    navBar.insertItem("jumpStartOpenDialButton", document.getElementById("search-container"), null, false);
-  }
-  
-  Dial.HideButton = function(){
-    var navBar = document.getElementById("nav-bar");
-    if(!navBar)
-      return;
-    
-    for(var i= 0; i < navBar.childNodes.length; i++){
-      if(navBar.childNodes[i].id == "jumpStartOpenDialButton"){
-        navBar.removeChild(navBar.childNodes[i]);
-        return;
-      }
-    }
-  }
-  
-  function GetHistoryUtilityForBrowser(aBrowser){
-    var internalHistory = aBrowser.sessionHistory.QueryInterface(Components.interfaces.nsISHistoryInternal);
-    return new Utils.HistoryUtility(internalHistory);
-  }
-  
-  Dial.ssClosing = function(e){
-    //TODO: (ML) reduce nesting
-    try{
-      if(e && e.originalTarget && e.originalTarget.linkedBrowser && e.originalTarget.linkedBrowser.currentURI){
-        var bro = e.originalTarget.linkedBrowser;
-        if(bro.currentURI.spec == tabViewUrl){
-          var historyUtility = GetHistoryUtilityForBrowser(bro);
-          //if the last opened page was tabView then depending on the configuration purge history
-          //if there is only one item then purge all too
-          if(Config.PurgeHistoryOnThumbViewClose || historyUtility.Count == 1){
-            historyUtility.PurgeAll();
-            //HACK: (ML) this can change in new ffox versions + investigate further to see if this is going to affect us adversly
-            bro.parentNode.__SS_data = {entries : []};
-            bro.parentNode.__SS_data.entries.push({url: "about:blank"});
-            bro.parentNode.__SS_data._tab = true;
-            //ENDHACK
-          }else{
-            historyUtility.RemoveCurrent(); //we are removing current since current one is loaded in browser (not necesserally the last one)
-            delete bro.parentNode.__SS_data; //HACK: (ML) this can change in new versions of ffox
-          }
-        }
-      }
-    }catch(ex){
-      mlalevic.JumpStart.Services.Logger.error("Error in fixing history for closing tab", ex.message);
-    }
-  }
-  
-  Dial.GetHistoryUtility = function(aWindow){
-    var bro = getBrowserFromContentWindow(aWindow);
-    return GetHistoryUtilityForBrowser(bro);
-  }
-  
-  Dial.GetBrowser = function(aWindow){
-    return getBrowserFromContentWindow(aWindow);
-  }
-  
-} ());
-
-window.addEventListener("load", mlalevic.ChromeDial.load, false);
-window.addEventListener("SSTabClosing", mlalevic.ChromeDial.ssClosing, false);
-
-var obs = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-obs.addObserver(mlalevic.ChromeDial.onBeforeShowObserver, "browser-window-before-show", false);
-
+if(!mlalevic){mlalevic = {};}
+if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
 (function(){
-    //use comp for convenience
-    var comp = mlalevic.JumpStart.Components;
+    var utils = {};
+    var services = {}
+    Components.utils.import("resource://modules/utils.js", utils);
+    Components.utils.import("resource://modules/Observers.js", utils);
+    Components.utils.import("resource://modules/browserServices.js", services);
+    Components.utils.import("resource://modules/dbService.js", services);
 
-    comp.ThumbDataHandler = function(dataService, properties){
+    //create namespaces
+    //var components = utils.Namespace.create(window, "mlalevic.JumpStart.Components");
+
+    var Config = services.JumpstartConfiguration;
+
+
+    var dataRefreshEvent = "mlalevic.JumpStart.refresh";
+    var configChanged = "mlalevic.JumpStart.configChanged";
+    var tabViewUrl = 'chrome://jumpstart/content/tabView.xul';
+
+
+/***************  Thumb refresh components ********************/
+    var ThumbDataHandler = function(dataService, properties){
         this.service = dataService;
         this.properties = properties;
         this.save = function(data){
@@ -394,13 +49,13 @@ obs.addObserver(mlalevic.ChromeDial.onBeforeShowObserver, "browser-window-before
         }
     }
 
-    comp.RefreshComponent = function(dataToRefresh, dataUpdateService, getCanvasLoader){
+    var RefreshComponent = function(dataToRefresh, dataUpdateService, getCanvasLoader){
         this.listToRefresh = dataToRefresh;
         this.service = dataUpdateService;
         this.createLoader = getCanvasLoader;
     }
 
-    comp.RefreshComponent.prototype = {
+    RefreshComponent.prototype = {
         listToRefresh : null,
         service : null,
         createLoader : null,
@@ -408,31 +63,43 @@ obs.addObserver(mlalevic.ChromeDial.onBeforeShowObserver, "browser-window-before
             for (var i = 0; i < this.listToRefresh.length; i++) {
                 this.createLoader(
                   this.listToRefresh[i].url,
-                  new comp.ThumbDataHandler(this.service, this.listToRefresh[i])
+                  new ThumbDataHandler(this.service, this.listToRefresh[i])
                   )
                   .Start();
             }
         }
     }
 
-    comp.RefreshComponentFactory = function(dataToRefresh){
+    var RefreshComponentFactory = function(dataToRefresh){
         var getLoader = function(url, dataHandler){
-          return mlalevic.Utils.UI.GetCanvasLoader(
-              url, dataHandler, mlalevic.ChromeDial
+          return mlalevic.JumpStart.UI.GetCanvasLoader(
+              url, dataHandler, browserServices
           );
         }
 
-        return new comp.RefreshComponent(dataToRefresh, new mlalevic.JumpStart.Data.Service(),getLoader);
+        return new RefreshComponent(dataToRefresh, new mlalevic.JumpStart.Data.Service(),getLoader);
     }
-})();
 
-(function(){
-    var tabViewUrl = 'chrome://jumpstart/content/tabView.xul';
 
-    //use comp for convenience
-    var comp = mlalevic.JumpStart.Components;
+    /**************************  Thumbs Loader  ******************************/
+    var thumbsLoader = {
+        start : function(){
+            window.setTimeout(utils.Binder.bind(this, this.loadThumbnails), Config.LoadDelay);
+        },
 
-    comp.ClearUrlComponentListener = {
+        loadThumbnails: function() {
+          var service = new mlalevic.JumpStart.Model.Service(services.BrowserServices, services.AnnoService, Config.Thumbs.Count);
+          var model = service.processModel();
+          var refreshComponent = RefreshComponentFactory(model.getLatest());
+          refreshComponent.Start();
+        }
+    }
+/**************************  Thumbs Loader - End  ******************************/
+
+/***************  Thumb refresh components - End ********************/
+
+/***************  Clear url components ********************/
+    var ClearUrlComponentListener = {
         QueryInterface: function(aIID) {
             if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
                 aIID.equals(Components.interfaces.nsISupportsWeakReference) ||
@@ -445,13 +112,6 @@ obs.addObserver(mlalevic.ChromeDial.onBeforeShowObserver, "browser-window-before
             if (aURI.spec == tabViewUrl) {
                 gURLBar.value = "";
                 gURLBar.focus();
-                
-                /*window.setTimeout(function(){
-                    gURLBar.value = "";
-                    gURLBar.focus();
-                    //getBrowserFromContentWindow(window).userTypedValue = "";
-                    //gBrowser.userTypedValue = "";
-                }, 0);*/
             }
         },
         onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
@@ -461,19 +121,299 @@ obs.addObserver(mlalevic.ChromeDial.onBeforeShowObserver, "browser-window-before
         onStatusChange: function() {},
         onSecurityChange: function() {},
         onLinkIconAvailable: function() {}
-    };
+    }
 
-    comp.ClearUrlComponent = {
+    var ClearUrlComponent = {
         start: function() {
             gBrowser.addProgressListener(
-                comp.ClearUrlComponentListener,
+                ClearUrlComponentListener,
                 Components.interfaces.nsIWebProgress.NOTIFY_STATE_DOCUMENT
             );
         },
-
         stop: function() {
-            gBrowser.removeProgressListener(comp.ClearUrlComponentListener);
+            gBrowser.removeProgressListener(ClearUrlComponentListener);
         }
-    };
-    
+    }
+/***************  clear url components - End ********************/
+
+/**************************  New tab loader  ******************************/
+    var newTabLoader = {
+        start : function(){
+            var container = gBrowser.tabContainer;
+            if(Config.HookUpNewTab){
+                container.addEventListener("TabOpen", utils.Binder.bind(this, this.tabAdded), false);
+            }
+        },
+
+        tabAdded: function(event) {
+            if (event.target.linkedBrowser.userTypedValue === null) {
+                event.target.linkedBrowser.loadURI(tabViewUrl);
+            }
+        }
+    }
+
+/**************************  New tab loader End  ******************************/
+
+/**************************  Closed state handling ****************************/
+   var closedTabState = {
+    closedTabsData: [],
+
+    start : function() {
+      this.loadClosedData();
+
+      var container = gBrowser.tabContainer;
+      container.addEventListener("TabClose", utils.Binder.bind(this, this.tabClosed), false);
+      //container.addEventListener("TabSelect", Dial.clearUrlBarForOurTab, false);
+    },
+
+    tabClosed: function(event) {
+      this.refreshClosed();
+    },
+
+    refreshClosed: function(){
+      this.loadClosedData();
+      utils.Observers.notify(null, dataRefreshEvent, null);
+    },
+
+    loadClosedData: function() {
+      var ss = Cc["@mozilla.org/browser/sessionstore;1"].
+           getService(Ci.nsISessionStore);
+
+      if (ss.getClosedTabCount(window) == 0) {
+        this.closedTabsData = [];
+        return;
+      }
+
+      // populate data
+      this.closedTabsData = utils.Converter.fromJSONString(ss.getClosedTabData(window));
+          //eval("(" + ss.getClosedTabData(window) + ")");
+    }
+  }
+  
+/**************************  Closed state handling - End ****************************/
+
+/*************************** Browser service ***********************************/
+  var myInnerBrowser = null;
+
+  var browserServices = {
+    getInnerBrowser : function(){
+        if(!myInnerBrowser){
+          //dynamically insert browser
+          var abox = document.getElementById('jumpstartHiddenBox');
+          myInnerBrowser = document.createElement('tabbrowser');
+          myInnerBrowser.setAttribute('id', 'jumpstartHiddenContent');
+          myInnerBrowser.setAttribute('disablehistory', 'true');
+          myInnerBrowser.setAttribute('hidden', 'false');
+          abox.appendChild(myInnerBrowser);
+
+          //myInnerBrowser = document.getElementById('jumpstartHiddenContent');
+        }
+
+        return myInnerBrowser;
+    },
+    getBrowser : function(){
+        return this.getInnerBrowser();
+    }
+  }
+
+  /*************************** Browser service - End ***********************************/
+
+/************************* Main Controller ***************************/
+  var jumpStartService = {
+      start : function() {
+        /*if (!mlalevic.JumpStart.Data.App.isInitialised) {
+          mlalevic.JumpStart.Data.App.setInitialized();
+          window.setTimeout(function() {
+            //loaded = false;
+            dialService = new Dial.Service(null, DataService);
+            dialService.loadData();
+          }, 0);
+        }
+        else {
+          //loaded = false;
+          dialService = new Dial.Service(null, DataService);
+          dialService.hookUpTabEvents();
+        }*/
+      }
+  }
+
+  /************************* Main Controller - End ***************************/
+
+/*************************** Handling UI *********************************/
+  var uiService = {
+      start : function(){
+        var obs = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+        obs.addObserver(onBeforeShowObserver, "browser-window-before-show", false);
+      },
+      onMenuItemProperties : function(e){
+          var strbundle = document.getElementById("jumpstart-strings");
+          window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
+          "chrome,toolbar,centerscreen").focus();
+      }
+  }
+
+  var onBeforeShowObserver = {
+    observe : function(){
+      var obs = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+      obs.removeObserver(onBeforeShowObserver, "browser-window-before-show");
+
+      if(Config.OverrideHomepage){ //if we are showing our page on startup then load if there is only one tab and it is blank or hompage
+        if(gBrowser && gBrowser.tabContainer.itemCount == 1){
+          if('arguments' in window && window.arguments[0]){
+            let homepage = null;
+            try{
+              //load homepage from preferences
+              let prefs = Cc["@mozilla.org/preferences-service;1"]
+               .getService(Ci.nsIPrefService).getDefaultBranch(null);
+              homepage = prefs.getComplexValue("browser.startup.homepage",
+                                  Ci.nsIPrefLocalizedString).data;
+            }catch(e){}
+
+            if(window.arguments[0] == "about:blank" || (homepage && window.arguments[0] == homepage)){
+              //if blank or homepage load tabview
+              window.setTimeout( function(){gBrowser.selectedBrowser.loadURI(tabViewUrl);}, 0);
+            }
+          }
+        }
+      }
+    }
+  }
+/*************************** Handling UI - End *********************************/
+
+/************************* Button Controller ***************************/
+  var buttonController = {
+    start : function(){
+        utils.Observers.add(utils.Binder.bind(this, this.ShowButtonBasedOnConfig), configChanged);
+        this.ShowButtonBasedOnConfig();
+    },
+
+    ShowButtonBasedOnConfig : function(){
+        if(Config.ShowToolbarButton){
+            this.ShowButton();
+          }else{
+            this.HideButton();
+          }
+      },
+
+    ShowButton : function(){
+        var navBar = document.getElementById("nav-bar");
+        if(!navBar)
+          return;
+
+        for(var i= 0; i < navBar.childNodes.length; i++){
+          if(navBar.childNodes[i].id == "jumpStartOpenDialButton"){
+            return;
+          }
+        }
+
+        navBar.insertItem("jumpStartOpenDialButton", document.getElementById("search-container"), null, false);
+      },
+
+      HideButton : function(){
+        var navBar = document.getElementById("nav-bar");
+        if(!navBar)
+          return;
+
+        for(var i= 0; i < navBar.childNodes.length; i++){
+          if(navBar.childNodes[i].id == "jumpStartOpenDialButton"){
+            navBar.removeChild(navBar.childNodes[i]);
+            return;
+          }
+        }
+      }
+  }
+/************************* Button Controller - End ***************************/
+
+/************************* History Controller ***************************/
+  var historyComponent = {
+     start : function(){
+         window.addEventListener("SSTabClosing", utils.Binder.bind(this, this.ssClosing), false);
+         services.BrowserServices.setHistoryComponent(historyComponent);
+     },
+     GetHistoryUtilityForBrowser : function(aBrowser){
+        var internalHistory = aBrowser.sessionHistory.QueryInterface(Components.interfaces.nsISHistoryInternal);
+        return new mlalevic.Utils.HistoryUtility(internalHistory);
+     },
+    ssClosing : function(e){
+        //TODO: (ML) reduce nesting
+        try{
+          if(e && e.originalTarget && e.originalTarget.linkedBrowser && e.originalTarget.linkedBrowser.currentURI){
+            var bro = e.originalTarget.linkedBrowser;
+            if(bro.currentURI.spec == tabViewUrl){
+              var historyUtility = this.GetHistoryUtilityForBrowser(bro);
+              //if the last opened page was tabView then depending on the configuration purge history
+              //if there is only one item then purge all too
+              if(Config.PurgeHistoryOnThumbViewClose || historyUtility.Count == 1){
+                historyUtility.PurgeAll();
+                //HACK: (ML) this can change in new ffox versions + investigate further to see if this is going to affect us adversly
+                bro.parentNode.__SS_data = {entries : []};
+                bro.parentNode.__SS_data.entries.push({url: "about:blank"});
+                bro.parentNode.__SS_data._tab = true;
+                //ENDHACK
+              }else{
+                historyUtility.RemoveCurrent(); //we are removing current since current one is loaded in browser (not necesserally the last one)
+                delete bro.parentNode.__SS_data; //HACK: (ML) this can change in new versions of ffox
+              }
+            }
+          }
+        }catch(ex){
+          services.Logger.error("Error in fixing history for closing tab", ex.message);
+        }
+      },
+      GetHistoryUtility : function(aWindow){
+        var bro = getBrowserFromContentWindow(aWindow);
+        return this.GetHistoryUtilityForBrowser(bro);
+      }
+  }
+/************************* History Controller - End ***************************/
+
+/********** Event handlers ***********/
+mlalevic.JumpStart.onDialOpen = function(){
+      gBrowser.selectedBrowser.loadURI(tabViewUrl);
+  }
+/*********  Event handlers end *******/
+
+var UndoClose = function(aValue, aEvent) {
+    if (aEvent.button != 0) //1) //left button
+      return;
+
+    undoCloseTab(aValue);
+    getBrowser().moveTabToEnd();
+    closedTabState.refreshClosed();
+}
+
+var startAll = function(){
+        window.removeEventListener("load", startAll, false);
+
+        ClearUrlComponent.start();
+        newTabLoader.start();
+        thumbsLoader.start();
+        closedTabState.start();
+        buttonController.start();
+        jumpStartService.start();
+        uiService.start();
+        historyComponent.start();
+
+        services.BrowserServices.setFollowedPage(function(url){PlacesUIUtils.markPageAsTyped(url);});
+        services.BrowserServices.setGetClosedDataFunction(function(){return closedTabState.closedTabsData;});
+        services.BrowserServices.setUndoClosedFunction(UndoClosed);
+}
+
+window.addEventListener("load", startAll, false);
 })();
+
+
+/*
+(function() {
+  
+  
+  Dial.registerForUpdate = function(aFunc){
+    Utils.Observers.add(aFunc, dataRefreshEvent);
+  }
+  
+  Dial.unRegisterForUpdate = function(aFunc){
+    Utils.Observers.remove(aFunc, dataRefreshEvent);
+  }
+  
+ 
+} ());  */

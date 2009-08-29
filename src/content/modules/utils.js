@@ -18,7 +18,7 @@ Contributor(s):
 **** END LICENSE BLOCK **** */
 
 
-let EXPORTED_SYMBOLS = ["Converter", "Binder"];
+let EXPORTED_SYMBOLS = ["Converter", "Binder", "Namespace"];
 
 
 let Binder = {
@@ -91,3 +91,32 @@ let Converter = {
     return Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
   }
 };
+
+let Namespace = {
+  modules : {},
+  get : function(/* normally the window */ aContainer, name){
+      if(name in this.modules){
+          return this.modules[name];
+      }else{
+          return this.create(aContainer, name);
+      }
+  },
+  create : function(/* normally the window */ aContainer, name){
+      var parts = name.split('.');
+      var container = aContainer;
+      for(var i = 0; i < parts.length; i++) {
+        var part = parts[i];
+        // If there is no property of container with this name, create
+        // an empty object.
+        if (!container[part]) container[part] = {};
+        else if (typeof container[part] != "object") {
+            // If there is already a property, make sure it is an object
+            var n = parts.slice(0,i).join('.');
+            throw new Error(n + " already exists and is not an object");
+        }
+        container = container[part];
+      }
+      this.modules[name] = container;
+      return container;
+  }
+}

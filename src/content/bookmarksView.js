@@ -22,10 +22,6 @@ if (!mlalevic) {
     mlalevic = {};
 }
 
-if (!mlalevic.ChromeDial) {
-    mlalevic.ChromeDial = {};
-}
-
 if (!mlalevic.Utils) {
     mlalevic.Utils = {};
 }

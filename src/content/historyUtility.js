@@ -24,7 +24,7 @@ if (!mlalevic) {
 
 if (!mlalevic.Utils) {
     mlalevic.Utils = {};
-  }
+  } 
 
   (function() {
     var utils = mlalevic.Utils;

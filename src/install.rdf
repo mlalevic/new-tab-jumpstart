@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>jumpstart@mihailo.lalevic</em:id>
-    <em:version>0.5a4.1</em:version>
+    <em:version>0.5a4.2</em:version>
     <em:name>New Tab JumpStart</em:name>
     <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
     <em:creator>Mihailo Lalevic</em:creator>
@@ -43,6 +43,13 @@
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>3.0</em:minVersion>
         <em:maxVersion>3.5.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    <em:targetApplication> <!-- Fennec -->
+      <Description>
+        <em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
+        <em:minVersion>0.1</em:minVersion>
+        <em:maxVersion>1.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>      

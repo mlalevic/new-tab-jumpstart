@@ -24,8 +24,9 @@ Contributor(s):
 <?xml-stylesheet href="chrome://jumpstart/skin/overlay.css"?>
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <window id="main-window">
-    <script type="application/x-javascript" src="data.js" />
+    <!--script type="application/x-javascript" src="data.js" /-->
     <script type="application/x-javascript" src="dataService.js" />
+    <script type="application/x-javascript" src="thumbData.js" />
     <script type="application/x-javascript" src="remoteCanvas.js" />
     <script type="application/x-javascript" src="historyUtility.js" />
     <script type="application/x-javascript" src="overlay.js" />
@@ -35,19 +36,12 @@ Contributor(s):
     </stringbundleset>
 
     <vbox id="jumpstartHiddenBox" insertafter="stringbundleset" style="overflow:hidden; height:0;">
-      <!--tabbrowser id="jumpstartHiddenContent" disablehistory="true"
-                hidden ="false" / -->
     </vbox>
 
   </window>
 
-  <!-- menupopup id="menu_ToolsPopup">
-    <menuitem id="menu_JumpStartOptions"  insertbefore="sanitizeSeparator" label="JumpStart Options ..."
-      oncommand="mlalevic.ChromeDial.onMenuItemProperties();"/>
-  </menupopup -->
-
   <toolbarpalette id="BrowserToolbarPalette">
-    <toolbarbutton id="jumpStartOpenDialButton" oncommand="mlalevic.ChromeDial.onDialOpen();"
+    <toolbarbutton id="jumpStartOpenDialButton" oncommand="mlalevic.JumpStart.onDialOpen();"
         class="toolbarbutton-1"
         label="&label;" tooltiptext="&tooltip;" />
   </toolbarpalette>

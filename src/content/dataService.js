@@ -20,62 +20,62 @@ Contributor(s):
 
 //TODO: (ML) unit-testing
 
-//setup namespaces
 var mlalevic;
-if (!mlalevic) {
-    mlalevic = {};
-}
+if(!mlalevic){mlalevic = {};}
+if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
+if(!mlalevic.JumpStart.Data){mlalevic.JumpStart.Data = {};}
 
-
-if (!mlalevic.JumpStart) {
-  mlalevic.JumpStart = {};
-}
-
-if (!mlalevic.JumpStart.Data) {
-  mlalevic.JumpStart.Data = {};
-}
-  
-  
-if (!mlalevic.JumpStart.Services) {
-  mlalevic.JumpStart.Services = {};
-}
-//** end setup namespaces
-
-//import browserServices - we are using browserServices to load data from files
-//   we are using config and load data from database services too
-Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
-Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Services);
-Components.utils.import("resource://modules/utils.js", mlalevic.JumpStart.Services);
-
-//using (function(){...})(); construct so we won't polute our top level namespace
 (function(){
+    var services = {}
+    //import browserServices - we are using browserServices to load data from files
+    //   we are using config and load data from database services too
+    Components.utils.import("resource://modules/browserServices.js", services);
+    Components.utils.import("resource://modules/dbService.js", services);
+    Components.utils.import("resource://modules/utils.js", services);
 
-var services = mlalevic.JumpStart.Services; //this is private variable. Shorthand for services
+    //create namespaces
+    //var data = services.Namespace.get(window, "mlalevic.JumpStart.Data");
+    var data = mlalevic.JumpStart.Data;
 
-  mlalevic.JumpStart.Data.Service = function(/*browserService*/){
-      //this.browserService = browserService;
-  }
+    data.Service = function(){
 
-  mlalevic.JumpStart.Data.Service.prototype = {
-    loaded : false,
-    lastLoaded : null,
-    thumbs : [],
-    notAllowed: [],
-    mappings : [],
-    makeURI : function (aURL, aOriginCharset, aBaseURI) {
-         var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-                                    .getService(Components.interfaces.nsIIOService);
-         return ioService.newURI(aURL, aOriginCharset, aBaseURI);
-    },
-    saveThumb : function(properties, thumbData){
-        services.AnnoService.saveThumb(this.makeURI(properties.url), thumbData);
-    },
-    saveConfiguration : function(properties){
-        var config = services.Converter.toJSONString(properties);
-        services.AnnoService.saveProperties(this.makeURI(properties.url), config);
-    },
-    getThumbs : function(){
-        return this.thumbs;
     }
-  };
+
+    data.Service.prototype = {
+        loaded : false,
+        lastLoaded : null,
+        thumbs : [],
+        notAllowed: [],
+        mappings : [],
+        makeURI : function (aURL, aOriginCharset, aBaseURI) {
+             var ioService = Components.classes["@mozilla.org/network/io-service;1"]
+                                        .getService(Components.interfaces.nsIIOService);
+             return ioService.newURI(aURL, aOriginCharset, aBaseURI);
+        },
+        saveThumb : function(properties, thumbData){
+            services.AnnoService.saveThumb(this.makeURI(properties.url), thumbData);
+        },
+        saveConfiguration : function(properties){
+            var config = services.Converter.toJSONString(properties);
+            services.AnnoService.saveProperties(this.makeURI(properties.url), config);
+        },
+        getThumbs : function(){
+            return this.thumbs;
+        }
+    }
+
+    /*data.App = {
+        _key : "mlalevic.JumpStart.DataInitialized",
+        isInitialized : function(){
+            if (Application.storage.has(this._key)) {
+              return Application.storage.get(this._key, null);
+            }else{
+                return false;
+            }
+        },
+
+        setInitialized : function(){
+            Application.storage.set(this._key, true);
+        }
+    }*/
 })();

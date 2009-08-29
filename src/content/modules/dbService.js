@@ -94,7 +94,7 @@ let AnnoService = {
         }
 
         var result = [];
-        for(var i = 0; i < annoUris.lengt; i++){
+        for(var i = 0; i < annoUris.length; i++){
                 var properties = this.getProperty(annoUris[i]);
                 properties.uri = annoUris[i];
                 result.push(properties);
@@ -102,9 +102,9 @@ let AnnoService = {
 
         return result;
     },
-    removeProperties : function(uris){
-        for(var i = 0; i < uris.lengt; i ++){
-            this.annoService.removePageAnnotation(uris[i], this.propertiesAnno);
+    removeProperties : function(propertiesArray){
+        for(var i = 0; i < propertiesArray.length; i ++){
+            this.annoService.removePageAnnotation(propertiesArray[i].uri, this.propertiesAnno);
         }
     },
     updateProperties : function(propertiesArray){

@@ -34,8 +34,6 @@ Christopher Cook (beerfan@gmail.com)
 
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml"
-        onload="mlalevic.ChromeDial.Show();"
-        onunload="mlalevic.ChromeDial.Unload();"
         title="&title;"
         id="tabViewWindow"
          >
@@ -65,26 +63,26 @@ Christopher Cook (beerfan@gmail.com)
 
       <box id="pageOptionsContainer" class="">
         <toolbarbutton type="menu" image="chrome://jumpstart/skin/img/JumpStart32.png">
-          <menupopup id="jumpstartMenu" onpopupshowing="return mlalevic.ChromeDial.prepareMenu();">
+          <menupopup id="jumpstartMenu" onpopupshowing="return mlalevic.JumpStart.prepareMenu();">
             <menuitem label="&menu.showOnNewTab;" id="menu_newtab" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.ChromeDial.invertPrefValue('hook_up_new_tab');" />
+                      oncommand="mlalevic.JumpStart.invertPrefValue('hook_up_new_tab');" />
             <menuitem label="&menu.showOnStartup;" id="menu_startup" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.ChromeDial.invertPrefValue('show_on_startup');" />
+                      oncommand="mlalevic.JumpStart.invertPrefValue('show_on_startup');" />
             <menuitem label="&menu.showToolbarButton;" id="menu_toolbar" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.ChromeDial.invertPrefValue('show_toolbar_button');" />
+                      oncommand="mlalevic.JumpStart.invertPrefValue('show_toolbar_button');" />
             <menuitem label="&menu.showInHistory;" id="menu_history" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.ChromeDial.invertPrefValue('persist_in_history');" />
+                      oncommand="mlalevic.JumpStart.invertPrefValue('persist_in_history');" />
             <menuitem label="&menu.bigThumbs;" id="menu_big" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.ChromeDial.invertThumbPrefValue('ShowSmallThumbs');mlalevic.ChromeDial.checkThumbNumber();" />
+                      oncommand="mlalevic.JumpStart.invertThumbPrefValue('ShowSmallThumbs');mlalevic.JumpStart.checkThumbNumber();" />
             <menuseparator />
-            <menuitem label="&menu.moreOptions;" oncommand="mlalevic.ChromeDial.onMenuItemProperties();"/>
+            <menuitem label="&menu.moreOptions;" oncommand="mlalevic.JumpStart.onMenuItemProperties();"/>
           </menupopup>
         </toolbarbutton>
       </box>
 
       <vbox id="searchContainer" class="contentContainer">
         <description id="searchTitle" class="title">&search;</description>
-        <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="timed" timeout="0" class="text" oncommand="historySearch(this.value);" />
+        <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="timed" timeout="0" class="text" oncommand="mlalevic.JumpStart.historySearch(this.value);" />
       </vbox>
 
       <vbox id="recentBookmarksBox" class="contentContainer">
@@ -121,10 +119,10 @@ Christopher Cook (beerfan@gmail.com)
         <label value="&search;" class="title"
                control="search-box2"/>
         <textbox id="search-box2" flex="1" emptyText="&search2.emptyText;" empty="true" type="timed" timeout="500"
-                 oncommand="historySearch(this.value);" class="searchTextBox" />
+                 oncommand="mlalevic.JumpStart.historySearch(this.value);" class="searchTextBox" />
       </hbox>
       <vbox>
-        <html:a href="#" onclick="showThumbs();">&back;</html:a>
+        <html:a href="#" onclick="mlalevic.JumpStart.showThumbs();">&back;</html:a>
       </vbox>
       <vbox class="mainSearch">
         <tree id="historyTree"

@@ -67,6 +67,8 @@
                 var uri = makeURI(thumbData.url);
 
                 var result = {
+                    original : thumbData,
+                    uri : uri,
                     host : thumbData.host,
                     url : thumbData.url,
                     title : thumbData.title,
@@ -109,20 +111,19 @@
           ]]>
         </body>
       </method>
-      <method name="refreshThumb">
-        <parameter name="host" />
+      <!--method name="refreshThumb">
         <parameter name="thumbData" />
         <body>
           <![CDATA[
             for(var i = 0; i < this.childNodes.length; i++){
-              if(this.childNodes[i].host != undefined && this.childNodes[i].host == host){
+              if(this.childNodes[i].host != undefined && this.childNodes[i].host == thumbData.host){
                 this.childNodes[i].refreshButtonStatus(thumbData);
                 return;
               }
             }
           ]]>
         </body>
-      </method>
+      </method-->
     </implementation>
   </binding>
 
@@ -136,7 +137,7 @@
         <html:div class="image">
           <html:a href="#" class="thumbImageUrl">
             <html:img class="thumbImage" />
-            <html:div class="thumbOverlay" style="display:none;">
+            <html:div anonid="thumbOverlay" class="thumbOverlay" style="display:none;">
               <html:a anonid="pinLink" class="thumbPin pinLink" href="#"></html:a>
               <html:a anonid="chooseLink" class="thumbPin chooseLink" href="#"></html:a>
               <html:a anonid="removeLink" class="thumbPin removeLink" href="#"></html:a>
@@ -165,6 +166,7 @@
       <field name="removeHandler">null</field>
       <field name="pinHandler">null</field>
       <field name="followedPageHandler">null</field>
+      <field name="thumbData">null</field>
       <constructor>
         <![CDATA[
           
@@ -197,7 +199,7 @@
             
             this.setup(config);
             
-            
+            this.thumbData = thumbData.original;
             this.host = thumbData.host;
             this.url = thumbData.url;
             this.title = thumbData.title;
@@ -253,7 +255,7 @@
         <parameter name="thumbData" />
         <body>
           <![CDATA[
-            this.toRemove = (thumbData.toRemove == undefined)?false:thumbData.toRemove;
+            this.removed = (thumbData.removed == undefined)?false:thumbData.removed;
             this.pinned = (thumbData.pinned == undefined)?false:thumbData.pinned;
             
             let pinButton = document.getAnonymousElementByAttribute(this, "anonid", "pinLink");
@@ -266,7 +268,7 @@
               pinButton.setAttribute("class", "thumbPin pinLink");
             }
             
-            if(this.toRemove){
+            if(this.removed){
               removeButton.setAttribute("class", "thumbPin removeLink toRemove");
             }else{
               removeButton.setAttribute("class", "thumbPin removeLink");
@@ -302,7 +304,8 @@
         <body>
           <![CDATA[
             if(this.removeHandler){
-              this.removeHandler(this.host);           
+              this.removeHandler(this.thumbData);
+              this.refreshButtonStatus(this.thumbData);
             }
           ]]>
         </body>
@@ -311,7 +314,8 @@
         <body>
           <![CDATA[
             if(this.pinHandler){
-              this.pinHandler(this.url, this.host, this.title, this.fav);
+              this.pinHandler(this.thumbData);
+              this.refreshButtonStatus(this.thumbData);
             }
           ]]>
         </body>
@@ -322,8 +326,8 @@
             //if(!this.handleMouse)
             //  return;
             //this.makeLarger();
-            var overlay = document.getAnonymousElementByAttribute(this, 'class', 'thumbOverlay');
-            overlay.style.display = '';
+            var overlay = document.getAnonymousElementByAttribute(this, 'anonid', 'thumbOverlay');
+            if(overlay)overlay.style.display = '';
             if(this.dispatchToggleSmall){
               this.dispatchToggleSmall(this.index);
             }
@@ -336,8 +340,8 @@
           //if(!this.handleMouse)
           //    return;
           //this.makeNormal();
-          var overlay = document.getAnonymousElementByAttribute(this, 'class', 'thumbOverlay');
-          overlay.style.display = 'none';
+          var overlay = document.getAnonymousElementByAttribute(this, 'anonid', 'thumbOverlay');
+          if(overlay)overlay.style.display = 'none';
           if(this.dispatchToggleNormal){
             this.dispatchToggleNormal(this.index);
           }

@@ -17,38 +17,23 @@ Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
 Contributor(s): 
 **** END LICENSE BLOCK **** */
 
-
 var mlalevic;
-if (!mlalevic) {
-    mlalevic = {};
-}
+if(!mlalevic){mlalevic = {};}
+if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
+if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
 
-if (!mlalevic.Utils) {
-    mlalevic.Utils = {};
-}
+(function(){
+    var services = {}
+    var utils = {}
+    //import browserServices - we are using browserServices to load data from files
+    //   we are using config and load data from database services too
+    Components.utils.import("resource://modules/browserServices.js", services);
+    Components.utils.import("resource://modules/utils.js", utils);
 
-if (!mlalevic.Utils.UI) {
-    mlalevic.Utils.UI = {};
-}
-
-if(!mlalevic.JumpStart){
-  mlalevic.JumpStart = {};
-}
-
-if(!mlalevic.JumpStart.Services){
-  mlalevic.JumpStart.Services = {};
-}
-
-if (!mlalevic.UnitTests) { //If unit testing skip importing module
-  Components.utils.import("resource://modules/utils.js", mlalevic.Utils);
-  Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
-}
-
-(function() {
-
-  var ui = mlalevic.Utils.UI;
-  var Utils = mlalevic.Utils;
-  var Logger = mlalevic.JumpStart.Services.Logger;
+    //create namespaces
+    //var ui = utils.Namespace.get(window, "mlalevic.JumpStart.UI");
+    var ui = mlalevic.JumpStart.UI;
+    var Logger = services.Logger;
   
   var Measurement = function(aContent, aCanvas, aWindow){
     if(!aContent || !aCanvas || !aWindow){
