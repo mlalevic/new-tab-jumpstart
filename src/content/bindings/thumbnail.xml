@@ -111,19 +111,6 @@
           ]]>
         </body>
       </method>
-      <!--method name="refreshThumb">
-        <parameter name="thumbData" />
-        <body>
-          <![CDATA[
-            for(var i = 0; i < this.childNodes.length; i++){
-              if(this.childNodes[i].host != undefined && this.childNodes[i].host == thumbData.host){
-                this.childNodes[i].refreshButtonStatus(thumbData);
-                return;
-              }
-            }
-          ]]>
-        </body>
-      </method-->
     </implementation>
   </binding>
 
@@ -233,7 +220,7 @@
             imageAnchor.addEventListener("click", followedPageHandler, true);
             
             this.hookUpButtons();
-            this.refreshButtonStatus(thumbData);
+            this.refreshButtonStatus();
             
             this.makeNormal();
           ]]>
@@ -252,9 +239,9 @@
         </body>
       </method>
       <method name="refreshButtonStatus">
-        <parameter name="thumbData" />
         <body>
           <![CDATA[
+            var thumbData = this.thumbData;
             this.removed = (thumbData.removed == undefined)?false:thumbData.removed;
             this.pinned = (thumbData.pinned == undefined)?false:thumbData.pinned;
             
@@ -305,7 +292,7 @@
           <![CDATA[
             if(this.removeHandler){
               this.removeHandler(this.thumbData);
-              this.refreshButtonStatus(this.thumbData);
+              this.refreshButtonStatus();
             }
           ]]>
         </body>
@@ -315,7 +302,7 @@
           <![CDATA[
             if(this.pinHandler){
               this.pinHandler(this.thumbData);
-              this.refreshButtonStatus(this.thumbData);
+              this.refreshButtonStatus();
             }
           ]]>
         </body>

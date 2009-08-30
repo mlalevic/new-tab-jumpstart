@@ -58,6 +58,10 @@ if (!mlalevic.JumpStart.Model) {
             this._originalData.push(properties);
         },
         _addLatest : function(properties){
+            var found = this._removed.filter(function(element){return properties.host == element.host;});
+            if(found && found.length > 0){
+                return; //skip adding if in removed
+            }
             this._currentData.push(properties);
         },
         getLatest : function(){
@@ -143,7 +147,7 @@ if (!mlalevic.JumpStart.Model) {
         processModel : function(){
             var model = new mlalevic.JumpStart.Model.ThumbData();
             var properties = this.annoService.getProperties();
-            for(var i = 0; i < properties.lengt; i++){
+            for(var i = 0; i < properties.length; i++){
                 model._addOriginalEntry(properties[i]);
             }
             var latest = this.dbService.getMostVisitedData(this.latestCount);
