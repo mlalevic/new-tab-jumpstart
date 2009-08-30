@@ -189,8 +189,59 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
           //eval("(" + ss.getClosedTabData(window) + ")");
     }
   }
-  
+
 /**************************  Closed state handling - End ****************************/
+
+/**************************  Bookmark state handling ********************************/
+/*
+  var bookmarkState = {
+    bookmarkData: [],
+
+    start : function() {
+      this.loadBookmarkData();
+
+      // add event listener here for bookmark updates
+      //foo.addEventListener("event", eventHandler, false);
+    },
+
+    refreshBookmarks: function(){
+      this.loadBookmarkData();
+      //utils.Observers.notify(null, dataRefreshEvent, null);
+    },
+
+    loadBookmarkData: function() {
+      var historyService = Cc["@mozilla.org/browser/nav-history-service;1"]
+                               .getService(Ci.nsINavHistoryService);
+
+      var bookmarkService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"]
+                               .getService(Ci.nsINavBookmarksService);
+
+	  //place:folder=BOOKMARKS_MENU&amp;folder=UNFILED_BOOKMARKS&amp;folder=TOOLBAR&amp;queryType=1&amp;sort=12&amp;excludeItemIfParentHasAnnotation=livemark%2FfeedURI&amp;maxResults=10&amp;excludeQueries=1
+      var options = historyService.getNewQueryOptions();
+      options.queryType = Ci.nsINavHistoryQueryOptions.QUERY_TYPE_BOOKMARKS;
+      options.sortingMode = Ci.nsINavHistoryQueryOptions.SORT_BY_DATEADDED_DESCENDING;
+      options.excludeQueries = true;
+	  options.excludeItemIfParentHasAnnotation = "livemark/feedURI";
+      options.maxResults = 10;
+      var query = historyService.getNewQuery();
+      var result = historyService.executeQuery(query, options);
+
+      var cont = result.root;
+      cont.containerOpen = true;
+      for (var i = 0; i < cont.childCount; i ++) {
+        var node = cont.getChild(i);
+		var item = {
+          title   : node.title,
+          url     : node.uri,
+          favicon : node.icon.spec
+        };
+		this.bookmarkData.push(item);
+      }
+      cont.containerOpen = false;
+    }
+  }
+*/
+/**************************  Bookmark state handling - End ****************************/
 
 /*************************** Browser service ***********************************/
   var myInnerBrowser = null;
