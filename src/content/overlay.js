@@ -424,12 +424,11 @@ mlalevic.JumpStart.onDialOpen = function(){
   }
 /*********  Event handlers end *******/
 
-var UndoClose = function(aValue, aEvent) {
-    if (aEvent.button != 0) //1) //left button
+var UndoClosed = function(aValue, aEvent) {
+    if (aEvent.button != 1) //left button
       return;
 
     undoCloseTab(aValue);
-    getBrowser().moveTabToEnd();
     closedTabState.refreshClosed();
 }
 
