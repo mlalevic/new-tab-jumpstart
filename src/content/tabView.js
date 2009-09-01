@@ -141,6 +141,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
         drawThumbs();
         showClosed();
+        showBookmarks();
     }
 
     var getData = function(){
