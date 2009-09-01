@@ -44,9 +44,9 @@ Christopher Cook (beerfan@gmail.com)
   <script type="application/x-javascript"
           src="chrome://browser/content/bookmarks/sidebarUtils.js"/>
   <script type="application/x-javascript" src="tabView.js" />
+<!--
   <html:link rel="icon" href="chrome://jumpstart/skin/img/jumpstart16.png"/>
-
-
+-->
   <commandset id="editMenuCommands"/>
   <commandset id="placesCommands"/>
   <keyset id="editMenuKeys">
@@ -56,11 +56,13 @@ Christopher Cook (beerfan@gmail.com)
     <spacer flex="1" />
 
     <vbox id="thumbsContainer" class="contentContainer">
+<!--
       <description id="thumbsTitle" class="title">&mostVisited;</description>
+-->
     </vbox>
 
     <vbox id="sideContainer">
-
+<!--
       <box id="pageOptionsContainer" class="">
         <toolbarbutton type="menu" image="chrome://jumpstart/skin/img/JumpStart32.png">
           <menupopup id="jumpstartMenu" onpopupshowing="return mlalevic.JumpStart.prepareMenu();">
@@ -79,11 +81,23 @@ Christopher Cook (beerfan@gmail.com)
           </menupopup>
         </toolbarbutton>
       </box>
-
+-->
       <vbox id="searchContainer" class="contentContainer">
         <description id="searchTitle" class="title">&search;</description>
         <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="timed" timeout="0" class="text" oncommand="mlalevic.JumpStart.historySearch(this.value);" />
       </vbox>
+
+      <vbox id="recentlyClosedBox" class="contentContainer">
+        <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>
+        <vbox id="recentlyClosedBoxItems" />
+      </vbox>
+<!--
+      <vbox id="recentBookmarksContainer" class="contentContainer">
+        <description class="title">&recentBookmarks.recent; &recentBookmarks.linkText;</description>
+        <vbox id="recentBookmarksItems" />
+        <label><html:a href="chrome://jumpstart/content/bookmarksView.xul">&recentBookmarks.tooltip;</html:a></label>
+      </vbox>
+-->
 
       <vbox id="recentBookmarksBox" class="contentContainer">
         <description id="recentBookmarksTitle" class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;">&recentBookmarks.linkText;</html:a></description>
@@ -103,12 +117,7 @@ Christopher Cook (beerfan@gmail.com)
         </tree>
       </vbox>
 
-      <vbox id="recentlyClosedBox" class="contentContainer">
-        <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>
-        <vbox id="recentlyClosedBoxItems" />
-      </vbox>
-
-	  <spacer flex="1" />
+      <spacer flex="1" />
     </vbox>
     <spacer flex="1" />
   </hbox>

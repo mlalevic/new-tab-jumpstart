@@ -192,7 +192,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
               for(var i = 0; i < tabClosedData.length; i++){
                   var item = tabClosedData[i];
                   var box = document.createElement("hbox");
-                  box.setAttribute("class", "recentlyClosedItemBinding recentlyClosedItem");
+                  box.setAttribute("class", "recentlyClosedItem");
                   closedBoxItemsContainer.appendChild(box);
                   box.draw(item, utils.Binder.bindArguments(this, services.BrowserServices.UndoClosed, i));
               }
@@ -200,7 +200,6 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
             if(closedBox.hidden){
               closedBox.hidden = false;
-              closedBox.setAttribute("hidden", "false");
               //it won't show properly closed for hidden so set timeout
               window.setTimeout(drawClosed, 0);
             }else{
@@ -211,7 +210,46 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
             closedBox.hidden = true;
         }
     }
+/*
+    var showBookmarks = function(){
+      var bookmarksData = services.BrowserServices.GetBookmarkData();      
+      var bookmarksContainer = document.getElementById('recentBookmarksContainer');
+      var bookmarksItemsContainer = document.getElementById('recentBookmarksItems');
+      if (!bookmarksContainer || !bookmarksItemsContainer)
+        return;
+      
+      function drawItems() {
+        //clear children
+        while(bookmarksItemsContainer.hasChildNodes()){
+          bookmarksItemsContainer.removeChild(bookmarksItemsContainer.firstChild);
+        }
+              
+        for (var i = 0; i < bookmarksData.length; i++) {
+          var item = bookmarksData[i];
+          var box = document.createElement("hbox");
+          box.setAttribute("class", "recentBookmarksItem");
+          bookmarksItemsContainer.appendChild(box);
+          box.draw(item.url, item.title, item.favicon,
+          utils.Binder.bindArguments(this, services.BrowserServices.loadUrl, i));
+        }
+      }
+      
+      if (bookmarksData.length > 0) {
+            
+        if (bookmarksContainer.hidden) {
+          bookmarksContainer.hidden = false;
+          bookmarksContainer.setAttribute("hidden", "false");
+          //it won't show properly closed for hidden so set timeout
+          window.setTimeout(drawItems, 0);
+        } else {
+          drawItems();
+        }
 
+      } else {
+        bookmarksContainer.hidden = true;
+      }
+    }
+*/
     mlalevic.JumpStart.showThumbs = function(){
       var historyBox = document.getElementById('searchBox');
       var mainBox = document.getElementById('mainBox');

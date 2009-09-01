@@ -391,10 +391,7 @@
 
   <binding id="closedTabLink">
     <content>
-      <html:a href="#" class="closedTabLink">
-        <xul:image class="closedTabFavIcon" hidden="true" />
-        <xul:label crop="end" class="closedTabLabel" />
-      </html:a>
+      <xul:hbox class="faviconSiteLink" />
     </content>
     <implementation>
       <method name="draw">
@@ -402,20 +399,73 @@
         <parameter name="onClickHandler" />
         <body>
           <![CDATA[
-            var anchor = document.getAnonymousElementByAttribute(this, 'class', 'closedTabLink');
-            var image = document.getAnonymousElementByAttribute(this, 'class', 'closedTabFavIcon');
-            var label = document.getAnonymousElementByAttribute(this, 'class', 'closedTabLabel');
-            
-            label.value = closedTabData.title;
-            if (closedTabData.image){
-              image.src = closedTabData.image;
-              image.hidden = false;
-            }
-
-            anchor.addEventListener("click", onClickHandler, false);
+            var faviconUrl = closedTabData.image;
+            var text = closedTabData.title;
+            var href = closedTabData.state.entries[0].url;
+            document.getAnonymousNodes(this)[0].draw(href, text, faviconUrl, onClickHandler);
           ]]>
         </body>
       </method>
     </implementation>
   </binding>
+
+  <binding id="recentBookmarkLink">
+    <content>
+      <xul:hbox class="faviconSiteLink" />
+    </content>
+    <implementation>
+      <method name="draw">
+        <parameter name="href" />
+        <parameter name="text" />
+        <parameter name="faviconUrl" />
+        <parameter name="onClickHandler" />
+        <body>
+          <![CDATA[
+            document.getAnonymousNodes(this)[0].draw(href, text, faviconUrl, onClickHandler);
+          ]]>
+        </body>
+      </method>
+    </implementation>
+  </binding>
+
+  <binding id="faviconSiteLink">
+    <content>
+      <xul:hbox class="faviconSiteLink">
+        <xul:image class="favIcon" />
+        <xul:label class="label" crop="end" />
+      </xul:hbox>
+    </content>
+    <implementation>
+      <field name="href" />
+      <field name="onClick" />
+      <method name="draw">
+        <parameter name="href" />
+        <parameter name="text" />
+        <parameter name="faviconUrl" />
+        <parameter name="onClickHandler" />
+        <body>
+          <![CDATA[
+            this.href = href;
+            this.onClick = onClickHandler;
+            document.getAnonymousNodes(this)[0].childNodes[0].src = faviconUrl;
+            document.getAnonymousNodes(this)[0].childNodes[1].value = text;
+            document.getAnonymousNodes(this)[0].setAttribute("tooltiptext", text);
+          ]]>
+        </body>
+      </method>
+      <method name="clickHandler">
+        <body>
+          this.onClick();
+        </body>
+      </method>
+    </implementation>
+    <handlers>
+      <handler event="click" action="this.clickHandler()" />
+      <handler event="mouseover" action="window.status=this.href" />
+      <handler event="focus" action="window.status=this.href" />
+      <handler event="mouseout" action="window.status=''" />
+      <handler event="blur" action="window.status=''" />
+    </handlers>
+  </binding>
+
 </bindings>

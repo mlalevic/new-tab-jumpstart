@@ -15,7 +15,7 @@
 }
 
 #mainBox {
-	padding-top: 10px;
+	padding-top: 30px;
 	overflow: auto;
 	-moz-box-flex: 1;
 	-moz-box-pack: center;
@@ -37,14 +37,34 @@
 
 #sideContainer > .contentContainer  {
 	background-color: #E0EBFF;
+	width: inherit;
 	margin: 5px 0px;
 	padding: 4px;
 	-moz-border-radius: 8px;
 }
 
-.recentlyClosedItemBinding
-{
-  -moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#closedTabLink");
+#sideContainer .contentContainer > label {
+	margin-top: 3px;
+}
+
+.recentBookmarksItem {
+	-moz-margin-start: 6px;
+	-moz-margin-end: 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	cursor: pointer;
+}
+
+.recentBookmarksItem image {
+	width: 16px;
+	height: 16px;
+}
+
+.recentBookmarksItem label {
+	color: #00f;
+	text-decoration: underline;
+	margin: 0 5px;
+	cursor: pointer;
 }
 
 .thumbImageUrl
@@ -113,76 +133,33 @@
 	height: 120px;
 }
 
-span.title
-{
-	display:block;
-	font: normal normal bold 13px Verdana;
-	margin: 5px 0px 5px 5px;
-}
-
-.title
-{
-	display:block;
-	font: normal normal bold 13px Verdana;
-	margin: 5px 0px 5px 5px;
+.title {
+	font-weight: bold;
 }
 
 #sideContainer #recentlyClosedBox {
 	background-color: #FEF0A7;
 }
 
-.sidebar .search .text
-{
+#recentlyClosedBoxItems {
+	width: inherit;
+}
+
+.recentlyClosedItem {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#closedTabLink");
+	width: 209px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	-moz-margin-start: 6px;
+	-moz-margin-end: 0px;
+}
+
+.sidebar .search .text {
 	font: normal normal bold 13px Verdana;
 	margin: 0px 0px 10px 5px;
 }
 
-.recentlyClosedItem
-{
-	-moz-appearance: none;
-	overflow-y:hidden;
-	overflow-x:hidden;
-	cursor:pointer;
-	color: -moz-fieldtext;
-	text-decoration: none;
-	border: none;
-	text-align:left;
-	-moz-box-align:start;
-	background-color: Transparent;
-	width: inherit;
-	margin: 0px 0px 0px 10px;
-	-moz-box-align: start;
-}
-
-.closedTabFavIcon
-{
-	height: 16px;
-	width: 16px;
-	display: inline;
-}
-
-.closedTabLabel
-{
-	cursor: pointer;
-	text-decoration: none;
-	margin: 0px 0px 0px 0px;
-	display: inline;
-	width: inherit;
-}
-
-.closedTabLabel:hover
-{
-	text-decoration: underline;
-	margin: 0px 0px 0px 0px;
-}
-
-.recentlyClosedItem:hover
-{
-	text-decoration:underline;
-}
-
-.searchTextBox
-{
+.searchTextBox {
 	text-align:left;
 }
 
@@ -250,4 +227,31 @@ span.title
 {
 	background-image: url("chrome://jumpstart/skin/img/add.gif");
 	display: none;
+}
+
+/*
+ * XBL styles
+ * TODO: (CC) move xbl internal styles to a separate stylesheet
+ */
+.faviconSiteLink {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#faviconSiteLink");
+	cursor: pointer;
+	width: inherit;
+}
+
+.faviconSiteLink image {
+	height: 16px;
+	width: 16px;
+}
+
+.faviconSiteLink label {
+	cursor: pointer;
+	color: -moz-hyperlinktext;
+	text-decoration: -moz-anchor-decoration;
+	width: inherit;
+	-moz-margin-start: 6px;
+	-moz-margin-end: 5px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	overflow: hidden;
 }
