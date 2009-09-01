@@ -36,6 +36,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
 
     var dataRefreshEvent = "mlalevic.JumpStart.refresh";
+    var bookmarksChangedEvent = "mlalevic.JumpStart.bookmarks";
     var configChanged = "mlalevic.JumpStart.configChanged";
     var tabViewUrl = 'chrome://jumpstart/content/tabView.xul';
 
@@ -193,6 +194,24 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 /**************************  Closed state handling - End ****************************/
 
 /**************************  Bookmark state handling ********************************/
+var bmsvc = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+                      .getService(Components.interfaces.nsINavBookmarksService);
+
+
+// An nsINavBookmarkObserver
+var bookmarkListener = {
+  start : function(){bmsvc.addObserver(bookmarkListener, false);},
+  stop : function(){bmsvc.removeObserver(bookmarkListener);},
+  notify : function(){utils.Observers.notify(null, bookmarksChangedEvent, null);},
+  onBeginUpdateBatch: function() {},
+  onEndUpdateBatch: function() { this.notify(); },
+  onItemAdded: function(aItemId, aFolder, aIndex) { this.notify(); },
+  onItemRemoved: function(aItemId, aFolder, aIndex) { this.notify(); },
+  onItemChanged: function(aBookmarkId, aProperty, aIsAnnotationProperty, aValue) {},
+  onItemVisited: function(aBookmarkId, aVisitID, time) {},
+  onItemMoved: function(aItemId, aOldParent, aOldIndex, aNewParent, aNewIndex) {},
+  QueryInterface: XPCOMUtils.generateQI([Components.interfaces.nsINavBookmarkObserver])
+};
 /*
   var bookmarkState = {
     bookmarkData: [],
@@ -424,9 +443,9 @@ mlalevic.JumpStart.onDialOpen = function(){
   }
 /*********  Event handlers end *******/
 
-var UndoClosed = function(aValue, aEvent) {
-    if (aEvent.button != 1) //left button
-      return;
+var UndoClosed = function(aValue) {
+    /*if (aEvent.button != 1) //left button
+      return;*/
 
     undoCloseTab(aValue);
     closedTabState.refreshClosed();
@@ -443,6 +462,7 @@ var startAll = function(){
         jumpStartService.start();
         uiService.start();
         historyComponent.start();
+        bookmarkListener.start();
 
         services.BrowserServices.setFollowedPage(function(url){PlacesUIUtils.markPageAsTyped(url);});
         services.BrowserServices.setGetClosedDataFunction(function(){return closedTabState.closedTabsData;});

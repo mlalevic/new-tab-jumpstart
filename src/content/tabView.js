@@ -30,7 +30,8 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     Components.utils.import("resource://modules/browserServices.js", services);
     Components.utils.import("resource://modules/dbService.js", services);
 
-    var Config = services.JumpstartConfiguration;
+    var Config;
+    Config = services.JumpstartConfiguration;
 
     mlalevic.JumpStart.onMenuItemProperties = function(){
       var strbundle = document.getElementById("strings");
@@ -106,17 +107,21 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
       services.Logger.error("Error getting history utility", ex.message);
     }
 
+    var dataRefreshEvent = "mlalevic.JumpStart.refresh";
+    var bookmarksChangedEvent = "mlalevic.JumpStart.bookmarks";
+
 
     var Show = function() {
         /*topDial.clearUrlBarForOurTab();
         topDial.registerForUpdate(Dial.showClosed);*/
         utils.Observers.add(showClosed, dataRefreshEvent);
+        utils.Observers.add(showBookmarks, bookmarksChangedEvent);
         draw();
     }
 
-    var dataRefreshEvent = "mlalevic.JumpStart.refresh";
     var Unload = function(){
       utils.Observers.remove(showClosed, dataRefreshEvent);
+      utils.Observers.remove(showBookmarks, bookmarksChangedEvent);
     }
 
     var makeURI = function (aURL, aOriginCharset, aBaseURI) {
@@ -170,6 +175,11 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
       }
 
       container.draw(data, handlePin, handleRemoved);
+    }
+
+    var showBookmarks = function(){
+        var top10 = services.BookmarksService.getLatestBookmarks(10);
+        return;
     }
 
     var showClosed = function(){

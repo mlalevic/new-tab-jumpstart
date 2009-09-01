@@ -455,7 +455,8 @@
       </method>
       <method name="clickHandler">
         <body>
-          this.onClick();
+            if(this.onClick)
+                this.onClick();
         </body>
       </method>
     </implementation>

@@ -18,7 +18,7 @@ Contributor(s):
 **** END LICENSE BLOCK **** */
 
 
-let EXPORTED_SYMBOLS = ["PlacesDb", "AnnoService"];
+let EXPORTED_SYMBOLS = ["PlacesDb", "AnnoService", "BookmarksService"];
 
 Components.utils.import("resource://modules/utils.js");
 
@@ -113,5 +113,39 @@ let AnnoService = {
             delete propertiesArray[i].uri;
             this.saveProperties(uri, propertiesArray[i]);
         }
+    }
+}
+
+let historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
+                                  .getService(Components.interfaces.nsINavHistoryService);
+let BookmarksService = {
+    service : historyService,
+    getBookmarks : function(placesUri){
+        var queriesRef = {};
+        var queryCountRef = {};
+        var optionsRef = {};
+        this.service.queryStringToQueries(placesUri, queriesRef, queryCountRef, optionsRef);
+        // now use queriesRef.value, optionsRef.value
+        var bookmarks = this.service.executeQueries(queriesRef.value, queryCountRef.value, optionsRef.value);
+        bookmarks = bookmarks.root;
+        var result = [];
+        
+        bookmarks.containerOpen = true;
+        for (var i = 0; i < bookmarks.childCount; i ++) {
+            var node = bookmarks.getChild(i);
+            var fav = node.icon?node.icon.spec:"";
+            var item = {
+                title   : node.title,
+                url     : node.uri,
+                favicon : fav
+            };
+            result.push(item);
+        }
+        bookmarks.containerOpen = false;
+        return result;
+    },
+    getLatestBookmarks : function(count){
+        var query = "place:folder=BOOKMARKS_MENU&folder=UNFILED_BOOKMARKS&folder=TOOLBAR&queryType=1&sort=12&excludeItemIfParentHasAnnotation=livemark%2FfeedURI&maxResults=" + count +"&excludeQueries=1";
+        return this.getBookmarks(query);
     }
 }
