@@ -132,8 +132,8 @@ let BrowserServices = {
   setUndoClosedFunction : function(func){
       undoClosedFunction = func;
   },
-  UndoClosed: function(){
-      undoClosedFunction();
+  UndoClosed: function(anIndex){
+      undoClosedFunction(anIndex);
   }
 };
 
