@@ -44,9 +44,8 @@ Christopher Cook (beerfan@gmail.com)
   <script type="application/x-javascript"
           src="chrome://browser/content/bookmarks/sidebarUtils.js"/>
   <script type="application/x-javascript" src="tabView.js" />
-<!--
   <html:link rel="icon" href="chrome://jumpstart/skin/img/jumpstart16.png"/>
--->
+
   <commandset id="editMenuCommands"/>
   <commandset id="placesCommands"/>
   <keyset id="editMenuKeys">
@@ -91,30 +90,13 @@ Christopher Cook (beerfan@gmail.com)
         <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>
         <vbox id="recentlyClosedBoxItems" />
       </vbox>
-<!--
+
       <vbox id="recentBookmarksContainer" class="contentContainer">
         <description class="title">&recentBookmarks.recent; &recentBookmarks.linkText;</description>
         <vbox id="recentBookmarksItems" />
+<!-- TODO: (CC) fix up bookmarks page
         <label><html:a href="chrome://jumpstart/content/bookmarksView.xul">&recentBookmarks.tooltip;</html:a></label>
-      </vbox>
 -->
-
-      <vbox id="recentBookmarksBox" class="contentContainer">
-        <description id="recentBookmarksTitle" class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;">&recentBookmarks.linkText;</html:a></description>
-        <tree id="bookmarksTree"
-                class="sidebar-placesTree"
-                flex="1"
-                type="places"
-                place="place:folder=BOOKMARKS_MENU&amp;folder=UNFILED_BOOKMARKS&amp;folder=TOOLBAR&amp;queryType=1&amp;sort=12&amp;excludeItemIfParentHasAnnotation=livemark%2FfeedURI&amp;maxResults=10&amp;excludeQueries=1"
-                onkeypress="SidebarUtils.handleTreeKeyPress(event);"
-                onclick="SidebarUtils.handleTreeClick(this, event, true);"
-                hidecolumnpicker="true">
-
-            <treecols>
-              <treecol id="title" flex="1" primary="true" hideheader="true"/>
-            </treecols>
-            <treechildren class="sidebar-placesTreechildren" flex="1"/>
-        </tree>
       </vbox>
 
       <spacer flex="1" />

@@ -25,73 +25,12 @@
 	min-width: 4px;
 }
 
+/*
+ * Site Thumbnails
+ */
 #thumbsContainer {
 	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#thumbnailContainer");
 	-moz-box-pack: start;
-}
-
-#sideContainer {
-	width: 250px;
-	margin-left: 10px;
-}
-
-#sideContainer > .contentContainer  {
-	background-color: #E0EBFF;
-	width: inherit;
-	margin: 5px 0px;
-	padding: 4px;
-	-moz-border-radius: 8px;
-}
-
-#sideContainer .contentContainer > label {
-	margin-top: 3px;
-}
-
-.recentBookmarksItem {
-	-moz-margin-start: 6px;
-	-moz-margin-end: 5px;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	cursor: pointer;
-}
-
-.recentBookmarksItem image {
-	width: 16px;
-	height: 16px;
-}
-
-.recentBookmarksItem label {
-	color: #00f;
-	text-decoration: underline;
-	margin: 0 5px;
-	cursor: pointer;
-}
-
-.thumbImageUrl
-{
-	border: none;
-}
-
-.thumbImage
-{
-	border:none;
-	width : 196px;
-    height: 136px;
-}
-
-.mainSearch
-{
-	float:left;
-	text-align:left;
-	width: 860px;
-	height: 498px;
-	padding: 5px 5px 5px 5px;
-}
-
-.mainSearch .sidebar-placesTree
-{
-	height:inherit;
-	width:inherit;
 }
 
 .thumb {
@@ -100,6 +39,16 @@
 	margin-right: 14px;
 	margin-bottom: 10px;
 	height: 156px;
+}
+
+.thumbImageUrl {
+	border: none;
+}
+
+.thumbImage {
+	border:none;
+	width : 196px;
+    height: 136px;
 }
 
 .thumb .head
@@ -128,39 +77,8 @@
 	position:relative;
 }
 
-#bookmarksTree {
-	width: inherit;
-	height: 120px;
-}
-
 .title {
 	font-weight: bold;
-}
-
-#sideContainer #recentlyClosedBox {
-	background-color: #FEF0A7;
-}
-
-#recentlyClosedBoxItems {
-	width: inherit;
-}
-
-.recentlyClosedItem {
-	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#closedTabLink");
-	width: 209px;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	-moz-margin-start: 6px;
-	-moz-margin-end: 0px;
-}
-
-.sidebar .search .text {
-	font: normal normal bold 13px Verdana;
-	margin: 0px 0px 10px 5px;
-}
-
-.searchTextBox {
-	text-align:left;
 }
 
 .thumbPin
@@ -227,6 +145,70 @@
 {
 	background-image: url("chrome://jumpstart/skin/img/add.gif");
 	display: none;
+}
+
+/*
+ * Sidebar content
+ */
+#sideContainer {
+	width: 220px;
+	margin-left: 10px;
+}
+
+#sideContainer > .contentContainer  {
+	background-color: #E0EBFF;
+	width: inherit;
+	margin: 5px 0px;
+	padding: 4px;
+	-moz-border-radius: 8px;
+}
+
+#sideContainer .contentContainer > label {
+	margin-top: 3px;
+}
+
+#sideContainer #recentlyClosedBox {
+	background-color: #FEF0A7;
+}
+
+#recentlyClosedBoxItems, #recentBookmarksItems {
+	width: inherit;
+}
+
+.recentlyClosedItem {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#closedTabLink");
+}
+
+.recentBookmarksItem {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#recentBookmarkLink");
+}
+
+.recentBookmarksItem, .recentlyClosedItem {
+	width: 179px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	-moz-margin-start: 6px;
+	-moz-margin-end: 0px;
+}
+
+/*
+ * History Search
+ */
+.mainSearch {
+	float: left;
+	text-align: left;
+	width: 860px;
+	height: 498px;
+	padding: 5px 5px 5px 5px;
+}
+
+.mainSearch .sidebar-placesTree {
+	height: inherit;
+	width: inherit;
+}
+
+.searchTextBox {
+	text-align: left;
 }
 
 /*
