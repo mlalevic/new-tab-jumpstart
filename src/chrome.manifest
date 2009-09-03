@@ -1,5 +1,6 @@
 content	jumpstart   content/
 overlay chrome://browser/content/browser.xul   chrome://jumpstart/content/overlay.xul
+overlay chrome://midbrowser/content/midbrowser.xul   chrome://jumpstart/content/overlay.xul  application={aa5ca914-c309-495d-91cf-3141bbb04115}
 skin jumpstart classic skin/
 resource modules content/modules/
 locale	jumpstart	sr	locale/sr/
