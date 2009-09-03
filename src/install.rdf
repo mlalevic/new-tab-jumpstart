@@ -9,6 +9,7 @@
     <em:name>New Tab JumpStart</em:name>
     <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
     <em:creator>Mihailo Lalevic</em:creator>
+    <em:developer>Chris Cook</em:developer>
     <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
     <em:iconURL>chrome://jumpstart/skin/img/JumpStart32.png</em:iconURL>
     <em:optionsURL>chrome://jumpstart/content/preferences/preferences.xul</em:optionsURL>
@@ -52,5 +53,13 @@
         <em:maxVersion>1.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
+
+   <em:targetApplication> <!-- Midbrowser -->
+       <Description>
+       <em:id>{aa5ca914-c309-495d-91cf-3141bbb04115}</em:id>
+       <em:minVersion>0.2</em:minVersion>
+       <em:maxVersion>0.3</em:maxVersion>
+       </Description>
+   </em:targetApplication>
   </Description>      
 </RDF>

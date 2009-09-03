@@ -212,7 +212,12 @@ var bookmarkListener = {
   onItemChanged: function(aBookmarkId, aProperty, aIsAnnotationProperty, aValue) {},
   onItemVisited: function(aBookmarkId, aVisitID, time) {},
   onItemMoved: function(aItemId, aOldParent, aOldIndex, aNewParent, aNewIndex) {},
-  QueryInterface: XPCOMUtils.generateQI([Components.interfaces.nsINavBookmarkObserver])
+  QueryInterface: function(aIID) {
+            if (aIID.equals(Components.interfaces.nsINavBookmarkObserver) ||
+                aIID.equals(Components.interfaces.nsISupports))
+              return this;
+            throw Components.results.NS_NOINTERFACE;
+  }
 };
 
 /**************************  Bookmark state handling - End ****************************/
