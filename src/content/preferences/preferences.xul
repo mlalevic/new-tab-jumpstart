@@ -38,6 +38,7 @@ Contributor(s):
       <preference id="overrideHomepage" name="mlalevic.jumpstart.show_on_startup" type="bool"/>
       <preference id="hookupTab" name="mlalevic.jumpstart.hook_up_new_tab" type="bool"/>
       <preference id="loadDelay" name="mlalevic.jumpstart.onstart_load_delay" type="int"/>
+      <preference id="refreshOnStart" name="mlalevic.jumpstart.onstart_refresh" type="bool"/>
       <preference id="showButton" name="mlalevic.jumpstart.show_toolbar_button" type="bool"/>
       <preference id="showInHistory" name="mlalevic.jumpstart.persist_in_history" type="bool"/>
     </preferences>

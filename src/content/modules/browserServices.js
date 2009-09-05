@@ -202,6 +202,7 @@ JumpstartPrefs.prototype = {
   prefBranch : null,
   prefThumbBranch : null,
   LoadDelay : 60000,
+  RefreshOnStartup : false,
   HookUpNewTab : true,
   OverrideHomepage : true,
   ShowToolbarButton : true,
@@ -240,6 +241,7 @@ JumpstartPrefs.prototype = {
   Refresh : function(){
     this.LogLevel = this.prefBranch.get("LogLevel", this.LogLevel);
     this.LoadDelay = this.prefBranch.get("onstart_load_delay", this.LoadDelay);
+    this.RefreshOnStartup = this.prefBranch.get("onstart_refresh", this.RefreshOnStartup);
     this.HookUpNewTab = this.prefBranch.get("hook_up_new_tab", this.HookUpNewTab);
     this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
     this.ShowToolbarButton = this.prefBranch.get("show_toolbar_button", this.ShowToolbarButton);

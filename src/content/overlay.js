@@ -85,7 +85,9 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     /**************************  Thumbs Loader  ******************************/
     var thumbsLoader = {
         start : function(){
-            window.setTimeout(utils.Binder.bind(this, this.loadThumbnails), Config.LoadDelay);
+            if(Config.RefreshOnStartup){
+                window.setTimeout(utils.Binder.bind(this, this.loadThumbnails), Config.LoadDelay);
+            }
         },
 
         loadThumbnails: function() {
