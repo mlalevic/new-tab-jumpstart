@@ -422,7 +422,6 @@ var startAll = function(){
         closedTabState.start();
         buttonController.start();
         jumpStartService.start();
-        uiService.start();
         historyComponent.start();
         bookmarkListener.start();
 
@@ -436,6 +435,7 @@ var startAll = function(){
         services.BrowserServices.setUndoClosedFunction(UndoClosed);
 }
 
+uiService.start();
 window.addEventListener("load", startAll, false);
 })();
 
