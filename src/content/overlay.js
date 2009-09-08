@@ -130,14 +130,91 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         start: function() {
             gBrowser.addProgressListener(
                 ClearUrlComponentListener,
-                Components.interfaces.nsIWebProgress.NOTIFY_STATE_DOCUMENT
+                Components.interfaces.nsIWebProgress.NOTIFY_LOCATION
             );
         },
         stop: function() {
             gBrowser.removeProgressListener(ClearUrlComponentListener);
         }
     }
+
+    var ClearUrlComponent_fennec = {
+        start: function() {
+            document.getElementById("browsers").addProgressListener(
+                ClearUrlComponentListener,
+                Components.interfaces.nsIWebProgress.NOTIFY_STATE_DOCUMENT
+            );
+        },
+        stop: function() {
+            document.getElementById("browsers").removeProgressListener(ClearUrlComponentListener);
+        }
+    }
 /***************  clear url components - End ********************/
+
+/*************** Snapshot component - refreshes thumb on visit  ***********************/
+
+var makeURI = function (aURL, aOriginCharset, aBaseURI) {
+             var ioService = Components.classes["@mozilla.org/network/io-service;1"]
+                                        .getService(Components.interfaces.nsIIOService);
+             return ioService.newURI(aURL, aOriginCharset, aBaseURI);
+    }
+
+var SnapshotComponentListener = {
+        QueryInterface: function(aIID) {
+            if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
+                aIID.equals(Components.interfaces.nsISupportsWeakReference) ||
+                aIID.equals(Components.interfaces.nsISupports))
+              return this;
+            throw Components.results.NS_NOINTERFACE;
+        },
+        onLocationChange: function() {},
+        onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
+            // Check if page is finished loading from a network request
+            if ((aStateFlags & Ci.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
+            {
+                  //check if has anno, if it has, refresh (can be optimized later)
+              var uri = null;
+              if(aRequest.originalURI){
+                if(services.AnnoService.hasDetails(aRequest.originalURI)){
+                    uri = aRequest.originalURI;
+                }
+              }
+
+              if(uri == null && aRequest.URI){
+                if(services.AnnoService.hasDetails(aRequest.URI)){
+                    uri = aRequest.URI;
+                }
+              }
+
+              if(uri){
+                  var result = mlalevic.JumpStart.UI.GetSnapshot(aWebProgress.DOMWindow.document, aWebProgress.DOMWindow);
+                  if(result){
+                    services.AnnoService.saveThumb(uri, result);
+                    services.Logger.debug("Snapshot: ", result);
+                  }else{
+                      services.Logger.debug("Snapshot: result null for ", aWebProgress.DOMWindow.location.toString());
+                  }
+              }
+            }
+            return 0;
+        },
+        onProgressChange: function() {},
+        onStatusChange: function(){},
+        onSecurityChange: function() {},
+        onLinkIconAvailable: function() {}
+    }
+
+var SnapshotComponent = {
+        start: function() {
+            gBrowser.addProgressListener(
+                SnapshotComponentListener,
+                Components.interfaces.nsIWebProgress.NOTIFY_STATE_WINDOW
+            );
+        },
+        stop: function() {
+            gBrowser.removeProgressListener(SnapshotComponentListener);
+        }
+    }
 
 /**************************  New tab loader  ******************************/
     var newTabLoader = {
@@ -416,7 +493,12 @@ var UndoClosed = function(aValue) {
 var startAll = function(){
         window.removeEventListener("load", startAll, false);
 
-        ClearUrlComponent.start();
+        if(typeof(gBrowser) == "undefined"){
+            //ClearUrlComponent_fennec.start();
+        }else{
+            ClearUrlComponent.start();
+        }
+        SnapshotComponent.start();
         newTabLoader.start();
         thumbsLoader.start();
         closedTabState.start();

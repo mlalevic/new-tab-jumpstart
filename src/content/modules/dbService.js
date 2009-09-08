@@ -67,6 +67,9 @@ let AnnoService = {
         }
         return decoded;
     },
+    hasDetails: function(uri){
+        return this.annoService.pageHasAnnotation(uri, this.propertiesAnno);
+    },
     saveThumb: function(uri, imageData){
         var base64Data = imageData;
         var headerIndex = base64Data.indexOf(this.header);

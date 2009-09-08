@@ -381,5 +381,25 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
   ui.GetCanvasLoader = function(url, storageHandler, browserProvider){
     return new PageLoader(url, null, new uiProviderFactory(browserProvider.getBrowser(), document), storageHandler);
   }
+
+  ui.GetSnapshot = function(aDocument, content){
+    try{
+        var canvas = aDocument.createElementNS("http://www.w3.org/1999/xhtml", "canvas");
+        canvas.style.width = Measurement.CANVAS_WIDTH + "px";
+        canvas.style.height = Measurement.CANVAS_HEIGHT + "px";
+        canvas.width = Measurement.CANVAS_WIDTH;
+        canvas.height = Measurement.CANVAS_HEIGHT;
+        var m = new Measurement(
+          {w: content.document.width, h: content.document.height},
+          {w: canvas.width, h: canvas.height},
+          {w: Measurement.WINDOW_WIDTH, h: Measurement.WINDOW_HEIGHT}
+        ).calculate();
+
+        return new Canvas(canvas, m).draw(content);
+      } catch(ex) {
+        Logger.error("Error Getting Snapshot", ex.message);
+        return null;
+      }
+  }
   
 })();
