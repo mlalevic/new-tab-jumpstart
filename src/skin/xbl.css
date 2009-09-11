@@ -1,0 +1,42 @@
+/*
+ * common XBL styles and mappings
+ */
+
+.recentlyClosedItem {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#closedTabLink");
+}
+
+.recentBookmarksItem {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#recentBookmarkLink");
+}
+
+.recentBookmarksItem, .recentlyClosedItem {
+	width: 179px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	-moz-margin-start: 6px;
+	-moz-margin-end: 0px;
+}
+
+.faviconSiteLink {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#faviconSiteLink");
+	cursor: pointer;
+	width: inherit;
+}
+
+.faviconSiteLink image {
+	height: 16px;
+	width: 16px;
+}
+
+.faviconSiteLink label {
+	cursor: pointer;
+	color: -moz-hyperlinktext;
+	text-decoration: -moz-anchor-decoration;
+	width: inherit;
+	-moz-margin-start: 4px;
+	-moz-margin-end: 5px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	overflow: hidden;
+}

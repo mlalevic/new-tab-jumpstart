@@ -221,7 +221,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
     var showBookmarks = function(){
       var bookmarksData = services.BookmarksService.getLatestBookmarks(10);
-      //var bookmarksData = services.BrowserServices.GetBookmarkData();      
+    
       var bookmarksContainer = document.getElementById('recentBookmarksContainer');
       var bookmarksItemsContainer = document.getElementById('recentBookmarksItems');
       if (!bookmarksContainer || !bookmarksItemsContainer)

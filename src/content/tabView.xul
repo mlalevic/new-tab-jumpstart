@@ -24,6 +24,7 @@ Christopher Cook (beerfan@gmail.com)
 <!DOCTYPE window SYSTEM "chrome://jumpstart/locale/tabView.dtd">
 
 <?xml-stylesheet href="chrome://jumpstart/skin/tabView.css"?>
+<?xml-stylesheet href="chrome://jumpstart/skin/xbl.css"?>
 
 <?xml-stylesheet href="chrome://browser/content/places/places.css"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
