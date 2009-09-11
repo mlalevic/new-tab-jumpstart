@@ -173,6 +173,9 @@ var SnapshotComponentListener = {
             if ((aStateFlags & Ci.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
             {
                   //check if has anno, if it has, refresh (can be optimized later)
+              if(!aRequest){
+                  return 0;
+              }
               var uri = null;
               if(aRequest.originalURI){
                 if(services.AnnoService.hasDetails(aRequest.originalURI)){
