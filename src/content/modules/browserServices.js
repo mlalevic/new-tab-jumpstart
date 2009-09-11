@@ -33,7 +33,7 @@ let configChanged = "mlalevic.JumpStart.configChanged";
 let BrowserServices = {
   
   getMostVisitedData : function(toGet, toSkip){
-    var query = 'select m.url, m.title, icons.data, icons.mime_type, m.rev_host, m.id ' +
+    var query = "select m.url, m.title, '', '', m.rev_host, m.id " +
     'FROM moz_places as m ' +
     'INNER JOIN ( ' +
     'select m.rev_host as rev_host, max(m.frecency) as frec from moz_places as m ' +
@@ -41,8 +41,9 @@ let BrowserServices = {
     'group by rev_host ' +
     'order by max(m.frecency) desc ' +
     'limit ' + toGet + ' ' +
-    ') as X ON m.rev_host = X.rev_host AND m.frecency = X.frec ' +
-    'LEFT JOIN moz_favicons as icons on m.favicon_id = icons.id';
+    ') as X ON m.rev_host = X.rev_host AND m.frecency = X.frec ';
+    //+
+    //'LEFT JOIN moz_favicons as icons on m.favicon_id = icons.id';
     
     Logger.debug('Executing query: ', query);
     
