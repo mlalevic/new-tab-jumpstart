@@ -54,36 +54,13 @@ Christopher Cook (beerfan@gmail.com)
   <hbox id="mainBox" class="layoutContainer">
     <spacer flex="1" />
 
-    <vbox id="thumbsContainer" class="contentContainer">
-<!--
-      <description id="thumbsTitle" class="title">&mostVisited;</description>
--->
-    </vbox>
+    <vbox id="siteTileContainer" />
 
     <vbox id="sideContainer">
-<!--
-      <box id="pageOptionsContainer" class="">
-        <toolbarbutton type="menu" image="chrome://jumpstart/skin/img/JumpStart32.png">
-          <menupopup id="jumpstartMenu" onpopupshowing="return mlalevic.JumpStart.prepareMenu();">
-            <menuitem label="&menu.showOnNewTab;" id="menu_newtab" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.JumpStart.invertPrefValue('hook_up_new_tab');" />
-            <menuitem label="&menu.showOnStartup;" id="menu_startup" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.JumpStart.invertPrefValue('show_on_startup');" />
-            <menuitem label="&menu.showToolbarButton;" id="menu_toolbar" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.JumpStart.invertPrefValue('show_toolbar_button');" />
-            <menuitem label="&menu.showInHistory;" id="menu_history" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.JumpStart.invertPrefValue('persist_in_history');" />
-            <menuitem label="&menu.bigThumbs;" id="menu_big" autocheck="false" type="checkbox"
-                      oncommand="mlalevic.JumpStart.invertThumbPrefValue('ShowSmallThumbs');mlalevic.JumpStart.checkThumbNumber();" />
-            <menuseparator />
-            <menuitem label="&menu.moreOptions;" oncommand="mlalevic.JumpStart.onMenuItemProperties();"/>
-          </menupopup>
-        </toolbarbutton>
-      </box>
--->
+
       <vbox id="searchContainer" class="contentContainer">
         <description id="searchTitle" class="title">&search;</description>
-        <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="timed" timeout="0" class="text" oncommand="mlalevic.JumpStart.historySearch(this.value);" />
+        <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="search" timeout="0" class="text" oncommand="mlalevic.JumpStart.historySearch(this.value);" />
       </vbox>
 
       <vbox id="recentlyClosedBox" class="contentContainer">

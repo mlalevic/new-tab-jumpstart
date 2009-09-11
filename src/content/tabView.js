@@ -153,9 +153,11 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
     var drawThumbs = function(){
       var data = getData();
-      //var service = topDial.getDataService();
-      var container = document.getElementById("thumbsContainer");
-      container.setup(Config.Thumbs, function(){ services.BrowserServices.FollowedPage(this.href);});
+      var container = document.getElementById("siteTileContainer");
+
+      function handleClick(){
+        services.BrowserServices.FollowedPage(this.href);
+      }
 
       function handlePin(properties){
         properties.pinned = !properties.pinned;
@@ -175,7 +177,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         //container.refreshThumb(properties);
       }
 
-      container.draw(data, handlePin, handleRemoved);
+      container.draw(data, Config.Thumbs, handleClick, handlePin, handleRemoved);
     }
 
     var showClosed = function(){

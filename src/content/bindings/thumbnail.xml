@@ -6,104 +6,88 @@
           xmlns:xbl="http://www.mozilla.org/xbl"
           xmlns:html="http://www.w3.org/1999/xhtml">
 
-  <binding id="thumbnailContainer">
+  <binding id="siteTileContainer">
     <content>
-      <children />
+      <element>
+        <xul:grid>
+          <xul:columns />
+          <xul:rows />
+        </xul:grid>
+      </element>
     </content>
     <implementation>
-      <field name="config">null</field>
-      <field name="thumbCount">0</field>
-      <field name="thumbColumns">0</field>
-      <field name="thumbRows">0</field>
-      <field name="followedPageHandler">null</field>
-      <method name="setup">
-        <parameter name="config" />
-        <parameter name="followedPageHandler" />
-        <body>
-          <![CDATA[
-          this.config = config;
-          this.thumbCount = config.Count;
-          this.thumbColumns = config.Columns;
-          this.thumbRows = config.Lines;
-          this.followedPageHandler = followedPageHandler;
-          ]]>
-        </body>
-      </method>
       <method name="draw">
-        <parameter name="thumbData" />
+        <parameter name="data" />
+        <parameter name="config" />
+        <parameter name="onClickHandler" />
         <parameter name="pinHandler" />
         <parameter name="removeHandler" />
         <body>
           <![CDATA[
-          
-            let data = thumbData;
-            let container = this;
-      
-            let length = this.thumbCount;
+            columns = config.Columns;
+            rows = config.Lines;
 
-            if (data && data.length > 0) {
-                if (data.length < length) {
-                    length = data.length;
-                }
-            } else {
-                length = 0;
+            function translate(data) {
+              let Cc = Components.classes;
+              let Ci = Components.interfaces;
+              var uri =          Cc["@mozilla.org/network/io-service;1"]
+                                     .getService(Ci.nsIIOService)
+                                     .newURI(data.url, null, null);
+              var thumbnailUrl = Cc["@mozilla.org/browser/annotation-service;1"]
+                                     .getService(Ci.nsIAnnotationService)
+                                     .getAnnotationURI(uri, "jumpstart/thumbs").spec;
+              var faviconUrl =   Cc["@mozilla.org/browser/favicon-service;1"]
+                                     .getService(Ci.nsIFaviconService)
+                                     .getFaviconImageForPage(uri).spec;
+
+              return {
+                original : data,
+                uri : uri,
+                host : data.host,
+                url : data.url,
+                title : data.title,
+                fav : faviconUrl,
+                originalUrl : data.originalUrl,
+                thumb : thumbnailUrl,
+              }
             }
-        
-            let tmpBoxes = [];
 
-            //translate data:
-            var translate = function(thumbData){
-                var annotationService = Components.classes["@mozilla.org/browser/annotation-service;1"]
-                                  .getService(Components.interfaces.nsIAnnotationService);
-                var faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
-                               .getService(Components.interfaces.nsIFaviconService);
-
-                function makeURI(aURL, aOriginCharset, aBaseURI) {
-                 var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-                                            .getService(Components.interfaces.nsIIOService);
-                 return ioService.newURI(aURL, aOriginCharset, aBaseURI);
-                }
-
-                var uri = makeURI(thumbData.url);
-
-                var result = {
-                    original : thumbData,
-                    uri : uri,
-                    host : thumbData.host,
-                    url : thumbData.url,
-                    title : thumbData.title,
-                    fav : faviconService.getFaviconImageForPage(uri).spec,
-                    originalUrl : thumbData.originalUrl,
-                    thumb : annotationService.getAnnotationURI(uri, "jumpstart/thumbs").spec,
-                }
-                return result;
-            }
+            // Create columns
+            if (data.length < columns)
+              columns = data.length;
             
-            let thumbsPerRow = this.thumbColumns;
-            let columns = this.thumbColumns;
-            let rows = this.thumbRows;
-            var count = 0;
+            var columnContainer = document.getAnonymousNodes(this)[0].childNodes[0].childNodes[0];
+            for (var i = 0; i < columns; i++)
+              columnContainer.appendChild(document.createElement("column"));
 
+            // Create rows
+            var count = 0;
+            var rowContainer = document.getAnonymousNodes(this)[0].childNodes[0].childNodes[1];
             for (var i = 0; i < rows; i++) {
-              if (count == length)
+              if (count == data.length)
                 break;
 
-              var row = document.createElement("hbox");
-              row.setAttribute("class", "thumbsRow");
-              container.appendChild(row);
+              var row = document.createElement("row");
+              rowContainer.appendChild(row);
               for (var j = 0; j < columns; j++) {
-                if (count == length) {
+                if (count == data.length)
                   break;
-                }
 
-                var box = document.createElement("box");
-                box.setAttribute("class", "thumb");
-                row.appendChild(box);
-                box.draw(this.config, translate(data[count]), this.followedPageHandler);
-                box.pinHandler = pinHandler;
-                box.removeHandler = removeHandler;
-                box.index = count;
-                tmpBoxes.push(box);
+                // Create tile container (drag-drop receiver)
+                var cell = document.createElement("box");
+                cell.setAttribute("class", "tileCell");
+                cell.index = count;
+                row.appendChild(cell);
+
+                // Create tile
+                var tile = document.createElement("vbox");
+                tile.setAttribute("class", "thumb");
+                cell.appendChild(tile);
+                tile.draw(config, translate(data[count]), onClickHandler);
+                tile.pinHandler = pinHandler;
+                tile.removeHandler = removeHandler;
+                tile.index = count;
+
                 count++;
               }
             }
@@ -114,7 +98,7 @@
     </implementation>
   </binding>
 
-  <binding id="siteThumbnail">
+  <binding id="siteTile">
     <content>
       <xul:vbox class="thumb">
         <xul:hbox class="head">
