@@ -122,6 +122,10 @@ let AnnoService = {
 let historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
                                   .getService(Components.interfaces.nsINavHistoryService);
 let BookmarksService = {
+    LATEST : 12,
+    RECENTLY_VISITED : 4,
+    FREQUENT : 8,
+    BY_TAG : 7,
     service : historyService,
     getBookmarks : function(placesUri){
         var queriesRef = {};
@@ -147,8 +151,66 @@ let BookmarksService = {
         bookmarks.containerOpen = false;
         return result;
     },
-    getLatestBookmarks : function(count){
-        var query = "place:folder=BOOKMARKS_MENU&folder=UNFILED_BOOKMARKS&folder=TOOLBAR&queryType=1&sort=12&excludeItemIfParentHasAnnotation=livemark%2FfeedURI&maxResults=" + count +"&excludeQueries=1";
+    getBookmarksByParams : function(sort, limit, term, type){
+        var query = "place:folder=BOOKMARKS_MENU&folder=UNFILED_BOOKMARKS&folder=TOOLBAR&queryType=1&excludeItemIfParentHasAnnotation=livemark%2FfeedURI&excludeQueries=1";
+        if(sort){
+            query = query + "&sort=" + sort;
+        }
+
+        if(limit){
+            query = query + "&maxResults=" + limit;
+        }
+
+        if(type){
+            query = query + "&type=" + type;
+        }
+
+        if(term){
+            query = query + "&terms=" + term;
+        }
+
         return this.getBookmarks(query);
+    },
+    getLatestBookmarks : function(count){
+        //var query = "place:folder=BOOKMARKS_MENU&folder=UNFILED_BOOKMARKS&folder=TOOLBAR&queryType=1&sort=12&excludeItemIfParentHasAnnotation=livemark%2FfeedURI&maxResults=" + count +"&excludeQueries=1";
+        //return this.getBookmarks(query);
+        return this.getBookmarksByParams(this.LATEST, count);
+    },
+    getRecentlyVisitedBookmarks : function(count){
+        return this.getBookmarksByParams(this.RECENTLY_VISITED, count);
+    },
+    getFrequentBookmarks : function(count){
+        return this.getBookmarksByParams(this.FREQUENT, count);
+    },
+    getLatestByTag : function(count, tag){
+        //var query = "place:folder=BOOKMARKS_MENU&folder=UNFILED_BOOKMARKS&folder=TOOLBAR&queryType=1&sort=12&excludeItemIfParentHasAnnotation=livemark%2FfeedURI&maxResults=" + count +"&excludeQueries=1&type=7&terms=" +tag;
+        //return this.getBookmarks(query);
+        return this.getBookmarksByParams(this.LATEST, count, tag, this.BY_TAG);
+    },
+    getRecentlyVisitedByTag : function(count, tag){
+        return this.getBookmarksByParams(this.RECENTLY_VISITED, count, tag, this.BY_TAG);
+    },
+    getFrequentBookmarksByTag : function(count, tag){
+        return this.getBookmarksByParams(this.FREQUENT, count, tag, this.BY_TAG);
+    },
+    getTags : function(){
+        var query = "place:folder=TAGS&queryType=1&sort=1";
+
+        var queriesRef = {};
+        var queryCountRef = {};
+        var optionsRef = {};
+        this.service.queryStringToQueries(query, queriesRef, queryCountRef, optionsRef);
+        // now use queriesRef.value, optionsRef.value
+        var bookmarks = this.service.executeQueries(queriesRef.value, queryCountRef.value, optionsRef.value);
+        bookmarks = bookmarks.root;
+        var result = [];
+
+        bookmarks.containerOpen = true;
+        for (var i = 0; i < bookmarks.childCount; i ++) {
+            var node = bookmarks.getChild(i);
+            result.push(node.title);
+        }
+        bookmarks.containerOpen = false;
+        return result;
     }
 }

@@ -219,10 +219,39 @@ var SnapshotComponent = {
         }
     }
 
+
+ var SnapshotComponent_fennec = {
+        start: function() {
+            /*gBrowser.addProgressListener(
+                SnapshotComponentListener,
+                Components.interfaces.nsIWebProgress.NOTIFY_STATE_WINDOW
+            );*/
+        },
+        stop: function() {
+            //gBrowser.removeProgressListener(SnapshotComponentListener);
+        }
+    }
+
 /**************************  New tab loader  ******************************/
     var newTabLoader = {
         start : function(){
             var container = gBrowser.tabContainer;
+            if(Config.HookUpNewTab){
+                container.addEventListener("TabOpen", utils.Binder.bind(this, this.tabAdded), false);
+            }
+        },
+
+        tabAdded: function(event) {
+            if (event.target.linkedBrowser.userTypedValue === null) {
+                event.target.linkedBrowser.loadURI(tabViewUrl);
+            }
+        }
+    }
+
+    var newTabLoader_fennec = {
+        start : function(){
+            var container = document.getElementById("tabs");
+
             if(Config.HookUpNewTab){
                 container.addEventListener("TabOpen", utils.Binder.bind(this, this.tabAdded), false);
             }
@@ -271,7 +300,6 @@ var SnapshotComponent = {
 
       // populate data
       this.closedTabsData = utils.Converter.fromJSONString(ss.getClosedTabData(window));
-          //eval("(" + ss.getClosedTabData(window) + ")");
     }
   }
 
@@ -498,13 +526,16 @@ var startAll = function(){
 
         if(typeof(gBrowser) == "undefined"){
             //ClearUrlComponent_fennec.start();
+            newTabLoader_fennec.start();
+            SnapshotComponent_fennec.start();
         }else{
             ClearUrlComponent.start();
+            newTabLoader.start();
+            SnapshotComponent.start();
+            closedTabState.start();
         }
-        SnapshotComponent.start();
-        newTabLoader.start();
+
         thumbsLoader.start();
-        closedTabState.start();
         buttonController.start();
         jumpStartService.start();
         historyComponent.start();
