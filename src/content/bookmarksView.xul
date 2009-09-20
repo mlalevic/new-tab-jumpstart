@@ -49,8 +49,8 @@ Contributor(s):
             <vbox id="frequentBookmarksItems" />
       </vbox>
   </hbox>
-  <box id="tagfooter" style="display:block;">
-    <html:h4>&tags;</html:h4>
+  <hbox id="tagfooter" style="display:block;">
+    <description>&tags;</description>
     <box hidden="true" id="tagnotice">
       <label value="&tagNotice;" />
       <html:a href="&tagsLink;">&tagsNow;</html:a>
@@ -58,5 +58,5 @@ Contributor(s):
           <html:ul style="display:block; float:left;" id="tagContainer">
             
           </html:ul>
-  </box>
+  </hbox>
 </window>

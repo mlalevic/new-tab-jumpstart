@@ -39,17 +39,13 @@ li a:visited
 .window
 {
 	background-color: #FFFFFF;
-	font-family: Cursive;
-	font-size: small;
 }
 
-h1
-{
-	padding: 10px 0px 10px 20px;
-}
 
-h4
+.title
 {
+    font-size: large;
+    font-weight: bold;
 	margin: 0px 0px 0px 20px;
 }
 
@@ -112,5 +108,6 @@ h4
 	width: inherit;
 	-moz-box-align: start;
 	-moz-box-pack: start;
-	-moz-box-flex: 0;
+	-moz-box-flex: 1;
+    padding: 20px 20px;
 }

@@ -39,6 +39,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     var bookmarksChangedEvent = "mlalevic.JumpStart.bookmarks";
     var configChanged = "mlalevic.JumpStart.configChanged";
     var tabViewUrl = 'chrome://jumpstart/content/tabView.xul';
+    var bookmarksViewUrl = 'chrome://jumpstart/content/bookmarksView.xul';
 
 
 /***************  Thumb refresh components ********************/
@@ -479,7 +480,7 @@ var bookmarkListener = {
         try{
           if(e && e.originalTarget && e.originalTarget.linkedBrowser && e.originalTarget.linkedBrowser.currentURI){
             var bro = e.originalTarget.linkedBrowser;
-            if(bro.currentURI.spec == tabViewUrl){
+            if(bro.currentURI.spec == tabViewUrl || bro.currentURI.spec == bookmarksViewUrl){
               var historyUtility = this.GetHistoryUtilityForBrowser(bro);
               //if the last opened page was tabView then depending on the configuration purge history
               //if there is only one item then purge all too
@@ -506,6 +507,39 @@ var bookmarkListener = {
       }
   }
 /************************* History Controller - End ***************************/
+
+var onInstall = {
+    start : function(){
+        var ver = -1, firstrun = true;
+
+        var extension = Application.extensions.get("jumpstart@mihailo.lalevic");
+        if(!extension){
+            return;
+        }
+
+        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                   .getService(Components.interfaces.nsIPrefService);
+        prefs = prefs.getBranch("mlalevic.jumpstart.");
+
+        try{
+            ver = prefs.getCharPref("version");
+        }catch(e){
+          //nothing
+        }
+
+        if (extension.firstRun){
+            prefs.setCharPref("version",extension.version);
+            return; //nothing for now
+        }
+
+        if (ver!=extension.version && !extension.firstRun){
+          // !firstrun ensures that this section does not get loaded if its a first run.
+          prefs.setCharPref("version",extension.version);
+          // Insert code if version is different here => upgrade
+          alert('upgraded');
+        }
+    }
+}
 
 /********** Event handlers ***********/
 mlalevic.JumpStart.onDialOpen = function(){
@@ -553,6 +587,7 @@ var startAll = function(){
 
 uiService.start();
 window.addEventListener("load", startAll, false);
+window.setTimeout(onInstall.start, 0);
 })();
 
 
