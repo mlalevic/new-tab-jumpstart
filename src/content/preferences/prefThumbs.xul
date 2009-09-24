@@ -32,14 +32,8 @@ Contributor(s):
       <preference id="thumbLines" name="mlalevic.jumpstart.thumbs.lines" type="int"/>
       <preference id="thumbCount" name="mlalevic.jumpstart.thumbs.count" type="int"/>
 
-      <preference id="containerWidth" name="mlalevic.jumpstart.thumbs.ContainerWidth" type="int"/>
-      <preference id="containerHeight" name="mlalevic.jumpstart.thumbs.ContainerHeight" type="int"/>
-
       <preference id="normalWidth" name="mlalevic.jumpstart.thumbs.NormalWidth" type="int"/>
       <preference id="normalHeight" name="mlalevic.jumpstart.thumbs.NormalHeight" type="int"/>
-
-      <!-- preference id="smallWidth" name="mlalevic.jumpstart.thumbs.SmallWidth" type="int"/ -->
-      <!-- preference id="smallHeight" name="mlalevic.jumpstart.thumbs.SmallHeight" type="int"/ -->
 
     </preferences>
     <spacer flex="1"/>

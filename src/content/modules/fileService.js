@@ -49,6 +49,10 @@ FileService.prototype = {
   SaveToFile : function(aData){
     FileIO.write(this.File, aData, '', this._Encoding);
   },
+
+  Delete : function(){
+    FileIO.unlink(this.File);
+  },
   
   AppendToFile : function(aData){
     this.CreateIfNotExists();

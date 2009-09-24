@@ -49,26 +49,6 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         return result > min?result:min;
     }
 
-    mlalevic.JumpStart.checkThumbNumber = function(){
-        var small = Config.Thumbs.ShowSmallThumbs;
-        //set normal h & w
-        Config.setThumbPref('NormalWidth', small?Config.Thumbs.DefaultSmallWidth:Config.Thumbs.DefaultWidth);
-        Config.setThumbPref('NormalHeight', small?Config.Thumbs.DefaultSmallHeight:Config.Thumbs.DefaultHeight);
-
-        var configParams = services.BrowserServices.calculateMaxThumbs();
-        var line = respectBoundaries(Config.Thumbs.MinLines, configParams.lines, Config.Thumbs.Lines);
-        var col = respectBoundaries(Config.Thumbs.MinColumns, configParams.columns, Config.Thumbs.Columns);
-
-        Config.setThumbPref('count', line*col);
-        Config.setThumbPref('lines', line);
-
-        var height = line * (Config.Thumbs.NormalHeight + 25);
-        var width = col * (Config.Thumbs.NormalWidth + 15);
-
-        Config.setThumbPref('ContainerHeight', height);
-        Config.setThumbPref('ContainerWidth', width);
-    }
-
     mlalevic.JumpStart.invertThumbPrefValue = function(aName){
       Config.setThumbPref(aName, !(Config.getThumbPref(aName)));
     }

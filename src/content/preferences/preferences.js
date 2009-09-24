@@ -63,8 +63,6 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         small : null,
         lines : null,
         count : null,
-        containerW : null,
-        containerH : null,
         normalW : null,
         normalH : null
       },
@@ -78,8 +76,6 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         this.preferences.small = $get("thumbShowSmall");
         this.preferences.lines = $get("thumbLines");
         this.preferences.count = $get("thumbCount");
-        this.preferences.containerW = $get("containerWidth");
-        this.preferences.containerH = $get("containerHeight");
         this.preferences.normalW = $get("normalWidth");
         this.preferences.normalH = $get("normalHeight");
         
@@ -92,11 +88,9 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       doHookup: function(){
         var configForCalculation = {
           ShowSmallThumbs: this.preferences.small.value,
-          DefaultSmallWidth: Config.DefaultSmallWidth,
           DefaultWidth: Config.DefaultWidth,
           DefaultSmallHeight: Config.DefaultSmallHeight,
           DefaultHeight: Config.DefaultHeight,
-          LargeHeight: Config.LargeHeight,
           NormalHeight: this.preferences.normalH.value,
           NormalWidth: this.preferences.normalW,
           MinColumns: Config.MinColumns,
@@ -154,7 +148,6 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       updateThumbCountConfig : function(){
         this.preferences.lines.value = this._currentSize().line;
         this.preferences.count.value = this._currentSize().count;
-        this._updateContainerSize();
       },
       _updateSizeConfig : function(){
         var p = this.preferences;
@@ -162,7 +155,6 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         //set normal h & w
         if(this.smallButton.checked){
           p.normalH.value = Config.DefaultSmallHeight;
-          p.normalW.value = Config.DefaultSmallWidth;
         }else{
           p.normalH.value = Config.DefaultHeight;
           p.normalW.value = Config.DefaultWidth;
@@ -171,113 +163,13 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       _currentSize : function(){
         return this.sizes[this.slider.value];
       },
-      _updateContainerSize: function(){
-        var height = this._currentSize().line * (this.preferences.normalH.value + 25);
-        var width = this._currentSize().col * (this.preferences.normalW.value + 15);
-      
-        this.preferences.containerH.value = height;
-        this.preferences.containerW.value = width;
-      },
       sizeChange: function(){
         //do calc
         this._updateSizeConfig();
         this.doHookup();
         this.updateThumbCountConfig();
       }
-    };
-    
-    Preferences.OnChange = function(){
-      //var tbLines = document.getElementById("thumbLines");
-      var tbLinesControl = document.getElementById("thumbLinesControl");
-      var tbColumns = document.getElementById("thumbColumnsControl");
-      var tbCount = document.getElementById("thumbCount");
-      var tbWidth = document.getElementById("containerWidth");
-      var tbHeight = document.getElementById("containerHeight");
-      var prefNormalWidth = document.getElementById("normalWidth");
-      var prefNormalHeight = document.getElementById("normalHeight");
-      var prefSmallWidth = document.getElementById("smallWidth");
-      var prefSmallHeight = document.getElementById("smallHeight");
-      
-      tbCount.value = tbLinesControl.value * tbColumns.value;
-      
-      var height = tbLinesControl.value * (prefNormalHeight.value + 25); //TODO: (ML) put this in browser services
-      var width = tbColumns.value * (prefNormalWidth.value + 15); //TODO: (ML) put this in browser services
-      tbHeight.value = height;
-      tbWidth.value =  width;
-      
-      //calculate small size
-      var columns = tbColumns.value;
-      var smallWidth = Math.floor((width - (Config.LargeWidth + 14))/(columns - 1)) - 14; //TODO: (ML) move to browser services
-      var smallHeight = Math.floor(smallWidth / 1.44);
-      prefSmallWidth.value = smallWidth;
-      prefSmallHeight.value = smallHeight;
-      
-    }
-    
-    Preferences.OnShowSmallChange = function(){
-
-      var tbLines = document.getElementById("thumbLines");
-      var tbLinesControl = document.getElementById("thumbLinesControl");
-      var tbColumns = document.getElementById("thumbColumnsControl");
-      var tbCount = document.getElementById("thumbCount");
-      var tbWidth = document.getElementById("containerWidth");
-      var tbHeight = document.getElementById("containerHeight");
-      var cbSmall = document.getElementById("thumbShowSmallControl");
-      
-      var prefNormalWidth = document.getElementById("normalWidth");
-      var prefNormalHeight = document.getElementById("normalHeight");
-      var prefSmallWidth = document.getElementById("smallWidth");
-      var prefSmallHeight = document.getElementById("smallHeight");
-      
-      if(cbSmall.checked){
-        prefNormalHeight.value = Config.DefaultSmallHeight;
-        prefNormalWidth.value = Config.DefaultSmallWidth;
-      }else{
-        prefNormalHeight.value = Config.DefaultHeight;
-        prefNormalWidth.value = Config.DefaultWidth;
-      }
-      
-      var configForCalculation = {
-        ShowSmallThumbs: cbSmall.checked,
-        DefaultSmallWidth: Config.DefaultSmallWidth,
-        DefaultWidth: Config.DefaultWidth,
-        DefaultSmallHeight: Config.DefaultSmallHeight,
-        DefaultHeight: Config.DefaultHeight,
-        LargeHeight: Config.LargeHeight,
-        NormalHeight: prefNormalHeight.value,
-        NormalWidth: prefNormalWidth.value,
-        MinColumns: Config.MinColumns,
-        MinLines: Config.MinLines
-      };
-      
-      var configParams = Services.BrowserServices.calculateMaxThumbs(configForCalculation);
-      
-      tbLinesControl.min = Config.MinLines;
-      tbLinesControl.max = configParams.lines;
-      tbColumns.min = Config.MinColumns;
-      tbColumns.max = configParams.columns;
-      let lines = configParams.lines < Config.Lines?configParams.lines:Config.Lines;
-      lines = lines > Config.MinLines?lines:Config.MinLines;
-      tbLines.value = lines;
-      tbLinesControl.value = lines; //seems that without this does not enable spin buttons correctly
-      let columns = configParams.columns < Config.Columns?configParams.columns:Config.Columns;
-      lines = lines > Config.MinColumns?columns:Config.MinColumns;
-      tbColumns.value = columns;
-      tbCount.value = lines * columns;
-      
-      var height = tbLines.value * (prefNormalHeight.value + 25); //TODO: (ML) put this in browser services
-      var width = tbColumns.value * (prefNormalWidth.value + 15); //TODO: (ML) put this in browser services
-      
-      tbHeight.value = height;
-      tbWidth.value = width;
-      
-      //calculate small size
-      var smallWidth = Math.floor((width - (Config.LargeWidth + 14))/(columns - 1)) - 14; //TODO: (ML) move to browser services
-      var smallHeight = Math.floor(smallWidth / 1.44);
-      prefSmallWidth.value = smallWidth;
-      prefSmallHeight.value = smallHeight;
-    }
-    
+    };    
 })();
 
 (function() {

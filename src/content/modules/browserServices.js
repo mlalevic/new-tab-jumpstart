@@ -75,6 +75,15 @@ let BrowserServices = {
       WindowFunctions.alert(ex);
     }
   },
+
+  deleteFile: function(aFileName){
+    try{
+      var fileService = new FileService(ProfileDirectory, aFileName);
+      fileService.Delete();
+    }catch(ex){
+      WindowFunctions.alert(ex);
+    }
+  },
   
   saveObjectToFile : function(aFileName, aObject){
     try{
@@ -86,7 +95,7 @@ let BrowserServices = {
   },
   
   calculateMaxThumbs : function(thumbsConfig){
-    if(!thumbsConfig){
+    /*if(!thumbsConfig){
       thumbsConfig = JumpstartConfiguration.Thumbs;
     }
 
@@ -96,11 +105,9 @@ let BrowserServices = {
     width -= sidebarWidth;
     height -= 150; //for this calculation lets assume this is toolbar and menu size we can add proper calculations later
     
-    let thumbWidth = (thumbsConfig.ShowSmallThumbs?thumbsConfig.DefaultSmallWidth:thumbsConfig.DefaultWidth) + 15; //TODO: (ML) put the margines into config
-    let thumbHeight = (thumbsConfig.ShowSmallThumbs?thumbsConfig.DefaultSmallHeight:thumbsConfig.DefaultHeight) + 25; //TODO: (ML) put the height of the header into config
-    let zoomedHeightDifference = thumbsConfig.LargeHeight - thumbsConfig.NormalHeight;
-    
-    height -= zoomedHeightDifference;
+    let thumbWidth = (thumbsConfig.ShowSmallThumbs?thumbsConfig.DefaultSmall%Width:thumbsConfig.DefaultWidth) + 15; //TODO: (ML) put the margines into config
+    let thumbHeight = (thumbsConfig.ShowSmallThumbs?thumbsConfig.DefaultSmall%Height:thumbsConfig.DefaultHeight) + 25; //TODO: (ML) put the height of the header into config
+
     
     let columnsCount = Math.floor(width / thumbWidth);
     let linesCount = Math.floor(height / thumbHeight);
@@ -109,7 +116,7 @@ let BrowserServices = {
     linesCount = linesCount < thumbsConfig.MinLines?thumbsConfig.MinLines:linesCount;
     columnsCount = columnsCount < minColumnCount? minColumnCount:columnsCount;
     
-    return {columns: columnsCount, lines: linesCount};
+    return {columns: columnsCount, lines: linesCount};*/
   },
 
   setHistoryComponent : function(hComponent){
@@ -217,26 +224,11 @@ JumpstartPrefs.prototype = {
     get MinColumns(){
       return Math.floor(this.MinCount / this.MinLines);
     },
-    Count : 9,
-    Lines : 3,
-    get Columns(){
-      return Math.floor(this.Count / this.Lines);
+    get Count(){
+        return this.Lines * this.Columns;
     },
-    //Zoom : true,
-    LargeWidth : 294,
-    LargeHeight : 204,
-    NormalWidth : 196,
-    NormalHeight : 136,
-    SmallWidth : 147,
-    SmallHeight : 102,
-    DefaultWidth : 196,
-    DefaultHeight : 136,
-    DefaultSmallWidth : 147,
-    DefaultSmallHeight : 102,
-    ContainerWidth: 630,
-    ContainerHeight: 498,
-    DefaultContainerWidth: 630,
-    DefaultContainerHeight: 498
+    Lines : 3,
+    Columns : 3
   },
   
   Refresh : function(){
@@ -253,25 +245,8 @@ JumpstartPrefs.prototype = {
     this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
     this.ShowToolbarButton = this.prefBranch.get("show_toolbar_button", this.ShowToolbarButton);
     
-    this.Thumbs.Count = this.prefThumbBranch.get("count", this.Thumbs.Count);
+    this.Thumbs.Columns = this.prefThumbBranch.get("columns", this.Thumbs.Columns);
     this.Thumbs.Lines = this.prefThumbBranch.get("lines", this.Thumbs.Lines);
-    //this.Thumbs.Zoom = this.prefThumbBranch.get("zoom", this.Thumbs.Zoom);
-    
-    this.Thumbs.LargeWidth = this.prefThumbBranch.get("LargeWidth", this.Thumbs.LargeWidth);
-    this.Thumbs.LargeHeight = this.prefThumbBranch.get("LargeHeight", this.Thumbs.LargeHeight);
-    this.Thumbs.NormalWidth = this.prefThumbBranch.get("NormalWidth", this.Thumbs.NormalWidth);
-    this.Thumbs.NormalHeight = this.prefThumbBranch.get("NormalHeight", this.Thumbs.NormalHeight);
-    this.Thumbs.SmallWidth = this.prefThumbBranch.get("SmallWidth", this.Thumbs.SmallWidth);
-    this.Thumbs.SmallHeight = this.prefThumbBranch.get("SmallHeight", this.Thumbs.SmallHeight);
-    this.Thumbs.DefaultWidth = this.prefThumbBranch.get("DefaultWidth", this.Thumbs.DefaultWidth);
-    this.Thumbs.DefaultHeight = this.prefThumbBranch.get("DefaultHeight", this.Thumbs.DefaultHeight);
-    this.Thumbs.DefaultSmallWidth = this.prefThumbBranch.get("DefaultSmallWidth", this.Thumbs.DefaultSmallWidth);
-    this.Thumbs.DefaultSmallHeight = this.prefThumbBranch.get("DefaultSmallHeight", this.Thumbs.DefaultSmallHeight);
-    
-    this.Thumbs.ContainerWidth = this.prefThumbBranch.get("ContainerWidth", this.Thumbs.ContainerWidth);
-    this.Thumbs.ContainerHeight = this.prefThumbBranch.get("ContainerHeight", this.Thumbs.ContainerHeight);
-    this.Thumbs.DefaultContainerWidth = this.prefThumbBranch.get("DefaultContainerWidth", this.Thumbs.DefaultContainerWidth);
-    this.Thumbs.DefaultContainerHeight = this.prefThumbBranch.get("DefaultContainerHeight", this.Thumbs.DefaultContainerHeight);
     
     this.Thumbs.ShowSmallThumbs = this.prefThumbBranch.get("ShowSmallThumbs", this.Thumbs.ShowSmallThumbs);
   },

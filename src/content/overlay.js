@@ -22,6 +22,7 @@ if(!mlalevic){mlalevic = {};}
 if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
 (function(){
+    var fennec = typeof(gBrowser) == "undefined";
     var utils = {};
     var services = {}
     Components.utils.import("resource://modules/utils.js", utils);
@@ -139,17 +140,27 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         }
     }
 
-    var ClearUrlComponent_fennec = {
+    //no need to use this
+    /*var ClearUrlComponent_fennec = {
         start: function() {
-            document.getElementById("browsers").addProgressListener(
-                ClearUrlComponentListener,
-                Components.interfaces.nsIWebProgress.NOTIFY_STATE_DOCUMENT
-            );
+            var tabs = document.getElementById("tabs");
+            tabs.addEventListener("TabOpen", function(event){
+                let tab = Browser.getTabFromContent(event.originalTarget);
+                if(!tab){return;}
+                
+                let browser = tab.browser;
+                if(!browser){return;}
+
+                browser.addProgressListener(
+                    ClearUrlComponentListener,
+                    Components.interfaces.nsIWebProgress.NOTIFY_STATE_DOCUMENT
+                );
+            }, false);
         },
         stop: function() {
-            document.getElementById("browsers").removeProgressListener(ClearUrlComponentListener);
+            //still have to figure out how to fix this
         }
-    }
+    }*/
 /***************  clear url components - End ********************/
 
 /*************** Snapshot component - refreshes thumb on visit  ***********************/
@@ -178,6 +189,7 @@ var SnapshotComponentListener = {
                   return 0;
               }
               var uri = null;
+
               if(aRequest.originalURI){
                 if(services.AnnoService.hasDetails(aRequest.originalURI)){
                     uri = aRequest.originalURI;
@@ -227,6 +239,20 @@ var SnapshotComponent = {
                 SnapshotComponentListener,
                 Components.interfaces.nsIWebProgress.NOTIFY_STATE_WINDOW
             );*/
+
+            var tabs = document.getElementById("tabs");
+            tabs.addEventListener("TabOpen", function(event){
+                let tab = Browser.getTabFromContent(event.originalTarget);
+                if(!tab){return;}
+
+                let browser = tab.browser;
+                if(!browser){return;}
+
+                browser.addProgressListener(
+                    SnapshotComponentListener,
+                    Components.interfaces.nsIWebProgress.NOTIFY_STATE_WINDOW
+                );
+            }, false);
         },
         stop: function() {
             //gBrowser.removeProgressListener(SnapshotComponentListener);
@@ -259,8 +285,14 @@ var SnapshotComponent = {
         },
 
         tabAdded: function(event) {
-            if (event.target.linkedBrowser.userTypedValue === null) {
-                event.target.linkedBrowser.loadURI(tabViewUrl);
+            let tab = Browser.getTabFromContent(event.originalTarget);
+            if(!tab){return;}
+
+            let browser = tab.browser;
+            if(!browser){return;}
+
+            if (browser.userTypedValue === null) {
+                browser.loadURI(tabViewUrl);
             }
         }
     }
@@ -517,9 +549,10 @@ var onInstall = {
             return;
         }
 
-        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+        var svc = Components.classes["@mozilla.org/preferences-service;1"]
                    .getService(Components.interfaces.nsIPrefService);
-        prefs = prefs.getBranch("mlalevic.jumpstart.");
+        var prefs = svc.getBranch("mlalevic.jumpstart.");
+        var thumb = svc.getBranch("mlalevic.jumpstart.thumbs.");
 
         try{
             ver = prefs.getCharPref("version");
@@ -532,11 +565,35 @@ var onInstall = {
             return; //nothing for now
         }
 
-        if (ver!=extension.version && !extension.firstRun){
-          // !firstrun ensures that this section does not get loaded if its a first run.
+        if (ver!=extension.version){
           prefs.setCharPref("version",extension.version);
           // Insert code if version is different here => upgrade
           alert('upgraded');
+
+          //clear prefs///////////////////////////////
+          this.clear(prefs, ['onstart_refresh', 'LogLevel']);
+          this.clear(thumb, [
+              'ContainerWidth', 'ContainerHeight',
+              'DefaultContainerWidth', 'DefaultContainerHeight',
+              'LargeWidth', 'LargeHeight', 'SmallWidth', 'DefaultSmallWidth',
+              'SmallHeight', 'DefaultSmallHeight', 'NormalWidth', 'NormalHeight',
+              'DefaultWidth', 'DefaultHeight', 'count'
+          ]);
+          //update prefs - this should probably be the same as clear prefs//////////////////////////////
+
+          //remove files//////////////////////////////
+          this.removeFiles(['jumpstart.cache', 'jumpstart.pinned', 'jumpstart.removed', 'jumpstart.alter']);
+        }
+    },
+
+    clear : function(branch, values){
+        for(var i = 0; i < values.length; i++){
+            branch.clearUserPref(values[i]);
+        }
+    },
+    removeFiles : function(files){
+        for(var i = 0; i < files.length; i++){
+            services.BrowserServices.deleteFile(files[i]);
         }
     }
 }
@@ -558,15 +615,23 @@ var UndoClosed = function(aValue) {
 var startAll = function(){
         window.removeEventListener("load", startAll, false);
 
-        if(typeof(gBrowser) == "undefined"){
-            //ClearUrlComponent_fennec.start();
+        if(fennec){
             newTabLoader_fennec.start();
             SnapshotComponent_fennec.start();
+            services.BrowserServices.setGetClosedDataFunction(function(){
+                return [];
+            });
         }else{
             ClearUrlComponent.start();
             newTabLoader.start();
             SnapshotComponent.start();
             closedTabState.start();
+            services.BrowserServices.setGetClosedDataFunction(function(){
+                if(!closedTabState.initialized){
+                    closedTabState.loadClosedData()
+                }
+                return closedTabState.closedTabsData;
+            });
         }
 
         thumbsLoader.start();
@@ -576,18 +641,14 @@ var startAll = function(){
         bookmarkListener.start();
 
         services.BrowserServices.setFollowedPage(function(url){PlacesUIUtils.markPageAsTyped(url);});
-        services.BrowserServices.setGetClosedDataFunction(function(){
-            if(!closedTabState.initialized){
-                closedTabState.loadClosedData()
-            }
-            return closedTabState.closedTabsData;
-        });
         services.BrowserServices.setUndoClosedFunction(UndoClosed);
 }
 
 uiService.start();
 window.addEventListener("load", startAll, false);
-window.setTimeout(onInstall.start, 0);
+if(!fennec){
+    window.setTimeout(onInstall.start, 0);
+}
 })();
 
 

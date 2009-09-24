@@ -122,12 +122,6 @@
       <field name="dispatchToggleNormal">null</field>
       <field name="dispatchToggleSmall">null</field>
       <field name="handleMouse">false</field>
-      <field name="largeWidth">0</field>
-      <field name="largeHeight">0</field>
-      <field name="smallWidth">0</field>
-      <field name="smallHeight">0</field>
-      <field name="normalWidth">0</field>
-      <field name="normalHeight">0</field>
       <field name="host"></field>
       <field name="url"></field>
       <field name="title"></field>
@@ -147,13 +141,6 @@
         <parameter name="config" />
         <body>
           <![CDATA[
-          //this.handleMouse = config.Zoom;
-          this.largeWidth = config.LargeWidth;
-          this.largeHeight = config.LargeHeight;
-          this.smallWidth = config.SmallWidth;
-          this.smallHeight = config.SmallHeight;
-          this.normalWidth = config.NormalWidth;
-          this.normalHeight = config.NormalHeight;  
           ]]>
         </body>
       </method>
@@ -296,7 +283,6 @@
           <![CDATA[
             //if(!this.handleMouse)
             //  return;
-            //this.makeLarger();
             var overlay = document.getAnonymousElementByAttribute(this, 'anonid', 'thumbOverlay');
             if(overlay)overlay.style.display = '';
             if(this.dispatchToggleSmall){
@@ -310,33 +296,11 @@
         <![CDATA[
           //if(!this.handleMouse)
           //    return;
-          //this.makeNormal();
           var overlay = document.getAnonymousElementByAttribute(this, 'anonid', 'thumbOverlay');
           if(overlay)overlay.style.display = 'none';
           if(this.dispatchToggleNormal){
             this.dispatchToggleNormal(this.index);
           }
-        ]]>
-        </body>
-      </method>
-      <method name="makeSmaller">
-        <body>
-        <![CDATA[
-          this.setSize(this.smallWidth, this.smallHeight);
-        ]]>
-        </body>
-      </method>
-      <method name="makeLarger">
-        <body>
-        <![CDATA[
-          this.setSize(this.largeWidth, this.largeHeight);
-        ]]>
-        </body>
-      </method>
-      <method name="makeNormal">
-        <body>
-          <![CDATA[
-          this.setSize(this.normalWidth, this.normalHeight);
         ]]>
         </body>
       </method>

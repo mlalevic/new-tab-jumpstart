@@ -24,7 +24,6 @@ Contributor(s):
 <?xml-stylesheet href="chrome://jumpstart/skin/overlay.css"?>
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <window id="main-window">
-    <!--script type="application/x-javascript" src="data.js" /-->
     <script type="application/x-javascript" src="dataService.js" />
     <script type="application/x-javascript" src="thumbData.js" />
     <script type="application/x-javascript" src="remoteCanvas.js" />
