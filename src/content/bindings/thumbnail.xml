@@ -193,7 +193,6 @@
             this.hookUpButtons();
             this.refreshButtonStatus();
             
-            this.makeNormal();
           ]]>
         </body>
       </method>
