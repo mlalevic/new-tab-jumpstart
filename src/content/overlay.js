@@ -89,12 +89,19 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         start : function(){
             if(Config.RefreshOnStartup){
                 window.setTimeout(utils.Binder.bind(this, this.loadThumbnails), Config.LoadDelay);
+            }else{
+                this.refreshLatest();
             }
         },
 
+        refreshLatest : function(){
+            var service = new mlalevic.JumpStart.Model.Service(services.BrowserServices, services.AnnoService, Config.Thumbs.Count);
+            var model = service.processModel();
+            return model;
+        },
+
         loadThumbnails: function() {
-          var service = new mlalevic.JumpStart.Model.Service(services.BrowserServices, services.AnnoService, Config.Thumbs.Count);
-          var model = service.processModel();
+          var model = this.refreshLatest();
           var refreshComponent = RefreshComponentFactory(model.getLatest());
           refreshComponent.Start();
         }
@@ -568,7 +575,6 @@ var onInstall = {
         if (ver!=extension.version){
           prefs.setCharPref("version",extension.version);
           // Insert code if version is different here => upgrade
-          alert('upgraded');
 
           //clear prefs///////////////////////////////
           this.clear(prefs, ['onstart_refresh', 'LogLevel']);

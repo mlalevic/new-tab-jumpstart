@@ -18,22 +18,10 @@ Contributor(s):
 **** END LICENSE BLOCK **** */
 
 var mlalevic;
-if (!mlalevic) {
-    mlalevic = {};
-}
-
-  
-if (!mlalevic.JumpStart) {
-  mlalevic.JumpStart = {};
-}
-
-if (!mlalevic.JumpStart.Preferences) {
-    mlalevic.JumpStart.Preferences = {};
-}
-
-if (!mlalevic.JumpStart.Services) {
-    mlalevic.JumpStart.Services = {};
-}
+if (!mlalevic) { mlalevic = {}; }
+if (!mlalevic.JumpStart) { mlalevic.JumpStart = {}; }
+if (!mlalevic.JumpStart.Preferences) { mlalevic.JumpStart.Preferences = {}; }
+if (!mlalevic.JumpStart.Services) { mlalevic.JumpStart.Services = {}; }
 
 
 Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
@@ -62,9 +50,7 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       preferences : {
         small : null,
         lines : null,
-        count : null,
-        normalW : null,
-        normalH : null
+        count : null
       },
       sizes : [],
       OnLoad : function(){
@@ -75,9 +61,7 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         
         this.preferences.small = $get("thumbShowSmall");
         this.preferences.lines = $get("thumbLines");
-        this.preferences.count = $get("thumbCount");
-        this.preferences.normalW = $get("normalWidth");
-        this.preferences.normalH = $get("normalHeight");
+        this.preferences.columns = $get("thumbColumns");
         
         this.doHookup();
         
@@ -88,22 +72,17 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       doHookup: function(){
         var configForCalculation = {
           ShowSmallThumbs: this.preferences.small.value,
-          DefaultWidth: Config.DefaultWidth,
-          DefaultSmallHeight: Config.DefaultSmallHeight,
-          DefaultHeight: Config.DefaultHeight,
-          NormalHeight: this.preferences.normalH.value,
-          NormalWidth: this.preferences.normalW,
-          MinColumns: Config.MinColumns,
-          MinLines: Config.MinLines
+          MinColumns: 3,
+          MinLines: 3
         };
         
         var configParams = Services.BrowserServices.calculateMaxThumbs(configForCalculation);
-        //var configParams = Services.BrowserServices.calculateMaxThumbs();
-        this._hookup(Config.MinLines, configParams.lines, Config.MinColumns, configParams.columns);
+
+        this._hookup(3, configParams.lines, 3, configParams.columns);
         
-        var line = respectBoundaries(Config.MinLines, configParams.lines, Config.Lines);
-        var col = respectBoundaries(Config.MinColumns, configParams.columns, Config.Columns);
-        //this.refreshText({line: line, col: col, count: line * col });
+        var line = respectBoundaries(3, configParams.lines, Config.Lines);
+        var col = respectBoundaries(3, configParams.columns, Config.Columns);
+
         //find correct index and apply it to slider
         for(var i = 0; i < this.sizes.length; i++){
           if(this.sizes[i].line == line && this.sizes[i].col == col){
@@ -147,18 +126,11 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       },
       updateThumbCountConfig : function(){
         this.preferences.lines.value = this._currentSize().line;
-        this.preferences.count.value = this._currentSize().count;
+        this.preferences.columns.value = this._currentSize().col;
       },
       _updateSizeConfig : function(){
         var p = this.preferences;
         p.small.value = this.smallButton.checked;
-        //set normal h & w
-        if(this.smallButton.checked){
-          p.normalH.value = Config.DefaultSmallHeight;
-        }else{
-          p.normalH.value = Config.DefaultHeight;
-          p.normalW.value = Config.DefaultWidth;
-        }
       },
       _currentSize : function(){
         return this.sizes[this.slider.value];

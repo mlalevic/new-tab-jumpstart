@@ -30,6 +30,7 @@ Components.utils.import("resource://modules/Observers.js");
 let ProfileDirectory = 'ProfD';
 let configChanged = "mlalevic.JumpStart.configChanged";
 
+
 let BrowserServices = {
   
   getMostVisitedData : function(toGet, toSkip){
@@ -95,7 +96,7 @@ let BrowserServices = {
   },
   
   calculateMaxThumbs : function(thumbsConfig){
-    /*if(!thumbsConfig){
+    if(!thumbsConfig){
       thumbsConfig = JumpstartConfiguration.Thumbs;
     }
 
@@ -105,8 +106,8 @@ let BrowserServices = {
     width -= sidebarWidth;
     height -= 150; //for this calculation lets assume this is toolbar and menu size we can add proper calculations later
     
-    let thumbWidth = (thumbsConfig.ShowSmallThumbs?thumbsConfig.DefaultSmall%Width:thumbsConfig.DefaultWidth) + 15; //TODO: (ML) put the margines into config
-    let thumbHeight = (thumbsConfig.ShowSmallThumbs?thumbsConfig.DefaultSmall%Height:thumbsConfig.DefaultHeight) + 25; //TODO: (ML) put the height of the header into config
+    let thumbWidth = (thumbsConfig.ShowSmallThumbs?100:200) + 15;
+    let thumbHeight = (thumbsConfig.ShowSmallThumbs?100:200) + 25;
 
     
     let columnsCount = Math.floor(width / thumbWidth);
@@ -116,7 +117,7 @@ let BrowserServices = {
     linesCount = linesCount < thumbsConfig.MinLines?thumbsConfig.MinLines:linesCount;
     columnsCount = columnsCount < minColumnCount? minColumnCount:columnsCount;
     
-    return {columns: columnsCount, lines: linesCount};*/
+    return {columns: columnsCount, lines: linesCount};
   },
 
   setHistoryComponent : function(hComponent){

@@ -33,12 +33,19 @@
               var uri =          Cc["@mozilla.org/network/io-service;1"]
                                      .getService(Ci.nsIIOService)
                                      .newURI(data.url, null, null);
-              var thumbnailUrl = Cc["@mozilla.org/browser/annotation-service;1"]
-                                     .getService(Ci.nsIAnnotationService)
-                                     .getAnnotationURI(uri, "jumpstart/thumbs").spec;
+              var annoSvc = Cc["@mozilla.org/browser/annotation-service;1"]
+                                     .getService(Ci.nsIAnnotationService);
+
               var faviconUrl =   Cc["@mozilla.org/browser/favicon-service;1"]
                                      .getService(Ci.nsIFaviconService)
                                      .getFaviconImageForPage(uri).spec;
+              var thumbnailUrl;
+
+              if(annoSvc.pageHasAnnotation(uri, "jumpstart/thumbs")){
+                thumbnailUrl = annoSvc.getAnnotationURI(uri, "jumpstart/thumbs").spec;
+              }else{
+                thumbnailUrl = faviconUrl;
+              }
 
               return {
                 original : data,
@@ -81,7 +88,7 @@
 
                 // Create tile
                 var tile = document.createElement("vbox");
-                tile.setAttribute("class", "thumb");
+                tile.setAttribute("class", config.ShowSmallThumbs?"smallthumb":"thumb");
                 cell.appendChild(tile);
                 tile.draw(config, translate(data[count]), onClickHandler);
                 tile.pinHandler = pinHandler;
@@ -184,7 +191,8 @@
             header.setAttribute("tooltiptext", (thumbData.title != '' ? thumbData.title : url));
             
             a.addEventListener("click", followedPageHandler, true);
-            
+
+
             image.src = thumbData.thumb;
             imageAnchor.href = url;
 

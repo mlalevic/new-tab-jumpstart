@@ -27,13 +27,9 @@ Contributor(s):
          >
   <prefpane id="paneThumbs" label="&title;" image="chrome://jumpstart/skin/img/ThumbsConfig.png">
     <preferences>
-      <!--<preference id="thumbZoom" name="mlalevic.jumpstart.thumbs.zoom" type="bool"/>-->
       <preference id="thumbShowSmall" name="mlalevic.jumpstart.thumbs.ShowSmallThumbs" type="bool"/>
       <preference id="thumbLines" name="mlalevic.jumpstart.thumbs.lines" type="int"/>
-      <preference id="thumbCount" name="mlalevic.jumpstart.thumbs.count" type="int"/>
-
-      <preference id="normalWidth" name="mlalevic.jumpstart.thumbs.NormalWidth" type="int"/>
-      <preference id="normalHeight" name="mlalevic.jumpstart.thumbs.NormalHeight" type="int"/>
+      <preference id="thumbColumns" name="mlalevic.jumpstart.thumbs.columns" type="int"/>
 
     </preferences>
     <spacer flex="1"/>

@@ -46,11 +46,11 @@
     width: 196px;
 }
 
-.thumbImageUrl {
+.thumb .thumbImageUrl {
 	border: none;
 }
 
-.thumbImage {
+.thumb .thumbImage {
 	border:none;
 	width : 196px;
     height: 136px;
@@ -78,6 +78,52 @@
 {
 	width:inherit;
 	height:136px;
+	border: solid 1px #6B90DA;
+	position:relative;
+}
+
+/* classes for small thumbs */
+.smallthumb {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#siteTile");
+	width: inherit;
+	margin-right: 14px;
+	margin-bottom: 10px;
+	height: 122px;
+    width: 147px;
+}
+
+.smallthumb .thumbImageUrl {
+	border: none;
+}
+
+.smallthumb .thumbImage {
+	border:none;
+	width : 147px;
+    height: 102px;
+}
+
+.smallthumb .head
+{
+	width:inherit;
+	height:20px;
+	overflow: hidden;
+	white-space:nowrap;
+}
+
+.smallthumb .head .thumblink
+{
+	/*width:inherit;
+	white-space:nowrap;
+	overflow: hidden;
+	height:inherit;
+	display:inline;*/
+	margin: 0px 0px 0px 5px;
+}
+
+.smallthumb .image
+{
+	width:inherit;
+	height:104px;
 	border: solid 1px #6B90DA;
 	position:relative;
 }
