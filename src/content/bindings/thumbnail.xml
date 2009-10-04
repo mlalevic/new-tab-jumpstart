@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 
+<!DOCTYPE window SYSTEM "chrome://jumpstart/locale/thumbnails.dtd">
+
 <bindings id="thumbnail"
           xmlns="http://www.mozilla.org/xbl"
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
@@ -12,6 +14,7 @@
         <xul:grid>
           <xul:columns />
           <xul:rows />
+          <xul:label value="&nothingInHistory;" hidden="true" />
         </xul:grid>
       </element>
     </content>
@@ -59,6 +62,11 @@
               }
             }
 
+            if(data.length == 0){
+                this.drawEmpty(config);
+                return;
+            }
+
             // Create columns
             if (data.length < columns)
               columns = data.length;
@@ -102,6 +110,45 @@
           ]]>
         </body>
       </method>
+      <method name="drawEmpty">
+          <parameter name="config" />
+          <body><![CDATA[
+            columns = config.Columns;
+            rows = config.Lines;
+
+            document.getAnonymousNodes(this)[0].childNodes[0].childNodes[2].hidden = false; //show label
+            var columnContainer = document.getAnonymousNodes(this)[0].childNodes[0].childNodes[0];
+            for (var i = 0; i < columns; i++)
+              columnContainer.appendChild(document.createElement("column"));
+
+            // Create rows
+            var count = 0;
+            var rowContainer = document.getAnonymousNodes(this)[0].childNodes[0].childNodes[1];
+            for (var i = 0; i < rows; i++) {
+              var row = document.createElement("row");
+              rowContainer.appendChild(row);
+              for (var j = 0; j < columns; j++) {
+
+                // Create tile container (drag-drop receiver)
+                var cell = document.createElement("box");
+                cell.setAttribute("class", "tileCell");
+                cell.index = count;
+                row.appendChild(cell);
+
+                // Create tile
+                var tile = document.createElement("vbox");
+                tile.setAttribute("class", config.ShowSmallThumbs?"smallthumb":"thumb");
+                cell.appendChild(tile);
+                /*tile.draw(config, translate(data[count]), onClickHandler);
+                tile.pinHandler = pinHandler;
+                tile.removeHandler = removeHandler;*/
+                tile.index = count;
+
+                count++;
+              }
+            }
+          ]]></body>
+      </method>
     </implementation>
   </binding>
 
@@ -126,8 +173,6 @@
     </content>
     <implementation>
       <field name="index">-1</field>
-      <field name="dispatchToggleNormal">null</field>
-      <field name="dispatchToggleSmall">null</field>
       <field name="handleMouse">false</field>
       <field name="host"></field>
       <field name="url"></field>
@@ -141,7 +186,6 @@
       <field name="thumbData">null</field>
       <constructor>
         <![CDATA[
-          
         ]]>
       </constructor>
       <method name="setup">
@@ -162,6 +206,8 @@
                 .replace(/</g, "&lt;").replace(/>/g, "&gt;");
             }
             
+            this.handleMouse = true;
+
             this.setup(config);
             
             this.thumbData = thumbData.original;
@@ -288,26 +334,20 @@
       <method name="handleMouseOver">
         <body>
           <![CDATA[
-            //if(!this.handleMouse)
-            //  return;
+            if(!this.handleMouse)
+              return;
             var overlay = document.getAnonymousElementByAttribute(this, 'anonid', 'thumbOverlay');
             if(overlay)overlay.style.display = '';
-            if(this.dispatchToggleSmall){
-              this.dispatchToggleSmall(this.index);
-            }
           ]]>
         </body>
       </method>
       <method name="handleMouseOut">
         <body>
         <![CDATA[
-          //if(!this.handleMouse)
-          //    return;
+          if(!this.handleMouse)
+              return;
           var overlay = document.getAnonymousElementByAttribute(this, 'anonid', 'thumbOverlay');
           if(overlay)overlay.style.display = 'none';
-          if(this.dispatchToggleNormal){
-            this.dispatchToggleNormal(this.index);
-          }
         ]]>
         </body>
       </method>

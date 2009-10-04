@@ -55,7 +55,7 @@ Christopher Cook (beerfan@gmail.com)
   <hbox id="mainBox" class="layoutContainer">
     <spacer flex="1" />
 
-    <vbox id="siteTileContainer" />
+    <vbox id="siteTileContainer" class="siteTileContainer" />
 
     <vbox id="sideContainer">
 

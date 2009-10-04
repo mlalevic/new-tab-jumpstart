@@ -32,7 +32,7 @@
 /*
  * Site Thumbnails
  */
-#siteTileContainer {
+.siteTileContainer {
 	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#siteTileContainer");
 	-moz-box-pack: start;
 }
