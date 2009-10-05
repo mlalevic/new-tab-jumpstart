@@ -70,7 +70,7 @@ Christopher Cook (beerfan@gmail.com)
       </vbox>
 
       <vbox id="recentBookmarksContainer" class="contentContainer">
-        <description class="title">&recentBookmarks.recent; &recentBookmarks.linkText;</description>
+        <description class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;" >&recentBookmarks.linkText;</html:a></description>
         <vbox id="recentBookmarksItems" />
 <!-- TODO: (CC) fix up bookmarks page
         <label><html:a href="chrome://jumpstart/content/bookmarksView.xul">&recentBookmarks.tooltip;</html:a></label>
