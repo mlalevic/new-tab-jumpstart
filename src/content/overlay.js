@@ -625,15 +625,24 @@ var onInstall = {
         }
 
         if (ver!=extension.version){
+
           function clear(branch, values){
             for(var i = 0; i < values.length; i++){
-                branch.clearUserPref(values[i]);
+                try{
+                    if(branch.getPrefType(values[i])){ //not 0 - 0 means does not exit
+                      if(branch.prefHasUserValue(values[i])){ //clear only if it has user set value (otherwise throws exception)
+                              	branch.clearUserPref(values[i]);
+                      }
+                    }
+                }catch(ex){}
             }
           }
 
           function removeFiles(files){
             for(var i = 0; i < files.length; i++){
-                services.BrowserServices.deleteFile(files[i]);
+                try{
+                  services.BrowserServices.deleteFile(files[i]);
+                }catch(ex){}
             }
           }
 
