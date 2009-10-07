@@ -8,5 +8,6 @@
 <!ENTITY tagNotice "북마크 태그가 없습니다. 북마크에 태그를 붙이면 북마크를 관리하기가 쉬워집니다. 북마크에 태그를 추가해 보세요. ">
 <!ENTITY tagsLink "http://support.mozilla.com/en-US/kb/bookmark+tags">
 <!ENTITY tagsNow "지금!">
+<!ENTITY tagNoticeAfterLink "" >
 
 

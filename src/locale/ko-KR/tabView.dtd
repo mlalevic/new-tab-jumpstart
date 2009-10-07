@@ -16,6 +16,7 @@
 <!ENTITY search "검색" >
 <!ENTITY search2.emptyText "검색 기록" >
 <!ENTITY back "미리 보기로 돌아가기" >
-
+<!ENTITY controls.pinLabel "Always show this site" >
+<!ENTITY controls.removeLabel "Never show this site" >
 
 

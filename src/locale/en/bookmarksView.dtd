@@ -8,5 +8,6 @@
 <!ENTITY tagNotice "You do not have any bookmark tags. Tagging bookmarks helps you better organize your bookmarks. Start tagging your bookmarks">
 <!ENTITY tagsLink "http://support.mozilla.com/en-US/kb/bookmark+tags">
 <!ENTITY tagsNow "now!">
+<!ENTITY tagNoticeAfterLink "" >
 
 
