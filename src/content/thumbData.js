@@ -40,6 +40,12 @@ if (!mlalevic.JumpStart.Model) {
 (function(){
     var model = mlalevic.JumpStart.Model;
 
+    function makeURI(aURL, aOriginCharset, aBaseURI) {
+             var ioService = Components.classes["@mozilla.org/network/io-service;1"]
+                                        .getService(Components.interfaces.nsIIOService);
+             return ioService.newURI(aURL, aOriginCharset, aBaseURI);
+    }
+
     model.ThumbData = function(){
 
     }
@@ -64,8 +70,16 @@ if (!mlalevic.JumpStart.Model) {
             }
             this._currentData.push(properties);
         },
+        getRemovedCount : function(){
+            if(!this._removed) {return 0;}
+            return this._removed.length;
+        },
         getLatest : function(){
             return this._currentData;
+        },
+        getLatestCount: function(){
+            if(!this._currentData){return 0;}
+            return this._currentData.length;
         },
         _mapDomain: function(domain){
             var aMapping = this._mappings[domain];
@@ -74,11 +88,6 @@ if (!mlalevic.JumpStart.Model) {
             }else{
                 return null;
             }
-        },
-        _makeURI : function (aURL, aOriginCharset, aBaseURI) {
-             var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-                                        .getService(Components.interfaces.nsIIOService);
-             return ioService.newURI(aURL, aOriginCharset, aBaseURI);
         },
         _process: function(){
             //order original
@@ -121,7 +130,7 @@ if (!mlalevic.JumpStart.Model) {
                 if(!("pinned" in this._currentData[i])){
                     //////???
                     this._currentData[i].pinned = false;
-                    this._currentData[i].uri = this._makeURI(this._currentData[i].url);
+                    this._currentData[i].uri = makeURI(this._currentData[i].url);
                 }
             }
         }
@@ -150,7 +159,7 @@ if (!mlalevic.JumpStart.Model) {
             for(var i = 0; i < properties.length; i++){
                 model._addOriginalEntry(properties[i]);
             }
-            var latest = this.dbService.getMostVisitedData(this.latestCount);
+            var latest = this.dbService.getMostVisitedData(this.latestCount + model.getRemovedCount());
             for(var i = 0; i < latest.length; i++){
                 model._addLatest(latest[i]);
             }
@@ -159,6 +168,48 @@ if (!mlalevic.JumpStart.Model) {
             this.annoService.updateProperties(model._currentData);
             this.annoService.removeProperties(model._originalData);
             return model;
+        },
+
+        updateModel : function(){ //this is updating model when all thumbs are not present
+            //use get data first to get all existing values
+            latest = this.getData();
+            if(!latest)return 0;
+
+            //then call getmostvisiteddata to retrieve one entry per host
+            current = this.dbService.getByMostVisitedHosts(1000); //we're expecting this only to be called very limited number of times
+            //sort current by access count
+            current.sort(function(a, b){return b.count - a.count;});
+            //then for the unfilled values go through all the results and add one by one not found in the get data list
+
+            result = [];
+            for(var i = 0; i < current.length; i ++){
+                if((latest.length + result.length) >= this.latestCount){
+                    break;
+                }
+
+                var toAdd = true;
+                for(var j = 0; j < latest.length; j++){
+                    //alert("Host match:" + latest[j].host + " x " + current[i].host);
+
+                    if(latest[j].host == current[i].host){
+                        toAdd = false;
+                        break;
+                    }
+                }
+                if(toAdd){
+                    result.push(current[i]);
+                }
+            }
+
+            //add to annos
+            for(var i = 0; i < result.length; i++){
+                var props = result[i];
+                props.index = latest.length -1 + i;
+                props.pinned = false;
+                this.annoService.saveProperties(makeURI(props.url), props);
+            }
+
+            return latest.length + result.length;
         }
     }
 

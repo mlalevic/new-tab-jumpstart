@@ -54,6 +54,7 @@ Contributor(s):
     <box hidden="true" id="tagnotice">
       <label value="&tagNotice;" />
       <html:a href="&tagsLink;">&tagsNow;</html:a>
+      <label value="&tagNoticeAfterLink;" />
     </box>
           <html:ul style="display:block; float:left;" id="tagContainer">
             

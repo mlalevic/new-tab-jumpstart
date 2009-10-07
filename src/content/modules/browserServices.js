@@ -217,6 +217,7 @@ JumpstartPrefs.prototype = {
   ShowToolbarButton : true,
   PersistThumbViewInHistory : false,
   PurgeHistoryOnThumbViewClose : true,
+  ListRefresh : true,
   LogLevel : 3,
   Thumbs : {
     ShowSmallThumbs: false,
@@ -239,6 +240,7 @@ JumpstartPrefs.prototype = {
     this.HookUpNewTab = this.prefBranch.get("hook_up_new_tab", this.HookUpNewTab);
     this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
     this.ShowToolbarButton = this.prefBranch.get("show_toolbar_button", this.ShowToolbarButton);
+    this.ListRefresh = this.prefBranch.get("list_refresh", this.ListRefresh);
     
     this.PersistThumbViewInHistory = this.prefBranch.get("persist_in_history", this.PersistThumbViewInHistory);
     this.PurgeHistoryOnThumbViewClose = this.prefBranch.get("on_tabview_close_purge", this.PurgeHistoryOnThumbViewClose);

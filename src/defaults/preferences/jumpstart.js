@@ -1,6 +1,7 @@
 //global prefs
 pref("mlalevic.jumpstart.onstart_load_delay", 30000); //delay of refreshing thumbs at the first startup. default: 1/2 minute
 pref("mlalevic.jumpstart.onstart_refresh", false); //refresh thumbnails on start of the browser
+pref("mlalevic.jumpstart.list_refresh", true); //refresh thumbs if list not full
 pref("mlalevic.jumpstart.hook_up_new_tab", true); //should hook up new tab
 pref("mlalevic.jumpstart.show_on_startup", true); //should show on startup if the window opens homepage or blank
 pref("mlalevic.jumpstart.show_toolbar_button", false); //show toolbar button

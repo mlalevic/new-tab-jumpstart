@@ -90,7 +90,10 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
             if(Config.RefreshOnStartup){
                 window.setTimeout(utils.Binder.bind(this, this.loadThumbnails), Config.LoadDelay);
             }else{
-                this.refreshLatest();
+                var model = this.refreshLatest();
+                if(model.getLatestCount() < Config.Thumbs.Count){
+                    realTimeThumbsUpdates.start();
+                }
             }
         },
 
@@ -104,6 +107,9 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
           var model = this.refreshLatest();
           var refreshComponent = RefreshComponentFactory(model.getLatest());
           refreshComponent.Start();
+          if(model.getLatestCount() < Config.Thumbs.Count){
+                realTimeThumbsUpdates.start();
+          }
         }
     }
 /**************************  Thumbs Loader - End  ******************************/
@@ -398,6 +404,52 @@ var bookmarkListener = {
 
   /*************************** Browser service - End ***********************************/
 
+/***************************** History observing **************************************/
+
+var historyObserver = {
+    onBeforeDeleteURI : function (){},
+    onBeginUpdateBatch : function(){},
+    onClearHistory : function(){},
+    onDeleteURI : function(){},
+    onEndUpdateBatch : function(){},
+    onPageChanged : function(){},
+    onPageExpired : function(){},
+    onTitleChanged : function(){},
+    QueryInterface: function(iid) {
+        if (iid.equals(Ci.nsINavHistoryObserver) ||
+            iid.equals(Ci.nsISupports)) {
+                return this;
+        }
+        throw Cr.NS_ERROR_NO_INTERFACE;
+    },
+    onVisit : function(){
+        var latestCount = this.refreshLatest();
+        if(latestCount >= Config.Thumbs.Count){
+            realTimeThumbsUpdates.stop();
+        }
+    },
+    refreshLatest : function(){
+            var service = new mlalevic.JumpStart.Model.Service(services.HistoryService, services.AnnoService, Config.Thumbs.Count);
+            var model = service.updateModel();
+            return model;
+    }
+}
+
+var realTimeThumbsUpdates = {
+    start : function(){
+        if(Config.ListRefresh){
+            var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
+                                   .getService(Components.interfaces.nsINavHistoryService);
+            historyService.addObserver(historyObserver, false);
+        }
+    },
+    stop : function(){
+        var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
+                               .getService(Components.interfaces.nsINavHistoryService);
+        historyService.removeObserver(historyObserver);
+    }
+}
+
 /************************* Main Controller ***************************/
   var jumpStartService = {
       start : function() {
@@ -573,12 +625,24 @@ var onInstall = {
         }
 
         if (ver!=extension.version){
+          function clear(branch, values){
+            for(var i = 0; i < values.length; i++){
+                branch.clearUserPref(values[i]);
+            }
+          }
+
+          function removeFiles(files){
+            for(var i = 0; i < files.length; i++){
+                services.BrowserServices.deleteFile(files[i]);
+            }
+          }
+
           prefs.setCharPref("version",extension.version);
           // Insert code if version is different here => upgrade
 
           //clear prefs///////////////////////////////
-          this.clear(prefs, ['onstart_refresh', 'LogLevel']);
-          this.clear(thumb, [
+          clear(prefs, ['onstart_refresh', 'LogLevel']);
+          clear(thumb, [
               'ContainerWidth', 'ContainerHeight',
               'DefaultContainerWidth', 'DefaultContainerHeight',
               'LargeWidth', 'LargeHeight', 'SmallWidth', 'DefaultSmallWidth',
@@ -588,18 +652,7 @@ var onInstall = {
           //update prefs - this should probably be the same as clear prefs//////////////////////////////
 
           //remove files//////////////////////////////
-          this.removeFiles(['jumpstart.cache', 'jumpstart.pinned', 'jumpstart.removed', 'jumpstart.alter']);
-        }
-    },
-
-    clear : function(branch, values){
-        for(var i = 0; i < values.length; i++){
-            branch.clearUserPref(values[i]);
-        }
-    },
-    removeFiles : function(files){
-        for(var i = 0; i < files.length; i++){
-            services.BrowserServices.deleteFile(files[i]);
+          removeFiles(['jumpstart.cache', 'jumpstart.pinned', 'jumpstart.removed', 'jumpstart.alter']);
         }
     }
 }

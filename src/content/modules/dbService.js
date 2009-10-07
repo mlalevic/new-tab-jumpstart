@@ -18,10 +18,24 @@ Contributor(s):
 **** END LICENSE BLOCK **** */
 
 
-let EXPORTED_SYMBOLS = ["PlacesDb", "AnnoService", "BookmarksService"];
+let EXPORTED_SYMBOLS = ["PlacesDb", "AnnoService", "BookmarksService", "HistoryService"];
 
 Components.utils.import("resource://modules/utils.js");
+Components.utils.import("resource://modules/window.js");
 
+
+let ioService = Components.classes["@mozilla.org/network/io-service;1"]
+                                .getService(Components.interfaces.nsIIOService);
+
+let makeURI = function (aURL, aOriginCharset, aBaseURI) {
+     return ioService.newURI(aURL, aOriginCharset, aBaseURI);
+}
+
+let reverseString = function(aString){
+    split = aString.split("");
+    reversed = split.reverse();
+    return reversed.join("");
+}
 
 let PlacesDb = {
   executeQuery : function(aStatement, aBinder){
@@ -212,5 +226,77 @@ let BookmarksService = {
         }
         bookmarks.containerOpen = false;
         return result;
+    }
+}
+
+let HistoryService = {
+    FREQUENT : 8,
+    service : historyService,
+    getHistory : function(placesUri, getItem){
+        var queriesRef = {};
+        var queryCountRef = {};
+        var optionsRef = {};
+        this.service.queryStringToQueries(placesUri, queriesRef, queryCountRef, optionsRef);
+        // now use queriesRef.value, optionsRef.value
+        var items = this.service.executeQueries(queriesRef.value, queryCountRef.value, optionsRef.value);
+        items = items.root;
+        var result = [];
+
+        items.containerOpen = true;
+        for (var i = 0; i < items.childCount; i ++) {
+
+            var node = items.getChild(i);
+
+            var anItem = getItem(node);
+            if(anItem){
+                result.push(anItem);
+            }
+        }
+        items.containerOpen = false;
+        return result;
+    },
+    getHistoryByParams : function(sort, limit){
+        //var query = "place:queryType=0&excludeItemIfParentHasAnnotation=livemark%2FfeedURI&excludeQueries=1&group=1"; //group by host
+        var query = "place:queryType=0&type=4";
+        if(sort){
+            query = query + "&sort=" + sort;
+        }
+
+        if(limit){
+            query = query + "&maxResults=" + limit;
+        }
+
+        var thisObject = this;
+
+        return this.getHistory(query, function(item){ return thisObject.createLatestItemByContainer(item);});
+    },
+    getByMostVisitedHosts : function(count){
+        return this.getHistoryByParams(this.FREQUENT, count);
+    },
+    createLatestItemByContainer : function(container){
+        var placesUri = container.uri;
+        placesUri = placesUri.replace("&sort=1", "&sort=8");
+        placesUri += "&maxResults=1"; //top 1
+
+        var items = this.getHistory(placesUri, this.createLatestItem);
+        if(!items || items.length == 0){
+            return null;
+        }
+
+        return items[0];
+    },
+    createLatestItem : function(node){
+        var fav = node.icon?node.icon.spec:"";
+        host = reverseString(makeURI(node.uri).host) + "."; //because hosts have . at the end in db
+        var item = {
+            title   : node.title,
+            url     : node.uri,
+            fav     : fav,
+            host    : host,
+            place_id : node.itemId,
+            thumb : '',
+            count : node.accessCount
+        };
+        return item;
     }
 }
