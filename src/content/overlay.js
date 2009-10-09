@@ -629,10 +629,10 @@ var onInstall = {
           function clear(branch, values){
             for(var i = 0; i < values.length; i++){
                 try{
-                    if(branch.getPrefType(values[i])){ //not 0 - 0 means does not exit
-                      if(branch.prefHasUserValue(values[i])){ //clear only if it has user set value (otherwise throws exception)
-                              	branch.clearUserPref(values[i]);
-                      }
+                    if(branch.getPrefType(values[i])){ //not 0 - 0 means does not exist
+                      if(branch.prefHasUserValue(values[i])){ //clear only if it has user set value (otherwise throws exception)
+                           branch.clearUserPref(values[i]);
+                      }
                     }
                 }catch(ex){}
             }
