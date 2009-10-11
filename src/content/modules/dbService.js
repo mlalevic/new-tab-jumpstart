@@ -65,6 +65,33 @@ let PlacesDb = {
   }
 };
 
+let cacheService = Components.classes["@mozilla.org/network/cache-service;1"]
+                        .getService(Components.interfaces.nsICacheService);
+
+let CacheServices = {
+  removeItem : function(url){
+    var Ci = Components.interfaces;
+    var session = cacheService.createSession("image", Ci.nsICache.STORE_ANYWHERE, false);
+    if(!session){
+        return;
+    }
+
+    var entry;
+    try{
+        entry = session.openCacheEntry(url, Ci.nsICache.ACCESS_READ, false);
+        if(!entry){
+            return;
+        }
+    }catch(ex){
+        return;
+    }
+
+    entry.doom();
+    entry.close();
+  }
+}
+
+
 let anno = Components.classes["@mozilla.org/browser/annotation-service;1"]
                                   .getService(Components.interfaces.nsIAnnotationService);
 
@@ -92,6 +119,9 @@ let AnnoService = {
         }
         var decoded = this.decode(base64Data);
         this.annoService.setPageAnnotationBinary(uri, this.thumbsAnno, decoded, decoded.length, "image/png", 0, this.annoService.EXPIRE_WITH_HISTORY);
+        
+        var url = this.annoService.getAnnotationURI(uri, this.thumbsAnno).spec;
+        CacheServices.removeItem(url);
     },
     saveProperties : function(uri, properties){
         var propertiesString = Converter.toJSONString(properties);
