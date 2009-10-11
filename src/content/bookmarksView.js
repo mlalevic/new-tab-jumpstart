@@ -26,7 +26,7 @@ if (!mlalevic.JumpStart.Bookmarks) {mlalevic.JumpStart.Bookmarks = {};}
     var services = {};
     Components.utils.import("resource://modules/dbService.js", services);
     var b = services.BookmarksService;
-    var limit = 30;
+    var limit = 20;
 
     var showBookmarks = function(containerId, itemsId, bookmarksData){
       var bookmarksContainer = document.getElementById(containerId);
@@ -63,15 +63,11 @@ if (!mlalevic.JumpStart.Bookmarks) {mlalevic.JumpStart.Bookmarks = {};}
     }
 
     var addTag = function(container, title){
-        var li = document.createElementNS("http://www.w3.org/1999/xhtml", "li");
-        var a = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
-        a.href = "#";
-        a.className = "notselected";
-        a.title = title;
-        a.addEventListener("click", function(e){TagClicked(this);}, true);
-        a.innerHTML = title;
-        li.appendChild(a);
-        container.appendChild(li);
+        var label = document.createElement("label");
+        label.className = "notselected";
+        label.setAttribute("value", title);
+        label.addEventListener("click", function(e){TagClicked(this);}, true);
+        container.appendChild(label);
     }
 
     var intersect = function(arr1, arr2, compare){
@@ -88,7 +84,7 @@ if (!mlalevic.JumpStart.Bookmarks) {mlalevic.JumpStart.Bookmarks = {};}
     }
 
     var compareBookmarks = function(item1, item2){
-        if(!item1 || !item2){
+        if(!item1 || !item2){
             return false;
         }
         
@@ -114,7 +110,7 @@ if (!mlalevic.JumpStart.Bookmarks) {mlalevic.JumpStart.Bookmarks = {};}
         var selected = tag.className;
         tag.className = selected == 'selected' ? 'notselected' : 'selected';
         var selected = document.getElementById('tagContainer').getElementsByClassName('selected');
-        var tags = Array.map(selected, function(element) { return element.innerHTML; });
+        var tags = Array.map(selected, function(element) { return element.value; });
         tagClicked(tags);
     }
 

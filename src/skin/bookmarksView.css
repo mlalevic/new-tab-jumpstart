@@ -14,28 +14,6 @@
 	width: inherit;
 }
 
-ul
-{
-	overflow: hidden;
-}
-
-li 
-{
-	list-style-type: none;
-	margin-bottom: 5px;
-	white-space:nowrap;
-}
-
-li a:hover
-{
-	background-color: #E0EBFF;
-}
-
-li a:visited
-{
-	color: rgb(0,0,238);
-}
-
 .window
 {
 	background-color: #FFFFFF;
@@ -67,39 +45,31 @@ li a:visited
 	height: 100px;
 }
 
-#tagfooter ul
+#tagContainer label
 {
-	display: inline;
+	/*display: inline-block;*/
+	/*margin-top: 10px;*/
+	padding: 5px 3px 5px 3px;
+    white-space:nowrap;
+    cursor: pointer;
 }
 
-#tagfooter li
-{
-	display: inline;
-	margin-top: 10px;
-	/*padding-left: 5px;*/
-}
-
-#tagfooter li:after
+#tagContainer label:after
 {
 	content: ", ";
 }
 
-#tagfooter a
-{
-	padding: 5px 3px 5px 3px;
-}
-
-#tagfooter a:hover
+#tagContainer label:hover
 {
 	background-color: #E0EBFF;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
 
-#tags box
+#tagContainer
 {
-	display:block;
-	float:left;
+	display:inline;
+    overflow:auto;
 	margin-top: 5px;
 	margin-bottom:5px;
 }
@@ -110,4 +80,8 @@ li a:visited
 	-moz-box-pack: start;
 	-moz-box-flex: 1;
     padding: 20px 20px;
+}
+
+#tagfooter description{
+    display: block;
 }

@@ -34,30 +34,29 @@ Contributor(s):
          >
   
   <script type="application/x-javascript" src="bookmarksView.js" />
-
-  <hbox flex="1" id="content">
-      <vbox id="latestBookmarksContainer" class="contentContainer">
-            <description class="title">&latest;</description>
-            <vbox id="latestBookmarksItems" />
+  <vbox flex="1" style="overflow:auto;">
+      <hbox flex="1" id="content">
+          <vbox id="latestBookmarksContainer" class="contentContainer">
+                <description class="title">&latest;</description>
+                <vbox id="latestBookmarksItems" />
+          </vbox>
+          <vbox id="recentlyVisitedBookmarksContainer" class="contentContainer">
+                <description class="title">&recent;</description>
+                <vbox id="recentlyVisitedBookmarksItems" />
+          </vbox>
+          <vbox id="frequentBookmarksContainer" class="contentContainer">
+                <description class="title">&frequent;</description>
+                <vbox id="frequentBookmarksItems" />
+          </vbox>
+      </hbox>
+      <vbox id="tagfooter">
+        <description class="title">&tags;</description>
+        <box hidden="true" id="tagnotice">
+          <label value="&tagNotice;" />
+          <html:a href="&tagsLink;">&tagsNow;</html:a>
+          <label value="&tagNoticeAfterLink;" />
+        </box>
+        <hbox id="tagContainer" />
       </vbox>
-      <vbox id="recentlyVisitedBookmarksContainer" class="contentContainer">
-            <description class="title">&recent;</description>
-            <vbox id="recentlyVisitedBookmarksItems" />
-      </vbox>
-      <vbox id="frequentBookmarksContainer" class="contentContainer">
-            <description class="title">&frequent;</description>
-            <vbox id="frequentBookmarksItems" />
-      </vbox>
-  </hbox>
-  <hbox id="tagfooter" style="display:block;">
-    <description>&tags;</description>
-    <box hidden="true" id="tagnotice">
-      <label value="&tagNotice;" />
-      <html:a href="&tagsLink;">&tagsNow;</html:a>
-      <label value="&tagNoticeAfterLink;" />
-    </box>
-          <html:ul style="display:block; float:left;" id="tagContainer">
-            
-          </html:ul>
-  </hbox>
+  </vbox>
 </window>
