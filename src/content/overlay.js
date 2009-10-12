@@ -195,7 +195,7 @@ var SnapshotComponentListener = {
         onLocationChange: function() {},
         onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
             // Check if page is finished loading from a network request
-            if ((aStateFlags & Ci.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
+            if ((aStateFlags & Components.interfaces.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
             {
                   //check if has anno, if it has, refresh (can be optimized later)
               if(!aRequest){
@@ -336,8 +336,8 @@ var SnapshotComponent = {
 
     loadClosedData: function() {
       this.initialized = true;
-      var ss = Cc["@mozilla.org/browser/sessionstore;1"].
-           getService(Ci.nsISessionStore);
+      var ss = Components.classes["@mozilla.org/browser/sessionstore;1"].
+           getService(Components.interfaces.nsISessionStore);
 
       if (ss.getClosedTabCount(window) == 0) {
         this.closedTabsData = [];
@@ -416,8 +416,8 @@ var historyObserver = {
     onPageExpired : function(){},
     onTitleChanged : function(){},
     QueryInterface: function(iid) {
-        if (iid.equals(Ci.nsINavHistoryObserver) ||
-            iid.equals(Ci.nsISupports)) {
+        if (iid.equals(Components.interfaces.nsINavHistoryObserver) ||
+            iid.equals(Components.interfaces.nsISupports)) {
                 return this;
         }
         throw Cr.NS_ERROR_NO_INTERFACE;
@@ -495,10 +495,10 @@ var realTimeThumbsUpdates = {
             let homepage = null;
             try{
               //load homepage from preferences
-              let prefs = Cc["@mozilla.org/preferences-service;1"]
-               .getService(Ci.nsIPrefService).getDefaultBranch(null);
+              let prefs = Components.classes["@mozilla.org/preferences-service;1"]
+               .getService(Components.interfaces.nsIPrefService).getDefaultBranch(null);
               homepage = prefs.getComplexValue("browser.startup.homepage",
-                                  Ci.nsIPrefLocalizedString).data;
+                                  Components.interfaces.nsIPrefLocalizedString).data;
             }catch(e){}
 
             if(window.arguments[0] == "about:blank" || (homepage && window.arguments[0] == homepage)){
