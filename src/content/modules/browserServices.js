@@ -52,19 +52,19 @@ let BrowserServices = {
       return PlacesDb.executeQuery(query, BrowserServices.createMostVisitedItem);
     }catch(e){
       Logger.critical(e.message);
-      throw e;
+      //throw e;
     }
   },
   
   createMostVisitedItem : function(aStatement){
-          var size = {};
-          var blob = {};
-          aStatement.getBlob(2, /*out (uint) */size, /* out (array[size]) */blob);
-          var favurl = '';
-          if (size.value > 0) {
-            favurl = Converter.toDataUrl(blob.value, aStatement.getString(3));
-          }
-          return ({ url: aStatement.getString(0), title: aStatement.getString(1), fav: favurl, host: aStatement.getString(4), place_id: aStatement.getInt64(5), thumb: '' });
+          //var size = {};
+          //var blob = {};
+          //aStatement.getBlob(2, /*out (uint) */size, /* out (array[size]) */blob);
+          //var favurl = '';
+          //if (size.value > 0) {
+          //  favurl = Converter.toDataUrl(blob.value, aStatement.getString(3));
+          //}
+          return ({ url: aStatement.getString(0), title: aStatement.getString(1), fav: '', host: aStatement.getString(4), place_id: aStatement.getInt64(5), thumb: '' });
   },
   
   readFileToJson : function(aFileName){

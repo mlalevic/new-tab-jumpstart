@@ -112,20 +112,20 @@ let AnnoService = {
         return this.annoService.pageHasAnnotation(uri, this.propertiesAnno);
     },
     saveThumb: function(uri, imageData){
-        var base64Data = imageData;
-        var headerIndex = base64Data.indexOf(this.header);
-        if(headerIndex >= 0){
-            base64Data = base64Data.substring(headerIndex + this.header.length);
-        }
-        var decoded = this.decode(base64Data);
-        this.annoService.setPageAnnotationBinary(uri, this.thumbsAnno, decoded, decoded.length, "image/png", 0, this.annoService.EXPIRE_WITH_HISTORY);
-        
-        var url = this.annoService.getAnnotationURI(uri, this.thumbsAnno).spec;
-        CacheServices.removeItem(url);
+            var base64Data = imageData;
+            var headerIndex = base64Data.indexOf(this.header);
+            if(headerIndex >= 0){
+                base64Data = base64Data.substring(headerIndex + this.header.length);
+            }
+            var decoded = this.decode(base64Data);
+            this.annoService.setPageAnnotationBinary(uri, this.thumbsAnno, decoded, decoded.length, "image/png", 0, this.annoService.EXPIRE_WITH_HISTORY);
+
+            var url = this.annoService.getAnnotationURI(uri, this.thumbsAnno).spec;
+            CacheServices.removeItem(url);
     },
     saveProperties : function(uri, properties){
-        var propertiesString = Converter.toJSONString(properties);
-        this.annoService.setPageAnnotation(uri, this.propertiesAnno, propertiesString, 0, this.annoService.EXPIRE_WITH_HISTORY);
+            var propertiesString = Converter.toJSONString(properties);
+            this.annoService.setPageAnnotation(uri, this.propertiesAnno, propertiesString, 0, this.annoService.EXPIRE_WITH_HISTORY);
     },
     getProperty : function(uri){
         var anno = this.annoService.getPageAnnotation(uri, this.propertiesAnno);

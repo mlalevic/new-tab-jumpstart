@@ -33,6 +33,9 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     //create namespaces
     //var components = utils.Namespace.create(window, "mlalevic.JumpStart.Components");
 
+    var Cc = Components.classes;
+    var Ci = Components.interfaces;
+
     var Config = services.JumpstartConfiguration;
 
 
@@ -119,9 +122,9 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 /***************  Clear url components ********************/
     var ClearUrlComponentListener = {
         QueryInterface: function(aIID) {
-            if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
-                aIID.equals(Components.interfaces.nsISupportsWeakReference) ||
-                aIID.equals(Components.interfaces.nsISupports))
+            if (aIID.equals(Ci.nsIWebProgressListener) ||
+                aIID.equals(Ci.nsISupportsWeakReference) ||
+                aIID.equals(Ci.nsISupports))
               return this;
             throw Components.results.NS_NOINTERFACE;
         },
@@ -145,7 +148,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         start: function() {
             gBrowser.addProgressListener(
                 ClearUrlComponentListener,
-                Components.interfaces.nsIWebProgress.NOTIFY_LOCATION
+                Ci.nsIWebProgress.NOTIFY_LOCATION
             );
         },
         stop: function() {
@@ -166,7 +169,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
                 browser.addProgressListener(
                     ClearUrlComponentListener,
-                    Components.interfaces.nsIWebProgress.NOTIFY_STATE_DOCUMENT
+                    Ci.nsIWebProgress.NOTIFY_STATE_DOCUMENT
                 );
             }, false);
         },
@@ -179,23 +182,23 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 /*************** Snapshot component - refreshes thumb on visit  ***********************/
 
 var makeURI = function (aURL, aOriginCharset, aBaseURI) {
-             var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-                                        .getService(Components.interfaces.nsIIOService);
+             var ioService = Cc["@mozilla.org/network/io-service;1"]
+                                        .getService(Ci.nsIIOService);
              return ioService.newURI(aURL, aOriginCharset, aBaseURI);
     }
 
 var SnapshotComponentListener = {
         QueryInterface: function(aIID) {
-            if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
-                aIID.equals(Components.interfaces.nsISupportsWeakReference) ||
-                aIID.equals(Components.interfaces.nsISupports))
+            if (aIID.equals(Ci.nsIWebProgressListener) ||
+                aIID.equals(Ci.nsISupportsWeakReference) ||
+                aIID.equals(Ci.nsISupports))
               return this;
             throw Components.results.NS_NOINTERFACE;
         },
         onLocationChange: function() {},
         onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
             // Check if page is finished loading from a network request
-            if ((aStateFlags & Components.interfaces.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
+            if ((aStateFlags & Ci.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
             {
                   //check if has anno, if it has, refresh (can be optimized later)
               if(!aRequest){
@@ -237,7 +240,7 @@ var SnapshotComponent = {
         start: function() {
             gBrowser.addProgressListener(
                 SnapshotComponentListener,
-                Components.interfaces.nsIWebProgress.NOTIFY_STATE_WINDOW
+                Ci.nsIWebProgress.NOTIFY_STATE_WINDOW
             );
         },
         stop: function() {
@@ -250,7 +253,7 @@ var SnapshotComponent = {
         start: function() {
             /*gBrowser.addProgressListener(
                 SnapshotComponentListener,
-                Components.interfaces.nsIWebProgress.NOTIFY_STATE_WINDOW
+                Ci.nsIWebProgress.NOTIFY_STATE_WINDOW
             );*/
 
             var tabs = document.getElementById("tabs");
@@ -263,7 +266,7 @@ var SnapshotComponent = {
 
                 browser.addProgressListener(
                     SnapshotComponentListener,
-                    Components.interfaces.nsIWebProgress.NOTIFY_STATE_WINDOW
+                    Ci.nsIWebProgress.NOTIFY_STATE_WINDOW
                 );
             }, false);
         },
@@ -336,8 +339,8 @@ var SnapshotComponent = {
 
     loadClosedData: function() {
       this.initialized = true;
-      var ss = Components.classes["@mozilla.org/browser/sessionstore;1"].
-           getService(Components.interfaces.nsISessionStore);
+      var ss = Cc["@mozilla.org/browser/sessionstore;1"].
+           getService(Ci.nsISessionStore);
 
       if (ss.getClosedTabCount(window) == 0) {
         this.closedTabsData = [];
@@ -352,8 +355,8 @@ var SnapshotComponent = {
 /**************************  Closed state handling - End ****************************/
 
 /**************************  Bookmark state handling ********************************/
-var bmsvc = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
-                      .getService(Components.interfaces.nsINavBookmarksService);
+var bmsvc = Cc["@mozilla.org/browser/nav-bookmarks-service;1"]
+                      .getService(Ci.nsINavBookmarksService);
 
 
 // An nsINavBookmarkObserver
@@ -369,8 +372,8 @@ var bookmarkListener = {
   onItemVisited: function(aBookmarkId, aVisitID, time) {},
   onItemMoved: function(aItemId, aOldParent, aOldIndex, aNewParent, aNewIndex) {},
   QueryInterface: function(aIID) {
-            if (aIID.equals(Components.interfaces.nsINavBookmarkObserver) ||
-                aIID.equals(Components.interfaces.nsISupports))
+            if (aIID.equals(Ci.nsINavBookmarkObserver) ||
+                aIID.equals(Ci.nsISupports))
               return this;
             throw Components.results.NS_NOINTERFACE;
   }
@@ -416,8 +419,8 @@ var historyObserver = {
     onPageExpired : function(){},
     onTitleChanged : function(){},
     QueryInterface: function(iid) {
-        if (iid.equals(Components.interfaces.nsINavHistoryObserver) ||
-            iid.equals(Components.interfaces.nsISupports)) {
+        if (iid.equals(Ci.nsINavHistoryObserver) ||
+            iid.equals(Ci.nsISupports)) {
                 return this;
         }
         throw Cr.NS_ERROR_NO_INTERFACE;
@@ -438,14 +441,14 @@ var historyObserver = {
 var realTimeThumbsUpdates = {
     start : function(){
         if(Config.ListRefresh){
-            var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
-                                   .getService(Components.interfaces.nsINavHistoryService);
+            var historyService = Cc["@mozilla.org/browser/nav-history-service;1"]
+                                   .getService(Ci.nsINavHistoryService);
             historyService.addObserver(historyObserver, false);
         }
     },
     stop : function(){
-        var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
-                               .getService(Components.interfaces.nsINavHistoryService);
+        var historyService = Cc["@mozilla.org/browser/nav-history-service;1"]
+                               .getService(Ci.nsINavHistoryService);
         historyService.removeObserver(historyObserver);
     }
 }
@@ -474,7 +477,7 @@ var realTimeThumbsUpdates = {
 /*************************** Handling UI *********************************/
   var uiService = {
       start : function(){
-        var obs = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+        var obs = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
         obs.addObserver(onBeforeShowObserver, "browser-window-before-show", false);
       },
       onMenuItemProperties : function(e){
@@ -486,7 +489,7 @@ var realTimeThumbsUpdates = {
 
   var onBeforeShowObserver = {
     observe : function(){
-      var obs = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+      var obs = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
       obs.removeObserver(onBeforeShowObserver, "browser-window-before-show");
 
       if(Config.OverrideHomepage){ //if we are showing our page on startup then load if there is only one tab and it is blank or hompage
@@ -495,10 +498,10 @@ var realTimeThumbsUpdates = {
             let homepage = null;
             try{
               //load homepage from preferences
-              let prefs = Components.classes["@mozilla.org/preferences-service;1"]
-               .getService(Components.interfaces.nsIPrefService).getDefaultBranch(null);
+              let prefs = Cc["@mozilla.org/preferences-service;1"]
+               .getService(Ci.nsIPrefService).getDefaultBranch(null);
               homepage = prefs.getComplexValue("browser.startup.homepage",
-                                  Components.interfaces.nsIPrefLocalizedString).data;
+                                  Ci.nsIPrefLocalizedString).data;
             }catch(e){}
 
             if(window.arguments[0] == "about:blank" || (homepage && window.arguments[0] == homepage)){
@@ -563,7 +566,7 @@ var realTimeThumbsUpdates = {
          services.BrowserServices.setHistoryComponent(historyComponent);
      },
      GetHistoryUtilityForBrowser : function(aBrowser){
-        var internalHistory = aBrowser.sessionHistory.QueryInterface(Components.interfaces.nsISHistoryInternal);
+        var internalHistory = aBrowser.sessionHistory.QueryInterface(Ci.nsISHistoryInternal);
         return new mlalevic.Utils.HistoryUtility(internalHistory);
      },
     ssClosing : function(e){
@@ -608,8 +611,8 @@ var onInstall = {
             return;
         }
 
-        var svc = Components.classes["@mozilla.org/preferences-service;1"]
-                   .getService(Components.interfaces.nsIPrefService);
+        var svc = Cc["@mozilla.org/preferences-service;1"]
+                   .getService(Ci.nsIPrefService);
         var prefs = svc.getBranch("mlalevic.jumpstart.");
         var thumb = svc.getBranch("mlalevic.jumpstart.thumbs.");
 
