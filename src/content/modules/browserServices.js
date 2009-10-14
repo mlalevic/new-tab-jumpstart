@@ -33,6 +33,8 @@ let configChanged = "mlalevic.JumpStart.configChanged";
 
 let BrowserServices = {
 
+  initialized : false,
+
   getMostVisitedData : function(toGet, toSkip){
     var query = "select m.url, m.title, '', '', m.rev_host, m.id " +
     'FROM moz_places as m ' +

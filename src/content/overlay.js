@@ -696,23 +696,31 @@ var startAll = function(){
             ClearUrlComponent.start();
             newTabLoader.start();
             SnapshotComponent.start();
-            closedTabState.start();
-            services.BrowserServices.setGetClosedDataFunction(function(){
-                if(!closedTabState.initialized){
-                    closedTabState.loadClosedData()
-                }
-                return closedTabState.closedTabsData;
-            });
+            if(!services.BrowserServices.initialized){
+                closedTabState.start();
+                services.BrowserServices.setGetClosedDataFunction(function(){
+                    if(!closedTabState.initialized){
+                        closedTabState.loadClosedData()
+                    }
+                    return closedTabState.closedTabsData;
+                });
+            }
         }
 
-        thumbsLoader.start();
+        if(!services.BrowserServices.initialized){
+            thumbsLoader.start();
+            historyComponent.start();
+        }
+
         buttonController.start();
         jumpStartService.start();
-        historyComponent.start();
         bookmarkListener.start();
 
-        services.BrowserServices.setFollowedPage(function(url){PlacesUIUtils.markPageAsTyped(url);});
-        services.BrowserServices.setUndoClosedFunction(UndoClosed);
+        if(!services.BrowserServices.initialized){
+            services.BrowserServices.setFollowedPage(function(url){PlacesUIUtils.markPageAsTyped(url);});
+            services.BrowserServices.setUndoClosedFunction(UndoClosed);
+        }
+        services.BrowserServices.initialized = true;
 }
 
 uiService.start();
