@@ -125,6 +125,10 @@ let AnnoService = {
     },
     saveProperties : function(uri, properties){
             var propertiesString = Converter.toJSONString(properties);
+            if(!propertiesString){
+                WindowFunctions.alert("dbg: Properties are null - " + uri);
+                return;
+            }
             this.annoService.setPageAnnotation(uri, this.propertiesAnno, propertiesString, 0, this.annoService.EXPIRE_WITH_HISTORY);
     },
     getProperty : function(uri){
