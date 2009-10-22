@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ENTITY title "New Tab">
+<!ENTITY mostVisited "Most Visited">
+<!ENTITY menu.showOnNewTab "Show on New Tab">
+<!ENTITY menu.showOnStartup "Show on Startup">
+<!ENTITY menu.showToolbarButton "Show Toolbar Button">
+<!ENTITY menu.showInHistory "Show in History">
+<!ENTITY menu.bigThumbs "Big Thumbs">
+<!ENTITY menu.moreOptions "More Options ...">
+<!ENTITY search.emptyText "Search History">
+<!ENTITY recentBookmarks.recent "Recent">
+<!ENTITY recentBookmarks.tooltip "More bookmarks">
+<!ENTITY recentBookmarks.linkText "Bookmarks" >
+<!ENTITY recentlyClosed "Recently Closed" >
+<!ENTITY search "Search" >
+<!ENTITY search2.emptyText "Search History" >
+<!ENTITY back "Back to thumbs view" >
+<!ENTITY controls.pinLabel "Always show this site" >
+<!ENTITY controls.removeLabel "Never show this site" >
+
+
+
