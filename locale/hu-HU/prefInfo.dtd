@@ -1,0 +1,9 @@
+<!ENTITY title "Infó">
+<!ENTITY required "Konfiguráció / működés">
+<!ENTITY compatibility "Kompatibilitással kapcsolatos megjegyzések">
+<!ENTITY loglevel "Naplózás:">
+<!ENTITY full "Teljes naplózás">
+<!ENTITY relevant "Kapcsolódó események">
+<!ENTITY warning "Hibák és figyelmeztetések">
+<!ENTITY error "Csak hibák">
+<!ENTITY critical "Csak kritikus hibák">

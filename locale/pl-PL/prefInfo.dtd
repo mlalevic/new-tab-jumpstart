@@ -1,0 +1,9 @@
+<!ENTITY title "Info">
+<!ENTITY required "Wymagania konfiguracyjne">
+<!ENTITY compatibility "Informacje o kompatybilności">
+<!ENTITY loglevel "Poziom zapisu dziennika zdarzeń:">
+<!ENTITY full "Pełny zapis">
+<!ENTITY relevant "Istotne zdarzenia">
+<!ENTITY warning "Błędy i ostrzeżenia">
+<!ENTITY error "Tylko błędy">
+<!ENTITY critical "Tylko poważne błędy">
