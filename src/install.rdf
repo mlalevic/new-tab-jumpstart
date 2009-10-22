@@ -39,6 +39,23 @@
       </Description>
     </em:localized>
 
+    <em:localized>
+        <Description>
+            <em:locale>hu-HU</em:locale>
+            <em:name>New Tab JumpStart</em:name>
+            <em:translator>Mikes Kaszmán István (hu-HU)</em:translator>
+            <em:description>Üres lap helyettesítése a leggyakrabban meglátogatott oldalak gyorsnézetével, a legutoljára megnyitott könyvjelzőkkel, keresésekkel és a legutoljára bezárt lapokkal.</em:description>
+        </Description>
+    </em:localized>
+<em:localized>
+      <Description>
+        <em:locale>pl-PL</em:locale>
+        <em:name>New Tab JumpStart</em:name>
+        <em:description>Zastępuje pustą nową kartę podglądem najczęściej otwieranych przez użytkownika witryn, zakłdek, wyszukiwań i ostatnio zamkniętych kart.</em:description>
+        <em:translator>Leszek(teo)Życzkowski</em:translator>
+      </Description>
+    </em:localized>
+
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
