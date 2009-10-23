@@ -47,13 +47,21 @@
             <em:description>Üres lap helyettesítése a leggyakrabban meglátogatott oldalak gyorsnézetével, a legutoljára megnyitott könyvjelzőkkel, keresésekkel és a legutoljára bezárt lapokkal.</em:description>
         </Description>
     </em:localized>
-<em:localized>
+    <em:localized>
       <Description>
         <em:locale>pl-PL</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:description>Zastępuje pustą nową kartę podglądem najczęściej otwieranych przez użytkownika witryn, zakłdek, wyszukiwań i ostatnio zamkniętych kart.</em:description>
         <em:translator>Leszek(teo)Życzkowski</em:translator>
       </Description>
+    </em:localized>
+
+    <em:localized>
+        <Description>
+            <em:locale>he-IL</em:locale>
+            <em:name>New Tab JumpStart</em:name>
+            <em:description>מסייע לך בקפיצת התחלה לחוויית האינטרנט על ידי שינוי המסך הריק של הלשונית החדשה לתצוגה מקדימה של האתרים שמבקרים בהם לעתים קרובות, הסימניות האחרונות, חיפושים ולשוניות שנסגרו לאחרונה.</em:description>
+        </Description>
     </em:localized>
 
     <em:targetApplication>
