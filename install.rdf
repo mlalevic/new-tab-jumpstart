@@ -59,8 +59,9 @@
     <em:localized>
         <Description>
             <em:locale>he-IL</em:locale>
+            <em:translator>SiiiE</em:translator>
             <em:name>New Tab JumpStart</em:name>
-            <em:description>מסייע לך בקפיצת התחלה לחוויית האינטרנט על ידי שינוי המסך הריק של הלשונית החדשה לתצוגה מקדימה של האתרים שמבקרים בהם לעתים קרובות, הסימניות האחרונות, חיפושים ולשוניות שנסגרו לאחרונה.</em:description>
+            <em:description>מסייע לך בקפיצת התחלה לחוויית האינטרנט, על ידי שינוי המסך הריק של הלשונית החדשה לתצוגה מקדימה של האתרים שמבקרים בהם לעתים קרובות, הסימניות האחרונות, חיפושים ולשוניות שנסגרו לאחרונה.</em:description>
         </Description>
     </em:localized>
 
