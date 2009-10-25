@@ -44,6 +44,7 @@ if (!mlalevic.JumpStart.Services) {
 
 //import browserServices - we are using browserServices to load data from files
 //   we are using config and load data from database services too
+Components.utils.import("resource://modules/config.js", mlalevic.JumpStart.services);
 Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
 
 //using (function(){...})(); construct so we won't polute our top level namespace

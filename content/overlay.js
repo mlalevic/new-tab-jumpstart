@@ -27,6 +27,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     var services = {}
     Components.utils.import("resource://modules/utils.js", utils);
     Components.utils.import("resource://modules/Observers.js", utils);
+    Components.utils.import("resource://modules/config.js", services);
     Components.utils.import("resource://modules/browserServices.js", services);
     Components.utils.import("resource://modules/dbService.js", services);
 
@@ -652,19 +653,21 @@ var onInstall = {
           prefs.setCharPref("version",extension.version);
           // Insert code if version is different here => upgrade
 
-          //clear prefs///////////////////////////////
-          clear(prefs, ['onstart_refresh', 'LogLevel']);
-          clear(thumb, [
-              'ContainerWidth', 'ContainerHeight',
-              'DefaultContainerWidth', 'DefaultContainerHeight',
-              'LargeWidth', 'LargeHeight', 'SmallWidth', 'DefaultSmallWidth',
-              'SmallHeight', 'DefaultSmallHeight', 'NormalWidth', 'NormalHeight',
-              'DefaultWidth', 'DefaultHeight', 'count'
-          ]);
-          //update prefs - this should probably be the same as clear prefs//////////////////////////////
+          if(!ver){
+              //clear prefs///////////////////////////////
+              clear(prefs, ['onstart_refresh', 'LogLevel']);
+              clear(thumb, [
+                  'ContainerWidth', 'ContainerHeight',
+                  'DefaultContainerWidth', 'DefaultContainerHeight',
+                  'LargeWidth', 'LargeHeight', 'SmallWidth', 'DefaultSmallWidth',
+                  'SmallHeight', 'DefaultSmallHeight', 'NormalWidth', 'NormalHeight',
+                  'DefaultWidth', 'DefaultHeight', 'count'
+              ]);
+              //update prefs - this should probably be the same as clear prefs//////////////////////////////
 
-          //remove files//////////////////////////////
-          removeFiles(['jumpstart.cache', 'jumpstart.pinned', 'jumpstart.removed', 'jumpstart.alter']);
+              //remove files//////////////////////////////
+              removeFiles(['jumpstart.cache', 'jumpstart.pinned', 'jumpstart.removed', 'jumpstart.alter']);
+          }
         }
     }
 }

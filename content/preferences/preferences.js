@@ -24,6 +24,7 @@ if (!mlalevic.JumpStart.Preferences) { mlalevic.JumpStart.Preferences = {}; }
 if (!mlalevic.JumpStart.Services) { mlalevic.JumpStart.Services = {}; }
 
 
+Components.utils.import("resource://modules/config.js", mlalevic.JumpStart.Services);
 Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
 
 (function() {
