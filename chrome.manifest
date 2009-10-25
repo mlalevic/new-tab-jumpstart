@@ -12,4 +12,4 @@ locale	jumpstart	en-US	locale/en-US/
 locale	jumpstart	ko-KR	locale/ko-KR/
 locale	jumpstart	hu-HU	locale/hu-HU/
 locale	jumpstart	pl-PL	locale/pl-PL/
-locale	jumpstart	pl-PL	locale/he-IL/
+locale	jumpstart	he-IL	locale/he-IL/
