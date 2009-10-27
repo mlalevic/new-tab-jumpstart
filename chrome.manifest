@@ -5,10 +5,10 @@ skin jumpstart classic skin/
 resource modules content/modules/
 
 
-locale	jumpstart	sr	locale/sr/
+locale	jumpstart	en-US	locale/en-US/
 locale	jumpstart	en	locale/en/
 locale	jumpstart	sr-RS	locale/sr-RS/
-locale	jumpstart	en-US	locale/en-US/
+locale	jumpstart	sr	locale/sr/
 locale	jumpstart	ko-KR	locale/ko-KR/
 locale	jumpstart	hu-HU	locale/hu-HU/
 locale	jumpstart	pl-PL	locale/pl-PL/
