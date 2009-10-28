@@ -81,6 +81,24 @@
         </Description>
     </em:localized>
 
+    <em:localized>
+        <Description>
+            <em:locale>fr</em:locale>
+            <em:translator>Goofy</em:translator>
+            <em:name>New Tab JumpStart</em:name>
+            <em:description>Vous aide à dynamiser votre navigation en remplaçant l'écran vide sur un nouvel onglet par des vignettes des sites et des derniers marque-pages utilisés, des recherches effectuées et des onglets récemment fermés.</em:description>
+        </Description>
+    </em:localized>
+
+   <em:localized>
+      <Description>
+         <em:locale>de-DE</em:locale>
+         <em:name>New Tab JumpStart</em:name>
+         <em:translator>erglo</em:translator>
+         <em:description>Eine Starthilfe für Ihr Web-Erlebnis. Dieses Add-on ersetzt den leeren Inhalt eines neuen Tabs durch eine Übersicht der am häufigsten verwendeten Seiten, zuletzt besuchte Lesezeichen, Suchvorgänge und kürzlich geschlossener Tabs.</em:description>
+      </Description>
+   </em:localized>
+
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>

@@ -1,0 +1,18 @@
+<!ENTITY title "Neuer Tab">
+<!ENTITY mostVisited "Meistbesucht">
+<!ENTITY menu.showOnNewTab "In neuem Tab anzeigen">
+<!ENTITY menu.showOnStartup "Beim Starten anzeigen">
+<!ENTITY menu.showToolbarButton "Symbolleisten-Schaltfläche anzeigen">
+<!ENTITY menu.showInHistory "In der Chronik anzeigen">
+<!ENTITY menu.bigThumbs "Große Vorschaubilder">
+<!ENTITY menu.moreOptions "Erweiterte Einstellungen...">
+<!ENTITY search.emptyText "Chronik durchsuchen">
+<!ENTITY recentBookmarks.recent "Kürzlich besuchte">
+<!ENTITY recentBookmarks.tooltip "Weitere Lesezeichen">
+<!ENTITY recentBookmarks.linkText "Lesezeichen">
+<!ENTITY recentlyClosed "Kürzlich geschlossene Tabs">
+<!ENTITY search "Suche">
+<!ENTITY search2.emptyText "Chronik durchsuchen">
+<!ENTITY back "Zurück zur Übersicht">
+<!ENTITY controls.pinLabel "Diese Seite immer anzeigen">
+<!ENTITY controls.removeLabel "Diese Seite nicht mehr anzeigen">

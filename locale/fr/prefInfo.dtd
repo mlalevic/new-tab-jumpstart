@@ -1,0 +1,9 @@
+<!ENTITY title "Informations">
+<!ENTITY required "Configuration nécessaire">
+<!ENTITY compatibility "Notes sur la compatibilité">
+<!ENTITY loglevel "Niveau du journal :">
+<!ENTITY full "Journalisation complète">
+<!ENTITY relevant "Tous les événements significatifs">
+<!ENTITY warning "Erreurs et avertissements">
+<!ENTITY error "Erreurs seulement">
+<!ENTITY critical "Erreurs critiques seulement">
