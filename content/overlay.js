@@ -37,6 +37,17 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     var Cc = Components.classes;
     var Ci = Components.interfaces;
 
+    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+    var Firefox_ID = '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}';
+
+    var var35 = false;
+    try{
+        ver35 = (appInfo.ID == Firefox_ID) &&
+            (appInfo.version.substr(0,3) >= '3.5');
+    }catch(ex){
+        services.Logger.error("Getting version", ex);
+    }
+
     var Config = services.JumpstartConfiguration;
 
 
@@ -188,6 +199,36 @@ var makeURI = function (aURL, aOriginCharset, aBaseURI) {
              return ioService.newURI(aURL, aOriginCharset, aBaseURI);
     }
 
+    function doRefresh(aRequest, aWebProgress){
+    //check if has anno, if it has, refresh (can be optimized later)
+      if(!aRequest){
+          return;
+      }
+      var uri = null;
+
+      if(aRequest.originalURI){
+        if(services.AnnoService.hasDetails(aRequest.originalURI)){
+            uri = aRequest.originalURI;
+        }
+      }
+
+      if(uri == null && aRequest.URI){
+        if(services.AnnoService.hasDetails(aRequest.URI)){
+            uri = aRequest.URI;
+        }
+      }
+
+      if(uri){
+          var result = mlalevic.JumpStart.UI.GetSnapshot(aWebProgress.DOMWindow.document, aWebProgress.DOMWindow);
+          if(result){
+            services.AnnoService.saveThumb(uri, result);
+            services.Logger.debug("Snapshot ", result);
+          }else{
+              services.Logger.debug("Snapshot result null for ", aWebProgress.DOMWindow.location.toString());
+          }
+      }
+    }
+
 var SnapshotComponentListener = {
         QueryInterface: function(aIID) {
             if (aIID.equals(Ci.nsIWebProgressListener) ||
@@ -201,33 +242,30 @@ var SnapshotComponentListener = {
             // Check if page is finished loading from a network request
             if ((aStateFlags & Ci.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
             {
-                  //check if has anno, if it has, refresh (can be optimized later)
-              if(!aRequest){
-                  return 0;
-              }
-              var uri = null;
+                doRefresh(aRequest, aWebProgress);
+            }
+            return 0;
+        },
+        onProgressChange: function() {},
+        onStatusChange: function(){},
+        onSecurityChange: function() {},
+        onLinkIconAvailable: function() {}
+    }
 
-              if(aRequest.originalURI){
-                if(services.AnnoService.hasDetails(aRequest.originalURI)){
-                    uri = aRequest.originalURI;
-                }
-              }
-
-              if(uri == null && aRequest.URI){
-                if(services.AnnoService.hasDetails(aRequest.URI)){
-                    uri = aRequest.URI;
-                }
-              }
-
-              if(uri){
-                  var result = mlalevic.JumpStart.UI.GetSnapshot(aWebProgress.DOMWindow.document, aWebProgress.DOMWindow);
-                  if(result){
-                    services.AnnoService.saveThumb(uri, result);
-                    services.Logger.debug("Snapshot: ", result);
-                  }else{
-                      services.Logger.debug("Snapshot: result null for ", aWebProgress.DOMWindow.location.toString());
-                  }
-              }
+var SnapshotComponentListener_AllTabs = {
+        QueryInterface: function(aIID) {
+            if (aIID.equals(Ci.nsIWebProgressListener) ||
+                aIID.equals(Ci.nsISupportsWeakReference) ||
+                aIID.equals(Ci.nsISupports))
+              return this;
+            throw Components.results.NS_NOINTERFACE;
+        },
+        onLocationChange: function() {},
+        onStateChange: function (aBrowser, aWebProgress, aRequest, aStateFlags, aStatus) {
+            // Check if page is finished loading from a network request
+            if ((aStateFlags & Ci.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
+            {
+              doRefresh(aRequest, aWebProgress);
             }
             return 0;
         },
@@ -239,13 +277,21 @@ var SnapshotComponentListener = {
 
 var SnapshotComponent = {
         start: function() {
-            gBrowser.addProgressListener(
-                SnapshotComponentListener,
-                Ci.nsIWebProgress.NOTIFY_STATE_WINDOW
-            );
+            if(ver35){
+                gBrowser.addTabsProgressListener(SnapshotComponentListener_AllTabs);
+            }else{
+                gBrowser.addProgressListener(
+                    SnapshotComponentListener,
+                    Ci.nsIWebProgress.NOTIFY_STATE_WINDOW
+                );
+            }
         },
         stop: function() {
-            gBrowser.removeProgressListener(SnapshotComponentListener);
+            if(ver35){
+                gBrowser.removeTabsProgressListener(SnapshotComponentListener_AllTabs);
+            }else{
+                gBrowser.removeProgressListener(SnapshotComponentListener);
+            }
         }
     }
 
