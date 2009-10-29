@@ -530,7 +530,7 @@ var realTimeThumbsUpdates = {
       onMenuItemProperties : function(e){
           var strbundle = document.getElementById("jumpstart-strings");
           window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
-          "chrome,toolbar,centerscreen").focus();
+            "chrome,toolbar,centerscreen").focus();
       }
   }
 

@@ -28,6 +28,7 @@ Contributor(s):
         xmlns:html="http://www.w3.org/1999/xhtml"
         title="&title;"
             id="jumpstartPrefs"
+            minwidth="310"
          >
   <stringbundleset id="strbundles">
     <stringbundle id="strings" src="chrome://jumpstart/locale/preferences.properties"/>

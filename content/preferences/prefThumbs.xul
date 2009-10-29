@@ -44,6 +44,5 @@ Contributor(s):
         <label id="numberOfThumbs" value="" />
       </hbox>
     </vbox>
-    <spacer flex="1"/>
   </prefpane>
 </overlay>

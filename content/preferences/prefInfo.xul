@@ -44,7 +44,7 @@ Contributor(s):
       </groupbox>
 
       <groupbox>
-        <captain label="&compatibility;" />
+        <caption label="&compatibility;" />
         <richlistbox id="compatibility" minheight="50">
           
         </richlistbox>
