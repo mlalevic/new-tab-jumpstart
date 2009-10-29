@@ -1,1 +1,3 @@
 <!ENTITY nothingInHistory "Les vignettes seront affichées lorsque vous commencerez à naviguer">
+<!ENTITY controls.pinLabel "Toujours afficher pour ce site">
+<!ENTITY controls.removeLabel "Ne jamais afficher pour ce site">

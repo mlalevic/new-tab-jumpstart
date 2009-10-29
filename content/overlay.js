@@ -779,18 +779,14 @@ if(!fennec){
 }
 })();
 
-
 /*
-(function() {
-  
-  
-  Dial.registerForUpdate = function(aFunc){
-    Utils.Observers.add(aFunc, dataRefreshEvent);
-  }
-  
-  Dial.unRegisterForUpdate = function(aFunc){
-    Utils.Observers.remove(aFunc, dataRefreshEvent);
-  }
-  
- 
-} ());  */
+function ntjsOptions(){
+    try{
+        ntjsWin = window.openDialog('chrome://jumpstart/content/preferences.xul', 'JumStart Options', 'chrome,titlebar,toolbar,centerscreen,resizable');
+        ntjsWin.focus();
+    } catch (e) {
+        alert(e);
+    }
+    return true;
+}//ntjsOptions()
+*/

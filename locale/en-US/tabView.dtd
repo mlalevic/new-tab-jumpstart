@@ -16,8 +16,7 @@
 <!ENTITY search "Search" >
 <!ENTITY search2.emptyText "Search History" >
 <!ENTITY back "Back to thumbs view" >
-<!ENTITY controls.pinLabel "Always show this site" >
-<!ENTITY controls.removeLabel "Never show this site" >
+
 
 
 

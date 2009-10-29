@@ -24,14 +24,13 @@ Contributor(s):
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml"
          >
-  <prefpane id="paneInfo" label="&title;" image="chrome://jumpstart/skin/img/Info.png" >
+  <prefpane id="paneInfo" label="&title;" >
     <preferences>
       <preference id="loglevel" name="mlalevic.jumpstart.LogLevel" type="int" />
     </preferences>
 
-    <vbox>
-      <vbox style="margin-top:10px; margin-bottom:10px;">
-        <label value="&required;" />
+      <groupbox>
+        <caption label="&required;" />
         <richlistbox minheight="50">
           <richlistitem id="historyStatus">
             <image src="" />
@@ -42,16 +41,16 @@ Contributor(s):
             <label value="" />
           </richlistitem>
         </richlistbox>
-      </vbox>
+      </groupbox>
 
-      <vbox style="margin-top:10px; margin-bottom:10px;">
-        <label value="&compatibility;" />
+      <groupbox>
+        <captain label="&compatibility;" />
         <richlistbox id="compatibility" minheight="50">
           
         </richlistbox>
-      </vbox>
-      
-      <hbox align="baseline">
+      </groupbox>
+      <separator class="thin" />
+      <hbox align="center">
         <label value="&loglevel;" control="loglevellist" />
         <menulist id="loglevellist" preference="loglevel" preference-editable="true">
           <menupopup>
@@ -63,6 +62,5 @@ Contributor(s):
           </menupopup>
         </menulist>
       </hbox>
-    </vbox>
   </prefpane>
 </overlay>

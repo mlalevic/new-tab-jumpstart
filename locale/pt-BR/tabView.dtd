@@ -14,5 +14,3 @@
 <!ENTITY search "Procurar">
 <!ENTITY search2.emptyText "Histórico de busca">
 <!ENTITY back "Voltar a visualização de miniaturas">
-<!ENTITY controls.pinLabel "Sempre mostrar este site">
-<!ENTITY controls.removeLabel "Nunca mostrar este site">

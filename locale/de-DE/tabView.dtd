@@ -14,5 +14,4 @@
 <!ENTITY search "Suche">
 <!ENTITY search2.emptyText "Chronik durchsuchen">
 <!ENTITY back "Zurück zur Übersicht">
-<!ENTITY controls.pinLabel "Diese Seite immer anzeigen">
-<!ENTITY controls.removeLabel "Diese Seite nicht mehr anzeigen">
+

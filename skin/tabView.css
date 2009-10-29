@@ -188,12 +188,6 @@
 	background-color: Red;
 }
 
-.chooseLink
-{
-	background-image: url("chrome://jumpstart/skin/img/add.gif");
-	display: none;
-}
-
 /*
  * Sidebar content
  */

@@ -4,6 +4,8 @@ overlay chrome://midbrowser/content/midbrowser.xul   chrome://jumpstart/content/
 skin jumpstart classic skin/
 resource modules content/modules/
 
+style	chrome://global/content/customizeToolbar.xul	chrome://jumpstart/skin/overlay.css
+
 
 locale	jumpstart	en-US	locale/en-US/
 locale	jumpstart	en      locale/en/

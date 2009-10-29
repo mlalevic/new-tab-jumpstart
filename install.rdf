@@ -10,6 +10,7 @@
     <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
     <em:creator>Mihailo Lalevic</em:creator>
     <em:developer>Chris Cook</em:developer>
+    <em:contributor>Leszek(teo)Życzkowski</em:contributor>
     <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
     <em:iconURL>chrome://jumpstart/skin/img/JumpStart32.png</em:iconURL>
     <em:optionsURL>chrome://jumpstart/content/preferences/preferences.xul</em:optionsURL>
