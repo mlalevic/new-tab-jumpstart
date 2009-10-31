@@ -15,5 +15,5 @@ pref("mlalevic.jumpstart.on_tabview_close_purge", true); //if the last visited p
 pref("mlalevic.jumpstart.thumbs.columns", 3); //how many thumbs to display
 pref("mlalevic.jumpstart.thumbs.lines", 3); //how many thumb lines to display
 pref("mlalevic.jumpstart.thumbs.ShowSmallThumbs", false); //show small thumbs
-pref("mlalevic.jumpstart.permanent_properties", false); //defines whether to permanently store jumpstart properties in places db
+pref("mlalevic.jumpstart.permanent_properties", true); //defines whether to permanently store jumpstart properties in places db
 pref("mlalevic.jumpstart.permanent_thumbs", false); //defines whether to permanently store thumbnails
