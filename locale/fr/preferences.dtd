@@ -1,0 +1,8 @@
+<!ENTITY title "Options de JumpStart pour un nouvel onglet">
+<!ENTITY tabName "Générales">
+<!ENTITY onnewtab "Afficher dans un nouvel onglet">
+<!ENTITY showinhistory "Afficher Jumpstart dans l'historique">
+<!ENTITY showbutton "Afficher le bouton de la barre d'outils">
+<!ENTITY onstartup "Afficher au démarrage">
+<!ENTITY title.thumbs "Vignettes">
+<!ENTITY title.info "Informations">

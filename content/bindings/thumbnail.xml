@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE window SYSTEM "chrome://jumpstart/locale/thumbnails.dtd">
+
+<bindings id="thumbnail"
+          xmlns="http://www.mozilla.org/xbl"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <binding id="siteTileContainer">
+    <content>
+      <element>
+        <xul:grid>
+          <xul:columns />
+          <xul:rows />
+          <xul:label value="&nothingInHistory;" hidden="true" />
+        </xul:grid>
+      </element>
+    </content>
+    <implementation>
+      <method name="draw">
+        <parameter name="data" />
+        <parameter name="config" />
+        <parameter name="onClickHandler" />
+        <parameter name="pinHandler" />
+        <parameter name="removeHandler" />
+        <body>
+          <![CDATA[
+            columns = config.Columns;
+            rows = config.Lines;
+
+            function translate(data) {
+              let Cc = Components.classes;
+              let Ci = Components.interfaces;
+              var uri =          Cc["@mozilla.org/network/io-service;1"]
+                                     .getService(Ci.nsIIOService)
+                                     .newURI(data.url, null, null);
+              var annoSvc = Cc["@mozilla.org/browser/annotation-service;1"]
+                                     .getService(Ci.nsIAnnotationService);
+
+              var faviconUrl =   Cc["@mozilla.org/browser/favicon-service;1"]
+                                     .getService(Ci.nsIFaviconService)
+                                     .getFaviconImageForPage(uri).spec;
+              var thumbnailUrl;
+
+              if(annoSvc.pageHasAnnotation(uri, "jumpstart/thumbs")){
+                thumbnailUrl = annoSvc.getAnnotationURI(uri, "jumpstart/thumbs").spec;
+              }else{
+                thumbnailUrl = faviconUrl;
+              }
+
+              return {
+                original : data,
+                uri : uri,
+                host : data.host,
+                url : data.url,
+                title : data.title,
+                fav : faviconUrl,
+                originalUrl : data.originalUrl,
+                thumb : thumbnailUrl,
+              }
+            }
+
+            if(data.length == 0){
+                this.drawEmpty(config);
+                return;
+            }
+
+            // Create columns
+            if (data.length < columns)
+              columns = data.length;
+            
+            var columnContainer = document.getAnonymousNodes(this)[0].childNodes[0].childNodes[0];
+            for (var i = 0; i < columns; i++)
+              columnContainer.appendChild(document.createElement("column"));
+
+            // Create rows
+            var count = 0;
+            var rowContainer = document.getAnonymousNodes(this)[0].childNodes[0].childNodes[1];
+            for (var i = 0; i < rows; i++) {
+              if (count == data.length)
+                break;
+
+              var row = document.createElement("row");
+              rowContainer.appendChild(row);
+              for (var j = 0; j < columns; j++) {
+                if (count == data.length)
+                  break;
+
+                // Create tile container (drag-drop receiver)
+                var cell = document.createElement("box");
+                cell.setAttribute("class", "tileCell");
+                cell.index = count;
+                row.appendChild(cell);
+
+                // Create tile
+                var tile = document.createElement("vbox");
+                tile.setAttribute("class", config.ShowSmallThumbs?"smallthumb":"thumb");
+                cell.appendChild(tile);
+                tile.draw(config, translate(data[count]), onClickHandler);
+                tile.pinHandler = pinHandler;
+                tile.removeHandler = removeHandler;
+                tile.index = count;
+
+                count++;
+              }
+            }
+
+          ]]>
+        </body>
+      </method>
+      <method name="drawEmpty">
+          <parameter name="config" />
+          <body><![CDATA[
+            columns = config.Columns;
+            rows = config.Lines;
+
+            document.getAnonymousNodes(this)[0].childNodes[0].childNodes[2].hidden = false; //show label
+            var columnContainer = document.getAnonymousNodes(this)[0].childNodes[0].childNodes[0];
+            for (var i = 0; i < columns; i++)
+              columnContainer.appendChild(document.createElement("column"));
+
+            // Create rows
+            var count = 0;
+            var rowContainer = document.getAnonymousNodes(this)[0].childNodes[0].childNodes[1];
+            for (var i = 0; i < rows; i++) {
+              var row = document.createElement("row");
+              rowContainer.appendChild(row);
+              for (var j = 0; j < columns; j++) {
+
+                // Create tile container (drag-drop receiver)
+                var cell = document.createElement("box");
+                cell.setAttribute("class", "tileCell");
+                cell.index = count;
+                row.appendChild(cell);
+
+                // Create tile
+                var tile = document.createElement("vbox");
+                tile.setAttribute("class", config.ShowSmallThumbs?"smallthumb":"thumb");
+                cell.appendChild(tile);
+                /*tile.draw(config, translate(data[count]), onClickHandler);
+                tile.pinHandler = pinHandler;
+                tile.removeHandler = removeHandler;*/
+                tile.index = count;
+
+                count++;
+              }
+            }
+          ]]></body>
+      </method>
+    </implementation>
+  </binding>
+
+  <binding id="siteTile">
+    <content>
+      <xul:vbox class="thumb">
+        <xul:hbox class="head">
+          <html:img anonid="img" />
+          <html:a anonid="url" class="thumblink" />
+        </xul:hbox>
+        <html:div class="image">
+          <html:a href="#" class="thumbImageUrl">
+            <html:img class="thumbImage" />
+            <html:div anonid="thumbOverlay" class="thumbOverlay" style="display:none;">
+              <html:a anonid="pinLink" class="thumbPin pinLink" tooltiptext="&controls.pinLabel;" href="#"></html:a>
+              <html:a anonid="removeLink" class="thumbPin removeLink" tooltiptext="&controls.removeLabel;" href="#"></html:a>
+            </html:div>
+          </html:a>
+        </html:div>
+      </xul:vbox>
+    </content>
+    <implementation>
+      <field name="index">-1</field>
+      <field name="handleMouse">false</field>
+      <field name="host"></field>
+      <field name="url"></field>
+      <field name="title"></field>
+      <field name="fav"></field>
+      <field name="toRemove">false</field>
+      <field name="pinned">false</field>
+      <field name="removeHandler">null</field>
+      <field name="pinHandler">null</field>
+      <field name="followedPageHandler">null</field>
+      <field name="thumbData">null</field>
+      <constructor>
+        <![CDATA[
+        ]]>
+      </constructor>
+      <method name="setup">
+        <parameter name="config" />
+        <body>
+          <![CDATA[
+          ]]>
+        </body>
+      </method>
+      <method name="draw">
+        <parameter name="config" />
+        <parameter name="thumbData" />
+        <parameter name="followedPageHandler" />
+        <body>
+          <![CDATA[
+            function htmlEncode(s){
+              return s.replace(/&(?!\w+([;\s]|$))/g, "&amp;")
+                .replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            }
+            
+            this.handleMouse = true;
+
+            this.setup(config);
+            
+            this.thumbData = thumbData.original;
+            this.host = thumbData.host;
+            this.url = thumbData.url;
+            this.title = thumbData.title;
+            this.fav = thumbData.fav;
+            var header = document.getAnonymousElementByAttribute(this, 'class', 'head');
+            var image = document.getAnonymousElementByAttribute(this, 'class', 'thumbImage');
+            var imageAnchor = document.getAnonymousElementByAttribute(this, 'class', 'thumbImageUrl');
+            var a = document.getAnonymousElementByAttribute(this, 'anonid', 'url');
+            var img = document.getAnonymousElementByAttribute(this, 'anonid', 'img');
+            
+            if (thumbData.fav != '') {
+                img.src = thumbData.fav;
+            }else{
+                img.style.display = 'none';
+            }
+            
+            var url = thumbData.originalUrl ? thumbData.originalUrl : thumbData.url;
+            
+            a.href = url;
+            var txt = document.createTextNode(thumbData.title != '' ? thumbData.title : url);
+            a.appendChild(txt);
+
+            a.setAttribute("title",  (thumbData.title != '' ? thumbData.title : url));
+            header.setAttribute("tooltiptext", (thumbData.title != '' ? thumbData.title : url));
+            
+            a.addEventListener("click", followedPageHandler, true);
+
+
+            image.src = thumbData.thumb;
+            imageAnchor.href = url;
+
+            imageAnchor.addEventListener("click", followedPageHandler, true);
+            
+            this.hookUpButtons();
+            this.refreshButtonStatus();
+            
+          ]]>
+        </body>
+      </method>
+      <method name="hookUpButtons">
+        <body>
+          <![CDATA[
+            let pinButton = document.getAnonymousElementByAttribute(this, "anonid", "pinLink");
+            let removeButton = document.getAnonymousElementByAttribute(this, "anonid", "removeLink");
+            
+            pinButton.addEventListener("click", mlalevic.Utils.Binder.bind(this, this.handlePin), true);
+            removeButton.addEventListener("click", mlalevic.Utils.Binder.bind(this, this.handleRemove), true);
+          ]]>
+        </body>
+      </method>
+      <method name="refreshButtonStatus">
+        <body>
+          <![CDATA[
+            var thumbData = this.thumbData;
+            this.removed = (thumbData.removed == undefined)?false:thumbData.removed;
+            this.pinned = (thumbData.pinned == undefined)?false:thumbData.pinned;
+            
+            let pinButton = document.getAnonymousElementByAttribute(this, "anonid", "pinLink");
+            let removeButton = document.getAnonymousElementByAttribute(this, "anonid", "removeLink");
+            
+            if(this.pinned){
+              pinButton.setAttribute("class", "thumbPin pinLink pinned");
+            }else{
+              pinButton.setAttribute("class", "thumbPin pinLink");
+            }
+            
+            if(this.removed){
+              removeButton.setAttribute("class", "thumbPin removeLink toRemove");
+            }else{
+              removeButton.setAttribute("class", "thumbPin removeLink");
+            }
+            ]]>
+        </body>
+      </method>
+      <method name="handlePin">
+        <parameter name="aEvent" />
+        <body>
+          <![CDATA[
+            if (aEvent.button != 0) //left button
+              return;
+            aEvent.preventDefault();
+            aEvent.stopPropagation();
+            this.onPin();
+          ]]>
+        </body>
+      </method>
+      <method name="handleRemove">
+        <parameter name="aEvent" />
+        <body>
+          <![CDATA[
+            if (aEvent.button != 0) //left button
+              return;
+            aEvent.preventDefault();
+            aEvent.stopPropagation();
+            this.onRemove();
+          ]]>
+        </body>
+      </method>
+      <method name="onRemove">
+        <body>
+          <![CDATA[
+            if(this.removeHandler){
+              this.removeHandler(this.thumbData);
+              this.refreshButtonStatus();
+            }
+          ]]>
+        </body>
+      </method>
+      <method name="onPin">
+        <body>
+          <![CDATA[
+            if(this.pinHandler){
+              this.pinHandler(this.thumbData);
+              this.refreshButtonStatus();
+            }
+          ]]>
+        </body>
+      </method>
+      <method name="handleMouseOver">
+        <body>
+          <![CDATA[
+            if(!this.handleMouse)
+              return;
+            var overlay = document.getAnonymousElementByAttribute(this, 'anonid', 'thumbOverlay');
+            if(overlay)overlay.style.display = '';
+          ]]>
+        </body>
+      </method>
+      <method name="handleMouseOut">
+        <body>
+        <![CDATA[
+          if(!this.handleMouse)
+              return;
+          var overlay = document.getAnonymousElementByAttribute(this, 'anonid', 'thumbOverlay');
+          if(overlay)overlay.style.display = 'none';
+        ]]>
+        </body>
+      </method>
+      <method name="setSize">
+        <parameter name="width" />
+        <parameter name="height" />
+        <body>
+          <![CDATA[
+          var image = document.getAnonymousElementByAttribute(this, 'class', 'thumbImage');
+          var container = document.getAnonymousElementByAttribute(this, 'class', 'image');
+          image.width = width;
+          image.height = height;
+          image.style.height = height + 'px';
+          image.style.width = width + 'px';
+          this.width = width;
+          this.height = height + 20;
+          this.style.height = this.height + 'px';
+          this.style.width = this.width + 'px';
+          container.width = width;
+          container.height = height;
+          container.style.width = width + 'px';
+          container.style.height = height + 'px';
+        ]]>
+        </body>
+      </method>
+    </implementation>
+    <handlers>
+      <handler event="mouseover">
+        this.handleMouseOver();
+      </handler>
+      <handler event="mouseout">
+        this.handleMouseOut();
+      </handler>
+    </handlers>
+  </binding>
+
+  <binding id="closedTabLink">
+    <content>
+      <xul:hbox class="faviconSiteLink" />
+    </content>
+    <implementation>
+      <method name="draw">
+        <parameter name="closedTabData" />
+        <parameter name="onClickHandler" />
+        <body>
+          <![CDATA[
+            var faviconUrl = closedTabData.image;
+            var text = closedTabData.title;
+            var href = closedTabData.state.entries[0].url;
+            document.getAnonymousNodes(this)[0].draw(href, text, faviconUrl, onClickHandler);
+          ]]>
+        </body>
+      </method>
+    </implementation>
+  </binding>
+
+  <binding id="recentBookmarkLink">
+    <content>
+      <xul:hbox class="faviconSiteLink" />
+    </content>
+    <implementation>
+      <method name="draw">
+        <parameter name="href" />
+        <parameter name="text" />
+        <parameter name="faviconUrl" />
+        <parameter name="onClickHandler" />
+        <body>
+          <![CDATA[
+            document.getAnonymousNodes(this)[0].draw(href, text, faviconUrl, onClickHandler);
+          ]]>
+        </body>
+      </method>
+    </implementation>
+  </binding>
+
+  <binding id="faviconSiteLink">
+    <content>
+      <xul:hbox class="faviconSiteLink">
+        <xul:image class="favIcon" />
+        <xul:label class="label" crop="end" />
+      </xul:hbox>
+    </content>
+    <implementation>
+      <field name="href" />
+      <field name="onClick" />
+      <method name="draw">
+        <parameter name="href" />
+        <parameter name="text" />
+        <parameter name="faviconUrl" />
+        <parameter name="onClickHandler" />
+        <body>
+          <![CDATA[
+            this.href = href;
+            this.onClick = onClickHandler;
+            document.getAnonymousNodes(this)[0].childNodes[0].src = faviconUrl;
+            document.getAnonymousNodes(this)[0].childNodes[1].value = text;
+            document.getAnonymousNodes(this)[0].setAttribute("tooltiptext", text);
+          ]]>
+        </body>
+      </method>
+      <method name="clickHandler">
+        <body>
+            if(this.onClick)
+                this.onClick();
+        </body>
+      </method>
+    </implementation>
+    <handlers>
+      <handler event="click" action="this.clickHandler()" />
+      <handler event="mouseover" action="window.status=this.href" />
+      <handler event="focus" action="window.status=this.href" />
+      <handler event="mouseout" action="window.status=''" />
+      <handler event="blur" action="window.status=''" />
+    </handlers>
+  </binding>
+
+</bindings>

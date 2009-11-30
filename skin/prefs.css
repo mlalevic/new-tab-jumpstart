@@ -1,0 +1,35 @@
+radio[pane] {
+  list-style-image: url("chrome://jumpstart/skin/img/ntjs-toolbar.png");
+}
+
+radio[pane=paneGeneral] {
+  -moz-image-region: rect(0px, 32px, 32px, 0px);
+ }
+
+radio[pane=paneGeneral]:hover, radio[pane=paneGeneral][selected="true"]  {
+  -moz-image-region: rect(32px, 32px,  64px, 0px);
+}
+
+radio[pane=paneThumbs] {
+  -moz-image-region: rect(0px, 64px, 32px, 32px);
+}
+
+radio[pane=paneThumbs]:hover, radio[pane=paneThumbs][selected="true"]  {
+  -moz-image-region: rect(32px, 64px,  64px, 32px);
+}
+
+radio[pane=paneInfo] {
+  -moz-image-region: rect(0px, 96px, 32px, 64px);
+ }
+
+radio[pane=paneInfo]:hover, radio[pane=paneInfo][selected="true"]  {
+  -moz-image-region: rect(32px, 96px,  64px, 64px);
+}
+
+#largeThumbsButton {
+  list-style-image: url("chrome://jumpstart/skin/img/bigthumb.png");
+}
+
+#smallThumbsButton {
+  list-style-image: url("chrome://jumpstart/skin/img/smallthumb.png");
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ENTITY title "New Tab - JumpStarted">
+<!ENTITY mostVisited "자주 방문한 페이지">
+<!ENTITY menu.showOnNewTab "새 탭에 보이기">
+<!ENTITY menu.showOnStartup "시작 시 보이기">
+<!ENTITY menu.showToolbarButton "도구 모음 아이콘을 보이기">
+<!ENTITY menu.showInHistory "방문 기록에 보이기">
+<!ENTITY menu.bigThumbs "크게 미리 보기">
+<!ENTITY menu.moreOptions "추가 옵션 ...">
+<!ENTITY search.emptyText "검색 기록">
+<!ENTITY recentBookmarks.recent "최근">
+<!ENTITY recentBookmarks.tooltip "북마크 더 보기">
+<!ENTITY recentBookmarks.linkText "북마크" >
+<!ENTITY recentlyClosed "최근에 닫은 탭" >
+<!ENTITY search "검색" >
+<!ENTITY search2.emptyText "검색 기록" >
+<!ENTITY back "미리 보기로 돌아가기" >
+
+
+

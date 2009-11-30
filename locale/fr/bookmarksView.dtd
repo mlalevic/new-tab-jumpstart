@@ -1,0 +1,9 @@
+<!ENTITY title "Marque-pages - JumpStarted">
+<!ENTITY latest "Derniers">
+<!ENTITY recent "Récemment visités">
+<!ENTITY frequent "Fréquemment utilisés">
+<!ENTITY tags "Étiquettes">
+<!ENTITY tagNotice "Vous n'avez aucune étiquette de marque-page. En ajouter vous permet de mieux organiser vos marque-pages. Commencez à ajouter des étiquettes à vos marque-pages">
+<!ENTITY tagsLink "http://support.mozilla.com/fr/kb/&#37;C3&#37;89tiquettes&#37;20de&#37;20marque-pages">
+<!ENTITY tagsNow "maintenant">
+<!ENTITY tagNoticeAfterLink "!">

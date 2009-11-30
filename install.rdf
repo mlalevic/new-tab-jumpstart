@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+     >
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>jumpstart@mihailo.lalevic</em:id>
+    <em:version>0.5a5.1</em:version>
+    <em:name>New Tab JumpStart</em:name>
+    <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
+    <em:creator>Mihailo Lalevic</em:creator>
+    <em:developer>Chris Cook</em:developer>
+    <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+    <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+    <em:iconURL>chrome://jumpstart/skin/img/JumpStart32.png</em:iconURL>
+    <em:optionsURL>chrome://jumpstart/content/preferences/preferences.xul</em:optionsURL>
+
+    <em:localized>
+        <Description>
+            <em:locale>en</em:locale>
+            <em:name>New Tab JumpStart</em:name>
+            <em:creator>Mihailo Lalevic</em:creator>
+            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+            <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
+        </Description>
+    </em:localized>
+
+    <em:localized>
+        <Description>
+            <em:locale>en-US</em:locale>
+            <em:name>New Tab JumpStart</em:name>
+            <em:creator>Mihailo Lalevic</em:creator>
+            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+            <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
+        </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>sr</em:locale>
+        <em:name>New Tab JumpStart</em:name>
+        <em:creator>Mihailo Lalevic</em:creator>
+            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+        <em:description>Помаже Вам да убрзате и побљшате искуство коришћења фајерфокса мењајући празан екран новог језичка прегледом најчешће коришћених интернет страница, најновијим забелешкама, претрагом и последње затвореним језичцима.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>sr-RS</em:locale>
+        <em:name>New Tab JumpStart</em:name>
+        <em:creator>Mihailo Lalevic</em:creator>
+            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+        <em:description>Помаже Вам да убрзате и побљшате искуство коришћења фајерфокса мењајући празан екран новог језичка прегледом најчешће коришћених интернет страница, најновијим забелешкама, претрагом и последње затвореним језичцима.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>ko-KR</em:locale>
+        <em:name>New Tab JumpStart</em:name>
+        <em:creator>Mihailo Lalevic</em:creator>
+        <em:developer>Chris Cook</em:developer>
+        <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+        <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+        <em:translator>Tag Jong Lee</em:translator>
+        <em:description>새 탭의 빈 화면에 자주 방문한 페이지의 미리 보기, 최신 북마크, 검색, 최근 닫은 탭 등을 표시하여 웹 서핑을 편리하게 도와 드립니다.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+        <Description>
+            <em:locale>hu-HU</em:locale>
+            <em:name>New Tab JumpStart</em:name>
+            <em:creator>Mihailo Lalevic</em:creator>
+            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+            <em:translator>Mikes Kaszmán István (hu-HU)</em:translator>
+            <em:description>Üres lap helyettesítése a leggyakrabban meglátogatott oldalak gyorsnézetével, a legutoljára megnyitott könyvjelzőkkel, keresésekkel és a legutoljára bezárt lapokkal.</em:description>
+        </Description>
+    </em:localized>
+    <em:localized>
+      <Description>
+        <em:locale>pl-PL</em:locale>
+        <em:name>New Tab JumpStart</em:name>
+        <em:creator>Mihailo Lalevic</em:creator>
+        <em:developer>Chris Cook</em:developer>
+        <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+        <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+        <em:description>Zastępuje pustą nową kartę podglądem najczęściej otwieranych przez użytkownika witryn, zakłdek, wyszukiwań i ostatnio zamkniętych kart.</em:description>
+        <em:translator>Leszek(teo)Życzkowski</em:translator>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+        <Description>
+            <em:locale>he-IL</em:locale>
+            <em:translator>SiiiE</em:translator>
+            <em:name>New Tab JumpStart</em:name>
+            <em:creator>Mihailo Lalevic</em:creator>
+            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+            <em:description>מסייע לך בקפיצת התחלה לחוויית האינטרנט, על ידי שינוי המסך הריק של הלשונית החדשה לתצוגה מקדימה של האתרים שמבקרים בהם לעתים קרובות, הסימניות האחרונות, חיפושים ולשוניות שנסגרו לאחרונה.</em:description>
+        </Description>
+    </em:localized>
+
+    <em:localized>
+        <Description>
+            <em:locale>fr</em:locale>
+            <em:translator>Goofy</em:translator>
+            <em:name>New Tab JumpStart</em:name>
+            <em:creator>Mihailo Lalevic</em:creator>
+            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+            <em:description>Vous aide à dynamiser votre navigation en remplaçant l'écran vide sur un nouvel onglet par des vignettes des sites et des derniers marque-pages utilisés, des recherches effectuées et des onglets récemment fermés.</em:description>
+        </Description>
+    </em:localized>
+
+   <em:localized>
+      <Description>
+         <em:locale>de-DE</em:locale>
+         <em:name>New Tab JumpStart</em:name>
+         <em:creator>Mihailo Lalevic</em:creator>
+            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://digitalmihailo.blogspot.com/search/label/JumpStart</em:homepageURL>
+         <em:translator>erglo</em:translator>
+         <em:description>Eine Starthilfe für Ihr Web-Erlebnis. Dieses Add-on ersetzt den leeren Inhalt eines neuen Tabs durch eine Übersicht der am häufigsten verwendeten Seiten, zuletzt besuchte Lesezeichen, Suchvorgänge und kürzlich geschlossener Tabs.</em:description>
+      </Description>
+   </em:localized>
+
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>3.0</em:minVersion>
+        <em:maxVersion>3.5.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    <!-- Fennec -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
+        <em:minVersion>0.1</em:minVersion>
+        <em:maxVersion>1.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+   <em:targetApplication> <!-- Midbrowser -->
+       <Description>
+       <em:id>{aa5ca914-c309-495d-91cf-3141bbb04115}</em:id>
+       <em:minVersion>0.2</em:minVersion>
+       <em:maxVersion>0.3</em:maxVersion>
+       </Description>
+   </em:targetApplication>
+  </Description>      
+</RDF>
