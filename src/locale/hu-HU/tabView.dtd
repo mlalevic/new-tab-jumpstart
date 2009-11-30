@@ -14,5 +14,3 @@
 <!ENTITY search "Keresés">
 <!ENTITY search2.emptyText "Keresés előzményei">
 <!ENTITY back "Vissza a gyorsnézethez">
-<!ENTITY controls.pinLabel "Mindig jelenjen meg ez az oldal">
-<!ENTITY controls.removeLabel "Soha ne jelenjen meg ez az oldal">

@@ -4,11 +4,17 @@ overlay chrome://midbrowser/content/midbrowser.xul   chrome://jumpstart/content/
 skin jumpstart classic skin/
 resource modules content/modules/
 
+style	chrome://global/content/customizeToolbar.xul	chrome://jumpstart/skin/overlay.css
 
-locale	jumpstart	sr	locale/sr/
-locale	jumpstart	en	locale/en/
-locale	jumpstart	sr-RS	locale/sr-RS/
+
 locale	jumpstart	en-US	locale/en-US/
+locale	jumpstart	en      locale/en/
+locale	jumpstart	sr-RS	locale/sr-RS/
+locale	jumpstart	sr      locale/sr/
 locale	jumpstart	ko-KR	locale/ko-KR/
 locale	jumpstart	hu-HU	locale/hu-HU/
 locale	jumpstart	pl-PL	locale/pl-PL/
+locale	jumpstart	he-IL	locale/he-IL/
+locale	jumpstart	de-DE	locale/de-DE/
+locale	jumpstart	fr   	locale/fr/
+locale	jumpstart	pt-BR  	locale/pt-BR/

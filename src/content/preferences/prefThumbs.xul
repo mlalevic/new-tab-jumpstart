@@ -25,27 +25,24 @@ Contributor(s):
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml"
          >
-  <prefpane id="paneThumbs" label="&title;" image="chrome://jumpstart/skin/img/ThumbsConfig.png">
+  <prefpane id="paneThumbs" label="&title;">
     <preferences>
       <preference id="thumbShowSmall" name="mlalevic.jumpstart.thumbs.ShowSmallThumbs" type="bool"/>
       <preference id="thumbLines" name="mlalevic.jumpstart.thumbs.lines" type="int"/>
       <preference id="thumbColumns" name="mlalevic.jumpstart.thumbs.columns" type="int"/>
 
     </preferences>
-    <spacer flex="1"/>
-    <vbox>
+    <vbox align="center">
       <hbox>
-        <toolbarbutton id="largeThumbsButton" type="radio" group="thumbSizes" tooltiptext="Big Thumbnails" image="chrome://jumpstart/skin/img/bigthumb.png" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
-        <spacer width="20"/>
-        <toolbarbutton id="smallThumbsButton" type="radio" group="thumbSizes" tooltiptext="Small Thumbnails" image="chrome://jumpstart/skin/img/smallthumb.png" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
+        <toolbarbutton id="largeThumbsButton" type="radio" group="thumbSizes" tooltiptext="Big Thumbnails" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
+        <spacer width="15"/>
+        <toolbarbutton id="smallThumbsButton" type="radio" group="thumbSizes" tooltiptext="Small Thumbnails" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
       </hbox>
-      <hbox>
+      <separator class="thin" />
+      <hbox align="center" width="200">
         <scale id="thumbsNumberScale" flex="1" min="0" max="0" increment="1" pageincrement="3" onchange="mlalevic.JumpStart.Preferences.Thumbs.OnChange(this, mlalevic.JumpStart.Preferences.Thumbs);" />
-        <hbox width="50" align="right">
-          <label id="numberOfThumbs" value="" align="baseline" />
-        </hbox>
+        <label id="numberOfThumbs" value="" />
       </hbox>
     </vbox>
-    <spacer flex="1"/>
   </prefpane>
 </overlay>

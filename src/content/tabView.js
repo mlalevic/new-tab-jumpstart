@@ -27,6 +27,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     var services = {}
     Components.utils.import("resource://modules/Observers.js", utils);
     Components.utils.import("resource://modules/utils.js", utils);
+    Components.utils.import("resource://modules/config.js", services);
     Components.utils.import("resource://modules/browserServices.js", services);
     Components.utils.import("resource://modules/dbService.js", services);
 

@@ -27,6 +27,7 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
     var utils = {}
     //import browserServices - we are using browserServices to load data from files
     //   we are using config and load data from database services too
+    Components.utils.import("resource://modules/config.js", services);
     Components.utils.import("resource://modules/browserServices.js", services);
     Components.utils.import("resource://modules/utils.js", utils);
 

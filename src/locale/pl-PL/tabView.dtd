@@ -14,5 +14,3 @@
 <!ENTITY search "Szukaj">
 <!ENTITY search2.emptyText "Historia wyszukiwania">
 <!ENTITY back "Wróć do widoku miniatur">
-<!ENTITY controls.pinLabel "Zawsze wyświetlaj tę witrynę">
-<!ENTITY controls.removeLabel "Nigdy nie wyświetlaj tej witryny">

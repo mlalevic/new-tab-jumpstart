@@ -20,6 +20,7 @@ Contributor(s):
 
 let EXPORTED_SYMBOLS = ["PlacesDb", "AnnoService", "BookmarksService", "HistoryService"];
 
+Components.utils.import("resource://modules/config.js");
 Components.utils.import("resource://modules/utils.js");
 Components.utils.import("resource://modules/window.js");
 
@@ -118,7 +119,10 @@ let AnnoService = {
                 base64Data = base64Data.substring(headerIndex + this.header.length);
             }
             var decoded = this.decode(base64Data);
-            this.annoService.setPageAnnotationBinary(uri, this.thumbsAnno, decoded, decoded.length, "image/png", 0, this.annoService.EXPIRE_WITH_HISTORY);
+            this.annoService.setPageAnnotationBinary(uri, this.thumbsAnno, decoded, decoded.length, "image/png", 0,
+                JumpstartConfiguration.PermanentThumbs?
+                    this.annoService.EXPIRE_NEVER :
+                    this.annoService.EXPIRE_WITH_HISTORY);
 
             var url = this.annoService.getAnnotationURI(uri, this.thumbsAnno).spec;
             CacheServices.removeItem(url);
@@ -129,7 +133,10 @@ let AnnoService = {
                 WindowFunctions.alert("dbg: Properties are null - " + uri);
                 return;
             }
-            this.annoService.setPageAnnotation(uri, this.propertiesAnno, propertiesString, 0, this.annoService.EXPIRE_WITH_HISTORY);
+            this.annoService.setPageAnnotation(uri, this.propertiesAnno, propertiesString, 0,
+                JumpstartConfiguration.PermanentProperties?
+                    this.annoService.EXPIRE_NEVER :
+                    this.annoService.EXPIRE_WITH_HISTORY);
     },
     getProperty : function(uri){
         var anno = this.annoService.getPageAnnotation(uri, this.propertiesAnno);

@@ -18,14 +18,14 @@ Contributor(s):
 **** END LICENSE BLOCK **** */
 
 
-let EXPORTED_SYMBOLS = ["BrowserServices", "JumpstartConfiguration", "Logger"];
+let EXPORTED_SYMBOLS = ["BrowserServices", "Logger"];
 
 Components.utils.import("resource://modules/dbService.js");
 Components.utils.import("resource://modules/fileService.js");
 Components.utils.import("resource://modules/utils.js");
 Components.utils.import("resource://modules/window.js");
-Components.utils.import("resource://modules/Preferences.js");
 Components.utils.import("resource://modules/Observers.js");
+Components.utils.import("resource://modules/config.js");
 
 let ProfileDirectory = 'ProfD';
 let configChanged = "mlalevic.JumpStart.configChanged";
@@ -203,84 +203,5 @@ LoggerService.prototype = {
   }
 }
 
-let JumpstartPrefs = function(){
-  this.prefBranch = new Preferences('mlalevic.jumpstart.');
-  this.prefThumbBranch = new Preferences('mlalevic.jumpstart.thumbs.');
-  this.prefBranch.addObserver(this);
-};
-
-JumpstartPrefs.prototype = {
-  prefBranch : null,
-  prefThumbBranch : null,
-  LoadDelay : 60000,
-  RefreshOnStartup : false,
-  HookUpNewTab : true,
-  OverrideHomepage : true,
-  ShowToolbarButton : true,
-  PersistThumbViewInHistory : false,
-  PurgeHistoryOnThumbViewClose : true,
-  ListRefresh : true,
-  LogLevel : 3,
-  Thumbs : {
-    ShowSmallThumbs: false,
-    MinCount : 9,
-    MinLines : 3,
-    get MinColumns(){
-      return Math.floor(this.MinCount / this.MinLines);
-    },
-    get Count(){
-        return this.Lines * this.Columns;
-    },
-    Lines : 3,
-    Columns : 3
-  },
-  
-  Refresh : function(){
-    this.LogLevel = this.prefBranch.get("LogLevel", this.LogLevel);
-    this.LoadDelay = this.prefBranch.get("onstart_load_delay", this.LoadDelay);
-    this.RefreshOnStartup = this.prefBranch.get("onstart_refresh", this.RefreshOnStartup);
-    this.HookUpNewTab = this.prefBranch.get("hook_up_new_tab", this.HookUpNewTab);
-    this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
-    this.ShowToolbarButton = this.prefBranch.get("show_toolbar_button", this.ShowToolbarButton);
-    this.ListRefresh = this.prefBranch.get("list_refresh", this.ListRefresh);
-    
-    this.PersistThumbViewInHistory = this.prefBranch.get("persist_in_history", this.PersistThumbViewInHistory);
-    this.PurgeHistoryOnThumbViewClose = this.prefBranch.get("on_tabview_close_purge", this.PurgeHistoryOnThumbViewClose);
-    
-    this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
-    this.ShowToolbarButton = this.prefBranch.get("show_toolbar_button", this.ShowToolbarButton);
-    
-    this.Thumbs.Columns = this.prefThumbBranch.get("columns", this.Thumbs.Columns);
-    this.Thumbs.Lines = this.prefThumbBranch.get("lines", this.Thumbs.Lines);
-    
-    this.Thumbs.ShowSmallThumbs = this.prefThumbBranch.get("ShowSmallThumbs", this.Thumbs.ShowSmallThumbs);
-  },
-  
-  observe : function(aSubject, aTopic, data){
-    // We're observing preferences only.
-    if (aTopic != "nsPref:changed")
-      return;
-    this.Refresh();
-    Observers.notify(null, configChanged, null);
-  },
-  
-  setBranchPref : function(aName, aValue){
-    this.prefBranch.set(aName, aValue);
-  },
-  
-  getBranchPref : function(aName){
-    return this.prefBranch.get(aName);
-  },
-  setThumbPref : function(aName, aValue){
-    this.prefThumbBranch.set(aName, aValue);
-  },
-  
-  getThumbPref : function(aName){
-    return this.prefThumbBranch.get(aName);
-  }
-};
-
-let JumpstartConfiguration = new JumpstartPrefs();
-JumpstartConfiguration.Refresh();
 
 let Logger = new LoggerService();

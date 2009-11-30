@@ -28,12 +28,14 @@ Contributor(s):
         xmlns:html="http://www.w3.org/1999/xhtml"
         title="&title;"
             id="jumpstartPrefs"
+            minwidth="330"
+            minheight="330"
          >
   <stringbundleset id="strbundles">
     <stringbundle id="strings" src="chrome://jumpstart/locale/preferences.properties"/>
   </stringbundleset>
   <script type="application/x-javascript" src="preferences.js" />
-  <prefpane id="paneGeneral" label="&tabName;" image="chrome://jumpstart/skin/img/Settings.png">
+  <prefpane id="paneGeneral" label="&tabName;">
     <preferences>
       <preference id="overrideHomepage" name="mlalevic.jumpstart.show_on_startup" type="bool"/>
       <preference id="hookupTab" name="mlalevic.jumpstart.hook_up_new_tab" type="bool"/>
@@ -43,12 +45,14 @@ Contributor(s):
       <preference id="showInHistory" name="mlalevic.jumpstart.persist_in_history" type="bool"/>
     </preferences>
 
-    <checkbox id="hookupTabControl" preference="hookupTab" label="&onnewtab;" />
-    <checkbox id="showOnStartup" preference="overrideHomepage" label="&onstartup;" />
-    <checkbox id="showButtonOnToolbar" preference="showButton" label="&showbutton;" />
-    <checkbox id="showJumpInHistory" preference="showInHistory" label="&showinhistory;" />
+    <groupbox>
+        <checkbox id="hookupTabControl" preference="hookupTab" label="&onnewtab;" />
+        <checkbox id="showOnStartup" preference="overrideHomepage" label="&onstartup;" />
+        <checkbox id="showButtonOnToolbar" preference="showButton" label="&showbutton;" />
+        <checkbox id="showJumpInHistory" preference="showInHistory" label="&showinhistory;" />
+    </groupbox>
   </prefpane>
 
-  <prefpane id="paneThumbs" label="&title.thumbs;" src="chrome://jumpstart/content/preferences/prefThumbs.xul" image="chrome://jumpstart/skin/img/ThumbsConfig.png" onpaneload="mlalevic.JumpStart.Preferences.Thumbs.OnLoad();" />
-  <prefpane id="paneInfo" label="&title.info;" src="chrome://jumpstart/content/preferences/prefInfo.xul" image="chrome://jumpstart/skin/img/Info.png" onpaneload="mlalevic.JumpStart.Preferences.Info.OnLoad();"/>
+  <prefpane id="paneThumbs" label="&title.thumbs;" src="chrome://jumpstart/content/preferences/prefThumbs.xul" onpaneload="mlalevic.JumpStart.Preferences.Thumbs.OnLoad();" />
+  <prefpane id="paneInfo" label="&title.info;" src="chrome://jumpstart/content/preferences/prefInfo.xul" onpaneload="mlalevic.JumpStart.Preferences.Info.OnLoad();"/>
 </prefwindow>

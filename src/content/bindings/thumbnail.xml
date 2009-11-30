@@ -163,9 +163,8 @@
           <html:a href="#" class="thumbImageUrl">
             <html:img class="thumbImage" />
             <html:div anonid="thumbOverlay" class="thumbOverlay" style="display:none;">
-              <html:a anonid="pinLink" class="thumbPin pinLink" href="#"></html:a>
-              <html:a anonid="chooseLink" class="thumbPin chooseLink" href="#"></html:a>
-              <html:a anonid="removeLink" class="thumbPin removeLink" href="#"></html:a>
+              <html:a anonid="pinLink" class="thumbPin pinLink" tooltiptext="&controls.pinLabel;" href="#"></html:a>
+              <html:a anonid="removeLink" class="thumbPin removeLink" tooltiptext="&controls.removeLabel;" href="#"></html:a>
             </html:div>
           </html:a>
         </html:div>
@@ -254,7 +253,6 @@
         <body>
           <![CDATA[
             let pinButton = document.getAnonymousElementByAttribute(this, "anonid", "pinLink");
-            //var chooseButton = document.getAnonymousElementByAttribute(this, "anonid", "chooseLink");
             let removeButton = document.getAnonymousElementByAttribute(this, "anonid", "removeLink");
             
             pinButton.addEventListener("click", mlalevic.Utils.Binder.bind(this, this.handlePin), true);
@@ -270,7 +268,6 @@
             this.pinned = (thumbData.pinned == undefined)?false:thumbData.pinned;
             
             let pinButton = document.getAnonymousElementByAttribute(this, "anonid", "pinLink");
-            //var chooseButton = document.getAnonymousElementByAttribute(this, "anonid", "chooseLink");
             let removeButton = document.getAnonymousElementByAttribute(this, "anonid", "removeLink");
             
             if(this.pinned){

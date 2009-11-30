@@ -16,7 +16,7 @@ The Original Code is New Tab JumpStart.
 The Initial Developer of the Original Code is Mihailo Lalevic.
 Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
 
-Contributor(s): 
+Contributor(s): Leszek(teo)Życzkowski
 **** END LICENSE BLOCK ****
 -->
 
@@ -37,20 +37,20 @@ Contributor(s):
   <vbox flex="1" style="overflow:auto;">
       <hbox flex="1" id="content">
           <vbox id="latestBookmarksContainer" class="contentContainer">
-                <description class="title">&latest;</description>
+                <label class="title" value="&latest;" />
                 <vbox id="latestBookmarksItems" />
           </vbox>
           <vbox id="recentlyVisitedBookmarksContainer" class="contentContainer">
-                <description class="title">&recent;</description>
+                <label class="title" value="&recent;"/>
                 <vbox id="recentlyVisitedBookmarksItems" />
           </vbox>
           <vbox id="frequentBookmarksContainer" class="contentContainer">
-                <description class="title">&frequent;</description>
+                <label class="title" value="&frequent;" />
                 <vbox id="frequentBookmarksItems" />
           </vbox>
       </hbox>
       <vbox id="tagfooter">
-        <description class="title">&tags;</description>
+        <label class="title" value="&tags;" />
         <box hidden="true" id="tagnotice">
           <label value="&tagNotice;" />
           <html:a href="&tagsLink;">&tagsNow;</html:a>

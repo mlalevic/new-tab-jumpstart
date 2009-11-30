@@ -16,7 +16,7 @@ The Original Code is Tab JumpStart.
 The Initial Developer of the Original Code is Mihailo Lalevic.
 Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
 
-Contributor(s): 
+Contributor(s): Leszek(teo)Życzkowski
 **** END LICENSE BLOCK ****
 -->
 <!DOCTYPE window SYSTEM "chrome://jumpstart/locale/overlay.dtd">
@@ -43,5 +43,19 @@ Contributor(s):
     <toolbarbutton id="jumpStartOpenDialButton" oncommand="mlalevic.JumpStart.onDialOpen();"
         class="toolbarbutton-1"
         label="&label;" tooltiptext="&tooltip;" />
+
+    <!--toolbarbutton
+      type="menu-button"
+      class="toolbarbutton-1 chromeclass-toolbar-additional"
+      label="&label;"
+      tooltiptext="&tooltip;"
+      oncommand="mlalevic.JumpStart.onDialOpen();">
+      <menupopup id="ntjs_menupopup">
+        <menuitem id="ntjs_preferences"
+          label="&options.label;"
+          tooltiptext="&options.tooltip;"
+          oncommand="ntjsOptions();"/>
+      </menupopup>
+    </toolbarbutton-->
   </toolbarpalette>
 </overlay>
