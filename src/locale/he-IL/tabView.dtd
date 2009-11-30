@@ -1,0 +1,16 @@
+<!ENTITY title "לשונית חדשה">
+<!ENTITY mostVisited "מבקרים בהם הכי הרבה">
+<!ENTITY menu.showOnNewTab "הצגה בלשונית חדשה">
+<!ENTITY menu.showOnStartup "הצגה באיתחול">
+<!ENTITY menu.showToolbarButton "הצגת כפתור סרגל כלים">
+<!ENTITY menu.showInHistory "הצגה בהיסטוריה">
+<!ENTITY menu.bigThumbs "תמונות ממוזערות גדולות">
+<!ENTITY menu.moreOptions "אפשרויות נוספות...">
+<!ENTITY search.emptyText "היסטוריית חיפוש">
+<!ENTITY recentBookmarks.recent "לאחרונה">
+<!ENTITY recentBookmarks.tooltip "סימניות נוספות">
+<!ENTITY recentBookmarks.linkText "סימניות">
+<!ENTITY recentlyClosed "שנסגרו לאחרונה">
+<!ENTITY search "חיפוש">
+<!ENTITY search2.emptyText "היסטוריית חיפוש">
+<!ENTITY back "בחזרה אל תצוגת תמונות ממוזערות">
