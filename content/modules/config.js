@@ -44,6 +44,9 @@ JumpstartPrefs.prototype = {
   LogLevel : 3,
   PermanentProperties : false,
   PermanentThumbs : false,
+  TransparentBackground: true,
+  ShowBookmarksToolbar: true,
+  ShowNotice: true,
   Thumbs : {
     ShowSmallThumbs: false,
     MinCount : 9,
@@ -69,6 +72,10 @@ JumpstartPrefs.prototype = {
 
     this.PermanentProperties = this.prefBranch.get("permanent_properties", this.PermanentProperties);
     this.PermanentThumbs = this.prefBranch.get("permanent_thumbs", this.PermanentThumbs);
+
+    this.TransparentBackground = this.prefBranch.get("transparent_background", this.TransparentBackground);
+    this.ShowBookmarksToolbar = this.prefBranch.get("show_bookmarks_toolbar", this.ShowBookmarksToolbar);
+    this.ShowNotice = this.prefBranch.get("show_notice", this.ShowNotice);
 
     this.PersistThumbViewInHistory = this.prefBranch.get("persist_in_history", this.PersistThumbViewInHistory);
     this.PurgeHistoryOnThumbViewClose = this.prefBranch.get("on_tabview_close_purge", this.PurgeHistoryOnThumbViewClose);
