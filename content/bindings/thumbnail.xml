@@ -154,7 +154,6 @@
 
   <binding id="siteTile">
     <content>
-      <xul:vbox class="thumb">
         <xul:hbox class="head">
           <html:img anonid="img" />
           <html:a anonid="url" class="thumblink" />
@@ -168,7 +167,6 @@
             </html:div>
           </html:a>
         </html:div>
-      </xul:vbox>
     </content>
     <implementation>
       <field name="index">-1</field>
