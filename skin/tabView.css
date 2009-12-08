@@ -58,20 +58,17 @@
 
 .thumb .head
 {
-	width:inherit;
-	height:20px;
-	overflow: hidden;
-	white-space:nowrap;
+    width:inherit;
+    height:16px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    white-space:nowrap;
 }
 
 .thumb .head .thumblink
 {
-	/*width:inherit;
-	white-space:nowrap;
-	overflow: hidden;
-	height:inherit;
-	display:inline;*/
-	margin: 0px 0px 0px 5px;
+    margin-left: 5px;
+    display: inline-block;
 }
 
 .thumb .image
@@ -104,20 +101,17 @@
 
 .smallthumb .head
 {
-	width:inherit;
-	height:20px;
-	overflow: hidden;
-	white-space:nowrap;
+    width:inherit;
+    height:16px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    white-space:nowrap;
 }
 
 .smallthumb .head .thumblink
 {
-	/*width:inherit;
-	white-space:nowrap;
-	overflow: hidden;
-	height:inherit;
-	display:inline;*/
-	margin: 0px 0px 0px 5px;
+    margin-left: 5px;
+    display: inline-block;
 }
 
 .smallthumb .image
