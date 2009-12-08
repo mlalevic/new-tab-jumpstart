@@ -2,6 +2,11 @@
 	background-color: #FFF;
 }
 
+#search-box {
+    width: inherit;
+    margin-right: 10px;
+}
+
 .layoutContainer {
 	-moz-box-flex: 0;
 	-moz-box-pack: center;
