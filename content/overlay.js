@@ -735,6 +735,8 @@ var UndoClosed = function(aValue) {
 var startAll = function(){
         window.removeEventListener("load", startAll, false);
 
+        services.BrowserServices.setBookmarksEventHandler(BookmarksEventHandler);
+
         if(fennec){
             newTabLoader_fennec.start();
             SnapshotComponent_fennec.start();
