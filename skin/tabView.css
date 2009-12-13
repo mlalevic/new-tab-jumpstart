@@ -3,6 +3,12 @@
     background-color: transparent;
 }
 
+.bookmarksBar
+{
+	width:inherit;
+	border: solid 1px #6B90DA;
+}
+
 #search-box {
     width: inherit;
     margin-right: 10px;
@@ -41,6 +47,11 @@
 .siteTileContainer {
 	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#siteTileContainer");
 	-moz-box-pack: start;
+}
+
+.tileCell{
+    width: 212px;
+    height: 171px;
 }
 
 .thumb {
@@ -86,6 +97,11 @@
 }
 
 /* classes for small thumbs */
+.smallTileCell{
+    width: 163px;
+    height: 137px;
+}
+
 .smallthumb {
 	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#siteTile");
 	width: inherit;
