@@ -42,6 +42,11 @@ Christopher Cook (beerfan@gmail.com)
   <stringbundleset id="strbundles">
     <stringbundle id="strings" src="chrome://jumpstart/locale/tabView.properties"/>
   </stringbundleset>
+
+  <script src="chrome://global/content/nsDragAndDrop.js" />
+  <script src="chrome://global/content/nsTransferable.js" />
+
+
   <script type="application/x-javascript"
           src="chrome://browser/content/bookmarks/sidebarUtils.js"/>
   <script type="application/x-javascript" src="tabView.js" />
@@ -55,7 +60,20 @@ Christopher Cook (beerfan@gmail.com)
   <hbox id="mainBox" class="layoutContainer">
     <spacer flex="1" />
 
-    <vbox id="siteTileContainer" class="siteTileContainer" />
+    <vbox>
+        <vbox id="siteTileContainer" class="siteTileContainer" controller="mlalevic.JumpStart.TileContainerController" />
+        <vbox class="bookmarksBar">
+            <hbox id="bookmarksBarContent_jumpstart" flex="1"
+                   type="places"
+                   place="place:folder=TOOLBAR"
+                   context="placesContext"
+
+                   onclick="BookmarksEventHandler.onClick(event);"
+                   oncommand="BookmarksEventHandler.onCommand(event);"
+                   onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
+                   tooltip="btTooltip"/>
+        </vbox>
+    </vbox>
 
     <vbox id="sideContainer">
 
@@ -72,9 +90,6 @@ Christopher Cook (beerfan@gmail.com)
       <vbox id="recentBookmarksContainer" class="contentContainer">
         <description class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;" >&recentBookmarks.linkText;</html:a></description>
         <vbox id="recentBookmarksItems" />
-<!-- TODO: (CC) fix up bookmarks page
-        <label><html:a href="chrome://jumpstart/content/bookmarksView.xul">&recentBookmarks.tooltip;</html:a></label>
--->
       </vbox>
 
       <spacer flex="1" />
@@ -84,7 +99,7 @@ Christopher Cook (beerfan@gmail.com)
 
   <vbox align="center" class="contentContainer" hidden="true" id="searchBox">
     <vbox class="outerContent">
-      <hbox flex="1">
+      <hbox flex="">
         <label value="&search;" class="title"
                control="search-box2"/>
         <textbox id="search-box2" flex="1" emptyText="&search2.emptyText;" empty="true" type="timed" timeout="500"
