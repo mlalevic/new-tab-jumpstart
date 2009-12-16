@@ -11,9 +11,9 @@ pref("mlalevic.jumpstart.LogLevel", 4); //log level - critical
 pref("mlalevic.jumpstart.persist_in_history", false); //should we persist tabView in history
 pref("mlalevic.jumpstart.on_tabview_close_purge", true); //if the last visited page is tabView should we purge history completely (true) or we should just remove the tabView if persist is false (false)
 
-pref("mlalevic.jumpstart.transparent_background", true);
-pref("mlalevic.jumpstart.show_bookmarks_toolbar", true);
+pref("mlalevic.jumpstart.show_bookmarks_toolbar", false);
 pref("mlalevic.jumpstart.show_notice", true);
+pref("mlalevic.jumpstart.show_sidebar", true);
 
 //thumbs prefs
 pref("mlalevic.jumpstart.thumbs.columns", 3); //how many thumbs to display
