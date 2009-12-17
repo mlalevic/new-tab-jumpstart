@@ -30,6 +30,8 @@ Contributor(s):
       <preference id="thumbShowSmall" name="mlalevic.jumpstart.thumbs.ShowSmallThumbs" type="bool"/>
       <preference id="thumbLines" name="mlalevic.jumpstart.thumbs.lines" type="int"/>
       <preference id="thumbColumns" name="mlalevic.jumpstart.thumbs.columns" type="int"/>
+      <preference id="showBookmarksToolbar" name="mlalevic.jumpstart.show_bookmarks_toolbar" type="bool"/>
+      <preference id="showSidebar" name="mlalevic.jumpstart.show_sidebar" type="bool"/>
 
     </preferences>
     <vbox align="center">
@@ -42,6 +44,11 @@ Contributor(s):
       <hbox align="center" width="200">
         <scale id="thumbsNumberScale" flex="1" min="0" max="0" increment="1" pageincrement="3" onchange="mlalevic.JumpStart.Preferences.Thumbs.OnChange(this, mlalevic.JumpStart.Preferences.Thumbs);" />
         <label id="numberOfThumbs" value="" />
+      </hbox>
+            <separator class="thin" />
+      <hbox>
+        <checkbox id="showBookmarksToolbarChk" preference="showBookmarksToolbar" label="Show bookmarks toolbar - Localize!" />
+        <checkbox id="showSidebarChk" preference="showSidebar" label="Show sidebar - Localize!" />
       </hbox>
     </vbox>
   </prefpane>

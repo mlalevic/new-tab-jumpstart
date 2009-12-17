@@ -3,10 +3,23 @@
     background-color: transparent;
 }
 
+.centerContent {
+    -moz-box-pack:center;
+    -moz-box-align:center;
+}
+
 .bookmarksBar
 {
-	width:inherit;
-	border: solid 1px #6B90DA;
+    border: solid 1px #6B90DA;
+}
+
+notification toolbarbutton {
+    text-decoration: underline;
+}
+
+.notificationContent {
+    overflow: auto;
+    height: 40px;
 }
 
 #search-box {

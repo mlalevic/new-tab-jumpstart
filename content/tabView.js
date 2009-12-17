@@ -105,6 +105,16 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     var Unload = function(){
       utils.Observers.remove(showClosed, dataRefreshEvent);
       utils.Observers.remove(showBookmarks, bookmarksChangedEvent);
+      updateNoticeConfig();
+    }
+
+    function updateNoticeConfig(){
+        if(Config.ShowNotice){
+            var notification = document.getElementById("whatsNew");
+            if(!(notification)){ //the element will be removed if notification box closed
+                mlalevic.JumpStart.invertPrefValue("show_notice");
+            }
+        }
     }
 
     var makeURI = function (aURL, aOriginCharset, aBaseURI) {
@@ -116,6 +126,16 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
     var loaded = false;
 
+    function showSidebar(){
+        if(Config.ShowSidebar){
+            document.getElementById("sideContainer").hidden = false;
+            showClosed();
+            showBookmarks();
+        }else{
+            document.getElementById("sideContainer").hidden = true;
+        }
+    }
+
     var draw = function() {
 
         if (loaded)
@@ -123,8 +143,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         loaded = true;
 
         drawThumbs();
-        showClosed();
-        showBookmarks();
+        showSidebar();
 
         //workaround for toolbar binding, XULBrowserWindow is not accessible from window, unless we do this "trick"
         if(!window.XULBrowserWindow){
@@ -138,6 +157,26 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
         //workaround for BookmarksEventHandler
         BookmarksEventHandler = services.BrowserServices.getBookmarksEventHandler();
+
+        showNotice();
+        showBookmarksToolbar();
+        
+    }
+
+    function showNotice(){
+        var notificationBox = document.getElementById("notification");
+        notificationBox.notificationsHidden = !Config.ShowNotice;
+    }
+
+    function showBookmarksToolbar(){
+        var toolbar = document.getElementById("bookmarksBarContent_jumpstart");
+        var bar = document.getElementById("bookmarksBar");
+        if(Config.ShowBookmarksToolbar){
+            bar.hidden = false;
+            toolbar.place="place:folder=TOOLBAR";
+        }else{
+            bar.hidden = true;
+        }
     }
 
     var getData = function(){
