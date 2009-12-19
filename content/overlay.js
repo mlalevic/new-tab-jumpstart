@@ -37,16 +37,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     var Cc = Components.classes;
     var Ci = Components.interfaces;
 
-    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-    var Firefox_ID = '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}';
-
-    var var35 = false;
-    try{
-        ver35 = (appInfo.ID == Firefox_ID) &&
-            (appInfo.version.substr(0,3) >= '3.5');
-    }catch(ex){
-        services.Logger.error("Getting version", ex);
-    }
+    var ver35 = services.BrowserServices.ver35;
 
     var Config = services.JumpstartConfiguration;
 
