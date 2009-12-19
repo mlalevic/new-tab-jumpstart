@@ -688,8 +688,9 @@ var onInstall = {
           }
 
           prefs.setCharPref("version",extension.version);
-          // Insert code if version is different here => upgrade
 
+          clear(prefs, ['show_notice']); //show notice on upgrade
+          // Insert code if version is different here => upgrade
           if(!ver){
               //clear prefs///////////////////////////////
               clear(prefs, ['onstart_refresh', 'LogLevel']);
