@@ -46,6 +46,21 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       Config.setBranchPref(aName, !(Config.getBranchPref(aName)));
     }
 
+    mlalevic.JumpStart.toggleBookmarksToolbar = function(){
+        mlalevic.JumpStart.invertPrefValue("show_bookmarks_toolbar");
+        showBookmarksToolbar();
+    }
+
+    mlalevic.JumpStart.toggleSidebar = function(){
+        mlalevic.JumpStart.invertPrefValue("show_sidebar");
+        showSidebar();
+    }
+
+    mlalevic.JumpStart.releaseNotes = function(){
+        Config.setBranchPref("show_notice", false);
+        window.location = "http://www.digitalmihailo.com"; //TODO: Set the correct url
+    }
+
     //ensure number is between min and max (if over max then max, if under min then min)
     function respectBoundaries(min, max, current){
         var result = max < current?max:current;
@@ -124,8 +139,6 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
 
-    var loaded = false;
-
     function showSidebar(){
         if(Config.ShowSidebar){
             document.getElementById("sideContainer").hidden = false;
@@ -136,11 +149,12 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         }
     }
 
+    var loaded = false;
+
     var draw = function() {
 
         if (loaded)
             return;
-        loaded = true;
 
         drawThumbs();
         showSidebar();
@@ -160,7 +174,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
         showNotice();
         showBookmarksToolbar();
-        
+
+        loaded = true;
     }
 
     function showNotice(){
@@ -283,7 +298,11 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
               //it won't show properly closed for hidden so set timeout
               window.setTimeout(drawClosed, 0);
             }else{
-              drawClosed();
+                if(!loaded){ //this is to handle case when toggled from notice
+                    drawClosed();
+                }else{
+                    window.setTimeout(drawClosed, 0);
+                }
             }
         }else{
             var closedBox = document.getElementById('recentlyClosedBox');
@@ -322,7 +341,11 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
           //it won't show properly closed for hidden so set timeout
           window.setTimeout(drawItems, 0);
         } else {
-          drawItems();
+            if(!loaded){
+                drawItems();
+            }else{
+                window.setTimeout(drawItems, 0);
+            }
         }
 
       } else {

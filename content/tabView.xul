@@ -67,7 +67,12 @@ Christopher Cook (beerfan@gmail.com)
                        class="tabbable"
                        tooltiptext="Click to turn on/off bookmarks toolbar"
                        label="Added bookmarks toolbar"
-                       oncommand=""/>
+                       oncommand="mlalevic.JumpStart.toggleBookmarksToolbar();"/>
+              <toolbarbutton
+                       class="tabbable"
+                       tooltiptext="Click to show/hide sidebar"
+                       label="Sidebar can be hidden"
+                       oncommand="mlalevic.JumpStart.toggleSidebar();"/>
               <vbox class="centerContent">
                   <label   tooltiptext="Drag and drop to rearrange them"
                            value="Rearrange thumbnails" />
@@ -81,7 +86,7 @@ Christopher Cook (beerfan@gmail.com)
                    class="tabbable"
                    tooltiptext="Release notes for this version"
                    label="More information"
-                   oncommand=""/>
+                   oncommand="mlalevic.JumpStart.releaseNotes();"/>
       </notification>
       <hbox id="mainBox" class="layoutContainer">
         <spacer flex="1" />
