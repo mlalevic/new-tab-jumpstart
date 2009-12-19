@@ -86,35 +86,10 @@
       <field name="pinHandler">null</field>
       <field name="followedPageHandler">null</field>
       <field name="thumbData">null</field>
-      <field name="dragDropHandler">null</field>
       <field name="utils">null</field>
       <constructor>
         <![CDATA[
 
-          var utils = {};
-          Components.utils.import("resource://modules/utils.js", utils);
-          this.utils = utils;
-          var tile = this;
-          this.dragDropHandler =
-          {
-              onDragStart: function (event, transferData, action) {
-                var url = tile.url;
-                var data = tile.utils.Converter.toJSONString(tile.thumbData);
-                transferData.data = new TransferData();
-                transferData.data.addDataForFlavour("application/jumpstart", data);
-                transferData.data.addDataForFlavour("text/x-moz-url", url);
-                transferData.data.addDataForFlavour("text/unicode", url);
-              }/*,
-
-              getSupportedFlavours : function () {
-                var flavours = new FlavourSet();
-                return flavours;
-              },
-              onDrop: function (event, transferData, session) {
-              },
-              onDragOver: function(event, transferData, action) {
-              }*/
-         }
         ]]>
       </constructor>
       <method name="setup">
@@ -308,27 +283,6 @@
       <handler event="mouseout">
         this.handleMouseOut();
       </handler>
-      <handler event="draggesture">
-          if(!this || !this.url){
-            return;
-          }
-
-          nsDragAndDrop.startDrag(event,this.dragDropHandler);
-      </handler>
-      <!--handler event="dragdrop">
-          if(!this || !this.url){
-            return;
-          }
-
-          nsDragAndDrop.drop(event,this.dragDropHandler);
-      </handler>
-      <handler event="dragover">
-          if(!this || !this.url){
-            return;
-          }
-
-          nsDragAndDrop.dragOver(event,this.dragDropHandler);
-      </handler-->
     </handlers>
   </binding>
 

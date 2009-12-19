@@ -416,6 +416,15 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             this.removeTiles();
             this.drawTiles(thumbs, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
         },
+        drawOriginal : function(){
+            if(!this.drawContext){
+                return;
+            }
+
+            var data = this.drawContext;
+            this.removeTiles();
+            this.drawTiles(data.data, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
+        },
         drawGrid : function(config){
             columns = config.Columns;
             rows = config.Lines;
@@ -439,8 +448,15 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                 cell.setAttribute("class", config.ShowSmallThumbs?"smallTileCell": "tileCell");
                 cell.index = count;
                 var dragDropHandler = this.dragDropHandler;
-                cell.addEventListener("dragdrop", function(event){nsDragAndDrop.drop(event, dragDropHandler);}, false);
+                var ver35 = services.BrowserServices.ver35;
+                if(ver35){
+                    cell.addEventListener("drop", function(event){nsDragAndDrop.drop(event, dragDropHandler);}, false);
+                }else{
+                    cell.addEventListener("dragdrop", function(event){nsDragAndDrop.drop(event, dragDropHandler);}, false);
+                }
                 cell.addEventListener("dragover", function(event){nsDragAndDrop.dragOver(event, dragDropHandler);}, false);
+                cell.addEventListener("draggesture", function(event){nsDragAndDrop.startDrag(event,dragDropHandler);}, false);
+
                 cell.index = count;
 
                 row.appendChild(cell);
@@ -455,7 +471,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                     config: config,
                     onClickHandler: onClickHandler,
                     pinHandler: pinHandler,
-                    removeHandler: removeHandler,
+                    removeHandler: removeHandler
                 };
 
                 this.moveHandler = moveHandler;
@@ -538,6 +554,33 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     //drag
     var controller = mlalevic.JumpStart.TileContainerController;
     mlalevic.JumpStart.TileContainerController.dragDropHandler =  {
+          dragFinished: false,
+          onDragStart: function (event, transferData, action) {
+                if(!event.currentTarget || 
+                   !event.currentTarget.childNodes ||
+                   event.currentTarget.childNodes.length == 0){
+                    return;
+                }
+
+                this.dragFinished = false;
+                var handler = this;
+                function dragEnded(event){
+                    event.target.removeEventListener("dragend", dragEnded, false);
+
+                    if(!handler.dragFinished){
+                       controller.drawOriginal();
+                    }
+                }
+                event.target.addEventListener("dragend", dragEnded, false);
+
+                var tile = event.currentTarget.childNodes[0];
+                var url = tile.url;
+                var data = utils.Converter.toJSONString(tile.thumbData);
+                transferData.data = new TransferData();
+                transferData.data.addDataForFlavour("application/jumpstart", data);
+                transferData.data.addDataForFlavour("text/x-moz-url", url);
+                transferData.data.addDataForFlavour("text/unicode", url);
+          },
           getSupportedFlavours : function () {
             var flavours = new FlavourSet();
             flavours.appendFlavour("application/jumpstart");
@@ -554,6 +597,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                 return;
             }
 
+            this.dragFinished = true;
+
             controller.moveHandler(data, event.target.index);
           },
           onDragOver: function(event, flavour, session) {
@@ -569,7 +614,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
               var str = { }, strlen = { };
               trans.getTransferData(flavour.contentType, str, strlen);
               if (!str.value)
-                return;
+                return null;
 
               var strisupports = str.value.QueryInterface(Components.interfaces.nsISupportsString);
 
