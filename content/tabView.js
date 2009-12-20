@@ -156,6 +156,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         if (loaded)
             return;
 
+        setBackgroundProperties();
         drawThumbs();
         showSidebar();
 
@@ -176,6 +177,22 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         showBookmarksToolbar();
 
         loaded = true;
+    }
+
+    function setBackgroundProperties(){
+        if(Config.BackgroundColor != ''){
+            document.getElementById("mainBox").style.backgroundColor = Config.BackgroundColor;
+            document.getElementById("searchBox").style.backgroundColor = Config.BackgroundColor;
+        }
+
+        if(Config.BackgroundImage != ''){
+            var imageUrl = Config.BackgroundImage;
+            if(!imageUrl.match(/^url\(/i)){
+                imageUrl = "url(" + imageUrl + ")";
+            }
+            document.getElementById("mainBox").style.backgroundImage = imageUrl;
+            document.getElementById("searchBox").style.backgroundImage = imageUrl;
+        }
     }
 
     function showNotice(){
