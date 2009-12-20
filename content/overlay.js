@@ -619,9 +619,13 @@ var realTimeThumbsUpdates = {
               if(Config.PurgeHistoryOnThumbViewClose || historyUtility.Count == 1){
                 historyUtility.PurgeAll();
                 //HACK: (ML) this can change in new ffox versions + investigate further to see if this is going to affect us adversly
+                //prepare data to fool Components/nsSessionStore.js, _collectTabData function
                 bro.parentNode.__SS_data = {entries : []};
                 bro.parentNode.__SS_data._tab = true;
                 bro.parentNode.__SS_data._tabStillLoading = true; //FF3.5 hack
+
+                //FF3.6 hack
+                bro.__SS_data = {entries : [], _tab: true, _tabStillLoading: true};
                 //ENDHACK
               }else{
                 historyUtility.RemoveCurrent(); //we are removing current since current one is loaded in browser (not necesserally the last one)
