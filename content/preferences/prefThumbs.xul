@@ -32,6 +32,8 @@ Contributor(s):
       <preference id="thumbColumns" name="mlalevic.jumpstart.thumbs.columns" type="int"/>
       <preference id="showBookmarksToolbar" name="mlalevic.jumpstart.show_bookmarks_toolbar" type="bool"/>
       <preference id="showSidebar" name="mlalevic.jumpstart.show_sidebar" type="bool"/>
+      <preference id="bkgColor" name="mlalevic.jumpstart.bkg_color" type="string"/>
+      <preference id="bkgImage" name="mlalevic.jumpstart.bkg_image" type="string"/>
 
     </preferences>
     <vbox align="center">
@@ -50,6 +52,17 @@ Contributor(s):
           <vbox>
             <checkbox id="showBookmarksToolbarChk" preference="showBookmarksToolbar" label="Show bookmarks toolbar - Localize!" />
             <checkbox id="showSidebarChk" preference="showSidebar" label="Show sidebar - Localize!" />
+            <vbox>
+                <label value="Background color:" />
+                <textbox id="bkgColorData" preference="bkgColor" />
+            </vbox>
+            <vbox>
+                <label value="Background image:" />
+                <hbox>
+                    <textbox id="bkgImageData" preference="bkgImage" />
+                    <button id="pickImage" label="Pick Image" oncommand="mlalevic.JumpStart.Preferences.onPickImage();" />
+                </hbox>
+            </vbox>
           </vbox>
       </hbox>
     </vbox>

@@ -223,3 +223,21 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       }
     }
 })();
+
+
+(function() {
+
+    var Preferences = mlalevic.JumpStart.Preferences;
+    Preferences.onPickImage = function(){
+        var nsIFilePicker = Components.interfaces.nsIFilePicker;
+        var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+        fp.init(window, "Select a File", nsIFilePicker.modeOpen);
+        fp.appendFilters(nsIFilePicker.filterImages);
+        fp.appendFilters(nsIFilePicker.filterAll);
+        var res = fp.show();
+        if (res == nsIFilePicker.returnOK){
+          var thefile = fp.file;
+          document.getElementById("bkgImage").value = "file:///" + thefile.path.replace(/\\/g,"/");
+        }
+    }
+})();
