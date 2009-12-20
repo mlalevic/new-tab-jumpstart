@@ -629,7 +629,13 @@ var realTimeThumbsUpdates = {
                 //ENDHACK
               }else{
                 historyUtility.RemoveCurrent(); //we are removing current since current one is loaded in browser (not necesserally the last one)
-                delete bro.parentNode.__SS_data; //HACK: (ML) this can change in new versions of ffox
+                if(bro.parentNode.__SS_data){
+                    delete bro.parentNode.__SS_data; //HACK: (ML) this can change in new versions of ffox
+                }
+
+                if(bro.__SS_data){
+                    delete bro.__SS_data; //HACK: (ML) this is for FF3.6
+                }
               }
             }
           }
