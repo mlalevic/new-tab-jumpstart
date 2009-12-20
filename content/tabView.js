@@ -544,7 +544,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
               if(annoSvc.pageHasAnnotation(uri, "jumpstart/thumbs")){
                 thumbnailUrl = annoSvc.getAnnotationURI(uri, "jumpstart/thumbs").spec;
               }else{
-                thumbnailUrl = faviconUrl;
+                thumbnailUrl = '';// faviconUrl;
               }
 
               return {

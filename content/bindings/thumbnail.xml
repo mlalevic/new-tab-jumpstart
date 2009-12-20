@@ -142,8 +142,17 @@
 
             a.addEventListener("click", followedPageHandler, true);
 
-
-            image.src = thumbData.thumb;
+            if(thumbData.thumb != ''){
+                image.src = thumbData.thumb;
+            }else{
+                imageAnchor.style.backgroundColor = "#fff";
+                imageAnchor.style.backgroundImage = "url(" + thumbData.fav + ")";
+                imageAnchor.style.backgroundRepeat = "no-repeat";
+                imageAnchor.style.backgroundPosition = "center center";
+                imageAnchor.style.width = "inherit";
+                imageAnchor.style.height = "inherit";
+                imageAnchor.style.display = "block";
+            }
             imageAnchor.href = url;
 
             imageAnchor.addEventListener("click", followedPageHandler, true);
