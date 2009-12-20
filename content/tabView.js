@@ -285,6 +285,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     var showClosed = function(){
+      if(!Config.ShowSidebar){return;}
+      
       var tabClosedData = services.BrowserServices.GetClosedData();
 
         if(tabClosedData.length > 0){
@@ -328,6 +330,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     var showBookmarks = function(){
+      if(!Config.ShowSidebar){return;}
+
       var bookmarksData = services.BookmarksService.getLatestBookmarks(10);
     
       var bookmarksContainer = document.getElementById('recentBookmarksContainer');
