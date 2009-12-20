@@ -54,12 +54,12 @@ Contributor(s):
             <checkbox id="showSidebarChk" preference="showSidebar" label="Show sidebar - Localize!" />
             <vbox>
                 <label value="Background color:" />
-                <textbox id="bkgColorData" preference="bkgColor" />
+                <textbox id="bkgColorData" preference="bkgColor" emptytext="transparent" />
             </vbox>
             <vbox>
                 <label value="Background image:" />
                 <hbox>
-                    <textbox id="bkgImageData" preference="bkgImage" />
+                    <textbox id="bkgImageData" preference="bkgImage" emptytext="no image selected" />
                     <button id="pickImage" label="Pick Image" oncommand="mlalevic.JumpStart.Preferences.onPickImage();" />
                 </hbox>
             </vbox>
