@@ -104,7 +104,11 @@ let BrowserServices = {
 
     let width = WindowFunctions.availWidth;
     let height = WindowFunctions.availHeight;
-    let sidebarWidth = 225 + 20; //sidebar + margine - put this to config
+    let sidebarWidth = 20; //sidebar + margine - put this to config
+    if(JumpstartConfiguration.ShowSidebar){
+        sidebarWidth += 225;
+
+    }
     width -= sidebarWidth;
     height -= 150; //for this calculation lets assume this is toolbar and menu size we can add proper calculations later
     

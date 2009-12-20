@@ -47,8 +47,10 @@ Contributor(s):
       </hbox>
             <separator class="thin" />
       <hbox>
-        <checkbox id="showBookmarksToolbarChk" preference="showBookmarksToolbar" label="Show bookmarks toolbar - Localize!" />
-        <checkbox id="showSidebarChk" preference="showSidebar" label="Show sidebar - Localize!" />
+          <vbox>
+            <checkbox id="showBookmarksToolbarChk" preference="showBookmarksToolbar" label="Show bookmarks toolbar - Localize!" />
+            <checkbox id="showSidebarChk" preference="showSidebar" label="Show sidebar - Localize!" />
+          </vbox>
       </hbox>
     </vbox>
   </prefpane>
