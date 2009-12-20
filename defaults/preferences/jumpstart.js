@@ -15,6 +15,9 @@ pref("mlalevic.jumpstart.show_bookmarks_toolbar", false);
 pref("mlalevic.jumpstart.show_notice", true);
 pref("mlalevic.jumpstart.show_sidebar", true);
 
+pref("mlalevic.jumpstart.bkg_color", ""); //background color
+pref("mlalevic.jumpstart.bkg_image", ""); //background image
+
 //thumbs prefs
 pref("mlalevic.jumpstart.thumbs.columns", 3); //how many thumbs to display
 pref("mlalevic.jumpstart.thumbs.lines", 3); //how many thumb lines to display
