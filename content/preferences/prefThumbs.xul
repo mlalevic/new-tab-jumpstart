@@ -38,9 +38,9 @@ Contributor(s):
     </preferences>
     <vbox align="center">
       <hbox>
-        <toolbarbutton id="largeThumbsButton" type="radio" group="thumbSizes" tooltiptext="Big Thumbnails" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
+        <toolbarbutton id="largeThumbsButton" type="radio" group="thumbSizes" tooltiptext="&big_thumbs;" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
         <spacer width="15"/>
-        <toolbarbutton id="smallThumbsButton" type="radio" group="thumbSizes" tooltiptext="Small Thumbnails" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
+        <toolbarbutton id="smallThumbsButton" type="radio" group="thumbSizes" tooltiptext="&small_thumbs;" oncommand="mlalevic.JumpStart.Preferences.Thumbs.OnSizeChange(mlalevic.JumpStart.Preferences.Thumbs);"/>
       </hbox>
       <separator class="thin" />
       <hbox align="center" width="200">
@@ -50,17 +50,17 @@ Contributor(s):
             <separator class="thin" />
       <hbox>
           <vbox>
-            <checkbox id="showBookmarksToolbarChk" preference="showBookmarksToolbar" label="Show bookmarks toolbar - Localize!" />
-            <checkbox id="showSidebarChk" preference="showSidebar" label="Show sidebar - Localize!" />
+            <checkbox id="showBookmarksToolbarChk" preference="showBookmarksToolbar" label="&show_bookmarks;" />
+            <checkbox id="showSidebarChk" preference="showSidebar" label="&show_sidebar;" />
             <vbox>
-                <label value="Background color:" />
-                <textbox id="bkgColorData" preference="bkgColor" emptytext="transparent" />
+                <label value="&bkg_color;" />
+                <textbox id="bkgColorData" preference="bkgColor" emptytext="&bkg_color_empty;" />
             </vbox>
             <vbox>
-                <label value="Background image:" />
+                <label value="&bkg_img;" />
                 <hbox>
-                    <textbox id="bkgImageData" preference="bkgImage" emptytext="no image selected" />
-                    <button id="pickImage" label="Pick Image" oncommand="mlalevic.JumpStart.Preferences.onPickImage();" />
+                    <textbox id="bkgImageData" preference="bkgImage" emptytext="&bkg_img_empty;" />
+                    <button id="pickImage" label="&pick_img;" oncommand="mlalevic.JumpStart.Preferences.onPickImage();" />
                 </hbox>
             </vbox>
           </vbox>
