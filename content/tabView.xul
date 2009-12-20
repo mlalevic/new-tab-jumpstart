@@ -58,34 +58,30 @@ Christopher Cook (beerfan@gmail.com)
   </keyset>
 
   <notificationbox flex="1" id="notification">
-      <notification id="whatsNew" label="New version installed." image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice">
+      <notification id="whatsNew" label="&notice.new_version;" image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice">
           <hbox class="notificationContent" flex="1" >
               <vbox class="centerContent">
-                <label value="Improvements and features, hover for more details: " />
+                <label value="&notice.info;" />
               </vbox>
               <toolbarbutton
                        class="tabbable"
-                       tooltiptext="Click to turn on/off bookmarks toolbar"
-                       label="Added bookmarks toolbar"
+                       tooltiptext="&notice.bookmarks_tooltip;"
+                       label="&notice.bookmarks;"
                        oncommand="mlalevic.JumpStart.toggleBookmarksToolbar();"/>
               <toolbarbutton
                        class="tabbable"
-                       tooltiptext="Click to show/hide sidebar"
-                       label="Sidebar can be hidden"
+                       tooltiptext="&notice.sidebar_tooltip;"
+                       label="&notice.sidebar;"
                        oncommand="mlalevic.JumpStart.toggleSidebar();"/>
               <vbox class="centerContent">
-                  <label   tooltiptext="Drag and drop to rearrange them"
-                           value="Rearrange thumbnails" />
-              </vbox>
-              <vbox class="centerContent">
-                  <label   tooltiptext="Click on X button to close it"
-                           value="This notice with new features" />
+                  <label   tooltiptext="&notice.drag_drop_tooltip;"
+                           value="&notice.drag_drop;" />
               </vbox>
           </hbox>
           <toolbarbutton
                    class="tabbable"
-                   tooltiptext="Release notes for this version"
-                   label="More information"
+                   tooltiptext="&notice.more_info_tooltip;"
+                   label="&notice.more_info;"
                    oncommand="mlalevic.JumpStart.releaseNotes();"/>
       </notification>
       <hbox id="mainBox" class="layoutContainer">
