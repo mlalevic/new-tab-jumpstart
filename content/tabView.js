@@ -591,6 +591,19 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         drawEmpty : function(config){
             this.content().childNodes[0].childNodes[2].hidden = false; //show label
             this.drawGrid(config);
+
+            var rowContainer = this.content().childNodes[0].childNodes[1];
+            var rowsCount = rowContainer.childNodes.length;
+            for (var i = 0; i < rowsCount; i++) {
+              var row = rowContainer.childNodes[i];
+              var columnsCount = row.childNodes.length;
+              for (var j = 0; j < columnsCount; j++) {
+                var cell = row.childNodes[j];
+                var box = document.createElement("vbox");
+                box.className = "cellborder";
+                cell.appendChild(box);
+              }
+            }
         }
     }
 

@@ -1,5 +1,4 @@
 #tabViewWindow {
-	/*background-color: #FFF;*/
     background-color: transparent;
 }
 
@@ -11,6 +10,14 @@
 .bookmarksBar
 {
     border: solid 1px #6B90DA;
+}
+
+notificationbox {
+    -moz-box-pack:center;
+    -moz-box-align:center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 }
 
 notification toolbarbutton {
@@ -67,6 +74,15 @@ notification toolbarbutton {
     height: 171px;
 }
 
+.tileCell > .cellborder
+{
+    border: solid 1px #6B90DA;
+    margin-right: 14px;
+	margin-bottom: 10px;
+	height: 156px;
+    width: 196px;
+}
+
 .thumb {
 	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#siteTile");
 	width: inherit;
@@ -113,6 +129,15 @@ notification toolbarbutton {
 .smallTileCell{
     width: 163px;
     height: 137px;
+}
+
+.smallTileCell > .cellborder
+{
+    border: solid 1px #6B90DA;
+    margin-right: 14px;
+	margin-bottom: 10px;
+	height: 122px;
+    width: 147px;
 }
 
 .smallthumb {
