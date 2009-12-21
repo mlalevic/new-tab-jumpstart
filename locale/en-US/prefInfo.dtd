@@ -9,4 +9,5 @@
 <!ENTITY warning "Errors and Warnings">
 <!ENTITY error "Errors Only">
 <!ENTITY critical "Critical Errors Only">
-
+<!ENTITY blocked "Blocked items">
+<!ENTITY remove_selected "Remove Selected">

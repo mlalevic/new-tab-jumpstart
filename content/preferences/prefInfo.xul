@@ -49,6 +49,11 @@ Contributor(s):
           
         </richlistbox>
       </groupbox>
+      <groupbox>
+        <caption label="&blocked;" />
+        <listbox id="removedItems" rows="5" seltype="multiple" suppressonselect="true" />
+        <button label="&remove_selected;" oncommand="mlalevic.JumpStart.Preferences.Info.undoRemoved();" />
+      </groupbox>
       <separator class="thin" />
       <hbox align="center">
         <label value="&loglevel;" control="loglevellist" />
