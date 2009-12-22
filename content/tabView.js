@@ -58,7 +58,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
     mlalevic.JumpStart.releaseNotes = function(){
         Config.setBranchPref("show_notice", false);
-        window.location = "http://www.digitalmihailo.com"; //TODO: Set the correct url
+        window.location = "http://www.new-tab-jumpstart.com/releases";
     }
 
     //ensure number is between min and max (if over max then max, if under min then min)
