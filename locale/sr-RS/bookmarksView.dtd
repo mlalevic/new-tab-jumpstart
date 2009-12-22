@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!ENTITY title "Забелешке - Појачане">
 <!ENTITY latest "Најновије">
 <!ENTITY recent "Најскорије посећене">
@@ -8,4 +6,4 @@
 <!ENTITY tagNotice "Немате ни једну ознаку за забелешке. Означавање забелешки помаже Вам да боље организујете своје забелешке. Почните да означавате забелешке ">
 <!ENTITY tagsLink "http://support.mozilla.com/en-US/kb/bookmark+tags">
 <!ENTITY tagsNow "одмах!">
-<!ENTITY tagNoticeAfterLink "" >
+<!ENTITY tagNoticeAfterLink "">

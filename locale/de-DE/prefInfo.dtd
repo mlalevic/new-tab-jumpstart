@@ -7,3 +7,5 @@
 <!ENTITY warning "Fehler und Warnungen">
 <!ENTITY error "Nur Fehler">
 <!ENTITY critical "Nur kritische Fehler">
+<!ENTITY blocked "Blocked items">
+<!ENTITY remove_selected "Remove Selected">

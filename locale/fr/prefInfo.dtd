@@ -7,3 +7,5 @@
 <!ENTITY warning "Erreurs et avertissements">
 <!ENTITY error "Erreurs seulement">
 <!ENTITY critical "Erreurs critiques seulement">
+<!ENTITY blocked "Éléments bloqués">
+<!ENTITY remove_selected "Supprimer les éléments sélectionnés">

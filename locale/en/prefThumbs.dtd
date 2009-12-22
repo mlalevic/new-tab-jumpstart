@@ -1,3 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!ENTITY title "Thumbs">
+<!ENTITY title "Сличице">
+<!ENTITY big_thumbs "Велике сличице">
+<!ENTITY small_thumbs "Мале сличице">
+<!ENTITY show_bookmarks "Видљива трака забелешки">
+<!ENTITY show_sidebar "Видљива бочна трака">
+<!ENTITY bkg_color "Боја позадине:">
+<!ENTITY bkg_color_empty "име или код боје">
+<!ENTITY bkg_img "Слика позадине:">
+<!ENTITY bkg_img_empty "унесите адресу или кликните -&gt;">
+<!ENTITY pick_img "Изабери слику">

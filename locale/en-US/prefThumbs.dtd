@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!ENTITY title "Thumbs">
 <!ENTITY big_thumbs "Big Thumbnails">
 <!ENTITY small_thumbs "Small Thumbnails">
@@ -8,5 +6,5 @@
 <!ENTITY bkg_color "Background color:">
 <!ENTITY bkg_color_empty "color name or code">
 <!ENTITY bkg_img "Background image:">
-<!ENTITY bkg_img_empty "enter image url or click ->">
+<!ENTITY bkg_img_empty "enter image url or click -&gt;">
 <!ENTITY pick_img "Pick Image">

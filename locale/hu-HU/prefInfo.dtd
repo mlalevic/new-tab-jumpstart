@@ -7,3 +7,5 @@
 <!ENTITY warning "Hibák és figyelmeztetések">
 <!ENTITY error "Csak hibák">
 <!ENTITY critical "Csak kritikus hibák">
+<!ENTITY blocked "Blokkolt elemek">
+<!ENTITY remove_selected "Kijelölt elemek eltávolítása">
