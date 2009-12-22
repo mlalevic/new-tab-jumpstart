@@ -1,0 +1,11 @@
+<!ENTITY title "Thông tin">
+<!ENTITY required "Các thiết đặt yêu cầu">
+<!ENTITY compatibility "Lưu ý tương thích">
+<!ENTITY loglevel "Mức ghi nhận:">
+<!ENTITY full "Ghi nhận đầy đủ">
+<!ENTITY relevant "Tất cả các sự kiện có liên quan">
+<!ENTITY warning "Lỗi và cảnh báo">
+<!ENTITY error "Chỉ lỗi">
+<!ENTITY critical "Chỉ các lỗi tới hạn">
+<!ENTITY blocked "Các mục đã bị khóa">
+<!ENTITY remove_selected "Bỏ những thứ được chọn">
