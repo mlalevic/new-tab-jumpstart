@@ -277,7 +277,7 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         var res = fp.show();
         if (res == nsIFilePicker.returnOK){
           var thefile = fp.file;
-          document.getElementById("bkgImage").value = "file:///" + thefile.path.replace(/\\/g,"/");
+          document.getElementById("bkgImage").value = encodeURI("file:///" + thefile.path.replace(/\\/g,"/"));
         }
     }
 })();
