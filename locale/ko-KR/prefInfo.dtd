@@ -7,5 +7,5 @@
 <!ENTITY warning "에러 및 경고">
 <!ENTITY error "에러만">
 <!ENTITY critical "치명적인 에러만">
-<!ENTITY blocked "Blocked items">
-<!ENTITY remove_selected "Remove Selected">
+<!ENTITY blocked "차단된 항목">
+<!ENTITY remove_selected "선택한 항목 제거">
