@@ -1,0 +1,160 @@
+﻿<?xml version="1.0"?>
+<!--
+**** BEGIN LICENSE BLOCK *****
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is New Tab JumpStart.
+
+The Initial Developer of the Original Code is Mihailo Lalevic.
+Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
+
+Contributor(s): 
+Christopher Cook (beerfan@gmail.com)
+
+**** END LICENSE BLOCK ****
+-->
+<!DOCTYPE window SYSTEM "chrome://jumpstart/locale/tabView.dtd">
+
+<?xml-stylesheet href="chrome://jumpstart/skin/tabView.css"?>
+<?xml-stylesheet href="chrome://jumpstart/skin/xbl.css"?>
+
+<?xml-stylesheet href="chrome://browser/content/places/places.css"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/places/places.css"?>
+<?xml-stylesheet href="chrome://browser/skin/browser.css"?>
+
+<?xul-overlay href="chrome://global/content/editMenuOverlay.xul"?>
+<?xul-overlay href="chrome://browser/content/places/placesOverlay.xul"?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        title="&title;"
+        id="tabViewWindow"
+         >
+
+  <stringbundleset id="strbundles">
+    <stringbundle id="strings" src="chrome://jumpstart/locale/tabView.properties"/>
+  </stringbundleset>
+
+  <script src="chrome://global/content/nsDragAndDrop.js" />
+  <script src="chrome://global/content/nsTransferable.js" />
+
+
+  <script type="application/x-javascript"
+          src="chrome://browser/content/bookmarks/sidebarUtils.js"/>
+  <script type="application/x-javascript" src="tabView.js" />
+  <html:link rel="icon" href="chrome://jumpstart/skin/img/jumpstart16.png"/>
+
+  <commandset id="editMenuCommands"/>
+  <commandset id="placesCommands"/>
+  <keyset id="editMenuKeys">
+  </keyset>
+
+  <notificationbox flex="1" id="notification">
+      <notification id="whatsNew" label="&notice.new_version;" image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice">
+          <hbox class="notificationContent" flex="1" >
+              <vbox class="centerContent">
+                <label value="&notice.info;" />
+              </vbox>
+              <toolbarbutton
+                       class="tabbable"
+                       tooltiptext="&notice.bookmarks_tooltip;"
+                       label="&notice.bookmarks;"
+                       oncommand="mlalevic.JumpStart.toggleBookmarksToolbar();"/>
+              <toolbarbutton
+                       class="tabbable"
+                       tooltiptext="&notice.sidebar_tooltip;"
+                       label="&notice.sidebar;"
+                       oncommand="mlalevic.JumpStart.toggleSidebar();"/>
+              <vbox class="centerContent">
+                  <label   tooltiptext="&notice.drag_drop_tooltip;"
+                           value="&notice.drag_drop;" />
+              </vbox>
+          </hbox>
+          <toolbarbutton
+                   class="tabbable"
+                   tooltiptext="&notice.more_info_tooltip;"
+                   label="&notice.more_info;"
+                   oncommand="mlalevic.JumpStart.releaseNotes();"/>
+      </notification>
+      <hbox id="mainBox" class="layoutContainer">
+        <spacer flex="1" />
+
+        <vbox flex="2">
+            <hbox class="centerContent">
+                <vbox id="siteTileContainer" class="siteTileContainer" controller="mlalevic.JumpStart.TileContainerController" />
+            </hbox>
+            <vbox id="bookmarksBar" class="bookmarksBar">
+                <hbox id="bookmarksBarContent_jumpstart" flex="1"
+                       type="places"
+                       context="placesContext"
+                       onclick="BookmarksEventHandler.onClick(event);"
+                       oncommand="BookmarksEventHandler.onCommand(event);"
+                       onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
+                       tooltip="btTooltip"/>
+            </vbox>
+        </vbox>
+
+        <vbox id="sideContainer" flex="2">
+
+          <vbox id="searchContainer" class="contentContainer">
+            <description id="searchTitle" class="title">&search;</description>
+            <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="search" timeout="0" class="text" oncommand="mlalevic.JumpStart.historySearch(this.value);" />
+          </vbox>
+
+          <vbox id="recentlyClosedBox" class="contentContainer">
+            <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>
+            <vbox id="recentlyClosedBoxItems" />
+          </vbox>
+
+          <vbox id="recentBookmarksContainer" class="contentContainer">
+            <description class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;" >&recentBookmarks.linkText;</html:a></description>
+            <vbox id="recentBookmarksItems" />
+          </vbox>
+
+          <spacer flex="1" />
+        </vbox>
+        <spacer flex="1" />
+      </hbox>
+  </notificationbox>
+
+  <vbox align="center" class="contentContainer" hidden="true" id="searchBox">
+    <vbox class="outerContent">
+      <hbox flex="">
+        <label value="&search;" class="title"
+               control="search-box2"/>
+        <textbox id="search-box2" flex="1" emptyText="&search2.emptyText;" empty="true" type="timed" timeout="500"
+                 oncommand="mlalevic.JumpStart.historySearch(this.value);" class="searchTextBox" />
+      </hbox>
+      <vbox>
+        <html:a href="#" onclick="mlalevic.JumpStart.showThumbs();">&back;</html:a>
+      </vbox>
+      <vbox class="mainSearch">
+        <tree id="historyTree"
+              class="sidebar-placesTree"
+              flex="1"
+              type="places"
+              hidecolumnpicker="true"
+              onkeypress="SidebarUtils.handleTreeKeyPress(event);"
+                onclick="SidebarUtils.handleTreeClick(this, event, true);"
+                onmousemove="SidebarUtils.handleTreeMouseMove(event);"
+                onmouseout="SidebarUtils.clearURLFromStatusBar();"
+              >
+          <treecols>
+            <treecol id="title" flex="1" primary="true" hideheader="true"/>
+          </treecols>
+          <treechildren class="sidebar-placesTreechildren" flex="1"/>
+        </tree>
+      </vbox>
+    </vbox>
+  </vbox>
+
+</window>

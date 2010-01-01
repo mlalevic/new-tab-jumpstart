@@ -1,0 +1,10 @@
+<!ENTITY title "Gyorsnézetek">
+<!ENTITY big_thumbs "Nagy gyorsnézetek">
+<!ENTITY small_thumbs "Kis gyorsnézetek">
+<!ENTITY show_bookmarks "Könyvjelzők eszköztár megjelenítése">
+<!ENTITY show_sidebar "Oldalsáv megjelenítése">
+<!ENTITY bkg_color "Háttér színe:">
+<!ENTITY bkg_color_empty "a szín neve vagy kódja">
+<!ENTITY bkg_img "Háttérkép:">
+<!ENTITY bkg_img_empty "a kép webcíme">
+<!ENTITY pick_img "Kép kiválasztása">

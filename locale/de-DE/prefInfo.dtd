@@ -1,0 +1,11 @@
+<!ENTITY title "Info">
+<!ENTITY required "Erforderliche Einstellungen">
+<!ENTITY compatibility "Hinweise zur Kompatibilität">
+<!ENTITY loglevel "Log-Level:">
+<!ENTITY full "Alles erfassen">
+<!ENTITY relevant "Alle relevanten Ereignisse">
+<!ENTITY warning "Fehler und Warnungen">
+<!ENTITY error "Nur Fehler">
+<!ENTITY critical "Nur kritische Fehler">
+<!ENTITY blocked "Blocked items">
+<!ENTITY remove_selected "Remove Selected">

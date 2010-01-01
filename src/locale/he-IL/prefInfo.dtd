@@ -1,9 +1,0 @@
-<!ENTITY title "מידע">
-<!ENTITY required "דרישות תצורה">
-<!ENTITY compatibility "הערות תאימות">
-<!ENTITY loglevel "רמת תיעוד לוג:">
-<!ENTITY full "תיעוד לוג מלא">
-<!ENTITY relevant "כל האירועים הרלוונטיים">
-<!ENTITY warning "שגיאות ואזהרות">
-<!ENTITY error "שגיאות בלבד">
-<!ENTITY critical "שגיאות קריטיות בלבד">

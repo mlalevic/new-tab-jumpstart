@@ -1,0 +1,8 @@
+<!ENTITY title "New Tab JumpStart 설정">
+<!ENTITY tabName "일반">
+<!ENTITY onnewtab "새 탭에 보이기">
+<!ENTITY showinhistory "방문 기록에 보이기">
+<!ENTITY showbutton "도구 모음 아이콘을 보이기">
+<!ENTITY onstartup "시작 시 보이기">
+<!ENTITY title.thumbs "미리 보기">
+<!ENTITY title.info "정보">

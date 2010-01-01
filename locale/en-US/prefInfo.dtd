@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ENTITY title "Info">
+<!ENTITY required "Required Configuration">
+<!ENTITY compatibility "Compatibility Notes">
+<!ENTITY loglevel "Log Level:">
+<!ENTITY full "Full Logging">
+<!ENTITY relevant "All Relevant Events">
+<!ENTITY warning "Errors and Warnings">
+<!ENTITY error "Errors Only">
+<!ENTITY critical "Critical Errors Only">
+<!ENTITY blocked "Blocked items">
+<!ENTITY remove_selected "Remove Selected">
