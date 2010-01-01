@@ -104,7 +104,11 @@ let BrowserServices = {
 
     let width = WindowFunctions.availWidth;
     let height = WindowFunctions.availHeight;
-    let sidebarWidth = 225 + 20; //sidebar + margine - put this to config
+    let sidebarWidth = 20; //sidebar + margine - put this to config
+    if(JumpstartConfiguration.ShowSidebar){
+        sidebarWidth += 225;
+
+    }
     width -= sidebarWidth;
     height -= 150; //for this calculation lets assume this is toolbar and menu size we can add proper calculations later
     
@@ -128,6 +132,12 @@ let BrowserServices = {
   GetHistoryUtility : function(aWindow){
       return historyComponent.GetHistoryUtility(aWindow);
   },
+  setBookmarksEventHandler : function(theObject){
+      BookmarksEventHandler = theObject;
+  },
+  getBookmarksEventHandler : function(){
+      return BookmarksEventHandler;
+  },
   setFollowedPage : function(func){
     flwdPg = func;
   },
@@ -149,6 +159,7 @@ let BrowserServices = {
 };
 
 var historyComponent = null;
+var BookmarksEventHandler = null;
 var flwdPg = null;
 var getClosedDataFunction = null;
 var undoClosedFunction = null;
@@ -205,3 +216,20 @@ LoggerService.prototype = {
 
 
 let Logger = new LoggerService();
+
+(function(){
+  
+  var Cc = Components.classes;
+  var Ci = Components.interfaces;
+
+    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+    var Firefox_ID = '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}';
+
+    BrowserServices.ver35 = false;
+    try{
+        BrowserServices.ver35 = (appInfo.ID == Firefox_ID) &&
+            (appInfo.version.substr(0,3) >= '3.5');
+    }catch(ex){
+        services.Logger.error("Getting version", ex);
+    }
+})();

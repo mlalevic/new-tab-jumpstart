@@ -7,3 +7,5 @@
 <!ENTITY warning "שגיאות ואזהרות">
 <!ENTITY error "שגיאות בלבד">
 <!ENTITY critical "שגיאות קריטיות בלבד">
+<!ENTITY blocked "פריטים חסומים">
+<!ENTITY remove_selected "הסרת הנבחרים">

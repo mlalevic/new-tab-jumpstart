@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!ENTITY title "정보">
 <!ENTITY required "필요한 설정">
 <!ENTITY compatibility "호환성 정보">
@@ -9,4 +7,5 @@
 <!ENTITY warning "에러 및 경고">
 <!ENTITY error "에러만">
 <!ENTITY critical "치명적인 에러만">
-
+<!ENTITY blocked "차단된 항목">
+<!ENTITY remove_selected "선택한 항목 제거">

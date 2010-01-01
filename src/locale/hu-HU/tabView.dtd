@@ -14,3 +14,13 @@
 <!ENTITY search "Keresés">
 <!ENTITY search2.emptyText "Keresés előzményei">
 <!ENTITY back "Vissza a gyorsnézethez">
+<!ENTITY notice.more_info "További információk">
+<!ENTITY notice.more_info_tooltip "Kiadási megjegyzések">
+<!ENTITY notice.new_version "Az új verzió telepítve.">
+<!ENTITY notice.info "Javítások és funkciók, további infó a buboréksúgóban:">
+<!ENTITY notice.bookmarks "Könyvjelzők eszköztár">
+<!ENTITY notice.bookmarks_tooltip "Könyvjelzők eszköztár megjelenítése/elrejtése">
+<!ENTITY notice.sidebar "Oldalsáv">
+<!ENTITY notice.sidebar_tooltip "Oldalsáv megjelenítése/elrejtése">
+<!ENTITY notice.drag_drop "Gyorsnézetek elrendezése">
+<!ENTITY notice.drag_drop_tooltip "Elrendezés módosítása a gyorsnézet áthelyezésével">

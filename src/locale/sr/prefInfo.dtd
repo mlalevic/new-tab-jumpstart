@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!ENTITY title "Информације">
 <!ENTITY required "Потребна подешавања">
 <!ENTITY compatibility "Информације о усаглашености">
@@ -9,4 +7,5 @@
 <!ENTITY warning "Грешке и упозорења">
 <!ENTITY error "Само грешке">
 <!ENTITY critical "Само критичне грешке">
-
+<!ENTITY blocked "Блокиране адресе">
+<!ENTITY remove_selected "Избаци изабране">

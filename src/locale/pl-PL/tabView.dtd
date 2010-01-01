@@ -14,3 +14,13 @@
 <!ENTITY search "Szukaj">
 <!ENTITY search2.emptyText "Historia wyszukiwania">
 <!ENTITY back "Wróć do widoku miniatur">
+<!ENTITY notice.more_info "More information">
+<!ENTITY notice.more_info_tooltip "Release notes for this version">
+<!ENTITY notice.new_version "New version installed.">
+<!ENTITY notice.info "Improvements and features, hover for more details: ">
+<!ENTITY notice.bookmarks "Added bookmarks toolbar">
+<!ENTITY notice.bookmarks_tooltip "Click to turn on/off bookmarks toolbar">
+<!ENTITY notice.sidebar "Sidebar can be hidden">
+<!ENTITY notice.sidebar_tooltip "Click to show/hide sidebar">
+<!ENTITY notice.drag_drop "Rearrange thumbnails">
+<!ENTITY notice.drag_drop_tooltip "Drag and drop to rearrange them">

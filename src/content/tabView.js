@@ -22,6 +22,8 @@ if(!mlalevic){mlalevic = {};}
 if(!mlalevic.Utils){mlalevic.Utils = {};}
 if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
+var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined in browser.js
+
 (function(){
     var utils = mlalevic.Utils;
     var services = {}
@@ -42,6 +44,21 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
     mlalevic.JumpStart.invertPrefValue = function(aName){
       Config.setBranchPref(aName, !(Config.getBranchPref(aName)));
+    }
+
+    mlalevic.JumpStart.toggleBookmarksToolbar = function(){
+        mlalevic.JumpStart.invertPrefValue("show_bookmarks_toolbar");
+        showBookmarksToolbar();
+    }
+
+    mlalevic.JumpStart.toggleSidebar = function(){
+        mlalevic.JumpStart.invertPrefValue("show_sidebar");
+        showSidebar();
+    }
+
+    mlalevic.JumpStart.releaseNotes = function(){
+        Config.setBranchPref("show_notice", false);
+        window.location = "http://www.new-tab-jumpstart.com/releases";
     }
 
     //ensure number is between min and max (if over max then max, if under min then min)
@@ -103,6 +120,16 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     var Unload = function(){
       utils.Observers.remove(showClosed, dataRefreshEvent);
       utils.Observers.remove(showBookmarks, bookmarksChangedEvent);
+      updateNoticeConfig();
+    }
+
+    function updateNoticeConfig(){
+        if(Config.ShowNotice){
+            var notification = document.getElementById("whatsNew");
+            if(!(notification)){ //the element will be removed if notification box closed
+                mlalevic.JumpStart.invertPrefValue("show_notice");
+            }
+        }
     }
 
     var makeURI = function (aURL, aOriginCharset, aBaseURI) {
@@ -112,17 +139,76 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     }
 
 
+    function showSidebar(){
+        if(Config.ShowSidebar){
+            document.getElementById("sideContainer").hidden = false;
+            showClosed();
+            showBookmarks();
+        }else{
+            document.getElementById("sideContainer").hidden = true;
+        }
+    }
+
     var loaded = false;
 
     var draw = function() {
 
         if (loaded)
             return;
-        loaded = true;
 
+        setBackgroundProperties();
         drawThumbs();
-        showClosed();
-        showBookmarks();
+        showSidebar();
+
+        //workaround for toolbar binding, XULBrowserWindow is not accessible from window, unless we do this "trick"
+        if(!window.XULBrowserWindow){
+          window.XULBrowserWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIWebNavigation)
+            .QueryInterface(Components.interfaces.nsIDocShellTreeItem).treeOwner
+            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIXULWindow)
+            .XULBrowserWindow;
+        }
+
+        //workaround for BookmarksEventHandler
+        BookmarksEventHandler = services.BrowserServices.getBookmarksEventHandler();
+
+        showNotice();
+        showBookmarksToolbar();
+
+        loaded = true;
+    }
+
+    function setBackgroundProperties(){
+        if(Config.BackgroundColor != ''){
+            document.getElementById("mainBox").style.backgroundColor = Config.BackgroundColor;
+            document.getElementById("searchBox").style.backgroundColor = Config.BackgroundColor;
+        }
+
+        if(Config.BackgroundImage != ''){
+            var imageUrl = Config.BackgroundImage;
+            if(!imageUrl.match(/^url\(/i)){
+                imageUrl = "url(" + imageUrl + ")";
+            }
+            document.getElementById("mainBox").style.backgroundImage = imageUrl;
+            document.getElementById("searchBox").style.backgroundImage = imageUrl;
+        }
+    }
+
+    function showNotice(){
+        var notificationBox = document.getElementById("notification");
+        notificationBox.notificationsHidden = !Config.ShowNotice;
+    }
+
+    function showBookmarksToolbar(){
+        var toolbar = document.getElementById("bookmarksBarContent_jumpstart");
+        var bar = document.getElementById("bookmarksBar");
+        if(Config.ShowBookmarksToolbar){
+            bar.hidden = false;
+            toolbar.place="place:folder=TOOLBAR";
+        }else{
+            bar.hidden = true;
+        }
     }
 
     var getData = function(){
@@ -130,6 +216,43 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
             var result = properties.filter(function(element){return !element.removed;});
             result.sort(function(a,b){return a.index - b.index;});
             return result;
+    }
+
+    var moveTile = function(properties, newIndex){
+        var data = getData();
+        
+        //check and fix index
+        if(newIndex < 0){newIndex = 0;}
+        if(newIndex >= data.length) {newIndex = data.length - 1;}
+
+        var originalIndex = -1;
+        var originalProperties = null;
+        //find original index
+        for(var i = 0; i < data.length; i++){
+            if(properties.index == data[i].index){
+                originalIndex = i;
+                originalProperties = data[i];
+                break;
+            }
+        }
+
+        if(originalIndex == -1){return;}
+        if(originalIndex == newIndex){return;}
+
+        var insertIndex = newIndex;
+        /*if(originalIndex < newIndex){
+            insertIndex = newIndex - 1; //since we gonna remove from the list before the index
+        }*/
+
+        data.splice(originalIndex, 1);
+        data.splice(insertIndex, 0, originalProperties);
+
+        //renumber
+        for(var i = 0; i < data.length; i++){
+            data[i].index = i;
+        }
+        //update index properties
+        services.AnnoService.updateProperties(data);
     }
 
     var drawThumbs = function(){
@@ -158,10 +281,12 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         //container.refreshThumb(properties);
       }
 
-      container.draw(data, Config.Thumbs, handleClick, handlePin, handleRemoved);
+      container.draw(data, Config.Thumbs, handleClick, handlePin, handleRemoved, moveTile);
     }
 
     var showClosed = function(){
+      if(!Config.ShowSidebar){return;}
+      
       var tabClosedData = services.BrowserServices.GetClosedData();
 
         if(tabClosedData.length > 0){
@@ -192,7 +317,11 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
               //it won't show properly closed for hidden so set timeout
               window.setTimeout(drawClosed, 0);
             }else{
-              drawClosed();
+                if(!loaded){ //this is to handle case when toggled from notice
+                    drawClosed();
+                }else{
+                    window.setTimeout(drawClosed, 0);
+                }
             }
         }else{
             var closedBox = document.getElementById('recentlyClosedBox');
@@ -201,6 +330,8 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     }
 
     var showBookmarks = function(){
+      if(!Config.ShowSidebar){return;}
+
       var bookmarksData = services.BookmarksService.getLatestBookmarks(10);
     
       var bookmarksContainer = document.getElementById('recentBookmarksContainer');
@@ -231,7 +362,11 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
           //it won't show properly closed for hidden so set timeout
           window.setTimeout(drawItems, 0);
         } else {
-          drawItems();
+            if(!loaded){
+                drawItems();
+            }else{
+                window.setTimeout(drawItems, 0);
+            }
         }
 
       } else {
@@ -276,6 +411,274 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
       // otherwise, we will end up calling load() twice
       historyTree.load([query], options);
     }
+
+    mlalevic.JumpStart.TileContainerController = {
+        view : null,
+        drawContext: null,
+        moveHandler: null,
+        setView : function(view){
+            this.view = view;
+        },
+        content : function(){
+          return this.view.getContent();
+        },
+        removeTiles: function(){
+            var rowContainer = this.content().childNodes[0].childNodes[1];
+            var rowsCount = rowContainer.childNodes.length;
+            for (var i = 0; i < rowsCount; i++) {
+              var row = rowContainer.childNodes[i];
+              var columnsCount = row.childNodes.length;
+              for (var j = 0; j < columnsCount; j++) {
+                var cell = row.childNodes[j];
+                while(cell.hasChildNodes()){
+                    cell.removeChild(cell.firstChild);
+                }
+              }
+            }
+        },
+        rearrange : function(indexFrom, indexTo){
+            if(!this.drawContext){
+                return;
+            }
+
+            //copy thumbs
+            var thumbs = [];
+            for(var i = 0; i < this.drawContext.data.length; i++){
+                thumbs.push(this.drawContext.data[i]);
+            }
+
+            //double check index
+            if(indexTo < 0){ indexTo = 0; }
+            if(indexTo >= thumbs.length){indexTo = thumbs.length - 1;}
+
+            //move thumb
+            var moved = thumbs[indexFrom];
+            thumbs.splice(indexFrom, 1);
+            thumbs.splice(indexTo, 0, moved);
+
+            var data = this.drawContext;
+            this.removeTiles();
+            this.drawTiles(thumbs, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
+        },
+        drawOriginal : function(){
+            if(!this.drawContext){
+                return;
+            }
+
+            var data = this.drawContext;
+            this.removeTiles();
+            this.drawTiles(data.data, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
+        },
+        drawGrid : function(config){
+            columns = config.Columns;
+            rows = config.Lines;
+
+            // Create columns
+            var columnContainer = this.content().childNodes[0].childNodes[0];
+            for (var i = 0; i < columns; i++)
+              columnContainer.appendChild(document.createElement("column"));
+
+
+            // Create rows
+            var count = 0;
+            var rowContainer = this.content().childNodes[0].childNodes[1];
+            for (var i = 0; i < rows; i++) {
+
+              var row = document.createElement("row");
+              rowContainer.appendChild(row);
+              for (var j = 0; j < columns; j++) {
+                // Create tile container (drag-drop receiver)
+                var cell = document.createElement("box");
+                cell.setAttribute("class", config.ShowSmallThumbs?"smallTileCell": "tileCell");
+                cell.index = count;
+                var dragDropHandler = this.dragDropHandler;
+                var ver35 = services.BrowserServices.ver35;
+                if(ver35){
+                    cell.addEventListener("drop", function(event){nsDragAndDrop.drop(event, dragDropHandler);}, false);
+                }else{
+                    cell.addEventListener("dragdrop", function(event){nsDragAndDrop.drop(event, dragDropHandler);}, false);
+                }
+                cell.addEventListener("dragover", function(event){nsDragAndDrop.dragOver(event, dragDropHandler);}, false);
+                cell.addEventListener("draggesture", function(event){nsDragAndDrop.startDrag(event,dragDropHandler);}, false);
+
+                cell.index = count;
+
+                row.appendChild(cell);
+
+                count ++;
+              }
+            }
+        },
+        draw : function(data, config, onClickHandler, pinHandler, removeHandler, moveHandler){
+                this.drawContext = {
+                    data: data,
+                    config: config,
+                    onClickHandler: onClickHandler,
+                    pinHandler: pinHandler,
+                    removeHandler: removeHandler
+                };
+
+                this.moveHandler = moveHandler;
+
+                //TODO: (ML) create css class and add if data.length=0, that way we can ditch drawEmpty
+                if(data.length == 0){
+                    this.drawEmpty(config);
+                    return;
+                }
+
+                this.drawGrid(config);
+
+                this.drawTiles(data, config, onClickHandler, pinHandler, removeHandler);
+        },
+        drawTiles : function(data, config, onClickHandler, pinHandler, removeHandler){
+            function translate(data) {
+              let Cc = Components.classes;
+              let Ci = Components.interfaces;
+              var uri =          Cc["@mozilla.org/network/io-service;1"]
+                                     .getService(Ci.nsIIOService)
+                                     .newURI(data.url, null, null);
+              var annoSvc = Cc["@mozilla.org/browser/annotation-service;1"]
+                                     .getService(Ci.nsIAnnotationService);
+
+              var faviconUrl =   Cc["@mozilla.org/browser/favicon-service;1"]
+                                     .getService(Ci.nsIFaviconService)
+                                     .getFaviconImageForPage(uri).spec;
+              var thumbnailUrl;
+
+              if(annoSvc.pageHasAnnotation(uri, "jumpstart/thumbs")){
+                thumbnailUrl = annoSvc.getAnnotationURI(uri, "jumpstart/thumbs").spec;
+              }else{
+                thumbnailUrl = '';// faviconUrl;
+              }
+
+              return {
+                original : data,
+                uri : uri,
+                host : data.host,
+                url : data.url,
+                title : data.title,
+                fav : faviconUrl,
+                originalUrl : data.originalUrl,
+                thumb : thumbnailUrl
+              }
+            }
+
+            var count = 0;
+            var rowContainer = this.content().childNodes[0].childNodes[1];
+            var rowsCount = rowContainer.childNodes.length;
+            for (var i = 0; i < rowsCount; i++) {
+              var row = rowContainer.childNodes[i];
+              var columnsCount = row.childNodes.length;
+              for (var j = 0; j < columnsCount; j++) {
+                var cell = row.childNodes[j];
+                if (count >= data.length){
+                  return;
+                }
+
+                // Create tile
+                var tile = document.createElement("vbox");
+                tile.setAttribute("class", config.ShowSmallThumbs?"smallthumb":"thumb");
+                cell.appendChild(tile);
+                tile.draw(config, translate(data[count]), onClickHandler);
+                tile.pinHandler = pinHandler;
+                tile.removeHandler = removeHandler;
+                tile.index = count;
+
+                count++;
+              }
+            }
+        },
+        drawEmpty : function(config){
+            this.content().childNodes[0].childNodes[2].hidden = false; //show label
+            this.drawGrid(config);
+
+            var rowContainer = this.content().childNodes[0].childNodes[1];
+            var rowsCount = rowContainer.childNodes.length;
+            for (var i = 0; i < rowsCount; i++) {
+              var row = rowContainer.childNodes[i];
+              var columnsCount = row.childNodes.length;
+              for (var j = 0; j < columnsCount; j++) {
+                var cell = row.childNodes[j];
+                var box = document.createElement("vbox");
+                box.className = "cellborder";
+                cell.appendChild(box);
+              }
+            }
+        }
+    }
+
+
+    //drag
+    var controller = mlalevic.JumpStart.TileContainerController;
+    mlalevic.JumpStart.TileContainerController.dragDropHandler =  {
+          dragFinished: false,
+          onDragStart: function (event, transferData, action) {
+                if(!event.currentTarget || 
+                   !event.currentTarget.childNodes ||
+                   event.currentTarget.childNodes.length == 0){
+                    return;
+                }
+
+                this.dragFinished = false;
+                var handler = this;
+                function dragEnded(event){
+                    event.target.removeEventListener("dragend", dragEnded, false);
+
+                    if(!handler.dragFinished){
+                       controller.drawOriginal();
+                    }
+                }
+                event.target.addEventListener("dragend", dragEnded, false);
+
+                var tile = event.currentTarget.childNodes[0];
+                var url = tile.url;
+                var data = utils.Converter.toJSONString(tile.thumbData);
+                transferData.data = new TransferData();
+                transferData.data.addDataForFlavour("application/jumpstart", data);
+                transferData.data.addDataForFlavour("text/x-moz-url", url);
+                transferData.data.addDataForFlavour("text/unicode", url);
+          },
+          getSupportedFlavours : function () {
+            var flavours = new FlavourSet();
+            flavours.appendFlavour("application/jumpstart");
+            //flavours.appendFlavour("text/x-moz-url");
+
+            return flavours;
+          },
+          onDrop: function (event, transferData, session) {
+            if(!transferData.data){
+                return;
+            }
+            var data = utils.Converter.fromJSONString(transferData.data);
+            if(!data){
+                return;
+            }
+
+            this.dragFinished = true;
+
+            controller.moveHandler(data, event.target.index);
+          },
+          onDragOver: function(event, flavour, session) {
+            var data = this.getData(flavour, session);
+            controller.rearrange(data.index, event.target.index);
+          },
+          getData: function(flavour, session){
+              var trans = Components.classes["@mozilla.org/widget/transferable;1"].
+                            createInstance(Components.interfaces.nsITransferable);
+              trans.addDataFlavor(flavour.contentType);
+              session.getData(trans, 0);
+
+              var str = { }, strlen = { };
+              trans.getTransferData(flavour.contentType, str, strlen);
+              if (!str.value)
+                return null;
+
+              var strisupports = str.value.QueryInterface(Components.interfaces.nsISupportsString);
+
+              var jsonData = strisupports.data;
+              return utils.Converter.fromJSONString(jsonData);
+          }
+     }
 
 window.addEventListener("load", Show, false);
 window.addEventListener("unload", Unload, false);

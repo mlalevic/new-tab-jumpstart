@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!ENTITY nothingInHistory "브라우징을 처음 시작할 때 미리 보기를 표시합니다." >
-<!ENTITY controls.pinLabel "이 사이트를 항상 보여주기" >
-<!ENTITY controls.removeLabel "이 사이트를 보이지 않기" >
+<!ENTITY nothingInHistory "브라우징을 처음 시작할 때 미리 보기를 표시합니다.">
+<!ENTITY controls.pinLabel "이 사이트를 항상 보여주기">
+<!ENTITY controls.removeLabel "이 사이트를 보이지 않기">

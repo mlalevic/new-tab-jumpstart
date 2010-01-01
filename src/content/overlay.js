@@ -37,16 +37,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     var Cc = Components.classes;
     var Ci = Components.interfaces;
 
-    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-    var Firefox_ID = '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}';
-
-    var var35 = false;
-    try{
-        ver35 = (appInfo.ID == Firefox_ID) &&
-            (appInfo.version.substr(0,3) >= '3.5');
-    }catch(ex){
-        services.Logger.error("Getting version", ex);
-    }
+    var ver35 = services.BrowserServices.ver35;
 
     var Config = services.JumpstartConfiguration;
 
@@ -628,13 +619,23 @@ var realTimeThumbsUpdates = {
               if(Config.PurgeHistoryOnThumbViewClose || historyUtility.Count == 1){
                 historyUtility.PurgeAll();
                 //HACK: (ML) this can change in new ffox versions + investigate further to see if this is going to affect us adversly
+                //prepare data to fool Components/nsSessionStore.js, _collectTabData function
                 bro.parentNode.__SS_data = {entries : []};
                 bro.parentNode.__SS_data._tab = true;
                 bro.parentNode.__SS_data._tabStillLoading = true; //FF3.5 hack
+
+                //FF3.6 hack
+                bro.__SS_data = {entries : [], _tab: true, _tabStillLoading: true};
                 //ENDHACK
               }else{
                 historyUtility.RemoveCurrent(); //we are removing current since current one is loaded in browser (not necesserally the last one)
-                delete bro.parentNode.__SS_data; //HACK: (ML) this can change in new versions of ffox
+                if(bro.parentNode.__SS_data){
+                    delete bro.parentNode.__SS_data; //HACK: (ML) this can change in new versions of ffox
+                }
+
+                if(bro.__SS_data){
+                    delete bro.__SS_data; //HACK: (ML) this is for FF3.6
+                }
               }
             }
           }
@@ -697,8 +698,9 @@ var onInstall = {
           }
 
           prefs.setCharPref("version",extension.version);
-          // Insert code if version is different here => upgrade
 
+          clear(prefs, ['show_notice']); //show notice on upgrade
+          // Insert code if version is different here => upgrade
           if(!ver){
               //clear prefs///////////////////////////////
               clear(prefs, ['onstart_refresh', 'LogLevel']);
@@ -734,6 +736,8 @@ var UndoClosed = function(aValue) {
 
 var startAll = function(){
         window.removeEventListener("load", startAll, false);
+
+        services.BrowserServices.setBookmarksEventHandler(BookmarksEventHandler);
 
         if(fennec){
             newTabLoader_fennec.start();

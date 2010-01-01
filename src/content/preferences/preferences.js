@@ -197,6 +197,8 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         if(!compatibilityIssue){
           this.addCompatibilityItem(compatibility, infoIcon, strbundle.getString("no_compatibility_issues"));
         }
+
+        this.populateRemovedData();
       },    
       addCompatibilityItem : function(parent, src, text){
         var listitem = document.createElement("richlistitem");
@@ -220,6 +222,62 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
           }
         }
         return false;
+      },
+      populateRemovedData : function(){
+            var services = {};
+            Components.utils.import("resource://modules/dbService.js", services);
+
+            var properties = services.AnnoService.getProperties();
+            var removed = properties.filter(function(element){return element.removed;});
+            var list = document.getElementById('removedItems');
+
+            while(list.itemCount > 0){
+                list.removeItemAt(0);
+            }
+
+            for(var i=0; i < removed.length; i++){
+                var label = removed[i].url;
+                var item = list.appendItem(label, '');
+                item.properties = removed[i];
+            }
+      },
+      undoRemoved : function(){
+        var services = {};
+        Components.utils.import("resource://modules/dbService.js", services);
+
+        var list = document.getElementById('removedItems');
+        var selectedItems = list.selectedItems;
+
+        if(selectedItems.length == 0){
+            return;
+        }
+
+        var propertiesToRemove = [];
+        for(var i=0; i < selectedItems.length; i++){
+            propertiesToRemove.push(selectedItems[i].properties);
+        }
+
+        services.AnnoService.removeProperties(propertiesToRemove);
+
+        this.populateRemovedData();
       }
+    }
+})();
+
+
+(function() {
+
+    var Preferences = mlalevic.JumpStart.Preferences;
+    Preferences.onPickImage = function(){
+        var nsIFilePicker = Components.interfaces.nsIFilePicker;
+        var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+        fp.init(window, "Select a File", nsIFilePicker.modeOpen);
+        fp.appendFilters(nsIFilePicker.filterImages);
+        fp.appendFilters(nsIFilePicker.filterAll);
+        var res = fp.show();
+        if (res == nsIFilePicker.returnOK){
+          var thefile = fp.file;
+          document.getElementById("bkgImage").value = encodeURI("file:///" + thefile.path.replace(/\\/g,"/"));
+        }
     }
 })();
