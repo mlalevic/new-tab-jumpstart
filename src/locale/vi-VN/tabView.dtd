@@ -1,0 +1,26 @@
+<!ENTITY title "Thẻ mới">
+<!ENTITY mostVisited "Xem nhiều nhất">
+<!ENTITY menu.showOnNewTab "Hiển thị trên thẻ mới">
+<!ENTITY menu.showOnStartup "Hiện khi khởi động">
+<!ENTITY menu.showToolbarButton "Hiển thị nút của thanh công cụ">
+<!ENTITY menu.showInHistory "Hiển thị trong Lịch sử">
+<!ENTITY menu.bigThumbs "Ảnh lớn xem trước">
+<!ENTITY menu.moreOptions "Thêm tùy chọn...">
+<!ENTITY search.emptyText "Lịch sử tìm kiếm">
+<!ENTITY recentBookmarks.recent "Mới đây">
+<!ENTITY recentBookmarks.tooltip "Thêm đánh dấu">
+<!ENTITY recentBookmarks.linkText "Đánh dấu">
+<!ENTITY recentlyClosed "Vừa mới đóng">
+<!ENTITY search "Tìm kiếm">
+<!ENTITY search2.emptyText "Tìm kiếm Lịch sử">
+<!ENTITY back "Quay lại chế độ xem trước ảnh nhỏ">
+<!ENTITY notice.more_info "Thêm thông tin">
+<!ENTITY notice.more_info_tooltip "Những lưu ý của phiên bản này">
+<!ENTITY notice.new_version "Phiên bản mới đã được cài đặt.">
+<!ENTITY notice.info "Cải tiến các chức năng, đưa chuột tới để xem thêm chi tiết:">
+<!ENTITY notice.bookmarks "Đã thêm thanh đánh dấu">
+<!ENTITY notice.bookmarks_tooltip "Ấn để bật/tắt thanh đánh dấu">
+<!ENTITY notice.sidebar "Thanh nằm bên cạnh màn hình có thể ẩn đi">
+<!ENTITY notice.sidebar_tooltip "Ấn để ẩn thanh nằm bên cạnh màn hình">
+<!ENTITY notice.drag_drop "Sắp xếp lại các ảnh nhỏ xem trước">
+<!ENTITY notice.drag_drop_tooltip "Kéo và thả để sắp xếp chúng">
