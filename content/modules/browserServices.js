@@ -132,18 +132,6 @@ let BrowserServices = {
   GetHistoryUtility : function(aWindow){
       return historyComponent.GetHistoryUtility(aWindow);
   },
-  setBookmarksEventHandler : function(theObject){
-      BookmarksEventHandler = theObject;
-  },
-  getBookmarksEventHandler : function(){
-      return BookmarksEventHandler;
-  },
-  setFollowedPage : function(func){
-    flwdPg = func;
-  },
-  FollowedPage : function(aHref){
-    flwdPg(aHref);
-  },
   setGetClosedDataFunction : function(func){
     getClosedDataFunction = func;
   },
@@ -159,8 +147,6 @@ let BrowserServices = {
 };
 
 var historyComponent = null;
-var BookmarksEventHandler = null;
-var flwdPg = null;
 var getClosedDataFunction = null;
 var undoClosedFunction = null;
 

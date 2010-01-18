@@ -737,7 +737,6 @@ var UndoClosed = function(aValue) {
 var startAll = function(){
         window.removeEventListener("load", startAll, false);
 
-        services.BrowserServices.setBookmarksEventHandler(BookmarksEventHandler);
 
         if(fennec){
             newTabLoader_fennec.start();
@@ -770,7 +769,6 @@ var startAll = function(){
         bookmarkListener.start();
 
         if(!services.BrowserServices.initialized){
-            services.BrowserServices.setFollowedPage(function(url){PlacesUIUtils.markPageAsTyped(url);});
             services.BrowserServices.setUndoClosedFunction(UndoClosed);
         }
         services.BrowserServices.initialized = true;

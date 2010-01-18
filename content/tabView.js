@@ -94,6 +94,28 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       return true;
     }
 
+    function getBrowserWindow(){
+        /*return window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIWebNavigation)
+            .QueryInterface(Components.interfaces.nsIDocShellTreeItem).treeOwner
+            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIDOMWindow);*/
+        return window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+               .getInterface(Components.interfaces.nsIWebNavigation)
+               .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+               .rootTreeItem
+               .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+               .getInterface(Components.interfaces.nsIDOMWindow);
+    }
+
+    function getMainXulWindow(){
+        return window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIWebNavigation)
+            .QueryInterface(Components.interfaces.nsIDocShellTreeItem).treeOwner
+            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIXULWindow);
+    }
+
 
     try{
       //set this entry not to be persisted if configured so
@@ -162,16 +184,13 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
         //workaround for toolbar binding, XULBrowserWindow is not accessible from window, unless we do this "trick"
         if(!window.XULBrowserWindow){
-          window.XULBrowserWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-            .getInterface(Components.interfaces.nsIWebNavigation)
-            .QueryInterface(Components.interfaces.nsIDocShellTreeItem).treeOwner
-            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-            .getInterface(Components.interfaces.nsIXULWindow)
-            .XULBrowserWindow;
+          window.XULBrowserWindow = getMainXulWindow().XULBrowserWindow;
         }
 
         //workaround for BookmarksEventHandler
-        BookmarksEventHandler = services.BrowserServices.getBookmarksEventHandler();
+        if(!BookmarksEventHandler){
+            BookmarksEventHandler = getBrowserWindow().BookmarksEventHandler;
+        }
 
         showNotice();
         showBookmarksToolbar();
@@ -259,8 +278,9 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       var data = getData();
       var container = document.getElementById("siteTileContainer");
 
+      var uiUtils = getBrowserWindow().PlacesUIUtils;
       function handleClick(){
-        services.BrowserServices.FollowedPage(this.href);
+        uiUtils.markPageAsTyped(this.href);
       }
 
       function handlePin(properties){
