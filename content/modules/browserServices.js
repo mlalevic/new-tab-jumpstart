@@ -126,12 +126,6 @@ let BrowserServices = {
     return {columns: columnsCount, lines: linesCount};
   },
 
-  setGetClosedDataFunction : function(func){
-    getClosedDataFunction = func;
-  },
-  GetClosedData : function(){
-      return getClosedDataFunction();
-  },
   setUndoClosedFunction : function(func){
       undoClosedFunction = func;
   },
@@ -140,7 +134,6 @@ let BrowserServices = {
   }
 };
 
-var getClosedDataFunction = null;
 var undoClosedFunction = null;
 
 let LoggerService = function(){

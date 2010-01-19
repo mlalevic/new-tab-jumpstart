@@ -733,6 +733,13 @@ var UndoClosed = function(aValue) {
     closedTabState.refreshClosed();
 }
 
+mlalevic.JumpStart.getClosedData = function(){
+    if(!closedTabState.initialized){
+        closedTabState.loadClosedData()
+    }
+    return closedTabState.closedTabsData;
+}
+
 var startAll = function(){
         window.removeEventListener("load", startAll, false);
 
@@ -740,22 +747,11 @@ var startAll = function(){
         if(fennec){
             newTabLoader_fennec.start();
             SnapshotComponent_fennec.start();
-            services.BrowserServices.setGetClosedDataFunction(function(){
-                return [];
-            });
         }else{
             ClearUrlComponent.start();
             newTabLoader.start();
             SnapshotComponent.start();
-            if(!services.BrowserServices.initialized){
-                closedTabState.start();
-                services.BrowserServices.setGetClosedDataFunction(function(){
-                    if(!closedTabState.initialized){
-                        closedTabState.loadClosedData()
-                    }
-                    return closedTabState.closedTabsData;
-                });
-            }
+            closedTabState.start();
         }
 
         if(!services.BrowserServices.initialized){

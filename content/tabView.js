@@ -315,7 +315,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     var showClosed = function(){
       if(!Config.ShowSidebar){return;}
       
-      var tabClosedData = services.BrowserServices.GetClosedData();
+        var mw = getBrowserWindow();
+        var tabClosedData = mw.mlalevic.JumpStart.getClosedData();
 
         if(tabClosedData.length > 0){
             var closedBox = document.getElementById('recentlyClosedBox');
