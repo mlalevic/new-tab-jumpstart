@@ -601,7 +601,6 @@ var realTimeThumbsUpdates = {
   var historyComponent = {
      start : function(){
          window.addEventListener("SSTabClosing", utils.Binder.bind(this, this.ssClosing), false);
-         services.BrowserServices.setHistoryComponent(historyComponent);
      },
      GetHistoryUtilityForBrowser : function(aBrowser){
         var internalHistory = aBrowser.sessionHistory.QueryInterface(Ci.nsISHistoryInternal);

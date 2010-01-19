@@ -126,12 +126,6 @@ let BrowserServices = {
     return {columns: columnsCount, lines: linesCount};
   },
 
-  setHistoryComponent : function(hComponent){
-      historyComponent = hComponent;
-  },
-  GetHistoryUtility : function(aWindow){
-      return historyComponent.GetHistoryUtility(aWindow);
-  },
   setGetClosedDataFunction : function(func){
     getClosedDataFunction = func;
   },
@@ -146,7 +140,6 @@ let BrowserServices = {
   }
 };
 
-var historyComponent = null;
 var getClosedDataFunction = null;
 var undoClosedFunction = null;
 

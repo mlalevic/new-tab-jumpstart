@@ -116,11 +116,17 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             .getInterface(Components.interfaces.nsIXULWindow);
     }
 
+    function getHistorytility(){
+        var bro = getBrowserWindow().getBrowserFromContentWindow(window);
+        var internalHistory = bro.sessionHistory.QueryInterface(Ci.nsISHistoryInternal);
+        return new mlalevic.Utils.HistoryUtility(internalHistory);
+    }
+
 
     try{
       //set this entry not to be persisted if configured so
       if(!Config.PersistThumbViewInHistory){
-        var historyUtility = services.BrowserServices.GetHistoryUtility(window);
+        var historyUtility = getHistorytility();
         historyUtility.SetCurrentPersist(false);
       }
     }catch(ex){
