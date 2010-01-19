@@ -272,6 +272,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         }
         //update index properties
         services.AnnoService.updateProperties(data);
+
+        mlalevic.JumpStart.TileContainerController.drawContext.data = data;
     }
 
     var drawThumbs = function(){
@@ -476,6 +478,11 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             thumbs.splice(indexFrom, 1);
             thumbs.splice(indexTo, 0, moved);
 
+            //renumber
+            for(var i = 0; i < thumbs.length; i++){
+                thumbs[i].index = i;
+            }
+
             var data = this.drawContext;
             this.removeTiles();
             this.drawTiles(thumbs, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
@@ -486,8 +493,15 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             }
 
             var data = this.drawContext;
+            var thumbs = data.data;
+
+            //renumber
+            for(var i = 0; i < thumbs.length; i++){
+                thumbs[i].index = i;
+            }
+
             this.removeTiles();
-            this.drawTiles(data.data, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
+            this.drawTiles(thumbs, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
         },
         drawGrid : function(config){
             columns = config.Columns;
