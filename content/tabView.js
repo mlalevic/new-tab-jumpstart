@@ -317,6 +317,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       
         var mw = getBrowserWindow();
         var tabClosedData = mw.mlalevic.JumpStart.getClosedData();
+        var undoClosed = mw.mlalevic.JumpStart.UndoClosed;
 
         if(tabClosedData.length > 0){
             var closedBox = document.getElementById('recentlyClosedBox');
@@ -337,7 +338,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                   var box = document.createElement("hbox");
                   box.setAttribute("class", "recentlyClosedItem");
                   closedBoxItemsContainer.appendChild(box);
-                  box.draw(item, utils.Binder.bindArguments(this, services.BrowserServices.UndoClosed, i));
+                  box.draw(item, utils.Binder.bindArguments(this, undoClosed, i));
               }
             }
 

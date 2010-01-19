@@ -124,17 +124,9 @@ let BrowserServices = {
     columnsCount = columnsCount < minColumnCount? minColumnCount:columnsCount;
     
     return {columns: columnsCount, lines: linesCount};
-  },
-
-  setUndoClosedFunction : function(func){
-      undoClosedFunction = func;
-  },
-  UndoClosed: function(anIndex){
-      undoClosedFunction(anIndex);
   }
-};
 
-var undoClosedFunction = null;
+};
 
 let LoggerService = function(){
   this.fileService = new FileService(this.folder, this.filename);

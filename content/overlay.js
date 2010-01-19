@@ -725,7 +725,7 @@ mlalevic.JumpStart.onDialOpen = function(){
   }
 /*********  Event handlers end *******/
 
-var UndoClosed = function(aValue) {
+mlalevic.JumpStart.UndoClosed = function(aValue) {
     /*if (aEvent.button != 1) //left button
       return;*/
 
@@ -756,16 +756,13 @@ var startAll = function(){
 
         if(!services.BrowserServices.initialized){
             thumbsLoader.start();
-            historyComponent.start();
         }
+        historyComponent.start();
 
         buttonController.start();
         jumpStartService.start();
         bookmarkListener.start();
 
-        if(!services.BrowserServices.initialized){
-            services.BrowserServices.setUndoClosedFunction(UndoClosed);
-        }
         services.BrowserServices.initialized = true;
 }
 
