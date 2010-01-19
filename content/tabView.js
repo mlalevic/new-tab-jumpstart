@@ -226,15 +226,20 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     function showBookmarksToolbar(){
-        var toolbar = document.getElementById("bookmarksBarContent_jumpstart");
-        var bar = document.getElementById("bookmarksBar");
+        var onTop = Config.BookmarksToolbarTop;
+
+        var toolbar = document.getElementById("bookmarksBarContent_jumpstart_" + (onTop?"top":"bottom"));
+        var bar = document.getElementById("bookmarksBar" + (onTop?"Top":"Bottom"));
         if(Config.ShowBookmarksToolbar){
             bar.hidden = false;
             toolbar.place="place:folder=TOOLBAR";
         }else{
             bar.hidden = true;
         }
+
+        document.getElementById("bookmarksBar" + (!onTop?"Top":"Bottom")).hidden = true;
     }
+
 
     var getData = function(){
             var properties = services.AnnoService.getProperties();

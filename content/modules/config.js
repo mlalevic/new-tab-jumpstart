@@ -45,6 +45,7 @@ JumpstartPrefs.prototype = {
   PermanentProperties : false,
   PermanentThumbs : false,
   ShowBookmarksToolbar: true,
+  BookmarksToolbarTop : false,
   ShowNotice: true,
   ShowSidebar: true,
   BackgroundColor: '',
@@ -76,6 +77,7 @@ JumpstartPrefs.prototype = {
     this.PermanentThumbs = this.prefBranch.get("permanent_thumbs", this.PermanentThumbs);
 
     this.ShowBookmarksToolbar = this.prefBranch.get("show_bookmarks_toolbar", this.ShowBookmarksToolbar);
+    this.BookmarksToolbarTop = this.prefBranch.get("bookmarks_toolbar_top", this.BookmarksToolbarTop);
     this.ShowNotice = this.prefBranch.get("show_notice", this.ShowNotice);
     this.ShowSidebar = this.prefBranch.get("show_sidebar", this.ShowSidebar);
     this.BackgroundColor = this.prefBranch.get("bkg_color", this.BackgroundColor);

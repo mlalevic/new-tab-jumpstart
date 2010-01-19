@@ -89,11 +89,20 @@ Christopher Cook (beerfan@gmail.com)
         <spacer flex="1" />
 
         <vbox flex="2">
+            <vbox id="bookmarksBarTop" class="bookmarksBar" hidden="true">
+                <hbox id="bookmarksBarContent_jumpstart_top" flex="1"
+                       type="places"
+                       context="placesContext"
+                       onclick="BookmarksEventHandler.onClick(event);"
+                       oncommand="BookmarksEventHandler.onCommand(event);"
+                       onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
+                       tooltip="btTooltip"/>
+            </vbox>
             <hbox class="centerContent">
                 <vbox id="siteTileContainer" class="siteTileContainer" controller="mlalevic.JumpStart.TileContainerController" />
             </hbox>
-            <vbox id="bookmarksBar" class="bookmarksBar">
-                <hbox id="bookmarksBarContent_jumpstart" flex="1"
+            <vbox id="bookmarksBarBottom" class="bookmarksBar" hidden="true">
+                <hbox id="bookmarksBarContent_jumpstart_bottom" flex="1"
                        type="places"
                        context="placesContext"
                        onclick="BookmarksEventHandler.onClick(event);"
