@@ -698,7 +698,9 @@ var onInstall = {
 
           prefs.setCharPref("version",extension.version);
 
-          clear(prefs, ['show_notice']); //show notice on upgrade
+          if(!ver){ //this version is minor upgrade so show only on first install
+            clear(prefs, ['show_notice']); //show notice on upgrade
+          }
           // Insert code if version is different here => upgrade
           if(!ver){
               //clear prefs///////////////////////////////
