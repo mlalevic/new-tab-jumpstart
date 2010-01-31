@@ -1,10 +1,11 @@
 <!ENTITY title "Vorschaubilder">
-<!ENTITY big_thumbs "Big Thumbnails">
-<!ENTITY small_thumbs "Small Thumbnails">
-<!ENTITY show_bookmarks "Show bookmarks toolbar">
-<!ENTITY show_sidebar "Show sidebar">
-<!ENTITY bkg_color "Background color:">
-<!ENTITY bkg_color_empty "color name or code">
-<!ENTITY bkg_img "Background image:">
-<!ENTITY bkg_img_empty "enter image url or click -&gt;">
-<!ENTITY pick_img "Pick Image">
+<!ENTITY big_thumbs "Große Vorschaubilder">
+<!ENTITY small_thumbs "Kleine Vorschaubilder">
+<!ENTITY show_bookmarks "Lesezeichenzeile anzeigen">
+<!ENTITY show_sidebar "Lesezeichenmenü anzeigen">
+<!ENTITY bkg_color "Hintergrundfarbe:">
+<!ENTITY bkg_color_empty "Farbname oder -code">
+<!ENTITY bkg_img "Hintergrundgrafik:">
+<!ENTITY bkg_img_empty "URL eingeben/klicken-&gt;">
+<!ENTITY pick_img "Grafik wählen">
+<!ENTITY bookmarks_top "Lesezeichenzeile oben platzieren">
