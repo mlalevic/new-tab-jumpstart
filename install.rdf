@@ -153,7 +153,7 @@
     </Description>
     </em:localized>
 
-    <em:locale>
+    <em:localized>
     <Description>
         <em:locale>pt-BR</em:locale>
         <em:name>New Tab JumpStart</em:name>
@@ -164,7 +164,7 @@
         <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
         <em:description>Ajuda você a agilizar o uso da internet, trocando a tela vazia de cada nova aba por miniaturas dos sites que você mais usa, últimos favoritos, últimas buscas e abas fechadas recentemente.</em:description>
     </Description>
-    </em:locale>
+    </em:localized>
 
     <em:targetApplication>
       <Description>
