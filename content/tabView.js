@@ -730,12 +730,5 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 window.addEventListener("load", Show, false);
 window.addEventListener("unload", Unload, false);
 
-function log(e){
-     services.Logger.critical("rect", e.clientRects);
-     if(e.target && e.target.ownerDocument){
-        services.Logger.critical("target", e.target.ownerDocument.URL);
-     }
-}
 
-window.addEventListener("MozAfterPaint", log, false);
 })();
