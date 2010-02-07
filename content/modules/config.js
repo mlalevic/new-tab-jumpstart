@@ -44,6 +44,7 @@ JumpstartPrefs.prototype = {
   LogLevel : 3,
   PermanentProperties : false,
   PermanentThumbs : false,
+  ImprovedRefresh: true,
   ShowBookmarksToolbar: true,
   BookmarksToolbarTop : false,
   ShowNotice: true,
@@ -75,6 +76,7 @@ JumpstartPrefs.prototype = {
 
     this.PermanentProperties = this.prefBranch.get("permanent_properties", this.PermanentProperties);
     this.PermanentThumbs = this.prefBranch.get("permanent_thumbs", this.PermanentThumbs);
+    this.ImprovedRefresh = this.prefBranch.get("improved_refresh", this.ImprovedRefresh);
 
     this.ShowBookmarksToolbar = this.prefBranch.get("show_bookmarks_toolbar", this.ShowBookmarksToolbar);
     this.BookmarksToolbarTop = this.prefBranch.get("bookmarks_toolbar_top", this.BookmarksToolbarTop);

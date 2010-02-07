@@ -190,6 +190,16 @@ var makeURI = function (aURL, aOriginCharset, aBaseURI) {
              return ioService.newURI(aURL, aOriginCharset, aBaseURI);
     }
 
+    function makeSnapshot(uri, domWindow){
+        var result = mlalevic.JumpStart.UI.GetSnapshot(domWindow.document, domWindow);
+        if(result){
+          services.AnnoService.saveThumb(uri, result);
+          services.Logger.debug("Snapshot ", result);
+        }else{
+          services.Logger.debug("Snapshot result null for ", domWindow.location.toString());
+        }
+    }
+
     function doRefresh(aRequest, aWebProgress){
     //check if has anno, if it has, refresh (can be optimized later)
       if(!aRequest){
@@ -210,13 +220,45 @@ var makeURI = function (aURL, aOriginCharset, aBaseURI) {
       }
 
       if(uri){
-          var result = mlalevic.JumpStart.UI.GetSnapshot(aWebProgress.DOMWindow.document, aWebProgress.DOMWindow);
-          if(result){
-            services.AnnoService.saveThumb(uri, result);
-            services.Logger.debug("Snapshot ", result);
-          }else{
-              services.Logger.debug("Snapshot result null for ", aWebProgress.DOMWindow.location.toString());
+          function afterPaintSnap(e){
+                 //services.Logger.critical("rect", e.clientRects);
+                 //services.Logger.critical("target", this.document.mlalevic.JumpStart.afterPaintURI.spec);
+                 
+                 var config = this.document.mlalevic.JumpStart;
+                 if(config.counter <= 0)return;
+
+                 var repaintWidth = e.boundingClientRect.width;
+                 var repaintHeight = e.boundingClientRect.height;
+
+                 var moreThanHalfScreenRepainted =
+                     ((this.screen.availHeight >> 1) < repaintHeight)
+                    && ((this.screen.availWidth >> 1) < repaintWidth);
+
+                 if(moreThanHalfScreenRepainted){
+                     config.counter -= 1;
+                     //services.Logger.debug("rect big enough",  e.boundingClientRect.width + " " + e.boundingClientRect.height);
+                     makeSnapshot(config.afterPaintURI, this);
+                 }else{
+                     //services.Logger.debug("rect too small", e.boundingClientRect.width + " " + e.boundingClientRect.height);
+                 }
+            }
+
+          function initializeAfterPaint(doc, uri){
+              if(!doc.mlalevic || !doc.mlalevic.JumpStart || !doc.mlalevic.JumpStart.afterPaintURI){
+                  if(!doc.mlalevic)doc.mlalevic = {};
+                  if(!doc.mlalevic.JumpStart)doc.mlalevic.JumpStart = {};
+                  doc.mlalevic.JumpStart.afterPaintURI = uri;
+                  doc.mlalevic.JumpStart.counter = 10;
+
+                  doc.defaultView.addEventListener("MozAfterPaint", afterPaintSnap, false);
+              }
           }
+
+          if(Config.ImprovedRefresh){
+            initializeAfterPaint(aWebProgress.DOMWindow.document, uri);
+          }
+
+          makeSnapshot(uri, aWebProgress.DOMWindow);
       }
     }
 
