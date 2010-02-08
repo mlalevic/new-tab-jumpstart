@@ -89,6 +89,7 @@ Christopher Cook (beerfan@gmail.com)
         <spacer flex="1" />
 
         <vbox flex="2">
+            <popup id="placesContext"/>
             <vbox id="bookmarksBarTop" class="bookmarksBar" hidden="true">
                 <hbox id="bookmarksBarContent_jumpstart_top" flex="1"
                        type="places"
@@ -165,5 +166,4 @@ Christopher Cook (beerfan@gmail.com)
       </vbox>
     </vbox>
   </vbox>
-
 </window>
