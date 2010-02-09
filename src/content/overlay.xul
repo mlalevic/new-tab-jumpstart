@@ -31,13 +31,22 @@ Contributor(s): Leszek(teo)Życzkowski
     <script type="application/x-javascript" src="overlay.js" />
 
     <stringbundleset id="jumpstart-strbundles">
-        <stringbundle id="jumpstart-strings" src="chrome://jumpstart/locale/overlay.properties"/>
+        <stringbundle id="jumpstart-strings" src="chrome://jumpstart/locale/tabView.properties"/>
     </stringbundleset>
 
     <vbox id="jumpstartHiddenBox" insertafter="stringbundleset" style="overflow:hidden; height:0;">
     </vbox>
 
   </window>
+
+  <commandset id="mainCommandSet">
+    <command id="jumpstart-open" oncommand="mlalevic.JumpStart.onDialOpen();"/>
+	<command id="jumpstart-prefs" oncommand="mlalevic.JumpStart.onMenuItemProperties();"/>
+  </commandset>
+
+  <keyset id="mainKeyset">
+    <key id="key_jumpstartOpen" key="l" modifiers="accel,shift" command="jumpstart-open" />
+  </keyset>
 
   <toolbarpalette id="BrowserToolbarPalette">
     <toolbarbutton id="jumpStartOpenDialButton" oncommand="mlalevic.JumpStart.onDialOpen();"
@@ -58,4 +67,13 @@ Contributor(s): Leszek(teo)Życzkowski
       </menupopup>
     </toolbarbutton-->
   </toolbarpalette>
+
+  <statusbar id="status-bar" class="chromeclass-status">
+	<statusbarpanel class="statusbarpanel-iconic jumpstart-status" tooltiptext="&tooltip;"
+		contextmenu="jumpstart-menu" onclick="if(event.button == 2)return; mlalevic.JumpStart.onDialOpen();"/>
+
+		<menupopup position="before_end" id="jumpstart-menu">
+			<menuitem label="&options;" command="jumpstart-prefs"/>
+		</menupopup>
+  </statusbar>
 </overlay>

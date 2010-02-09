@@ -391,7 +391,8 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
         canvas.width = Measurement.CANVAS_WIDTH;
         canvas.height = Measurement.CANVAS_HEIGHT;
         var m = new Measurement(
-          {w: content.document.width, h: content.document.height},
+          //{w: content.document.width, h: content.document.height},
+          {w: content.screen.availWidth, h: content.screen.availHeight},
           {w: canvas.width, h: canvas.height},
           {w: Measurement.WINDOW_WIDTH, h: Measurement.WINDOW_HEIGHT}
         ).calculate();

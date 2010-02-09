@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!ENTITY title "Bookmarks - JumpStarted">
 <!ENTITY latest "Latest">
 <!ENTITY recent "Recently Visited">
@@ -8,6 +6,4 @@
 <!ENTITY tagNotice "You do not have any bookmark tags. Tagging bookmarks helps you better organize your bookmarks. Start tagging your bookmarks">
 <!ENTITY tagsLink "http://support.mozilla.com/en-US/kb/bookmark+tags">
 <!ENTITY tagsNow "now!">
-<!ENTITY tagNoticeAfterLink "" >
-
-
+<!ENTITY tagNoticeAfterLink "">

@@ -95,10 +95,25 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
 
+    function getMainXulWindow(){
+        return window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIWebNavigation)
+            .QueryInterface(Components.interfaces.nsIDocShellTreeItem).treeOwner
+            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+            .getInterface(Components.interfaces.nsIXULWindow);
+    }
+
+    function getHistorytility(){
+        var bro = getBrowserWindow().getBrowserFromContentWindow(window);
+        var internalHistory = bro.sessionHistory.QueryInterface(Ci.nsISHistoryInternal);
+        return new mlalevic.Utils.HistoryUtility(internalHistory);
+    }
+
+
     try{
       //set this entry not to be persisted if configured so
       if(!Config.PersistThumbViewInHistory){
-        var historyUtility = services.BrowserServices.GetHistoryUtility(window);
+        var historyUtility = getHistorytility();
         historyUtility.SetCurrentPersist(false);
       }
     }catch(ex){
@@ -201,15 +216,20 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     function showBookmarksToolbar(){
-        var toolbar = document.getElementById("bookmarksBarContent_jumpstart");
-        var bar = document.getElementById("bookmarksBar");
+        var onTop = Config.BookmarksToolbarTop;
+
+        var toolbar = document.getElementById("bookmarksBarContent_jumpstart_" + (onTop?"top":"bottom"));
+        var bar = document.getElementById("bookmarksBar" + (onTop?"Top":"Bottom"));
         if(Config.ShowBookmarksToolbar){
             bar.hidden = false;
             toolbar.place="place:folder=TOOLBAR";
         }else{
             bar.hidden = true;
         }
+
+        document.getElementById("bookmarksBar" + (!onTop?"Top":"Bottom")).hidden = true;
     }
+
 
     var getData = function(){
             var properties = services.AnnoService.getProperties();
@@ -253,6 +273,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         }
         //update index properties
         services.AnnoService.updateProperties(data);
+
+        mlalevic.JumpStart.TileContainerController.drawContext.data = data;
     }
 
     var drawThumbs = function(){
@@ -287,7 +309,9 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     var showClosed = function(){
       if(!Config.ShowSidebar){return;}
       
-      var tabClosedData = services.BrowserServices.GetClosedData();
+        var mw = getBrowserWindow();
+        var tabClosedData = mw.mlalevic.JumpStart.getClosedData();
+        var undoClosed = mw.mlalevic.JumpStart.UndoClosed;
 
         if(tabClosedData.length > 0){
             var closedBox = document.getElementById('recentlyClosedBox');
@@ -308,7 +332,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                   var box = document.createElement("hbox");
                   box.setAttribute("class", "recentlyClosedItem");
                   closedBoxItemsContainer.appendChild(box);
-                  box.draw(item, utils.Binder.bindArguments(this, services.BrowserServices.UndoClosed, i));
+                  box.draw(item, utils.Binder.bindArguments(this, undoClosed, i));
               }
             }
 
@@ -456,6 +480,11 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             thumbs.splice(indexFrom, 1);
             thumbs.splice(indexTo, 0, moved);
 
+            //renumber
+            for(var i = 0; i < thumbs.length; i++){
+                thumbs[i].index = i;
+            }
+
             var data = this.drawContext;
             this.removeTiles();
             this.drawTiles(thumbs, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
@@ -466,8 +495,15 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             }
 
             var data = this.drawContext;
+            var thumbs = data.data;
+
+            //renumber
+            for(var i = 0; i < thumbs.length; i++){
+                thumbs[i].index = i;
+            }
+
             this.removeTiles();
-            this.drawTiles(data.data, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
+            this.drawTiles(thumbs, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
         },
         drawGrid : function(config){
             columns = config.Columns;
@@ -682,4 +718,6 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
 window.addEventListener("load", Show, false);
 window.addEventListener("unload", Unload, false);
+
+
 })();

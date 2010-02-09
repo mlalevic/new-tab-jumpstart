@@ -51,7 +51,7 @@ Christopher Cook (beerfan@gmail.com)
   <script type="application/x-javascript"
           src="chrome://browser/content/bookmarks/sidebarUtils.js"/>
   <script type="application/x-javascript" src="tabView.js" />
-  <html:link rel="icon" href="chrome://jumpstart/skin/img/jumpstart16.png"/>
+  <html:link rel="icon" href="chrome://jumpstart/skin/img/JumpStart16.png" style="display:none;"/>
 
   <commandset id="editMenuCommands"/>
   <commandset id="placesCommands"/>
@@ -89,11 +89,21 @@ Christopher Cook (beerfan@gmail.com)
         <spacer flex="1" />
 
         <vbox flex="2">
+            <popup id="placesContext"/>
+            <vbox id="bookmarksBarTop" class="bookmarksBar" hidden="true">
+                <hbox id="bookmarksBarContent_jumpstart_top" flex="1"
+                       type="places"
+                       context="placesContext"
+                       onclick="BookmarksEventHandler.onClick(event);"
+                       oncommand="BookmarksEventHandler.onCommand(event);"
+                       onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
+                       tooltip="btTooltip"/>
+            </vbox>
             <hbox class="centerContent">
                 <vbox id="siteTileContainer" class="siteTileContainer" controller="mlalevic.JumpStart.TileContainerController" />
             </hbox>
-            <vbox id="bookmarksBar" class="bookmarksBar">
-                <hbox id="bookmarksBarContent_jumpstart" flex="1"
+            <vbox id="bookmarksBarBottom" class="bookmarksBar" hidden="true">
+                <hbox id="bookmarksBarContent_jumpstart_bottom" flex="1"
                        type="places"
                        context="placesContext"
                        onclick="BookmarksEventHandler.onClick(event);"
@@ -156,5 +166,4 @@ Christopher Cook (beerfan@gmail.com)
       </vbox>
     </vbox>
   </vbox>
-
 </window>

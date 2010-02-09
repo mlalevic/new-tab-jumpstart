@@ -124,45 +124,9 @@ let BrowserServices = {
     columnsCount = columnsCount < minColumnCount? minColumnCount:columnsCount;
     
     return {columns: columnsCount, lines: linesCount};
-  },
-
-  setHistoryComponent : function(hComponent){
-      historyComponent = hComponent;
-  },
-  GetHistoryUtility : function(aWindow){
-      return historyComponent.GetHistoryUtility(aWindow);
-  },
-  setBookmarksEventHandler : function(theObject){
-      BookmarksEventHandler = theObject;
-  },
-  getBookmarksEventHandler : function(){
-      return BookmarksEventHandler;
-  },
-  setFollowedPage : function(func){
-    flwdPg = func;
-  },
-  FollowedPage : function(aHref){
-    flwdPg(aHref);
-  },
-  setGetClosedDataFunction : function(func){
-    getClosedDataFunction = func;
-  },
-  GetClosedData : function(){
-      return getClosedDataFunction();
-  },
-  setUndoClosedFunction : function(func){
-      undoClosedFunction = func;
-  },
-  UndoClosed: function(anIndex){
-      undoClosedFunction(anIndex);
   }
-};
 
-var historyComponent = null;
-var BookmarksEventHandler = null;
-var flwdPg = null;
-var getClosedDataFunction = null;
-var undoClosedFunction = null;
+};
 
 let LoggerService = function(){
   this.fileService = new FileService(this.folder, this.filename);

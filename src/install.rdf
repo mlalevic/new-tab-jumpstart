@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>jumpstart@mihailo.lalevic</em:id>
-    <em:version>0.5a5.2</em:version>
+    <em:version>0.5a5.3</em:version>
     <em:name>New Tab JumpStart</em:name>
     <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
     <em:creator>Mihailo Lalevic</em:creator>
@@ -150,6 +150,19 @@
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
         <em:translator>Nguyễn Hoàng Long at timelinelive.blogspot.com</em:translator>
         <em:description>Mang lại cho bạn những trải nghiệm tuyệt vời bằng việc thay thế màn hình trống trơn khi bạn mở một thẻ mới bằng những hình ảnh xem trước của những trang mà bạn thường ghé thăm, những đánh dấu &amp; tìm kiếm mới nhất, những thẻ vừa mới bị đóng.</em:description>
+    </Description>
+    </em:localized>
+
+    <em:localized>
+    <Description>
+        <em:locale>pt-BR</em:locale>
+        <em:name>New Tab JumpStart</em:name>
+        <em:creator>Mihailo Lalevic</em:creator>
+        <em:developer>Chris Cook</em:developer>
+        <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+        <em:translator>Marcelo Ghelman</em:translator>
+        <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
+        <em:description>Ajuda você a agilizar o uso da internet, trocando a tela vazia de cada nova aba por miniaturas dos sites que você mais usa, últimos favoritos, últimas buscas e abas fechadas recentemente.</em:description>
     </Description>
     </em:localized>
 

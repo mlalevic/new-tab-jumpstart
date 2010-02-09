@@ -190,6 +190,16 @@ var makeURI = function (aURL, aOriginCharset, aBaseURI) {
              return ioService.newURI(aURL, aOriginCharset, aBaseURI);
     }
 
+    function makeSnapshot(uri, domWindow){
+        var result = mlalevic.JumpStart.UI.GetSnapshot(domWindow.document, domWindow);
+        if(result){
+          services.AnnoService.saveThumb(uri, result);
+          services.Logger.debug("Snapshot ", result);
+        }else{
+          services.Logger.debug("Snapshot result null for ", domWindow.location.toString());
+        }
+    }
+
     function doRefresh(aRequest, aWebProgress){
     //check if has anno, if it has, refresh (can be optimized later)
       if(!aRequest){
@@ -210,13 +220,45 @@ var makeURI = function (aURL, aOriginCharset, aBaseURI) {
       }
 
       if(uri){
-          var result = mlalevic.JumpStart.UI.GetSnapshot(aWebProgress.DOMWindow.document, aWebProgress.DOMWindow);
-          if(result){
-            services.AnnoService.saveThumb(uri, result);
-            services.Logger.debug("Snapshot ", result);
-          }else{
-              services.Logger.debug("Snapshot result null for ", aWebProgress.DOMWindow.location.toString());
+          function afterPaintSnap(e){
+                 //services.Logger.critical("rect", e.clientRects);
+                 //services.Logger.critical("target", this.document.mlalevic.JumpStart.afterPaintURI.spec);
+                 
+                 var config = this.document.mlalevic.JumpStart;
+                 if(config.counter <= 0)return;
+
+                 var repaintWidth = e.boundingClientRect.width;
+                 var repaintHeight = e.boundingClientRect.height;
+
+                 var moreThanHalfScreenRepainted =
+                     ((this.screen.availHeight >> 1) < repaintHeight)
+                    && ((this.screen.availWidth >> 1) < repaintWidth);
+
+                 if(moreThanHalfScreenRepainted){
+                     config.counter -= 1;
+                     //services.Logger.debug("rect big enough",  e.boundingClientRect.width + " " + e.boundingClientRect.height);
+                     makeSnapshot(config.afterPaintURI, this);
+                 }else{
+                     //services.Logger.debug("rect too small", e.boundingClientRect.width + " " + e.boundingClientRect.height);
+                 }
+            }
+
+          function initializeAfterPaint(doc, uri){
+              if(!doc.mlalevic || !doc.mlalevic.JumpStart || !doc.mlalevic.JumpStart.afterPaintURI){
+                  if(!doc.mlalevic)doc.mlalevic = {};
+                  if(!doc.mlalevic.JumpStart)doc.mlalevic.JumpStart = {};
+                  doc.mlalevic.JumpStart.afterPaintURI = uri;
+                  doc.mlalevic.JumpStart.counter = 10;
+
+                  doc.defaultView.addEventListener("MozAfterPaint", afterPaintSnap, false);
+              }
           }
+
+          if(Config.ImprovedRefresh){
+            initializeAfterPaint(aWebProgress.DOMWindow.document, uri);
+          }
+
+          makeSnapshot(uri, aWebProgress.DOMWindow);
       }
     }
 
@@ -517,11 +559,6 @@ var realTimeThumbsUpdates = {
       start : function(){
         var obs = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
         obs.addObserver(onBeforeShowObserver, "browser-window-before-show", false);
-      },
-      onMenuItemProperties : function(e){
-          var strbundle = document.getElementById("jumpstart-strings");
-          window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
-            "chrome,toolbar,centerscreen").focus();
       }
   }
 
@@ -601,7 +638,6 @@ var realTimeThumbsUpdates = {
   var historyComponent = {
      start : function(){
          window.addEventListener("SSTabClosing", utils.Binder.bind(this, this.ssClosing), false);
-         services.BrowserServices.setHistoryComponent(historyComponent);
      },
      GetHistoryUtilityForBrowser : function(aBrowser){
         var internalHistory = aBrowser.sessionHistory.QueryInterface(Ci.nsISHistoryInternal);
@@ -699,7 +735,9 @@ var onInstall = {
 
           prefs.setCharPref("version",extension.version);
 
-          clear(prefs, ['show_notice']); //show notice on upgrade
+          if(!ver){ //this version is minor upgrade so show only on first install
+            clear(prefs, ['show_notice']); //show notice on upgrade
+          }
           // Insert code if version is different here => upgrade
           if(!ver){
               //clear prefs///////////////////////////////
@@ -724,14 +762,28 @@ var onInstall = {
 mlalevic.JumpStart.onDialOpen = function(){
       gBrowser.selectedBrowser.loadURI(tabViewUrl);
   }
+
+
+mlalevic.JumpStart.onMenuItemProperties = function(e){
+      var strbundle = document.getElementById("jumpstart-strings");
+      window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
+        "chrome,toolbar,centerscreen").focus();
+}
 /*********  Event handlers end *******/
 
-var UndoClosed = function(aValue) {
+mlalevic.JumpStart.UndoClosed = function(aValue) {
     /*if (aEvent.button != 1) //left button
       return;*/
 
     undoCloseTab(aValue);
     closedTabState.refreshClosed();
+}
+
+mlalevic.JumpStart.getClosedData = function(){
+    if(!closedTabState.initialized){
+        closedTabState.loadClosedData()
+    }
+    return closedTabState.closedTabsData;
 }
 
 var startAll = function(){
@@ -742,37 +794,22 @@ var startAll = function(){
         if(fennec){
             newTabLoader_fennec.start();
             SnapshotComponent_fennec.start();
-            services.BrowserServices.setGetClosedDataFunction(function(){
-                return [];
-            });
         }else{
             ClearUrlComponent.start();
             newTabLoader.start();
             SnapshotComponent.start();
-            if(!services.BrowserServices.initialized){
-                closedTabState.start();
-                services.BrowserServices.setGetClosedDataFunction(function(){
-                    if(!closedTabState.initialized){
-                        closedTabState.loadClosedData()
-                    }
-                    return closedTabState.closedTabsData;
-                });
-            }
+            closedTabState.start();
         }
 
         if(!services.BrowserServices.initialized){
             thumbsLoader.start();
-            historyComponent.start();
         }
+        historyComponent.start();
 
         buttonController.start();
         jumpStartService.start();
         bookmarkListener.start();
 
-        if(!services.BrowserServices.initialized){
-            services.BrowserServices.setFollowedPage(function(url){PlacesUIUtils.markPageAsTyped(url);});
-            services.BrowserServices.setUndoClosedFunction(UndoClosed);
-        }
         services.BrowserServices.initialized = true;
 }
 

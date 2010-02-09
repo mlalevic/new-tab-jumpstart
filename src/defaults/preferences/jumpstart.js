@@ -12,6 +12,7 @@ pref("mlalevic.jumpstart.persist_in_history", false); //should we persist tabVie
 pref("mlalevic.jumpstart.on_tabview_close_purge", true); //if the last visited page is tabView should we purge history completely (true) or we should just remove the tabView if persist is false (false)
 
 pref("mlalevic.jumpstart.show_bookmarks_toolbar", false);
+pref("mlalevic.jumpstart.bookmarks_toolbar_top", false);
 pref("mlalevic.jumpstart.show_notice", true);
 pref("mlalevic.jumpstart.show_sidebar", true);
 
@@ -24,3 +25,5 @@ pref("mlalevic.jumpstart.thumbs.lines", 3); //how many thumb lines to display
 pref("mlalevic.jumpstart.thumbs.ShowSmallThumbs", false); //show small thumbs
 pref("mlalevic.jumpstart.permanent_properties", true); //defines whether to permanently store jumpstart properties in places db
 pref("mlalevic.jumpstart.permanent_thumbs", false); //defines whether to permanently store thumbnails
+
+pref("mlalevic.jumpstart.improved_refresh", true); //experimental improved refresh using mozafterpaint

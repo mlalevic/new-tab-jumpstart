@@ -195,7 +195,7 @@ let BookmarksService = {
         bookmarks.containerOpen = true;
         for (var i = 0; i < bookmarks.childCount; i ++) {
             var node = bookmarks.getChild(i);
-            var fav = node.icon?node.icon.spec:"";
+            var fav = node.icon?(node.icon.spec?node.icon.spec:node.icon):"";
             var item = {
                 title   : node.title,
                 url     : node.uri,
