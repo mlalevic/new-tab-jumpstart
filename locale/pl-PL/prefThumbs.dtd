@@ -1,0 +1,11 @@
+<!ENTITY title "Miniatury">
+<!ENTITY big_thumbs "Duże miniatury">
+<!ENTITY small_thumbs "Małe miniatury">
+<!ENTITY show_bookmarks "Wyświetlaj pasek zakładek">
+<!ENTITY show_sidebar "Wyświetlaj panel boczny">
+<!ENTITY bkg_color "Kolor tła:">
+<!ENTITY bkg_color_empty "nazwa lub kod koloru">
+<!ENTITY bkg_img "Obrazek tła:">
+<!ENTITY bkg_img_empty "wprowadź adres URL obrazka lub kliknij »">
+<!ENTITY pick_img "Wybierz obrazek">
+<!ENTITY bookmarks_top "Wyświetlaj pasek zakładek na górze">

@@ -1,0 +1,11 @@
+<!ENTITY title "Thumbs">
+<!ENTITY big_thumbs "Big Thumbnails">
+<!ENTITY small_thumbs "Small Thumbnails">
+<!ENTITY show_bookmarks "Show bookmarks toolbar">
+<!ENTITY show_sidebar "Show sidebar">
+<!ENTITY bkg_color "Background color:">
+<!ENTITY bkg_color_empty "color name or code">
+<!ENTITY bkg_img "Background image:">
+<!ENTITY bkg_img_empty "enter image url or click -&gt;">
+<!ENTITY pick_img "Pick Image">
+<!ENTITY bookmarks_top "Place bookmarks toolbar on top">

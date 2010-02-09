@@ -1,0 +1,11 @@
+<!ENTITY title "תמונות ממוזערות">
+<!ENTITY big_thumbs "תמונות ממוזערות גדולות">
+<!ENTITY small_thumbs "תמונות ממוזערות קטנות">
+<!ENTITY show_bookmarks "הצגת סרגל הכלים של הסימניות">
+<!ENTITY show_sidebar "הצגת סרגל הצד">
+<!ENTITY bkg_color "צבע הרקע:">
+<!ENTITY bkg_color_empty "שם או קוד הצבע">
+<!ENTITY bkg_img "תמונת רקע:">
+<!ENTITY bkg_img_empty "הכנסת כתובת התמונה או לחיצה על -&gt;">
+<!ENTITY pick_img "בחירת תמונה">
+<!ENTITY bookmarks_top "מיקום סרגל כלים הסימניות בחלק העליון">

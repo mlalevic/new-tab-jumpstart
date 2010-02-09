@@ -1,0 +1,11 @@
+<!ENTITY title "Ảnh xem trước">
+<!ENTITY big_thumbs "Ảnh lớn xem trước">
+<!ENTITY small_thumbs "Ảnh nhỏ xem trước">
+<!ENTITY show_bookmarks "Hiển thị thanh công cụ đánh dấu">
+<!ENTITY show_sidebar "Hiện thanh nằm bên cạnh màn hình">
+<!ENTITY bkg_color "Màu nền:">
+<!ENTITY bkg_color_empty "Tên hoặc mã màu">
+<!ENTITY bkg_img "Ảnh nền:">
+<!ENTITY bkg_img_empty "điền địa chỉ của ảnh hoặc ấn -&gt;">
+<!ENTITY pick_img "Chọn ảnh">
+<!ENTITY bookmarks_top "Giữ thanh công cụ đánh dấu luôn ở trên cùng">

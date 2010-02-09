@@ -1,0 +1,26 @@
+<!ENTITY title "Neuer Tab">
+<!ENTITY mostVisited "Meistbesucht">
+<!ENTITY menu.showOnNewTab "In neuem Tab anzeigen">
+<!ENTITY menu.showOnStartup "Beim Starten anzeigen">
+<!ENTITY menu.showToolbarButton "Schaltfläche in der Symbolleiste anzeigen">
+<!ENTITY menu.showInHistory "In der Chronik anzeigen">
+<!ENTITY menu.bigThumbs "Große Vorschaubilder">
+<!ENTITY menu.moreOptions "Erweiterte Einstellungen...">
+<!ENTITY search.emptyText "Chronik durchsuchen">
+<!ENTITY recentBookmarks.recent "Kürzlich besuchte">
+<!ENTITY recentBookmarks.tooltip "Weitere Lesezeichen">
+<!ENTITY recentBookmarks.linkText "Lesezeichen">
+<!ENTITY recentlyClosed "Kürzlich geschlossene Tabs">
+<!ENTITY search "Suche">
+<!ENTITY search2.emptyText "Chronik durchsuchen">
+<!ENTITY back "Zurück zur Übersicht">
+<!ENTITY notice.more_info "Weitere Informationen">
+<!ENTITY notice.more_info_tooltip "Versionshinweise">
+<!ENTITY notice.new_version "Neue Version installiert.">
+<!ENTITY notice.info "Verbesserungen/Besonderheiten (für Details, Maus darüber halten):">
+<!ENTITY notice.bookmarks "Lesezeichenzeile hinzugefügt">
+<!ENTITY notice.bookmarks_tooltip "Lesezeichenzeile durch anklicken dieser Schaltfläche ein-/ausblenden">
+<!ENTITY notice.sidebar "Ausblenbares Lesezeichenmenü">
+<!ENTITY notice.sidebar_tooltip "Lesezeichenmenü durch anklicken dieser Schaltfläche ein-/ausblenden">
+<!ENTITY notice.drag_drop "Vorschaubilder umordnen">
+<!ENTITY notice.drag_drop_tooltip "Zum Umordnen, Vorschaubilder ziehen und ablegen">

@@ -1,0 +1,11 @@
+<!ENTITY title "Miniaturas">
+<!ENTITY big_thumbs "Miniaturas grandes">
+<!ENTITY small_thumbs "Miniaturas pequenas">
+<!ENTITY show_bookmarks "Mostrar barra de favoritos">
+<!ENTITY show_sidebar "Mostrar painel lateral">
+<!ENTITY bkg_color "Cor de fundo:">
+<!ENTITY bkg_color_empty "nome ou código da cor">
+<!ENTITY bkg_img "Imagem de fundo:">
+<!ENTITY bkg_img_empty "Digite o endereço da imagem ou clique -&gt;">
+<!ENTITY pick_img "Capturar imagem">
+<!ENTITY bookmarks_top "Posicionar barra de favoritos em cima">
