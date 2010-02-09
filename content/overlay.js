@@ -559,11 +559,6 @@ var realTimeThumbsUpdates = {
       start : function(){
         var obs = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
         obs.addObserver(onBeforeShowObserver, "browser-window-before-show", false);
-      },
-      onMenuItemProperties : function(e){
-          var strbundle = document.getElementById("jumpstart-strings");
-          window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
-            "chrome,toolbar,centerscreen").focus();
       }
   }
 
@@ -767,6 +762,13 @@ var onInstall = {
 mlalevic.JumpStart.onDialOpen = function(){
       gBrowser.selectedBrowser.loadURI(tabViewUrl);
   }
+
+
+mlalevic.JumpStart.onMenuItemProperties = function(e){
+      var strbundle = document.getElementById("jumpstart-strings");
+      window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
+        "chrome,toolbar,centerscreen").focus();
+}
 /*********  Event handlers end *******/
 
 mlalevic.JumpStart.UndoClosed = function(aValue) {

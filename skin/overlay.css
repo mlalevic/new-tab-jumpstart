@@ -10,6 +10,12 @@
 toolbar[iconsize="small"] #jumpStartOpenDialButton{
 	list-style-image: url("chrome://jumpstart/skin/img/JumpStart16.png");
 }
+
+.jumpstart-status
+{
+    list-style-image: url("chrome://jumpstart/skin/img/main_toolbar.png");
+    -moz-image-region: rect(16px 40px 32px 24px);
+}
 /*
 #jumpStartOpenDialButton, toolbar[iconsize=small] #jumpStartOpenDialButton {
 	list-style-image: url(chrome://jumpstart/skin/img/main_toolbar.png);
