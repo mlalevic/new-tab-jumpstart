@@ -30,6 +30,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     Components.utils.import("resource://modules/config.js", services);
     Components.utils.import("resource://modules/browserServices.js", services);
     Components.utils.import("resource://modules/dbService.js", services);
+    Components.utils.import("resource://modules/PrivateBrowsing.js", services);
 
     //create namespaces
     //var components = utils.Namespace.create(window, "mlalevic.JumpStart.Components");
@@ -417,18 +418,22 @@ var SnapshotComponent = {
       utils.Observers.notify(null, dataRefreshEvent, null);
     },
 
-    loadClosedData: function() {
-      this.initialized = true;
+    getClosedData: function(){
       var ss = Cc["@mozilla.org/browser/sessionstore;1"].
-           getService(Ci.nsISessionStore);
+         getService(Ci.nsISessionStore);
 
       if (ss.getClosedTabCount(window) == 0) {
-        this.closedTabsData = [];
-        return;
+        return [];
       }
 
-      // populate data
-      this.closedTabsData = utils.Converter.fromJSONString(ss.getClosedTabData(window));
+      return utils.Converter.fromJSONString(ss.getClosedTabData(window));
+    },
+
+    loadClosedData: function() {
+      if(!services.PrivateBrowsing.inPrivateBrowsing){
+          this.initialized = true;
+          this.closedTabsData = this.getClosedData();
+      }
     }
   }
 
@@ -780,10 +785,14 @@ mlalevic.JumpStart.UndoClosed = function(aValue) {
 }
 
 mlalevic.JumpStart.getClosedData = function(){
-    if(!closedTabState.initialized){
-        closedTabState.loadClosedData()
+    if(services.PrivateBrowsing.inPrivateBrowsing){
+        return closedTabState.getClosedData();
+    }else{
+        if(!closedTabState.initialized){
+            closedTabState.loadClosedData()
+        }
+        return closedTabState.closedTabsData;
     }
-    return closedTabState.closedTabsData;
 }
 
 var startAll = function(){
@@ -810,6 +819,17 @@ var startAll = function(){
         bookmarkListener.start();
 
         services.BrowserServices.initialized = true;
+
+        //in both cases we will invalidate initialized status so we refresh closed data on the first new refresh
+        services.PrivateBrowsing.watcher = {
+          onEnterPrivateBrowsing : function() {
+            closedTabState.initialized = false;
+          },
+
+          onExitPrivateBrowsing : function() {
+            closedTabState.initialized = false;
+          }
+        };
 }
 
 uiService.start();
