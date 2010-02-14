@@ -50,6 +50,7 @@ Christopher Cook (beerfan@gmail.com)
 
   <script type="application/x-javascript"
           src="chrome://browser/content/bookmarks/sidebarUtils.js"/>
+  <script type="application/x-javascript" src="historyUtility.js" />
   <script type="application/x-javascript" src="tabView.js" />
   <html:link rel="icon" href="chrome://jumpstart/skin/img/JumpStart16.png" style="display:none;"/>
 

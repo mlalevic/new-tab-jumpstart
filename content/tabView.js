@@ -118,7 +118,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
     function getHistorytility(){
         var bro = getBrowserWindow().getBrowserFromContentWindow(window);
-        var internalHistory = bro.sessionHistory.QueryInterface(Ci.nsISHistoryInternal);
+        var internalHistory = bro.sessionHistory.QueryInterface(Components.interfaces.nsISHistoryInternal);
         return new mlalevic.Utils.HistoryUtility(internalHistory);
     }
 
