@@ -5,11 +5,11 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>jumpstart@mihailo.lalevic</em:id>
-    <em:version>0.5a5.3</em:version>
+    <em:version>0.5a5.4</em:version>
     <em:name>New Tab JumpStart</em:name>
     <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
     <em:creator>Mihailo Lalevic</em:creator>
-    <em:developer>Chris Cook</em:developer>
+    <em:contributor>Chris Cook</em:contributor>
     <em:contributor>Leszek(teo)Życzkowski</em:contributor>
     <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
     <em:iconURL>chrome://jumpstart/skin/img/JumpStart32.png</em:iconURL>
@@ -20,7 +20,7 @@
             <em:locale>en</em:locale>
             <em:name>New Tab JumpStart</em:name>
             <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
             <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
@@ -32,7 +32,7 @@
             <em:locale>en-US</em:locale>
             <em:name>New Tab JumpStart</em:name>
             <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
             <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
@@ -44,7 +44,7 @@
         <em:locale>sr</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
         <em:description>Помаже Вам да убрзате и побљшате искуство коришћења фајерфокса мењајући празан екран новог језичка прегледом најчешће коришћених интернет страница, најновијим забелешкама, претрагом и последње затвореним језичцима.</em:description>
@@ -56,7 +56,7 @@
         <em:locale>sr-RS</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
         <em:description>Помаже Вам да убрзате и побљшате искуство коришћења фајерфокса мењајући празан екран новог језичка прегледом најчешће коришћених интернет страница, најновијим забелешкама, претрагом и последње затвореним језичцима.</em:description>
@@ -68,7 +68,7 @@
         <em:locale>ko-KR</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:creator>Mihailo Lalevic</em:creator>
-        <em:developer>Chris Cook</em:developer>
+        <em:contributor>Chris Cook</em:contributor>
         <em:contributor>Leszek(teo)Życzkowski</em:contributor>
         <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
         <em:translator>Tag Jong Lee</em:translator>
@@ -81,7 +81,7 @@
             <em:locale>hu-HU</em:locale>
             <em:name>New Tab JumpStart</em:name>
             <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
             <em:translator>Mikes Kaszmán István (hu-HU)</em:translator>
@@ -93,7 +93,7 @@
         <em:locale>pl-PL</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:creator>Mihailo Lalevic</em:creator>
-        <em:developer>Chris Cook</em:developer>
+        <em:contributor>Chris Cook</em:contributor>
         <em:contributor>Leszek(teo)Życzkowski</em:contributor>
         <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
         <em:description>Zastępuje pustą nową kartę podglądem najczęściej otwieranych przez użytkownika witryn, zakłdek, wyszukiwań i ostatnio zamkniętych kart.</em:description>
@@ -107,7 +107,7 @@
             <em:translator>SiiiE</em:translator>
             <em:name>New Tab JumpStart</em:name>
             <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
             <em:description>מסייע לך בקפיצת התחלה לחוויית האינטרנט, על ידי שינוי המסך הריק של הלשונית החדשה לתצוגה מקדימה של האתרים שמבקרים בהם לעתים קרובות, הסימניות האחרונות, חיפושים ולשוניות שנסגרו לאחרונה.</em:description>
@@ -120,7 +120,7 @@
             <em:translator>Goofy</em:translator>
             <em:name>New Tab JumpStart</em:name>
             <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
             <em:description>Vous aide à dynamiser votre navigation en remplaçant l'écran vide sur un nouvel onglet par des vignettes des sites et des derniers marque-pages utilisés, des recherches effectuées et des onglets récemment fermés.</em:description>
@@ -132,7 +132,7 @@
          <em:locale>de-DE</em:locale>
          <em:name>New Tab JumpStart</em:name>
          <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
          <em:translator>erglo</em:translator>
@@ -145,7 +145,7 @@
         <em:locale>vi-VN</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:creator>Mihailo Lalevic</em:creator>
-            <em:developer>Chris Cook</em:developer>
+            <em:contributor>Chris Cook</em:contributor>
             <em:contributor>Leszek(teo)Życzkowski</em:contributor>
             <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
         <em:translator>Nguyễn Hoàng Long at timelinelive.blogspot.com</em:translator>
@@ -158,7 +158,7 @@
         <em:locale>pt-BR</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:creator>Mihailo Lalevic</em:creator>
-        <em:developer>Chris Cook</em:developer>
+        <em:contributor>Chris Cook</em:contributor>
         <em:contributor>Leszek(teo)Życzkowski</em:contributor>
         <em:translator>Marcelo Ghelman</em:translator>
         <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
