@@ -39,6 +39,7 @@ JumpstartPrefs.prototype = {
   OverrideHomepage : true,
   ShowToolbarButton : false,
   ShowStatusBarButton : false,
+  FocusOnSearch : true,
   PersistThumbViewInHistory : false,
   PurgeHistoryOnThumbViewClose : true,
   ListRefresh : true,
@@ -74,6 +75,7 @@ JumpstartPrefs.prototype = {
     this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
     this.ShowToolbarButton = this.prefBranch.get("show_toolbar_button", this.ShowToolbarButton);
     this.ShowStatusBarButton = this.prefBranch.get("show_statusbar_button", this.ShowStatusBarButton);
+    this.FocusOnSearch = this.prefBranch.get("focus_on_search", this.FocusOnSearch);
     this.ListRefresh = this.prefBranch.get("list_refresh", this.ListRefresh);
 
     this.PermanentProperties = this.prefBranch.get("permanent_properties", this.PermanentProperties);
