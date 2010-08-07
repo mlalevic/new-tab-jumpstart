@@ -608,6 +608,15 @@ var realTimeThumbsUpdates = {
           }else{
             this.HideButton();
           }
+
+        this.ShowStatusBarButton(Config.ShowStatusBarButton);
+      },
+
+    ShowStatusBarButton : function(show){
+        var bar = document.getElementById("jumpstart_statusbar");
+        if(!bar)
+          return;
+        bar.hidden = !show;
       },
 
     ShowButton : function(){

@@ -3,6 +3,7 @@
 <!ENTITY onnewtab "Show On New Tab">
 <!ENTITY showinhistory "Show Jumpstart in History">
 <!ENTITY showbutton "Show Toolbar Button">
+<!ENTITY showstatusbarbutton "Show Status Bar Button">
 <!ENTITY onstartup "Show On Startup">
 <!ENTITY title.thumbs "Thumbs">
 <!ENTITY title.info "Info">

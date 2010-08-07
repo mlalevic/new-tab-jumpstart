@@ -69,7 +69,7 @@ Contributor(s): Leszek(teo)Życzkowski
   </toolbarpalette>
 
   <statusbar id="status-bar" class="chromeclass-status">
-	<statusbarpanel class="statusbarpanel-iconic jumpstart-status" tooltiptext="&tooltip;"
+	<statusbarpanel id="jumpstart_statusbar" hidden="true" class="statusbarpanel-iconic jumpstart-status" tooltiptext="&tooltip;"
 		contextmenu="jumpstart-menu" onclick="if(event.button == 2)return; mlalevic.JumpStart.onDialOpen();"/>
 
 		<menupopup position="before_end" id="jumpstart-menu">

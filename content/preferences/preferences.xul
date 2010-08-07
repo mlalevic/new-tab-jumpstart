@@ -44,6 +44,7 @@ Contributor(s):
       <preference id="loadDelay" name="mlalevic.jumpstart.onstart_load_delay" type="int"/>
       <preference id="refreshOnStart" name="mlalevic.jumpstart.onstart_refresh" type="bool"/>
       <preference id="showButton" name="mlalevic.jumpstart.show_toolbar_button" type="bool"/>
+      <preference id="showStatusbarButton" name="mlalevic.jumpstart.show_statusbar_button" type="bool"/>
       <preference id="showInHistory" name="mlalevic.jumpstart.persist_in_history" type="bool"/>
     </preferences>
 
@@ -51,6 +52,7 @@ Contributor(s):
         <checkbox id="hookupTabControl" preference="hookupTab" label="&onnewtab;" />
         <checkbox id="showOnStartup" preference="overrideHomepage" label="&onstartup;" />
         <checkbox id="showButtonOnToolbar" preference="showButton" label="&showbutton;" />
+        <checkbox id="showButtonOnStatusbar" preference="showStatusbarButton" label="&showstatusbarbutton;" />
         <checkbox id="showJumpInHistory" preference="showInHistory" label="&showinhistory;" />
     </groupbox>
   </prefpane>

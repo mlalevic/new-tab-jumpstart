@@ -5,6 +5,7 @@ pref("mlalevic.jumpstart.list_refresh", true); //refresh thumbs if list not full
 pref("mlalevic.jumpstart.hook_up_new_tab", true); //should hook up new tab
 pref("mlalevic.jumpstart.show_on_startup", true); //should show on startup if the window opens homepage or blank
 pref("mlalevic.jumpstart.show_toolbar_button", false); //show toolbar button
+pref("mlalevic.jumpstart.show_statusbar_button", false); //show toolbar button
 
 pref("mlalevic.jumpstart.LogLevel", 4); //log level - critical
 

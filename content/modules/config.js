@@ -37,7 +37,8 @@ JumpstartPrefs.prototype = {
   RefreshOnStartup : false,
   HookUpNewTab : true,
   OverrideHomepage : true,
-  ShowToolbarButton : true,
+  ShowToolbarButton : false,
+  ShowStatusBarButton : false,
   PersistThumbViewInHistory : false,
   PurgeHistoryOnThumbViewClose : true,
   ListRefresh : true,
@@ -72,6 +73,7 @@ JumpstartPrefs.prototype = {
     this.HookUpNewTab = this.prefBranch.get("hook_up_new_tab", this.HookUpNewTab);
     this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
     this.ShowToolbarButton = this.prefBranch.get("show_toolbar_button", this.ShowToolbarButton);
+    this.ShowStatusBarButton = this.prefBranch.get("show_statusbar_button", this.ShowStatusBarButton);
     this.ListRefresh = this.prefBranch.get("list_refresh", this.ListRefresh);
 
     this.PermanentProperties = this.prefBranch.get("permanent_properties", this.PermanentProperties);
@@ -89,7 +91,6 @@ JumpstartPrefs.prototype = {
     this.PurgeHistoryOnThumbViewClose = this.prefBranch.get("on_tabview_close_purge", this.PurgeHistoryOnThumbViewClose);
 
     this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
-    this.ShowToolbarButton = this.prefBranch.get("show_toolbar_button", this.ShowToolbarButton);
 
     this.Thumbs.Columns = this.prefThumbBranch.get("columns", this.Thumbs.Columns);
     this.Thumbs.Lines = this.prefThumbBranch.get("lines", this.Thumbs.Lines);
