@@ -1,26 +1,26 @@
-<!ENTITY title "Нови језичак - Појачан">
-<!ENTITY mostVisited "Најпосећеније">
-<!ENTITY menu.showOnNewTab "Прикажи на новом језичку">
-<!ENTITY menu.showOnStartup "Прикажи при покретању">
-<!ENTITY menu.showToolbarButton "Прикажи дугме на алатној траци">
-<!ENTITY menu.showInHistory "Прикажи у историјату">
-<!ENTITY menu.bigThumbs "Велике сличице">
-<!ENTITY menu.moreOptions "Још подешавања ...">
-<!ENTITY search.emptyText "Претражи историјат">
-<!ENTITY recentBookmarks.recent "Најновије">
-<!ENTITY recentBookmarks.tooltip "Још забелешки">
-<!ENTITY recentBookmarks.linkText "Забелешке">
-<!ENTITY recentlyClosed "Последње затворено">
-<!ENTITY search "Претражи">
-<!ENTITY search2.emptyText "Претражи историјат">
-<!ENTITY back "Назад на приказ предгледа">
-<!ENTITY notice.more_info "Додатне информације">
-<!ENTITY notice.more_info_tooltip "Напомене о овом издању">
-<!ENTITY notice.new_version "Инсталирана нова верзија.">
-<!ENTITY notice.info "Побољшања и нове могућности:">
-<!ENTITY notice.bookmarks "Додата трака забелешки">
-<!ENTITY notice.bookmarks_tooltip "Прикажи/сакриј траку забележака">
-<!ENTITY notice.sidebar "Бочна трака може да се сакрије">
-<!ENTITY notice.sidebar_tooltip "Прикажи/сакриј бочну траку">
-<!ENTITY notice.drag_drop "Промена распореда сличица">
-<!ENTITY notice.drag_drop_tooltip "Превлачењем и отпуштањем промените распоред">
+<!ENTITY title "New Tab">
+<!ENTITY mostVisited "Most Visited">
+<!ENTITY menu.showOnNewTab "Show on New Tab">
+<!ENTITY menu.showOnStartup "Show on Startup">
+<!ENTITY menu.showToolbarButton "Show Toolbar Button">
+<!ENTITY menu.showInHistory "Show in History">
+<!ENTITY menu.bigThumbs "Big Thumbs">
+<!ENTITY menu.moreOptions "More Options ...">
+<!ENTITY search.emptyText "Search History">
+<!ENTITY recentBookmarks.recent "Recent">
+<!ENTITY recentBookmarks.tooltip "More bookmarks">
+<!ENTITY recentBookmarks.linkText "Bookmarks">
+<!ENTITY recentlyClosed "Recently Closed">
+<!ENTITY search "Search">
+<!ENTITY search2.emptyText "Search History">
+<!ENTITY back "Back to thumbs view">
+<!ENTITY notice.more_info "More information">
+<!ENTITY notice.more_info_tooltip "Release notes for this version">
+<!ENTITY notice.new_version "New version installed.">
+<!ENTITY notice.info "Improvements and features, hover for more details: ">
+<!ENTITY notice.bookmarks "Added bookmarks toolbar">
+<!ENTITY notice.bookmarks_tooltip "Click to turn on/off bookmarks toolbar">
+<!ENTITY notice.sidebar "Sidebar can be hidden">
+<!ENTITY notice.sidebar_tooltip "Click to show/hide sidebar">
+<!ENTITY notice.drag_drop "Rearrange thumbnails">
+<!ENTITY notice.drag_drop_tooltip "Drag and drop to rearrange them">

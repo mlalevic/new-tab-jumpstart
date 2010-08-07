@@ -1,11 +1,11 @@
-<!ENTITY title "Информације">
-<!ENTITY required "Потребна подешавања">
-<!ENTITY compatibility "Информације о усаглашености">
-<!ENTITY loglevel "Ниво праћења:">
-<!ENTITY full "Прати све">
-<!ENTITY relevant "Сви битни догађаји">
-<!ENTITY warning "Грешке и упозорења">
-<!ENTITY error "Само грешке">
-<!ENTITY critical "Само критичне грешке">
-<!ENTITY blocked "Блокиране адресе">
-<!ENTITY remove_selected "Избаци изабране">
+<!ENTITY title "Info">
+<!ENTITY required "Required Configuration">
+<!ENTITY compatibility "Compatibility Notes">
+<!ENTITY loglevel "Log Level:">
+<!ENTITY full "Full Logging">
+<!ENTITY relevant "All Relevant Events">
+<!ENTITY warning "Errors and Warnings">
+<!ENTITY error "Errors Only">
+<!ENTITY critical "Critical Errors Only">
+<!ENTITY blocked "Blocked items">
+<!ENTITY remove_selected "Remove Selected">
