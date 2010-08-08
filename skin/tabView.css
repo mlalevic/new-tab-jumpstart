@@ -41,10 +41,6 @@ notification toolbarbutton {
 }
 
 .contentContainer {
-	width: inherit;
-	-moz-box-align: start;
-	-moz-box-pack: start;
-	-moz-box-flex: 0;
 }
 
 #mainBox {
@@ -289,4 +285,8 @@ notification toolbarbutton {
 
 .searchTextBox {
 	text-align: left;
+}
+
+.searchEngines{
+    margin: 10px 0 10px 0;
 }

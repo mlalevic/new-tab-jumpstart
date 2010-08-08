@@ -95,11 +95,6 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     function getBrowserWindow(){
-        /*return window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-            .getInterface(Components.interfaces.nsIWebNavigation)
-            .QueryInterface(Components.interfaces.nsIDocShellTreeItem).treeOwner
-            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-            .getInterface(Components.interfaces.nsIDOMWindow);*/
         return window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                .getInterface(Components.interfaces.nsIWebNavigation)
                .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
@@ -136,6 +131,9 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     var dataRefreshEvent = "mlalevic.JumpStart.refresh";
     var bookmarksChangedEvent = "mlalevic.JumpStart.bookmarks";
 
+    var focusSearch = function(){
+        document.getElementById('search-box').focus();
+    }
 
     var Show = function() {
         /*topDial.clearUrlBarForOurTab();
@@ -143,6 +141,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         utils.Observers.add(showClosed, dataRefreshEvent);
         utils.Observers.add(showBookmarks, bookmarksChangedEvent);
         draw();
+        if(Config.FocusOnSearch){focusSearch();}
     }
 
     var Unload = function(){
@@ -410,15 +409,15 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     mlalevic.JumpStart.showThumbs = function(){
-      var historyBox = document.getElementById('searchBox');
-      var mainBox = document.getElementById('mainBox');
-
-      historyBox.hidden = true;
-      mainBox.hidden = false;
+      document.getElementById('theDeck').selectedIndex = 0;
     }
 
     mlalevic.JumpStart.historySearch = function(aInput) {
-      var query = PlacesUtils.history.getNewQuery();
+      document.getElementById('theDeck').selectedIndex = 1;
+      showSearchData(aInput);
+      showDefaultSearch(aInput);
+
+      /*var query = PlacesUtils.history.getNewQuery();
       var options = PlacesUtils.history.getNewQueryOptions();
       var historyTree = document.getElementById('historyTree');
 
@@ -444,7 +443,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       // call load() on the tree manually
       // instead of setting the place attribute in history-panel.xul
       // otherwise, we will end up calling load() twice
-      historyTree.load([query], options);
+      historyTree.load([query], options);*/
     }
 
     mlalevic.JumpStart.TileContainerController = {
@@ -726,6 +725,73 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
               return utils.Converter.fromJSONString(jsonData);
           }
      }
+
+
+
+     function the_search(engineName, searchText, useNewTab) {
+            var ss = Components.classes["@mozilla.org/browser/search-service;1"].
+                     getService(Components.interfaces.nsIBrowserSearchService);
+
+            var engine = ss.getEngineByName(engineName);
+            if(!engine)return;
+            var submission = engine.getSubmission(searchText, null); // HTML response
+
+            // getSubmission can return null if the engine doesn't have a URL
+            // with a text/html response type.  This is unlikely (since
+            // SearchService._addEngineToStore() should fail for such an engine),
+            // but let's be on the safe side.
+            if (!submission)
+              return;
+
+            if (useNewTab) {
+              gBrowser.loadOneTab(submission.uri.spec, null, null,
+                                  submission.postData, null, false);
+            } else
+              getBrowserWindow().getBrowserFromContentWindow(window).loadURI(submission.uri.spec, null, submission.postData, false);
+          }
+
+          function showDefaultSearch(searchText){
+            var bro = document.getElementById('displayFrame').webNavigation;
+
+            var ss = Components.classes["@mozilla.org/browser/search-service;1"].
+                 getService(Components.interfaces.nsIBrowserSearchService);
+
+            var engine = ss.currentEngine;
+
+            if(!engine)return;
+            var submission = engine.getSubmission(searchText, null); // HTML response
+
+            // getSubmission can return null if the engine doesn't have a URL
+            // with a text/html response type.  This is unlikely (since
+            // SearchService._addEngineToStore() should fail for such an engine),
+            // but let's be on the safe side.
+            if (!submission)
+              return;
+
+              bro.loadURI(submission.uri.spec, 0, null, null, submission.postData);
+          }
+
+          function showSearchData(searchText){
+              var ss = Components.classes["@mozilla.org/browser/search-service;1"].
+                     getService(Components.interfaces.nsIBrowserSearchService);
+              var output = {};
+              var engines = ss.getEngines(output);
+
+              var container = document.getElementById('serachEnginesContainer');
+              //clear:
+              while (container.firstChild) {
+                container.removeChild(container.firstChild);
+              }
+
+              for(var i = 0; i < output.value; i++){
+                var e = engines[i];
+                var box = document.createElement("hbox");
+                box.setAttribute("class", "faviconSiteLinkBind");
+                container.appendChild(box);
+                var engineName = e.name;
+                box.draw(e.name, e.name, e.iconURI.spec, utils.Binder.bindArguments(this, the_search, engineName, searchText, false));
+              }
+          }
 
 window.addEventListener("load", Show, false);
 window.addEventListener("unload", Unload, false);

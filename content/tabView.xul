@@ -16,7 +16,7 @@ The Original Code is New Tab JumpStart.
 The Initial Developer of the Original Code is Mihailo Lalevic.
 Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
 
-Contributor(s): 
+Contributor(s):
 Christopher Cook (beerfan@gmail.com)
 
 **** END LICENSE BLOCK ****
@@ -86,85 +86,74 @@ Christopher Cook (beerfan@gmail.com)
                    label="&notice.more_info;"
                    oncommand="mlalevic.JumpStart.releaseNotes();"/>
       </notification>
-      <hbox id="mainBox" class="layoutContainer">
-        <spacer flex="1" />
 
-        <vbox flex="2">
-            <popup id="placesContext"/>
-            <vbox id="bookmarksBarTop" class="bookmarksBar" hidden="true">
-                <hbox id="bookmarksBarContent_jumpstart_top" flex="1"
-                       type="places"
-                       context="placesContext"
-                       onclick="BookmarksEventHandler.onClick(event);"
-                       oncommand="BookmarksEventHandler.onCommand(event);"
-                       onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
-                       tooltip="btTooltip"/>
+      <deck id="theDeck" selectedIndex="0">
+          <hbox id="mainBox" class="layoutContainer">
+            <spacer flex="1" />
+
+            <vbox flex="2">
+                <popup id="placesContext"/>
+                <vbox id="bookmarksBarTop" class="bookmarksBar" hidden="true">
+                    <hbox id="bookmarksBarContent_jumpstart_top" flex="1"
+                           type="places"
+                           context="placesContext"
+                           onclick="BookmarksEventHandler.onClick(event);"
+                           oncommand="BookmarksEventHandler.onCommand(event);"
+                           onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
+                           tooltip="btTooltip"/>
+                </vbox>
+                <hbox class="centerContent">
+                    <vbox id="siteTileContainer" class="siteTileContainer" controller="mlalevic.JumpStart.TileContainerController" />
+                </hbox>
+                <vbox id="bookmarksBarBottom" class="bookmarksBar" hidden="true">
+                    <hbox id="bookmarksBarContent_jumpstart_bottom" flex="1"
+                           type="places"
+                           context="placesContext"
+                           onclick="BookmarksEventHandler.onClick(event);"
+                           oncommand="BookmarksEventHandler.onCommand(event);"
+                           onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
+                           tooltip="btTooltip"/>
+                </vbox>
             </vbox>
-            <hbox class="centerContent">
-                <vbox id="siteTileContainer" class="siteTileContainer" controller="mlalevic.JumpStart.TileContainerController" />
-            </hbox>
-            <vbox id="bookmarksBarBottom" class="bookmarksBar" hidden="true">
-                <hbox id="bookmarksBarContent_jumpstart_bottom" flex="1"
-                       type="places"
-                       context="placesContext"
-                       onclick="BookmarksEventHandler.onClick(event);"
-                       oncommand="BookmarksEventHandler.onCommand(event);"
-                       onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
-                       tooltip="btTooltip"/>
+
+            <vbox id="sideContainer" flex="2">
+
+              <vbox id="searchContainer" class="contentContainer">
+                <description id="searchTitle" class="title">&search;</description>
+                <textbox id="search-box" tabindex="1" emptyText="&search.emptyText;" empty="true" type="search" searchbutton="true" class="text" oncommand="mlalevic.JumpStart.historySearch(this.value);" />
+              </vbox>
+
+              <vbox id="recentlyClosedBox" class="contentContainer">
+                <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>
+                <vbox id="recentlyClosedBoxItems" />
+              </vbox>
+
+              <vbox id="recentBookmarksContainer" class="contentContainer">
+                <description class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;" >&recentBookmarks.linkText;</html:a></description>
+                <vbox id="recentBookmarksItems" />
+              </vbox>
+
+              <spacer flex="1" />
             </vbox>
-        </vbox>
+            <spacer flex="1" />
+          </hbox>
 
-        <vbox id="sideContainer" flex="2">
-
-          <vbox id="searchContainer" class="contentContainer">
-            <description id="searchTitle" class="title">&search;</description>
-            <textbox id="search-box" emptyText="&search.emptyText;" empty="true" type="search" timeout="0" class="text" oncommand="mlalevic.JumpStart.historySearch(this.value);" />
+          <vbox class="contentContainer" id="searchBox">
+                <hbox class="searchEngines">
+                   <spacer flex="1" />
+                   <arrowscrollbox id="serachEnginesContainer" flex="1"></arrowscrollbox>
+                   <spacer flex="1" />
+                   <label class="customlink" value="&back;" onclick="mlalevic.JumpStart.showThumbs();" />
+                </hbox>
+                    <vbox flex="1">
+                        <iframe id="displayFrame" flex="1" />
+                    </vbox>
+                    <script type="application/x-javascript">
+                    var utils = {};
+                    Components.utils.import("resource://modules/utils.js", utils);
+                
+                    </script>
           </vbox>
-
-          <vbox id="recentlyClosedBox" class="contentContainer">
-            <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>
-            <vbox id="recentlyClosedBoxItems" />
-          </vbox>
-
-          <vbox id="recentBookmarksContainer" class="contentContainer">
-            <description class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;" >&recentBookmarks.linkText;</html:a></description>
-            <vbox id="recentBookmarksItems" />
-          </vbox>
-
-          <spacer flex="1" />
-        </vbox>
-        <spacer flex="1" />
-      </hbox>
+      </deck>
   </notificationbox>
-
-  <vbox align="center" class="contentContainer" hidden="true" id="searchBox">
-    <vbox class="outerContent">
-      <hbox flex="">
-        <label value="&search;" class="title"
-               control="search-box2"/>
-        <textbox id="search-box2" flex="1" emptyText="&search2.emptyText;" empty="true" type="timed" timeout="500"
-                 oncommand="mlalevic.JumpStart.historySearch(this.value);" class="searchTextBox" />
-      </hbox>
-      <vbox>
-        <html:a href="#" onclick="mlalevic.JumpStart.showThumbs();">&back;</html:a>
-      </vbox>
-      <vbox class="mainSearch">
-        <tree id="historyTree"
-              class="sidebar-placesTree"
-              flex="1"
-              type="places"
-              hidecolumnpicker="true"
-              onkeypress="SidebarUtils.handleTreeKeyPress(event);"
-                onclick="SidebarUtils.handleTreeClick(this, event, true);"
-                onmousemove="SidebarUtils.handleTreeMouseMove(event);"
-                onmouseout="SidebarUtils.clearURLFromStatusBar();"
-              >
-          <treecols>
-            <treecol id="title" flex="1" primary="true" hideheader="true"/>
-          </treecols>
-          <treechildren class="sidebar-placesTreechildren" flex="1"/>
-        </tree>
-      </vbox>
-    </vbox>
-  </vbox>
 </window>

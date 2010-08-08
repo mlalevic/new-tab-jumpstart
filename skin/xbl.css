@@ -29,7 +29,7 @@
 	width: 16px;
 }
 
-.faviconSiteLink label {
+.faviconSiteLink label, .customlink {
 	cursor: pointer;
 	color: -moz-hyperlinktext;
 	text-decoration: -moz-anchor-decoration;
@@ -39,4 +39,12 @@
 	margin-top: 0px;
 	margin-bottom: 0px;
 	overflow: hidden;
+}
+
+.faviconSiteLinkBind {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#faviconSiteLink");
+	cursor: pointer;
+	width: auto;
+        max-width:6em;
+        box-flex:1;
 }
