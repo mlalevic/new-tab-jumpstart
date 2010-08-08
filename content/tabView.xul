@@ -61,7 +61,7 @@ Christopher Cook (beerfan@gmail.com)
 
   <notificationbox flex="1" id="notification">
       <notification id="whatsNew" label="&notice.new_version;" image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice">
-          <hbox class="notificationContent" flex="1" >
+          <hbox class="notificationContent" flex="1" hidden="true" >
               <vbox class="centerContent">
                 <label value="&notice.info;" />
               </vbox>
@@ -79,6 +79,25 @@ Christopher Cook (beerfan@gmail.com)
                   <label   tooltiptext="&notice.drag_drop_tooltip;"
                            value="&notice.drag_drop;" />
               </vbox>
+          </hbox>
+          <hbox class="notificationContent" flex="1" >
+              <vbox class="centerContent">
+                <label value="&notice.info;" />
+              </vbox>
+              <toolbarbutton
+                       class="tabbable"
+                       tooltiptext="&notice.statusbar_button_tooltip;"
+                       label="&notice.statusbar_button;"
+                       oncommand="mlalevic.JumpStart.toggleShowStatusbarButton();"/>
+              <toolbarbutton
+                       class="tabbable"
+                       tooltiptext="&notice.search_tooltip;"
+                       label="&notice.search;"
+                       oncommand="mlalevic.JumpStart.focusSearch();"/>
+              <!--vbox class="centerContent">
+                  <label   tooltiptext="&notice.drag_drop_tooltip;"
+                           value="&notice.drag_drop;" />
+              </vbox-->
           </hbox>
           <toolbarbutton
                    class="tabbable"

@@ -24,3 +24,7 @@
 <!ENTITY notice.sidebar_tooltip "Click to show/hide sidebar">
 <!ENTITY notice.drag_drop "Rearrange thumbnails">
 <!ENTITY notice.drag_drop_tooltip "Drag and drop to rearrange them">
+<!ENTITY notice.statusbar_button_tooltip "Status bar button is not shown by default">
+<!ENTITY notice.statusbar_button "Status bar button">
+<!ENTITY notice.search_tooltip "Type in something in serach text box and press enter">
+<!ENTITY notice.search "Search is working">

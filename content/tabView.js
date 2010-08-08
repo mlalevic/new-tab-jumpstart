@@ -46,6 +46,10 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       Config.setBranchPref(aName, !(Config.getBranchPref(aName)));
     }
 
+    mlalevic.JumpStart.toggleShowStatusbarButton = function(){
+        mlalevic.JumpStart.invertPrefValue("show_statusbar_button");
+    }
+
     mlalevic.JumpStart.toggleBookmarksToolbar = function(){
         mlalevic.JumpStart.invertPrefValue("show_bookmarks_toolbar");
         showBookmarksToolbar();
@@ -59,6 +63,10 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     mlalevic.JumpStart.releaseNotes = function(){
         Config.setBranchPref("show_notice", false);
         window.location = "http://www.new-tab-jumpstart.com/releases";
+    }
+
+    mlalevic.JumpStart.focusSearch = function(){
+        focusSearch();
     }
 
     //ensure number is between min and max (if over max then max, if under min then min)
