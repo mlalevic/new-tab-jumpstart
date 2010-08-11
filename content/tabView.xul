@@ -164,14 +164,9 @@ Christopher Cook (beerfan@gmail.com)
                    <spacer flex="1" />
                    <label class="customlink" value="&back;" onclick="mlalevic.JumpStart.showThumbs();" />
                 </hbox>
-                    <vbox flex="1">
-                        <iframe id="displayFrame" flex="1" />
-                    </vbox>
-                    <script type="application/x-javascript">
-                    var utils = {};
-                    Components.utils.import("resource://modules/utils.js", utils);
-                
-                    </script>
+                <vbox flex="1">
+                    <iframe id="displayFrame" flex="1" />
+                </vbox>
           </vbox>
       </deck>
   </notificationbox>
