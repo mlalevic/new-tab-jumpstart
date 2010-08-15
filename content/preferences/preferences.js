@@ -199,6 +199,7 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         }
 
         this.populateRemovedData();
+        this.populateTackedData();
       },    
       addCompatibilityItem : function(parent, src, text){
         var listitem = document.createElement("richlistitem");
@@ -241,6 +242,24 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
                 item.properties = removed[i];
             }
       },
+      populateTackedData : function(){
+            var services = {};
+            Components.utils.import("resource://modules/dbService.js", services);
+
+            var properties = services.AnnoService.getProperties();
+            var pinned = properties.filter(function(element){return element.pinned;});
+            var list = document.getElementById('tackedItems');
+
+            while(list.itemCount > 0){
+                list.removeItemAt(0);
+            }
+
+            for(var i=0; i < pinned.length; i++){
+                var label = pinned[i].url;
+                var item = list.appendItem(label, '');
+                item.properties = pinned[i];
+            }
+      },
       undoRemoved : function(){
         var services = {};
         Components.utils.import("resource://modules/dbService.js", services);
@@ -260,6 +279,136 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         services.AnnoService.removeProperties(propertiesToRemove);
 
         this.populateRemovedData();
+      },
+      undoTacked : function(){
+        var services = {};
+        Components.utils.import("resource://modules/dbService.js", services);
+
+        var list = document.getElementById('tackedItems');
+        var selectedItems = list.selectedItems;
+
+        if(selectedItems.length == 0){
+            return;
+        }
+
+        var propertiesToRemove = [];
+        for(var i=0; i < selectedItems.length; i++){
+            selectedItems[i].properties.pinned = false;
+            propertiesToRemove.push(selectedItems[i].properties);
+        }
+
+        services.AnnoService.updateProperties(propertiesToRemove);
+
+        this.populateTackedData();
+      },
+      processSitesTextBox : function(handleProperty, getProperty, postProcess){
+        var Services = {};
+        Components.utils.import("resource://modules/dbService.js", Services);
+        Components.utils.import("resource://modules/browserServices.js", Services);
+
+        var fullText = document.getElementById('newTackedBlocked').value;
+        var items = fullText.split("\r\n");
+        if(items.length <= 1){
+            items = fullText.split("\n");
+        }
+
+        var propertiesToAdd = [];
+        var propertiesToUpdate = [];
+        for(var i = 0; i<items.length; i++){
+            if(!items[0] || items[0].length == 0)continue;
+
+            try{
+                var uri = Services.AnnoService.makeURI(items[i]);
+                var property = null;
+                if(Services.AnnoService.hasDetails(uri)){
+                    property = Services.AnnoService.getProperty(uri);
+                    handleProperty(property);
+                    propertiesToUpdate.push(property);
+                }else{
+                    property = getProperty(items[i]);
+                    propertiesToAdd.push(property);
+                }
+            }catch(ex){
+                Services.Logger.error("Error creating uri for blocked site: " + items[i], ex.message);
+            }
+        }
+
+
+        if(propertiesToUpdate.length > 0){
+            Services.AnnoService.updateProperties(propertiesToUpdate);
+        }
+
+        if(propertiesToAdd.length > 0){
+            for(var i=0; i<propertiesToAdd.length; i++){
+                Services.AnnoService.saveProperties(Services.AnnoService.makeURI(propertiesToAdd[i].url), propertiesToAdd[i]);
+            }
+        }
+
+        postProcess();
+
+        this.populateTackedData();
+        this.populateRemovedData();
+      },
+      blockSites : function(){
+        this.processSitesTextBox(
+            function(property){property.removed = true;property.pinned = false;},
+            function(url){return { url: url, title: '', fav: '', host: '', place_id: '', thumb: '', removed: true, pinned: false, requires_update:true };},
+            function(){}
+        );
+      },
+      tackSites : function(){
+        var Services = {};
+        Components.utils.import("resource://modules/dbService.js", Services);
+        var getData = function(){
+            var properties = Services.AnnoService.getProperties();
+            var result = properties.filter(function(element){return !element.removed;});
+            result.sort(function(a,b){return a.index - b.index;});
+            return result;
+        }
+        var findNextNonTacked = function(data, currentIndex){
+            for(var i=currentIndex - 1;i >= 0;i--){
+                if(!data[i].pinned){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        var data = getData();
+        //find max index:
+        var maxIndex = 0;
+        for(var i = 0; i < data.length; i++){
+            if(data[i].index > maxIndex)maxIndex = data[i].index;
+        }
+        var currentIndex = maxIndex + 1;
+
+        this.processSitesTextBox(
+            function(property){property.removed = false; property.pinned = true;},
+            function(url){
+                var properties = { url: url, title: '', fav: '', host: '', place_id: '', thumb: '', removed: false, pinned: true, requires_update:true };
+                if(currentIndex >= 0){
+                    currentIndex = findNextNonTacked(data, currentIndex);
+                }
+
+                if(currentIndex >=0){
+                    properties.index = currentIndex;
+                }else{
+                    maxIndex += 1;
+                    properties.index = maxIndex;
+                }
+                return properties;
+            },
+            function(){
+                if(currentIndex <=0){
+                    currentIndex = 0;
+                }
+                var updated = data.filter(function(element){return !element.pinned && element.index>=currentIndex});
+                for(var i=0; i < updated.length; i++){
+                    updated[i].index = (++maxIndex);
+                }
+                Services.AnnoService.updateProperties(updated);
+            }
+        );
       }
     }
 })();

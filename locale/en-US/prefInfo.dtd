@@ -9,3 +9,7 @@
 <!ENTITY critical "Critical Errors Only">
 <!ENTITY blocked "Blocked items">
 <!ENTITY remove_selected "Remove Selected">
+<!ENTITY tacked "Tacked items">
+<!ENTITY tack_block "Tack/Block">
+<!ENTITY block_sites "Block Sites">
+<!ENTITY tack_sites "Pin Sites">

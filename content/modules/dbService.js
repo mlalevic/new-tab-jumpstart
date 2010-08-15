@@ -101,6 +101,9 @@ let AnnoService = {
     thumbsAnno: "jumpstart/thumbs",
     propertiesAnno: "jumpstart/properties",
     header: "data:image/png;base64,",
+    makeURI: function(url){
+        return makeURI(url);
+    },
     decode : function(base64Data){
         var decoded = new Array();
         var decodedStr = atob(base64Data);
@@ -141,6 +144,7 @@ let AnnoService = {
     getProperty : function(uri){
         var anno = this.annoService.getPageAnnotation(uri, this.propertiesAnno);
         var annoProperties = Converter.fromJSONString(anno);
+        annoProperties.uri = uri;
         return annoProperties;
     },
     getProperties : function(){
