@@ -290,3 +290,19 @@ notification toolbarbutton {
 .searchEngines{
     margin: 10px 0 10px 0;
 }
+
+#prefs {
+  list-style-image: url("chrome://jumpstart/skin/img/ntjs-toolbar.png");
+  -moz-image-region: rect(0px, 32px, 32px, 0px);
+}
+
+#slideMenu{
+    background-color: -moz-dialog;
+    margin-right: 10px;
+    padding: 0 2px 2px 2px;
+    border-bottom: 1px solid #6B90DA;
+    border-left: 1px solid #6B90DA;
+    border-right: 1px solid #6B90DA;
+    -moz-border-radius-bottomleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+}

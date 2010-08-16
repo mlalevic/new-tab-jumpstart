@@ -143,6 +143,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         document.getElementById('search-box').focus();
     }
 
+    var aSlide = null;
+
     var Show = function() {
         /*topDial.clearUrlBarForOurTab();
         topDial.registerForUpdate(Dial.showClosed);*/
@@ -150,6 +152,16 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         utils.Observers.add(showBookmarks, bookmarksChangedEvent);
         draw();
         if(Config.FocusOnSearch){focusSearch();}
+        positionMenu();
+        aSlide = new showDown('slideMenu');
+    }
+
+    function positionMenu(){
+        var target = document.getElementById('slideMenu');
+        var width = document.defaultView.getComputedStyle(target, null).getPropertyValue('width', null);
+        var contentwidth = document.defaultView.getComputedStyle(document.getElementById('theDeck'), null).getPropertyValue('width', null);
+        var left = parseInt(contentwidth.replace('px', '')) - parseInt(width.replace('px', '')) - 10;
+        target.style.left = left + 'px';
     }
 
     var Unload = function(){
@@ -804,5 +816,139 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 window.addEventListener("load", Show, false);
 window.addEventListener("unload", Unload, false);
 
+
+        var HIDDEN = 0;
+        var EXTENDING = 1;
+        var RETRACTING = 2;
+        var SHOWN = 3;
+
+        function showDown(targetId){
+            this.target = document.getElementById(targetId);
+            this.init();
+        }
+
+        showDown.prototype = {
+            state : HIDDEN,
+            target: null,
+            height: 0,
+            step: 10,
+            speed: 100,
+            initialyShown: 10,
+            currentLoop : null,
+            init : function(){
+                //services.Logger.info("Init");
+                var height = document.defaultView.getComputedStyle(this.target, null).getPropertyValue('height', null);
+                this.height = height.substring(0, height.length - 2);
+                this.currentMargin = this.initialyShown - this.height;
+                this.hookMouseOver();
+                this.update();
+            },
+            change : function(){
+                //services.Logger.info("change", this.state);
+                switch(this.state){
+                    case HIDDEN:
+                        break;
+                    case EXTENDING:
+                        this.unhookMouseOver();
+                        this.hookMouseOut();
+                        this.initSlide();
+                        break;
+                    case RETRACTING:
+                        this.hookMouseOver();
+                        this.unhookMouseOut();
+                        this.initSlide();
+                        break;
+                    case SHOWN:
+                        break;
+                }
+                this.update();
+            },
+            hookMouseOver: function(){
+                //services.Logger.info("hookover", this.state);
+                var obj = this;
+                this.mouseoverhandler = function(){obj.onmouseover();};
+                this.target.addEventListener("mouseover", this.mouseoverhandler, true);
+            },
+            unhookMouseOver:function(){
+                //services.Logger.info("unhookover", this.state);
+                this.target.removeEventListener("mouseover", this.mouseoverhandler, true);
+            },
+            hookMouseOut:function(){
+               //services.Logger.info("hookout", this.state);
+               var obj = this;
+               this.mouseouthandler = function(){obj.onmouseout();};
+               this.target.addEventListener("mouseout", this.mouseouthandler, true);
+            },
+            unhookMouseOut:function(){
+                //services.Logger.info("unhookout", this.state);
+                this.target.removeEventListener("mouseout", this.mouseouthandler, true);
+            },
+            onmouseover: function(){
+                //services.Logger.info("onmouse over", this.state);
+                this.state = EXTENDING;
+                this.change();
+            },
+            onmouseout: function(){
+                //services.Logger.info("onmouse out", this.state);
+                this.state = RETRACTING;
+                this.change();
+            },
+            stop : function(){
+                //services.Logger.info("stop", this.currentInterval);
+                if(this.currentInterval)
+                    window.clearInterval(this.currentInterval);
+                this.currentInterval = null;
+            },
+            initSlide: function(){
+                //services.Logger.info("init slide", this.state);
+                this.stop();
+                var obj = this;
+                var cnt = 0;
+                var doSlide = function(end){
+                    if(obj.currentMargin == end){
+                        obj.onFinishedMove();
+                        return;
+                    }
+
+                    switch(obj.state){
+                        case EXTENDING:
+                            obj.currentMargin += obj.step;
+                            if(obj.currentMargin > end) obj.currentMargin = end;
+                            break;
+                        case RETRACTING:
+                            obj.currentMargin -= obj.step;
+                            if(obj.currentMargin < end) obj.currentMargin = end;
+                            break;
+                    }
+                    obj.update();
+                };
+
+                switch(this.state){
+                    case EXTENDING:
+                        this.currentInterval = window.setInterval(doSlide, this.speed, 0);
+                        break;
+                    case RETRACTING:
+                        this.currentInterval = window.setInterval(doSlide, this.speed, this.initialyShown - this.height);
+                        break;
+                }
+            },
+            onFinishedMove: function(){
+                //services.Logger.info("finished move", this.state);
+                this.stop();
+                switch(this.state){
+                    case EXTENDING:
+                        this.state = SHOWN;
+                        break;
+                    case RETRACTING:
+                        this.state = HIDDEN;
+                        break;
+                }
+                this.change();
+            },
+            update : function(){
+                //services.Logger.info("updated", this.state);
+                this.target.style.marginTop = this.currentMargin + 'px';
+            }
+        }
 
 })();
