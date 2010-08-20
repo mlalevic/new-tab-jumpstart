@@ -42,6 +42,10 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       "chrome,toolbar,centerscreen").focus();
     }
 
+    mlalevic.JumpStart.onMenuItemThumbs = function(){
+        document.getElementById("siteTileContainer").enterEdit();
+    }
+
     mlalevic.JumpStart.invertPrefValue = function(aName){
       Config.setBranchPref(aName, !(Config.getBranchPref(aName)));
     }
@@ -519,7 +523,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             this.removeTiles();
             this.drawTiles(thumbs, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
         },
-        drawOriginal : function(){
+        drawOriginal : function(redrawGrid){
             if(!this.drawContext){
                 return;
             }
@@ -533,21 +537,31 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             }
 
             this.removeTiles();
+            if(redrawGrid) this.drawGrid(data.config);
             this.drawTiles(thumbs, data.config, data.onClickHandler, data.pinHandler, data.removeHandler);
         },
         drawGrid : function(config){
             columns = config.Columns;
             rows = config.Lines;
 
-            // Create columns
             var columnContainer = this.content().childNodes[0].childNodes[0];
+            var count = 0;
+            var rowContainer = this.content().childNodes[0].childNodes[1];
+
+            //clear first
+            while(columnContainer.hasChildNodes()){
+                    columnContainer.removeChild(columnContainer.firstChild);
+            }
+            while(rowContainer.hasChildNodes()){
+                    rowContainer.removeChild(rowContainer.firstChild);
+            }
+
+            // Create columns
             for (var i = 0; i < columns; i++)
               columnContainer.appendChild(document.createElement("column"));
 
 
             // Create rows
-            var count = 0;
-            var rowContainer = this.content().childNodes[0].childNodes[1];
             for (var i = 0; i < rows; i++) {
 
               var row = document.createElement("row");
@@ -595,6 +609,22 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                 this.drawGrid(config);
 
                 this.drawTiles(data, config, onClickHandler, pinHandler, removeHandler);
+        },
+        drawForConfig : function(config){
+            if(!this.drawContext)return;
+
+            this.drawGrid(config);
+            var d = this.drawContext;
+            var data = d.data;
+
+            if(data.length < config.Count){
+                    //copy array
+                    data = data.map(function(e){return e;});
+                    while(data.length < config.Count){
+                            data.push({ url: 'http://', title: '', fav: '', host: '', thumb: '' });
+                    }
+            }
+            this.drawTiles(data, config, d.onClickHandler, d.pinHandler, d.removeHandler);
         },
         drawTiles : function(data, config, onClickHandler, pinHandler, removeHandler){
             function translate(data) {

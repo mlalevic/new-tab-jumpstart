@@ -296,6 +296,31 @@ notification toolbarbutton {
   -moz-image-region: rect(0px, 32px, 32px, 0px);
 }
 
+#thumbsButton {
+  list-style-image: url("chrome://jumpstart/skin/img/ntjs-toolbar.png");
+  -moz-image-region: rect(0px, 64px, 32px, 32px);
+}
+
+toolbarbutton[anonid=editOK] {
+  list-style-image: url("chrome://jumpstart/skin/img/actions.png");
+  -moz-image-region: rect(0px, 32px, 32px, 0px);
+}
+
+toolbarbutton[anonid=editOK]:hover {
+  list-style-image: url("chrome://jumpstart/skin/img/actions.png");
+  -moz-image-region: rect(0px, 64px, 32px, 32px);
+}
+
+toolbarbutton[anonid=editCancel] {
+  list-style-image: url("chrome://jumpstart/skin/img/cancel.png");
+  -moz-image-region: rect(0px, 32px, 32px, 0px);
+}
+
+toolbarbutton[anonid=editCancel]:hover {
+  list-style-image: url("chrome://jumpstart/skin/img/cancel.png");
+  -moz-image-region: rect(0px, 64px, 32px, 32px);
+}
+
 #slideMenu{
     background-color: -moz-dialog;
     margin-right: 10px;

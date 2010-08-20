@@ -11,11 +11,24 @@
   <binding id="siteTileContainer">
     <content>
       <element>
-        <xul:grid>
-          <xul:columns />
-          <xul:rows />
-          <xul:label value="&nothingInHistory;" hidden="true" />
-        </xul:grid>
+        <xul:stack>
+            <xul:grid>
+              <xul:columns />
+              <xul:rows />
+              <xul:label value="&nothingInHistory;" hidden="true" />
+            </xul:grid>
+            <xul:hbox anonid="transparency" style="background-color:red;opacity: 0.5;" hidden="true" >
+            </xul:hbox>
+            <xul:hbox anonid="slider" style="background-color:transparent; -moz-box-align: start; -moz-box-pack: center;" hidden="true">
+                    <xul:hbox style="background-color:-moz-dialog;opacity: 1; margin: 10px;">
+                            <xul:scale anonid="thumbsNumberScale" flex="1" min="0" max="0" increment="1" pageincrement="3" />
+                            <xul:label anonid="numberOfThumbs" value="" />
+                            <xul:toolbarbutton anonid="editOK" />
+                            <xul:toolbarbutton anonid="editCancel" />
+                    </xul:hbox>
+            </xul:hbox>
+
+        </xul:stack>
       </element>
     </content>
     <implementation>
@@ -32,12 +45,147 @@
 
           obj.setView(this);
           this.controller = obj;
+
+          var view = this;
+
+          function $get(id){
+                  return document.getAnonymousElementByAttribute(view, 'anonid', id);
+          }
+
+          (function() {
+                var Services = {};
+                Components.utils.import("resource://modules/config.js", Services);
+                Components.utils.import("resource://modules/browserServices.js", Services);
+
+                var Config = Services.JumpstartConfiguration.Thumbs;
+                var small = Config.ShowSmallThumbs;
+                var lines = Config.Lines;
+                var columns = Config.Columns;
+
+                function setPref(aName, aValue){
+                        Services.JumpstartConfiguration.setThumbPref(aName, aValue);
+                }
+
+                //ensure number is between min and max (if over max then max, if under min then min)
+                function respectBoundaries(min, max, current){
+                        var result = max < current?max:current;
+                        return result > min?result:min;
+                }
+
+                var slideHandler = {
+                  slider : null,
+                  label : null,
+                  sizes : [],
+                  OnLoad : function(){
+                        this.slider = $get("thumbsNumberScale");
+                        this.label = $get("numberOfThumbs");
+                        this.doHookup();
+                        this.refreshText();
+                  },
+                  doHookup: function(){
+                        var configForCalculation = {
+                          ShowSmallThumbs: small,
+                          MinColumns: 3,
+                          MinLines: 3
+                        };
+
+                        var configParams = Services.BrowserServices.calculateMaxThumbs(configForCalculation);
+
+                        this._hookup(3, configParams.lines, 3, configParams.columns);
+
+                        var line = respectBoundaries(3, configParams.lines, lines);
+                        var col = respectBoundaries(3, configParams.columns, columns);
+
+                        //find correct index and apply it to slider
+                        for(var i = 0; i < this.sizes.length; i++){
+                          if(this.sizes[i].line == line && this.sizes[i].col == col){
+                                this.slider.value = i;
+                                break;
+                          }
+                        }
+                  },
+                  _loadSizes : function(minlines, maxlines, mincols, maxcols){
+                        this.sizes = [];
+                        for(var lineCount = minlines; lineCount <= maxlines; lineCount++){
+                          for(var colCount = mincols; colCount <= maxcols; colCount ++){
+                                this.sizes.push({
+                                  line: lineCount,
+                                  col : colCount,
+                                  count: lineCount * colCount
+                                });
+                          }
+                        }
+
+                        this.sizes.sort(function(a, b){return a.count - b.count;}); //order by number of thumbs
+                        return this.sizes;
+                  },
+                  _hookup: function(minlines, maxlines, mincols, maxcols){
+                        this._loadSizes(minlines, maxlines, mincols, maxcols);
+                        this.slider.max = this.sizes.length - 1;
+
+                        var thumbprefs = this;
+                        this.slider.addEventListener('change', function(){
+                                thumbprefs.refreshText();
+                                var cfg = {};
+                                var dim = slideHandler._currentSize();
+                                cfg.ShowSmallThumbs = small;
+                                cfg.Lines = dim.line; cfg.Columns = dim.col; cfg.Count = dim.count;
+                                view.controller.drawForConfig(cfg);
+                        }, true);
+                  },
+                  refreshText : function(){
+                        this.label.value = this._getText(this._currentSize());
+                  },
+                  _getText : function(dimensions){
+                        return "(" + dimensions.col + "x" + dimensions.line + ") " + dimensions.count;
+                  },
+                  _currentSize : function(){
+                        return this.sizes[this.slider.value];
+                  }
+                };
+
+
+                $get('editOK').addEventListener('command', function(){
+                        view.exitEdit();
+                        var cfg = slideHandler._currentSize();
+                        setPref('columns', cfg.col);
+                        setPref('lines', cfg.line);
+                        view.controller.drawOriginal(true);
+                        }, true);
+            $get('editCancel').addEventListener('command', function(){view.exitEdit();view.controller.drawOriginal(true);}, true);
+
+                slideHandler.OnLoad();
+        })();
         ]]>
       </constructor>
       <method name="getContent">
           <body>
               <![CDATA[
-                return document.getAnonymousNodes(this)[0];
+                return document.getAnonymousNodes(this)[0].childNodes[0];
+              ]]>
+          </body>
+      </method>
+      <method name="enterEdit">
+          <body>
+              <![CDATA[
+                var view = this;
+                function $get(id){
+                    return document.getAnonymousElementByAttribute(view, 'anonid', id);
+		}
+		$get('transparency').hidden = false;
+		$get('slider').hidden = false;
+              ]]>
+          </body>
+      </method>
+      <method name="exitEdit">
+          <body>
+              <![CDATA[
+		var view = this;
+                function $get(id){
+                    return document.getAnonymousElementByAttribute(view, 'anonid', id);
+		}
+		$get('transparency').hidden = true;
+		$get('slider').hidden = true;
               ]]>
           </body>
       </method>

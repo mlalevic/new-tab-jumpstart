@@ -160,6 +160,7 @@ Christopher Cook (beerfan@gmail.com)
               <box id="slideMenu" style="overflow:hidden;top:0px;">
                   <toolbar id="slideMenuToolbar" style="overflow:hidden;top:0px;" orient="vertical" align="left">
                     <toolbarbutton id="prefs" tooltiptext="&bar.settings;" oncommand="mlalevic.JumpStart.onMenuItemProperties();"/>
+                    <toolbarbutton id="thumbsButton" tooltiptext="&bar.thumbs;" oncommand="mlalevic.JumpStart.onMenuItemThumbs();"/>
                   </toolbar>
               </box>
           </stack>
