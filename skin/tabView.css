@@ -10,7 +10,12 @@
 .bookmarksBar
 {
     border: solid 1px #6B90DA;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+}
+
+.bookmarksBarContainer
+{
+    margin-bottom: 15px;
 }
 
 notificationbox {
@@ -301,6 +306,11 @@ notification toolbarbutton {
   -moz-image-region: rect(0px, 64px, 32px, 32px);
 }
 
+#toolbarsButton {
+  list-style-image: url("chrome://jumpstart/skin/img/editToolbar.png");
+  -moz-image-region: rect(0px, 32px, 32px, 0px);
+}
+
 toolbarbutton[anonid=editOK] {
   list-style-image: url("chrome://jumpstart/skin/img/actions.png");
   -moz-image-region: rect(0px, 32px, 32px, 0px);
@@ -330,4 +340,38 @@ toolbarbutton[anonid=editCancel]:hover {
     border-right: 1px solid #6B90DA;
     -moz-border-radius-bottomleft: 8px;
     -moz-border-radius-bottomright: 8px;
+}
+
+.removetoolbarbutton, .canceltoolbar{
+    background-color:-moz-dialog;
+    list-style-image: url("chrome://jumpstart/skin/img/cancel.png");
+    -moz-image-region: rect(32px, 16px, 48px, 0px);
+}
+
+.removetoolbarbutton:hover, .canceltoolbar:hover{
+    background-color:-moz-dialog;
+    list-style-image: url("chrome://jumpstart/skin/img/cancel.png");
+    -moz-image-region: rect(32px, 32px, 48px, 16px);
+}
+
+.addtoolbar{
+    background-color:-moz-dialog;
+    list-style-image: url("chrome://jumpstart/skin/img/add.png");
+    -moz-image-region: rect(0px, 16px, 16px, 0px);
+}
+
+.addtoolbar:hover{
+    background-color:-moz-dialog;
+    list-style-image: url("chrome://jumpstart/skin/img/add.png");
+    -moz-image-region: rect(0px, 32px, 16px, 16px);
+}
+
+.applytoolbar {
+  list-style-image: url("chrome://jumpstart/skin/img/actions.png");
+  -moz-image-region: rect(32px, 16px, 48px, 0px);
+}
+
+.applytoolbar:hover {
+  list-style-image: url("chrome://jumpstart/skin/img/actions.png");
+  -moz-image-region: rect(32px, 32px, 48px, 16px);
 }

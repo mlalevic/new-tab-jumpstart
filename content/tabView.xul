@@ -113,27 +113,11 @@ Christopher Cook (beerfan@gmail.com)
 
                 <vbox flex="2">
                     <popup id="placesContext"/>
-                    <vbox id="bookmarksBarTop" class="bookmarksBar" hidden="true">
-                        <hbox id="bookmarksBarContent_jumpstart_top" flex="1"
-                               type="places"
-                               context="placesContext"
-                               onclick="BookmarksEventHandler.onClick(event);"
-                               oncommand="BookmarksEventHandler.onCommand(event);"
-                               onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
-                               tooltip="btTooltip"/>
-                    </vbox>
+                    <vbox id="bookmarksBarTop" class="bookmarksBarContainer" />
                     <hbox class="centerContent">
                         <vbox id="siteTileContainer" class="siteTileContainer" controller="mlalevic.JumpStart.TileContainerController" />
                     </hbox>
-                    <vbox id="bookmarksBarBottom" class="bookmarksBar" hidden="true">
-                        <hbox id="bookmarksBarContent_jumpstart_bottom" flex="1"
-                               type="places"
-                               context="placesContext"
-                               onclick="BookmarksEventHandler.onClick(event);"
-                               oncommand="BookmarksEventHandler.onCommand(event);"
-                               onpopupshowing="BookmarksEventHandler.onPopupShowing(event);"
-                               tooltip="btTooltip"/>
-                    </vbox>
+                    <vbox id="bookmarksBarBottom" class="bookmarksBarContainer" />
                 </vbox>
 
                 <vbox id="sideContainer" flex="2">
@@ -161,6 +145,7 @@ Christopher Cook (beerfan@gmail.com)
                   <toolbar id="slideMenuToolbar" style="overflow:hidden;top:0px;" orient="vertical" align="left">
                     <toolbarbutton id="prefs" tooltiptext="&bar.settings;" oncommand="mlalevic.JumpStart.onMenuItemProperties();"/>
                     <toolbarbutton id="thumbsButton" tooltiptext="&bar.thumbs;" oncommand="mlalevic.JumpStart.onMenuItemThumbs();"/>
+                    <toolbarbutton id="toolbarsButton" tooltiptext="&bar.toolbar;" oncommand="mlalevic.JumpStart.onMenuItemToolbar();"/>
                   </toolbar>
               </box>
           </stack>

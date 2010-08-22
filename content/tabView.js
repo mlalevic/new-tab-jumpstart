@@ -46,6 +46,10 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         document.getElementById("siteTileContainer").enterEdit();
     }
 
+    mlalevic.JumpStart.onMenuItemToolbar = function(){
+        toolbar.enterEdit();
+    }
+
     mlalevic.JumpStart.invertPrefValue = function(aName){
       Config.setBranchPref(aName, !(Config.getBranchPref(aName)));
     }
@@ -249,20 +253,177 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     function showBookmarksToolbar(){
-        var onTop = Config.BookmarksToolbarTop;
-
-        var toolbar = document.getElementById("bookmarksBarContent_jumpstart_" + (onTop?"top":"bottom"));
-        var bar = document.getElementById("bookmarksBar" + (onTop?"Top":"Bottom"));
+        if(!toolbar) toolbar = new toolbarHandler();
+        
         if(Config.ShowBookmarksToolbar){
-            bar.hidden = false;
-            toolbar.place="place:folder=TOOLBAR";
-        }else{
-            bar.hidden = true;
+            toolbar.reDraw();
         }
-
-        document.getElementById("bookmarksBar" + (!onTop?"Top":"Bottom")).hidden = true;
     }
 
+    function toolbarHandler(){
+            this.topBar = document.getElementById("bookmarksBarTop");
+            this.bottomBar = document.getElementById("bookmarksBarBottom");
+            this.resetPlaces();
+    }
+
+    toolbarHandler.prototype = {
+            topBar : null,
+            bottomBar : null,
+            topPlaces : [],
+            bottomPlaces : [],
+            editMode : false,
+            resetPlaces : function(){
+                    this.topPlaces = this.getPlaces(Config.TopToolbars);
+                    this.bottomPlaces = this.getPlaces(Config.BottomToolbars);
+            },
+            getPlaces : function(places){
+                    var data = places.split("\n");
+                    return data.filter(function(element){ return (true && element);});
+            },
+            createToolbar : function(place, editMode, removeAction){
+                    var box = document.createElement('vbox');
+                    box.setAttribute('class', 'bookmarksBar');
+                    var stack = document.createElement('stack');
+                    var tlbr = document.createElement('hbox');
+                    tlbr.setAttribute('flex', '1');
+                    tlbr.setAttribute('type', 'places');
+                    tlbr.setAttribute('context', 'placesContext');
+                    tlbr.setAttribute('onclick', "BookmarksEventHandler.onClick(event);");
+                    tlbr.setAttribute('oncommand', "BookmarksEventHandler.onCommand(event);");
+                    tlbr.setAttribute('onpopupshowing', "BookmarksEventHandler.onPopupShowing(event);");
+                    tlbr.setAttribute('tooltip', "btTooltip");
+                    tlbr.setAttribute('place', place);
+
+                    stack.appendChild(tlbr);
+
+                    if(editMode){
+                            var opacity = document.createElement('hbox');
+                            opacity.setAttribute('flex', '1');
+                            opacity.setAttribute('style', 'background-color:red; opacity: .5');
+
+                            var actions = document.createElement('hbox');
+                            actions.setAttribute('flex', '1');
+                            actions.setAttribute('style', 'background-color:transparent;');
+
+                            var b = document.createElement('toolbarbutton');
+                            b.setAttribute('label', '');
+                            b.setAttribute('class', 'removetoolbarbutton');
+                            b.addEventListener('command', removeAction, true);
+                            actions.appendChild(b);
+
+                            stack.appendChild(opacity);
+                            stack.appendChild(actions);
+                    }
+                    box.appendChild(stack);
+                    return box;
+            },
+            showToolbars : function(bar, config){
+                var toolbar = this;
+                    for(var i = 0; i < config.length; i++){
+                            //utils.Binder.bindArguments(this, undoClosed, i)
+                            bar.appendChild(this.createToolbar(config[i], this.editMode,
+                                    (function(index){return function(){
+                                        config.splice(index, 1);
+                                        toolbar.reDraw();
+                                        };
+                                    })(i)
+                            ));
+                    }
+            },
+            clearToolbars : function(bar){
+                    while(bar.hasChildNodes()){
+                            bar.removeChild(bar.firstChild);
+                    }
+            },
+            reDraw : function(){
+                    this.clearToolbars(this.topBar);
+                    this.showToolbars(this.topBar, this.topPlaces);
+                    this.clearToolbars(this.bottomBar);
+                    this.showToolbars(this.bottomBar, this.bottomPlaces);
+                    if(this.editMode){
+                            this.showControls();
+                    }
+            },
+            showPlacesPicker: function(){
+                    var rv = { selection : null, place: 'place:queryType=1&excludeItems=true&folder=TOOLBAR' };
+                    window.openDialog("chrome://jumpstart/content/placeSelect.xul", '', 'resizable,modal', rv).focus();
+                    if(rv.selection)
+                            return rv.selection.url;
+
+                    return null;
+            },
+            showControls: function(){
+                    var toolbar = this;
+                    var cancelFunction = function(){
+                            toolbar.resetPlaces();
+                            toolbar.exitEdit();
+                    };
+                    var acceptFunction = function(){
+                            Config.setBranchPref('top_toolbars', toolbar.topPlaces.join("\n"));
+                            Config.setBranchPref('bottom_toolbars', toolbar.bottomPlaces.join("\n"));
+                            toolbar.exitEdit();
+                    };
+                    this.topBar.insertBefore(this.createControlBox(
+                            function(){
+                                    var place = toolbar.showPlacesPicker();
+                                    if(place){
+                                            place = place.replace('&excludeItems=1', '').replace('&excludeItems=true', ''); //so we show bookmarks and folders
+                                            toolbar.topPlaces.push(place);
+                                            toolbar.reDraw();
+                                    }
+                            },
+                            cancelFunction,
+                            acceptFunction
+                    ), this.topBar.firstChild);
+
+                    this.bottomBar.insertBefore(this.createControlBox(
+                            function(){
+                                    var place = toolbar.showPlacesPicker();
+                                    if(place){
+                                            place = place.replace('&excludeItems=1', '').replace('&excludeItems=true', ''); //so we show bookmarks and folders
+                                            toolbar.bottomPlaces.push(place);
+                                            toolbar.reDraw();
+                                    }
+                            },
+                            cancelFunction,
+                            acceptFunction
+                    ), this.bottomBar.firstChild);
+            },
+            createControlBox : function(addFunction, cancelFunction, acceptFunction){
+                    var box = document.createElement('hbox');
+                    box.setAttribute('class', 'bookmarksBarControlBox');
+
+                    var add = document.createElement('toolbarbutton');
+                    add.setAttribute('label', '');
+                    add.setAttribute('class', 'addtoolbar');
+                    add.addEventListener('command', addFunction, true);
+                    box.appendChild(add);
+
+                    var apply = document.createElement('toolbarbutton');
+                    apply.setAttribute('label', '');
+                    apply.setAttribute('class', 'applytoolbar');
+                    apply.addEventListener('command', acceptFunction, true);
+                    box.appendChild(apply);
+
+                    var cancel = document.createElement('toolbarbutton');
+                    cancel.setAttribute('label', '');
+                    cancel.setAttribute('class', 'canceltoolbar');
+                    cancel.addEventListener('command', cancelFunction, true);
+                    box.appendChild(cancel);
+
+                    return box;
+            },
+            enterEdit : function(){
+                    this.editMode = true;
+                    this.reDraw();
+            },
+            exitEdit : function(){
+                    this.editMode = false;
+                    this.reDraw();
+            }
+    }
+
+    var toolbar = null;
 
     var getData = function(){
             var properties = services.AnnoService.getProperties();

@@ -749,6 +749,23 @@ var onInstall = {
 
           prefs.setCharPref("version",extension.version);
 
+          if(extension.version == '0.5a5.4'){
+              //only for version 0.5a5.4
+              //upgrade toolbar config
+              var toptoolbar = prefs.getBoolPref("bookmarks_toolbar_top", false);
+              var toolbarshown = prefs.getBoolPref("show_bookmarks_toolbar", false);
+
+              if(toolbarshown){
+                  if(toptoolbar){
+                    prefs.setCharPref("top_toolbars", "place:folder=TOOLBAR");
+                  }else{
+                    prefs.setCharPref("bottom_toolbars", "place:folder=TOOLBAR");
+                  }
+              }
+          }
+
+
+
           if(!ver){ //this version is minor upgrade so show only on first install
             clear(prefs, ['show_notice']); //show notice on upgrade
           }

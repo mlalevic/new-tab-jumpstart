@@ -31,7 +31,6 @@ Contributor(s):
       <preference id="thumbLines" name="mlalevic.jumpstart.thumbs.lines" type="int"/>
       <preference id="thumbColumns" name="mlalevic.jumpstart.thumbs.columns" type="int"/>
       <preference id="showBookmarksToolbar" name="mlalevic.jumpstart.show_bookmarks_toolbar" type="bool"/>
-      <preference id="bookmarksToolbarTop" name="mlalevic.jumpstart.bookmarks_toolbar_top" type="bool"/>
       <preference id="showSidebar" name="mlalevic.jumpstart.show_sidebar" type="bool"/>
       <preference id="bkgColor" name="mlalevic.jumpstart.bkg_color" type="string"/>
       <preference id="bkgImage" name="mlalevic.jumpstart.bkg_image" type="string"/>
@@ -52,7 +51,6 @@ Contributor(s):
       <hbox>
           <vbox>
             <checkbox id="showBookmarksToolbarChk" preference="showBookmarksToolbar" label="&show_bookmarks;" />
-            <checkbox id="bookmarksToolbarTopChk" preference="bookmarksToolbarTop" label="&bookmarks_top;" />
             <checkbox id="showSidebarChk" preference="showSidebar" label="&show_sidebar;" />
             <vbox>
                 <label value="&bkg_color;" />

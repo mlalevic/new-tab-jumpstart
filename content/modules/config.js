@@ -48,11 +48,12 @@ JumpstartPrefs.prototype = {
   PermanentThumbs : false,
   ImprovedRefresh: true,
   ShowBookmarksToolbar: true,
-  BookmarksToolbarTop : false,
   ShowNotice: true,
   ShowSidebar: true,
   BackgroundColor: '',
   BackgroundImage: '',
+  TopToolbars: '',
+  BottomToolbars: '',
   Thumbs : {
     ShowSmallThumbs: false,
     MinCount : 9,
@@ -83,11 +84,14 @@ JumpstartPrefs.prototype = {
     this.ImprovedRefresh = this.prefBranch.get("improved_refresh", this.ImprovedRefresh);
 
     this.ShowBookmarksToolbar = this.prefBranch.get("show_bookmarks_toolbar", this.ShowBookmarksToolbar);
-    this.BookmarksToolbarTop = this.prefBranch.get("bookmarks_toolbar_top", this.BookmarksToolbarTop);
     this.ShowNotice = this.prefBranch.get("show_notice", this.ShowNotice);
     this.ShowSidebar = this.prefBranch.get("show_sidebar", this.ShowSidebar);
     this.BackgroundColor = this.prefBranch.get("bkg_color", this.BackgroundColor);
     this.BackgroundImage = this.prefBranch.get("bkg_image", this.BackgroundImage);
+    this.TopToolbars = this.prefBranch.get("top_toolbars", this.TopToolbars);
+    this.BottomToolbars = this.prefBranch.get("bottom_toolbars", this.BottomToolbars);
+
+
 
     this.PersistThumbViewInHistory = this.prefBranch.get("persist_in_history", this.PersistThumbViewInHistory);
     this.PurgeHistoryOnThumbViewClose = this.prefBranch.get("on_tabview_close_purge", this.PurgeHistoryOnThumbViewClose);
