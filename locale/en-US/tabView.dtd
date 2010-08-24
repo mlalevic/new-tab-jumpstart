@@ -28,6 +28,10 @@
 <!ENTITY notice.statusbar_button "Status bar button">
 <!ENTITY notice.search_tooltip "Type in something in serach text box and press enter">
 <!ENTITY notice.search "Search is working">
+<!ENTITY notice.added_menu_tooltip "Hover over the menu to expand it - click this button to highlight it">
+<!ENTITY notice.added_menu "Menu on the right">
+<!ENTITY notice.added_menu_more_text "offers easier access to screen customization">
+<!ENTITY notice.and_more "Other changes:">
 <!ENTITY bar.settings "Settings">
-<!ENTITY bar.thumbs "Thumbnails">
-<!ENTITY bar.toolbar "Configure Toolbars">
+<!ENTITY bar.thumbs "Configure number of thumbnails">
+<!ENTITY bar.toolbar "Configure toolbars">

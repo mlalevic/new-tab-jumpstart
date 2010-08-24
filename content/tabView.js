@@ -63,6 +63,36 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         showBookmarksToolbar();
     }
 
+
+    var highlightAnimation = null;
+    var preHighlightColor = null;
+
+    mlalevic.JumpStart.highlightMenu = function(){
+    var target = document.getElementById('slideMenu');
+        if(preHighlightColor == null){
+                preHighlightColor = target.style.borderColor;
+        }
+        var color = preHighlightColor;
+        var altColor = 'Red';
+        var count = 0;
+        if(highlightAnimation){
+                window.clearInterval(highlightAnimation);
+                target.style.borderColor = preHighlightColor;
+        }
+
+        highlightAnimation = window.setInterval(function(){
+                if(count >= 10){
+                        window.clearInterval(highlightAnimation);
+                        target.style.borderColor = color;
+                        return;
+                }
+
+                target.style.borderColor = count%2==0?altColor:color;
+                count++;
+        }, 200);
+    }
+
+
     mlalevic.JumpStart.toggleSidebar = function(){
         mlalevic.JumpStart.invertPrefValue("show_sidebar");
         showSidebar();

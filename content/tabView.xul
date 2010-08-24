@@ -94,10 +94,21 @@ Christopher Cook (beerfan@gmail.com)
                        tooltiptext="&notice.search_tooltip;"
                        label="&notice.search;"
                        oncommand="mlalevic.JumpStart.focusSearch();"/>
-              <!--vbox class="centerContent">
-                  <label   tooltiptext="&notice.drag_drop_tooltip;"
-                           value="&notice.drag_drop;" />
-              </vbox-->
+            <hbox style="margin-left:10px;">
+              <toolbarbutton
+                               class="tabbable"
+                               tooltiptext="&notice.added_menu_tooltip;"
+                               label="&notice.added_menu;"
+                               oncommand="mlalevic.JumpStart.highlightMenu();"/>
+              <vbox class="centerContent">
+                      <label value="&notice.added_menu_more_text;" />
+              </vbox>
+            </hbox>
+          </hbox>
+          <hbox style="margin-left:10px;">
+              <vbox class="centerContent">
+                  <label value="&notice.and_more;" />
+              </vbox>
           </hbox>
           <toolbarbutton
                    class="tabbable"
@@ -142,7 +153,7 @@ Christopher Cook (beerfan@gmail.com)
                 <spacer flex="1" />
               </hbox>
               <box id="slideMenu" style="overflow:hidden;top:0px;">
-                  <toolbar id="slideMenuToolbar" style="overflow:hidden;top:0px;" orient="vertical" align="left">
+                  <toolbar id="slideMenuToolbar" style="overflow:hidden;top:0px;margin-bottom:10px;" orient="vertical" align="left">
                     <toolbarbutton id="prefs" tooltiptext="&bar.settings;" oncommand="mlalevic.JumpStart.onMenuItemProperties();"/>
                     <toolbarbutton id="thumbsButton" tooltiptext="&bar.thumbs;" oncommand="mlalevic.JumpStart.onMenuItemThumbs();"/>
                     <toolbarbutton id="toolbarsButton" tooltiptext="&bar.toolbar;" oncommand="mlalevic.JumpStart.onMenuItemToolbar();"/>
