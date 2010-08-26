@@ -24,3 +24,14 @@
 <!ENTITY notice.sidebar_tooltip "Cliquez pour masquer/montrer le panneau latéral">
 <!ENTITY notice.drag_drop "Réorganiser les vignettes">
 <!ENTITY notice.drag_drop_tooltip "Glissez déposez pour les réorganiser">
+<!ENTITY notice.statusbar_button_tooltip "Le bouton de la barre d'état n'est pas affiché par défaut">
+<!ENTITY notice.statusbar_button "Bouton de la barre d'état">
+<!ENTITY notice.search_tooltip "Saisir quelque chose dans la boîte de recherche et appuyer sur la touche Entrée">
+<!ENTITY notice.search "La recherche fonctionne">
+<!ENTITY notice.added_menu_tooltip "Passez la souris au-dessus du menu pour le déployer - cliquer sur ce bouton pour le mettre en surbrillance">
+<!ENTITY notice.added_menu "Menu sur la droite">
+<!ENTITY notice.added_menu_more_text "procure un meilleur accès à la personnalisation de l'écran">
+<!ENTITY notice.and_more "Autres changements">
+<!ENTITY bar.settings "Paramètres">
+<!ENTITY bar.thumbs "Configurer le nombre de vignettes">
+<!ENTITY bar.toolbar "Configurer les barres d'outils">

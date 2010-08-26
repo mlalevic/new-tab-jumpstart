@@ -9,3 +9,7 @@
 <!ENTITY critical "Tylko poważne błędy">
 <!ENTITY blocked "Zablokowane elementy">
 <!ENTITY remove_selected "Usuń zaznaczone">
+<!ENTITY tacked "Elementy obserwowane">
+<!ENTITY tack_block "Obserwuj/Blokuj">
+<!ENTITY block_sites "Blokuj witryny">
+<!ENTITY tack_sites "Przypnij witryny">

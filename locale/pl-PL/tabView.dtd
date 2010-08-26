@@ -17,10 +17,21 @@
 <!ENTITY notice.more_info "Więcej informacji">
 <!ENTITY notice.more_info_tooltip "Informacje o zmianach w tej wersji">
 <!ENTITY notice.new_version "Nowa wersja została zainstalowana.">
-<!ENTITY notice.info "Usprawnienia i funkcje. wskaż kursorem, by zobaczyć więcej szczegółów:">
+<!ENTITY notice.info "Usprawnienia i funkcje. Wskaż kursorem, by zobaczyć więcej szczegółów:">
 <!ENTITY notice.bookmarks "Pasek zakładek został dodany">
 <!ENTITY notice.bookmarks_tooltip "Kliknij, by włączyć/wyłączyć pasek zakładek">
 <!ENTITY notice.sidebar "Panel boczny można ukrywać">
 <!ENTITY notice.sidebar_tooltip "Kliknij, by wyświetlić/ukryć panel boczny">
 <!ENTITY notice.drag_drop "Rozmieść miniatury">
 <!ENTITY notice.drag_drop_tooltip "Przeciągaj i upuszczaj, by je rozmieścić">
+<!ENTITY notice.statusbar_button_tooltip "Przycisk na pasku stanu nie jest wyświetlany domyślnie">
+<!ENTITY notice.statusbar_button "Przycisk na pasku stanu">
+<!ENTITY notice.search_tooltip "Wprowadź cokolwiek w polu szukania i naciśnij Enter">
+<!ENTITY notice.search "Wyszukiwanie działa…">
+<!ENTITY notice.added_menu_tooltip "Umieść wskaźnik nad menu, by je rozwinąć – naciśnij ten przycisk, by go wyróżnić">
+<!ENTITY notice.added_menu "Menu po prawej stronie">
+<!ENTITY notice.added_menu_more_text "oferuje łatwiejszy dostęp do strony ustawień">
+<!ENTITY notice.and_more "Inne zmiany:">
+<!ENTITY bar.settings "Ustawienia">
+<!ENTITY bar.thumbs "Konfiguruj liczbę miniatur">
+<!ENTITY bar.toolbar "Konfiguruj paski">

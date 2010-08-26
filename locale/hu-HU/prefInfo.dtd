@@ -9,3 +9,7 @@
 <!ENTITY critical "Csak kritikus hibák">
 <!ENTITY blocked "Blokkolt elemek">
 <!ENTITY remove_selected "Kijelölt elemek eltávolítása">
+<!ENTITY tacked "Összefűzött elemek">
+<!ENTITY tack_block "Összefűzés/Blokkolás">
+<!ENTITY block_sites "Oldalak blokkolása">
+<!ENTITY tack_sites "Oldalak odatűzése">

@@ -9,3 +9,7 @@
 <!ENTITY critical "שגיאות קריטיות בלבד">
 <!ENTITY blocked "פריטים חסומים">
 <!ENTITY remove_selected "הסרת הנבחרים">
+<!ENTITY tacked "פריטים נעוצים">
+<!ENTITY tack_block "נעיצה/חסימה">
+<!ENTITY block_sites "אתרים חסומים">
+<!ENTITY tack_sites "אתרים נעוצים">

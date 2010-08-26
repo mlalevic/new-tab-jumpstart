@@ -3,6 +3,7 @@
 <!ENTITY onnewtab "Megjelenítés új lapon">
 <!ENTITY showinhistory "Megjelenítés az előzményekben">
 <!ENTITY showbutton "Eszköztár gomb megjelenítése">
+<!ENTITY showstatusbarbutton "Állapotsor gomb megjelenítése">
 <!ENTITY onstartup "Megjelenítés indításkor">
 <!ENTITY title.thumbs "Gyorsnézet">
 <!ENTITY title.info "Infó">

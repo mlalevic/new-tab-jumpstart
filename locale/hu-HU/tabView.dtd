@@ -1,5 +1,5 @@
 <!ENTITY title "Új lap">
-<!ENTITY mostVisited "Leggyakraban meglátogatott">
+<!ENTITY mostVisited "Leggyakrabban meglátogatott">
 <!ENTITY menu.showOnNewTab "Megjelenítés új lapon">
 <!ENTITY menu.showOnStartup "Megjelenítés indításkor">
 <!ENTITY menu.showToolbarButton "Eszköztár gomb megjelenítése">
@@ -24,3 +24,14 @@
 <!ENTITY notice.sidebar_tooltip "Oldalsáv megjelenítése/elrejtése">
 <!ENTITY notice.drag_drop "Gyorsnézetek elrendezése">
 <!ENTITY notice.drag_drop_tooltip "Elrendezés módosítása a gyorsnézet áthelyezésével">
+<!ENTITY notice.statusbar_button_tooltip "Az állapotsor gomb alapértelmezésben nincs megjelenítve">
+<!ENTITY notice.statusbar_button "Állapotsor gomb">
+<!ENTITY notice.search_tooltip "Írja be, amit keres, majd nyomjon Entert">
+<!ENTITY notice.search "Keresés...">
+<!ENTITY notice.added_menu_tooltip "A menü kinyitásához moygassa fölé a kurzort - kattintson erre a gombra a kiemeléséhez">
+<!ENTITY notice.added_menu "A jobb oldalra helyezett menüvel">
+<!ENTITY notice.added_menu_more_text "egyszerűbben állíthatja be a képernyőt">
+<!ENTITY notice.and_more "További változások:">
+<!ENTITY bar.settings "Beállítások">
+<!ENTITY bar.thumbs "Gyorskép számának beállítása">
+<!ENTITY bar.toolbar "Eszköztár beállításai">

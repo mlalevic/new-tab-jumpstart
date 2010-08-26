@@ -9,3 +9,7 @@
 <!ENTITY critical "Chỉ các lỗi tới hạn">
 <!ENTITY blocked "Các mục đã bị khóa">
 <!ENTITY remove_selected "Bỏ những thứ được chọn">
+<!ENTITY tacked "Các mục đã được gắn">
+<!ENTITY tack_block "Gắn/Khóa">
+<!ENTITY block_sites "Khóa trang">
+<!ENTITY tack_sites "Gắn trang">

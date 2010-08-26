@@ -3,6 +3,7 @@
 <!ENTITY onnewtab "Прикажи на новом језичку">
 <!ENTITY showinhistory "Прикажи у историји">
 <!ENTITY showbutton "Прикажи дугме на алатној траци">
+<!ENTITY showstatusbarbutton "Прикажи дугме на статусној траци">
 <!ENTITY onstartup "Прикажи при покретању фајерфокса">
 <!ENTITY title.thumbs "Сличице">
 <!ENTITY title.info "Информације">

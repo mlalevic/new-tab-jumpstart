@@ -6,6 +6,6 @@
 <!ENTITY bkg_color "Kolor tła:">
 <!ENTITY bkg_color_empty "nazwa lub kod koloru">
 <!ENTITY bkg_img "Obrazek tła:">
-<!ENTITY bkg_img_empty "wprowadź adres URL obrazka lub kliknij »">
-<!ENTITY pick_img "Wybierz obrazek">
+<!ENTITY bkg_img_empty "adres URL obrazka lub kliknij »">
+<!ENTITY pick_img "Wybierz">
 <!ENTITY bookmarks_top "Wyświetlaj pasek zakładek na górze">

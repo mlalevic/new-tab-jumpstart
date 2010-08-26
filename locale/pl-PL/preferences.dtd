@@ -1,8 +1,9 @@
 <!ENTITY title "New Tab JumpStart – ustawienia">
 <!ENTITY tabName "Ogólne">
 <!ENTITY onnewtab "Włącz JumpStart dla przycisku Otwórz w nowej karcie">
-<!ENTITY showinhistory "Wyświetlaj zamkniętą kartę JumpStar w historii">
-<!ENTITY showbutton "Wyświetlaj przycisk narzędziowy">
+<!ENTITY showinhistory "Wyświetlaj zamkniętą kartę JumpStart w historii">
+<!ENTITY showbutton "Wyświetlaj przycisk JumpStart na pasku narzędzi">
+<!ENTITY showstatusbarbutton "Wyświetlaj przycisk JumpStart na pasku stanu">
 <!ENTITY onstartup "Wyświetlaj kartę JumpStart przy uruchamianiu">
 <!ENTITY title.thumbs "Miniatury">
 <!ENTITY title.info "Info">

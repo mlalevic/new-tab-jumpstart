@@ -3,6 +3,7 @@
 <!ENTITY onnewtab "Afficher dans un nouvel onglet">
 <!ENTITY showinhistory "Afficher Jumpstart dans l'historique">
 <!ENTITY showbutton "Afficher le bouton de la barre d'outils">
+<!ENTITY showstatusbarbutton "Afficher le bouton dans la barre d'état">
 <!ENTITY onstartup "Afficher au démarrage">
 <!ENTITY title.thumbs "Vignettes">
 <!ENTITY title.info "Informations">

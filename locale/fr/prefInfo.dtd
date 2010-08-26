@@ -9,3 +9,7 @@
 <!ENTITY critical "Erreurs critiques seulement">
 <!ENTITY blocked "Éléments bloqués">
 <!ENTITY remove_selected "Supprimer les éléments sélectionnés">
+<!ENTITY tacked "Éléments fixés">
+<!ENTITY tack_block "Fixer/bloquer">
+<!ENTITY block_sites "Bloquer les sites">
+<!ENTITY tack_sites "Verrouiller les sites">
