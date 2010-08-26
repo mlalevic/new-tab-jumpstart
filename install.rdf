@@ -53,18 +53,6 @@
 
     <em:localized>
       <Description>
-        <em:locale>sr-RS</em:locale>
-        <em:name>New Tab JumpStart</em:name>
-        <em:creator>Mihailo Lalevic</em:creator>
-            <em:contributor>Chris Cook</em:contributor>
-            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
-            <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
-        <em:description>Помаже Вам да убрзате и побљшате искуство коришћења фајерфокса мењајући празан екран новог језичка прегледом најчешће коришћених интернет страница, најновијим забелешкама, претрагом и последње затвореним језичцима.</em:description>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
         <em:locale>ko-KR</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:creator>Mihailo Lalevic</em:creator>
@@ -103,7 +91,7 @@
 
     <em:localized>
         <Description>
-            <em:locale>he-IL</em:locale>
+            <em:locale>he</em:locale>
             <em:translator>SiiiE</em:translator>
             <em:name>New Tab JumpStart</em:name>
             <em:creator>Mihailo Lalevic</em:creator>
@@ -129,7 +117,7 @@
 
    <em:localized>
       <Description>
-         <em:locale>de-DE</em:locale>
+         <em:locale>de</em:locale>
          <em:name>New Tab JumpStart</em:name>
          <em:creator>Mihailo Lalevic</em:creator>
             <em:contributor>Chris Cook</em:contributor>
@@ -142,7 +130,7 @@
 
    <em:localized>
     <Description>
-        <em:locale>vi-VN</em:locale>
+        <em:locale>vi</em:locale>
         <em:name>New Tab JumpStart</em:name>
         <em:creator>Mihailo Lalevic</em:creator>
             <em:contributor>Chris Cook</em:contributor>
