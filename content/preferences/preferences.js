@@ -184,18 +184,26 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
           historyStatus.childNodes[0].src = checkedIcon;
           historyStatus.childNodes[1].value = strbundle.getString("history_enabled");
         }
-        
-        var extensions = Application.extensions.all;
-        var compatibilityIssue = false;
-        
-        for(var i = 0; i < extensions.length; i++){
-          if(this.checkInCompatibility(compatibility, extensions[i].id)){
-            compatibilityIssue = true;
-          }
+
+        var thisObj = this;
+        function checkCompatibility(ext){
+            var compatibilityIssue = false;
+
+            for(var i = 0; i < ext.length; i++){
+              if(thisObj.checkInCompatibility(compatibility, ext[i].id)){
+                compatibilityIssue = true;
+              }
+            }
+
+            if(!compatibilityIssue){
+              thisObj.addCompatibilityItem(compatibility, infoIcon, strbundle.getString("no_compatibility_issues"));
+            }
         }
-        
-        if(!compatibilityIssue){
-          this.addCompatibilityItem(compatibility, infoIcon, strbundle.getString("no_compatibility_issues"));
+
+        if(!Application.extensions){
+            Application.getExtensions(checkCompatibility);
+        }else{
+            checkCompatibility(Application.extensions.all);
         }
 
         this.populateRemovedData();
