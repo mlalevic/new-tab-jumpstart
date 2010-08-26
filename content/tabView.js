@@ -376,7 +376,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                     }
             },
             showPlacesPicker: function(){
-                    var rv = { selection : null, place: 'place:queryType=1&excludeItems=true&folder=TOOLBAR' };
+                    var rv = { selection : null, place: 'place:queryType=1&excludeItems=true&folder=PLACES_ROOT' };
                     window.openDialog("chrome://jumpstart/content/placeSelect.xul", '', 'resizable,modal', rv).focus();
                     if(rv.selection)
                             return rv.selection.url;
