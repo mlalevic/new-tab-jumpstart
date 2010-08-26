@@ -702,12 +702,7 @@ var realTimeThumbsUpdates = {
 
 var onInstall = {
     start : function(){
-        var ver = -1, firstrun = true;
-
-        var extension = Application.extensions.get("jumpstart@mihailo.lalevic");
-        if(!extension){
-            return;
-        }
+        var ver = '', version = '0.5a5.4';
 
         var svc = Cc["@mozilla.org/preferences-service;1"]
                    .getService(Ci.nsIPrefService);
@@ -720,12 +715,12 @@ var onInstall = {
           //nothing
         }
 
-        if (extension.firstRun){
-            prefs.setCharPref("version",extension.version);
+        prefs.setCharPref("version", version);
+        if (!ver){ //first run
             return; //nothing for now
         }
 
-        if (ver!=extension.version){
+        if (ver != version){
 
           function clear(branch, values){
             for(var i = 0; i < values.length; i++){
@@ -747,9 +742,7 @@ var onInstall = {
             }
           }
 
-          prefs.setCharPref("version",extension.version);
-
-          if(extension.version == '0.5a5.4'){
+          if(version == '0.5a5.4'){
               //only for version 0.5a5.4
               //upgrade toolbar config
               var toptoolbar = prefs.getBoolPref("bookmarks_toolbar_top", false);

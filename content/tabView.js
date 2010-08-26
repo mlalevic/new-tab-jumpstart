@@ -200,6 +200,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         var contentwidth = document.defaultView.getComputedStyle(document.getElementById('theDeck'), null).getPropertyValue('width', null);
         var left = parseInt(contentwidth.replace('px', '')) - parseInt(width.replace('px', '')) - 10;
         target.style.left = left + 'px';
+        target.left = left + 'px';
     }
 
     var Unload = function(){

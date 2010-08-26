@@ -117,8 +117,8 @@ Christopher Cook (beerfan@gmail.com)
                    oncommand="mlalevic.JumpStart.releaseNotes();"/>
       </notification>
 
-      <deck id="theDeck" selectedIndex="0">
-          <stack style="overflow:hidden;">
+      <deck id="theDeck" selectedIndex="0" flex="1">
+          <stack style="overflow:hidden;" flex="1">
               <hbox id="mainBox" class="layoutContainer">
                 <spacer flex="1" />
 
@@ -152,16 +152,16 @@ Christopher Cook (beerfan@gmail.com)
                 </vbox>
                 <spacer flex="1" />
               </hbox>
-              <box id="slideMenu" style="overflow:hidden;top:0px;">
+              <vbox id="slideMenu" style="overflow:hidden;top:0px;" top="0px" left="0px">
                   <toolbar id="slideMenuToolbar" style="overflow:hidden;top:0px;margin-bottom:10px;" orient="vertical" align="left">
                     <toolbarbutton id="prefs" tooltiptext="&bar.settings;" oncommand="mlalevic.JumpStart.onMenuItemProperties();"/>
                     <toolbarbutton id="thumbsButton" tooltiptext="&bar.thumbs;" oncommand="mlalevic.JumpStart.onMenuItemThumbs();"/>
                     <toolbarbutton id="toolbarsButton" tooltiptext="&bar.toolbar;" oncommand="mlalevic.JumpStart.onMenuItemToolbar();"/>
                   </toolbar>
-              </box>
+              </vbox>
           </stack>
 
-          <vbox class="contentContainer" id="searchBox">
+          <vbox class="contentContainer" id="searchBox" flex="1">
                 <hbox class="searchEngines">
                    <spacer flex="1" />
                    <arrowscrollbox id="serachEnginesContainer" flex="1"></arrowscrollbox>
