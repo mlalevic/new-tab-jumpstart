@@ -135,7 +135,12 @@ Christopher Cook (beerfan@gmail.com)
 
                   <vbox id="searchContainer" class="contentContainer">
                     <description id="searchTitle" class="title">&search;</description>
-                    <textbox id="search-box" tabindex="1" emptyText="&search.emptyText;" empty="true" type="search" searchbutton="true" class="text" oncommand="mlalevic.JumpStart.historySearch(this.value);" />
+                    <panel id="richPopup" type="autocomplete-richlistbox" noautofocus="true"/>
+                    <textbox id="search-box" tabindex="1" emptyText="&search.emptyText;"
+                                autocompletepopup="richPopup"
+                                type="autocomplete" autocompletesearch="history"
+                                completeselectedindex="true" tabscrolling="true"
+                                enablehistory="true" showcommentcolumn="true" ontextentered="mlalevic.JumpStart.historySearch(this.value);" />
                   </vbox>
 
                   <vbox id="recentlyClosedBox" class="contentContainer">
