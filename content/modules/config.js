@@ -56,8 +56,8 @@ JumpstartPrefs.prototype = {
   BottomToolbars: '',
   Thumbs : {
     ShowSmallThumbs: false,
-    MinCount : 9,
-    MinLines : 3,
+    MinCount : 6,
+    MinLines : 2,
     get MinColumns(){
       return Math.floor(this.MinCount / this.MinLines);
     },

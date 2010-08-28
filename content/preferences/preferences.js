@@ -74,14 +74,14 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         var configForCalculation = {
           ShowSmallThumbs: this.preferences.small.value,
           MinColumns: 3,
-          MinLines: 3
+          MinLines: 2
         };
         
         var configParams = Services.BrowserServices.calculateMaxThumbs(configForCalculation);
 
-        this._hookup(3, configParams.lines, 3, configParams.columns);
+        this._hookup(2, configParams.lines, 3, configParams.columns);
         
-        var line = respectBoundaries(3, configParams.lines, Config.Lines);
+        var line = respectBoundaries(2, configParams.lines, Config.Lines);
         var col = respectBoundaries(3, configParams.columns, Config.Columns);
 
         //find correct index and apply it to slider
