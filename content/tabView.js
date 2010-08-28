@@ -628,7 +628,114 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       document.getElementById('theDeck').selectedIndex = 0;
     }
 
+    //copied from browser.js
+    function convertFromUnicode(charset, str)
+    {
+      try {
+        var unicodeConverter = Components
+           .classes["@mozilla.org/intl/scriptableunicodeconverter"]
+           .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+        unicodeConverter.charset = charset;
+        str = unicodeConverter.ConvertFromUnicode(str);
+        return str + unicodeConverter.Finish();
+      } catch(ex) {
+        return null;
+      }
+    }
+
+    //copied from browser.js
+    function getShortcutOrURI(aURL, aPostDataRef) {
+      var shortcutURL = null;
+      var keyword = aURL;
+      var param = "";
+      var searchService = Cc["@mozilla.org/browser/search-service;1"].
+                          getService(Ci.nsIBrowserSearchService);
+
+      var offset = aURL.indexOf(" ");
+      if (offset > 0) {
+        keyword = aURL.substr(0, offset);
+        param = aURL.substr(offset + 1);
+      }
+
+      if (!aPostDataRef)
+        aPostDataRef = {};
+
+      var engine = searchService.getEngineByAlias(keyword);
+      if (engine) {
+        var submission = engine.getSubmission(param, null);
+        aPostDataRef.value = submission.postData;
+        return submission.uri.spec;
+      }
+
+      [shortcutURL, aPostDataRef.value] =
+        PlacesUtils.getURLAndPostDataForKeyword(keyword);
+
+      if (!shortcutURL)
+        return aURL;
+
+      var postData = "";
+      if (aPostDataRef.value)
+        postData = unescape(aPostDataRef.value);
+
+      if (/%s/i.test(shortcutURL) || /%s/i.test(postData)) {
+        var charset = "";
+        const re = /^(.*)\&mozcharset=([a-zA-Z][_\-a-zA-Z0-9]+)\s*$/;
+        var matches = shortcutURL.match(re);
+        if (matches)
+          [, shortcutURL, charset] = matches;
+        else {
+          // Try to get the saved character-set.
+          try {
+            // makeURI throws if URI is invalid.
+            // Will return an empty string if character-set is not found.
+            charset = PlacesUtils.history.getCharsetForURI(makeURI(shortcutURL));
+          } catch (e) {}
+        }
+
+        var encodedParam = "";
+        if (charset)
+          encodedParam = escape(convertFromUnicode(charset, param));
+        else // Default charset is UTF-8
+          encodedParam = encodeURIComponent(param);
+
+        shortcutURL = shortcutURL.replace(/%s/g, encodedParam).replace(/%S/g, param);
+
+        if (/%s/i.test(postData)) // POST keyword
+          aPostDataRef.value = getPostDataStream(postData, param, encodedParam,
+                                                 "application/x-www-form-urlencoded");
+      }
+      else if (param) {
+        // This keyword doesn't take a parameter, but one was provided. Just return
+        // the original URL.
+        aPostDataRef.value = null;
+
+        return aURL;
+      }
+
+      return shortcutURL;
+    }
+
+    function tryGetUrlForKeyword(url){
+        var postData = {};
+        var newUrl = getShortcutOrURI(url, postData);
+
+        if(newUrl == url){
+            return [null, null];
+        }else{
+            return [newUrl, postData.value];
+        }
+    }
+
     mlalevic.JumpStart.historySearch = function(aInput) {
+      var newUri = null;
+      var postData = null;
+      [newUri, postData] = tryGetUrlForKeyword(aInput);
+      if(newUri){
+          getBrowserWindow().getBrowserFromContentWindow(window).loadURI(newUri, null, postData, false);
+          return;
+      }
+
+
       //http://stackoverflow.com/questions/161738/what-is-the-best-regular-expression-to-check-if-a-string-is-a-valid-url
       var urlregex= /^((https?|ftp):\/\/)?(([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+(:([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+)?@)?((([a-z0-9][a-z0-9-]*[a-z0-9]\.)*[a-z][a-z0-9-]*[a-z0-9]|((\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5])\.){3}(\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5]))(:\d+)?)(((\/+([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)*(\?([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?)?)?(#([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?$/i;
       if(urlregex.test(aInput)){
