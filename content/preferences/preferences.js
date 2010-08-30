@@ -26,6 +26,7 @@ if (!mlalevic.JumpStart.Services) { mlalevic.JumpStart.Services = {}; }
 
 Components.utils.import("resource://modules/config.js", mlalevic.JumpStart.Services);
 Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
+Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Services);
 
 (function() {
     var Preferences = mlalevic.JumpStart.Preferences;
@@ -146,6 +147,22 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
 })();
 
 (function() {
+    var Services = mlalevic.JumpStart.Services;
+    var Config = Services.JumpstartConfiguration.Thumbs;
+
+    function fixUpProperties(props){
+        if(!(props && props.requires_update && props.uri)){
+            return props;
+        }
+
+        props.title = Services.HistoryService.getPageTitle(props.uri);
+        if(props.title){
+            delete props.requires_update;
+        }
+
+        return props;
+    }
+
     var checkedIcon = "chrome://jumpstart/skin/icon/ok.png";
     var errorIcon = "chrome://jumpstart/skin/icon/error.png";
     var infoIcon = "chrome://jumpstart/skin/icon/info.png";
@@ -330,10 +347,11 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
                 var property = null;
                 if(Services.AnnoService.hasDetails(uri)){
                     property = Services.AnnoService.getProperty(uri);
+                    property.uri = uri;
                     handleProperty(property);
                     propertiesToUpdate.push(property);
                 }else{
-                    property = getProperty(items[i]);
+                    property = getProperty(items[i], uri);
                     propertiesToAdd.push(property);
                 }
             }catch(ex){
@@ -360,7 +378,7 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
       blockSites : function(){
         this.processSitesTextBox(
             function(property){property.removed = true;property.pinned = false;},
-            function(url){return { url: url, title: '', fav: '', host: '', place_id: '', thumb: '', removed: true, pinned: false, requires_update:true };},
+            function(url, uriObj){return fixUpProperties({ url: url, uri: uriObj, title: '', fav: '', host: '', place_id: '', thumb: '', removed: true, pinned: false, requires_update:true });},
             function(){}
         );
       },
@@ -374,6 +392,8 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
             return result;
         }
         var findNextNonTacked = function(data, currentIndex){
+            if(currentIndex > data.length) currentIndex = data.length;
+            
             for(var i=currentIndex - 1;i >= 0;i--){
                 if(!data[i].pinned){
                     return i;
@@ -388,12 +408,31 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
         for(var i = 0; i < data.length; i++){
             if(data[i].index > maxIndex)maxIndex = data[i].index;
         }
+
+        if(maxIndex >= Config.Count){
+            maxIndex = Config.Count - 1;
+        }
+
         var currentIndex = maxIndex + 1;
 
         this.processSitesTextBox(
-            function(property){property.removed = false; property.pinned = true;},
-            function(url){
-                var properties = { url: url, title: '', fav: '', host: '', place_id: '', thumb: '', removed: false, pinned: true, requires_update:true };
+            function(property){
+                property.removed = false;
+                property.pinned = true;
+                if(currentIndex >= 0){
+                    currentIndex = findNextNonTacked(data, currentIndex);
+                }
+
+                if(currentIndex >=0){
+                    property.index = currentIndex;
+                }else{
+                    currentIndex = maxIndex;
+                    property.index = currentIndex;
+                }
+            },
+
+            function(url, uriObj){
+                var properties = fixUpProperties({ url: url, uri: uriObj, title: '', fav: '', host: '', place_id: '', thumb: '', removed: false, pinned: true, requires_update:true });
                 if(currentIndex >= 0){
                     currentIndex = findNextNonTacked(data, currentIndex);
                 }
@@ -401,8 +440,8 @@ Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpSt
                 if(currentIndex >=0){
                     properties.index = currentIndex;
                 }else{
-                    maxIndex += 1;
-                    properties.index = maxIndex;
+                    currentIndex = maxIndex;
+                    properties.index = currentIndex;
                 }
                 return properties;
             },

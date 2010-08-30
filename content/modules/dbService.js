@@ -172,6 +172,7 @@ let AnnoService = {
     updateProperties : function(propertiesArray){
         for(var i = 0; i < propertiesArray.length; i ++){
             var uri = propertiesArray[i].uri;
+            if(!uri) continue;
             delete propertiesArray[i].uri;
             this.saveProperties(uri, propertiesArray[i]);
         }
@@ -277,6 +278,14 @@ let BookmarksService = {
 let HistoryService = {
     FREQUENT : 8,
     service : historyService,
+    getPageTitle : function(uri){
+        try{
+            var title = this.service.getPageTitle(uri);
+            return (title == null?'':title);
+        }catch(ex){
+            return '';
+        }
+    },
     getHistory : function(placesUri, getItem){
         var queriesRef = {};
         var queryCountRef = {};

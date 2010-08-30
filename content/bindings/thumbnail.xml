@@ -282,11 +282,11 @@
             var url = thumbData.originalUrl ? thumbData.originalUrl : thumbData.url;
             this.url = url;
             a.href = url;
-            var txt = document.createTextNode(thumbData.title != '' ? thumbData.title : url);
+            var txt = document.createTextNode((!thumbData.title)? url : thumbData.title);
             a.appendChild(txt);
 
-            a.setAttribute("title",  (thumbData.title != '' ? thumbData.title : url));
-            header.setAttribute("tooltiptext", (thumbData.title != '' ? thumbData.title : url));
+            a.setAttribute("title",  ((!thumbData.title) ? url : thumbData.title));
+            header.setAttribute("tooltiptext", ((!thumbData.title)? url : thumbData.title));
 
             a.addEventListener("click", followedPageHandler, true);
 

@@ -39,6 +39,8 @@ if (!mlalevic.JumpStart.Model) {
 
 (function(){
     var model = mlalevic.JumpStart.Model;
+    var services = {};
+    Components.utils.import("resource://modules/dbService.js", services);
 
     function makeURI(aURL, aOriginCharset, aBaseURI) {
              var ioService = Components.classes["@mozilla.org/network/io-service;1"]
@@ -93,6 +95,19 @@ if (!mlalevic.JumpStart.Model) {
             //order original
             this._originalData.sort(function(a,b){return a.index - b.index;});
             //remove blocked from latest data
+
+            //update those requiring update
+            var updateRequired = this._originalData.filter(function(element){return element.requires_update;});
+            if(updateRequired && updateRequired.length > 0){
+                for(var i =0; i < updateRequired.length; i++){
+                    //xxxxx
+                    var uri = makeURI(updateRequired[i].url);
+                    updateRequired[i].title = services.HistoryService.getPageTitle(uri);
+                    if(updateRequired[i].title){
+                        delete updateRequired[i].requires_update;
+                    }
+                }
+            }
 
             //find all pinned
             var pinned = this._originalData.filter(function(element){return element.pinned;});
