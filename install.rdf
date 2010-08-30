@@ -154,6 +154,19 @@
     </Description>
     </em:localized>
 
+    <em:localized>
+        <Description>
+            <em:locale>es-AR</em:locale>
+            <em:name>New Tab JumpStart</em:name>
+            <em:creator>Mihailo Lalevic</em:creator>
+            <em:contributor>Chris Cook</em:contributor>
+            <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+            <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
+            <em:translator>Carlos Solís</em:translator>
+            <em:description>Te ayuda a dar un salto a tu experiencia web, cambiando la pantalla en blanco al abrir una nueva pestaña, con una vista previa de los sitios que más usas, tus últimos marcadores, búsquedas, y pestañas recién cerradas.</em:description>
+        </Description>
+    </em:localized>
+
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>

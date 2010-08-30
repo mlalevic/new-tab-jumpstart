@@ -1,0 +1,37 @@
+<!ENTITY title "Nueva pestaña">
+<!ENTITY mostVisited "Más visitados">
+<!ENTITY menu.showOnNewTab "Mostrar en nueva pestaña">
+<!ENTITY menu.showOnStartup "Mostrar al inicio">
+<!ENTITY menu.showToolbarButton "Mostrar botón en la barra de herramientas">
+<!ENTITY menu.showInHistory "Mostrar en historial">
+<!ENTITY menu.bigThumbs "Miniaturas grandes">
+<!ENTITY menu.moreOptions "Más opciones...">
+<!ENTITY search.emptyText "Buscar historial">
+<!ENTITY recentBookmarks.recent "Recientes">
+<!ENTITY recentBookmarks.tooltip "Más marcadores">
+<!ENTITY recentBookmarks.linkText "Marcadores">
+<!ENTITY recentlyClosed "Cerrados recientemente">
+<!ENTITY search "Buscar">
+<!ENTITY search2.emptyText "Buscar historial">
+<!ENTITY back "Volver a vista de miniaturas">
+<!ENTITY notice.more_info "Más información">
+<!ENTITY notice.more_info_tooltip "Notas de lanzamiento para esta versión">
+<!ENTITY notice.new_version "Nueva versión instalada.">
+<!ENTITY notice.info "Mejoras y características, coloque el puntero aquí para más detalles:">
+<!ENTITY notice.bookmarks "Agregada barra de marcadores">
+<!ENTITY notice.bookmarks_tooltip "Haz clic para activar/desactivar barra de marcadores">
+<!ENTITY notice.sidebar "La barra lateral se puede ocultar">
+<!ENTITY notice.sidebar_tooltip "Haz clic para mostrar/ocultar barra lateral">
+<!ENTITY notice.drag_drop "Reordenar miniaturas">
+<!ENTITY notice.drag_drop_tooltip "Arrastre y suelte para reordenarlas">
+<!ENTITY notice.statusbar_button_tooltip "El botón de barra de estado no aparece por defecto">
+<!ENTITY notice.statusbar_button "Botón de barra de estado">
+<!ENTITY notice.search_tooltip "Escribe algo en la caja de búsqueda y pulsa Intro">
+<!ENTITY notice.search "Trabajando búsqueda">
+<!ENTITY notice.added_menu_tooltip "Coloca el puntero sobre el menú para expandirlo - haz clic en este botón para seleccionarlo">
+<!ENTITY notice.added_menu "El menú a la derecha">
+<!ENTITY notice.added_menu_more_text "ofrece acceso fácil para personalizar la pantalla">
+<!ENTITY notice.and_more "Otros cambios:">
+<!ENTITY bar.settings "Ajustes">
+<!ENTITY bar.thumbs "Configurar número de miniaturas">
+<!ENTITY bar.toolbar "Configurar barras de herramientas">

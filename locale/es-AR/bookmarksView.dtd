@@ -1,0 +1,9 @@
+<!ENTITY title "Marcadores - JumpStarted">
+<!ENTITY latest "Más recientes">
+<!ENTITY recent "Visitados recientemente">
+<!ENTITY frequent "Usados frecuentemente">
+<!ENTITY tags "Etiquetas">
+<!ENTITY tagNotice "No tienes etiquetas en tus marcadores. Etiquetar tus marcadores ayuda a organizarlos mejor. ¡Empieza a etiquetar tus marcadores">
+<!ENTITY tagsLink "http://support.mozilla.com/es-AR/kb/bookmark+tag">
+<!ENTITY tagsNow "ahora!">
+<!ENTITY tagNoticeAfterLink "">
