@@ -1,0 +1,15 @@
+<!ENTITY title "Info">
+<!ENTITY required "Configuração necessária">
+<!ENTITY compatibility "Notas de compatibilidade">
+<!ENTITY loglevel "Nível de log:">
+<!ENTITY full "Log completo">
+<!ENTITY relevant "Todos os eventos relevantes">
+<!ENTITY warning "Erros e avisos">
+<!ENTITY error "Somente erros">
+<!ENTITY critical "Somente erros críticos">
+<!ENTITY blocked "Itens bloqueados">
+<!ENTITY remove_selected "Remover seleccionados">
+<!ENTITY tacked "Tacked items">
+<!ENTITY tack_block "Tack/Block">
+<!ENTITY block_sites "Block Sites">
+<!ENTITY tack_sites "Pin Sites">

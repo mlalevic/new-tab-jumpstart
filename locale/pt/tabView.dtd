@@ -1,0 +1,37 @@
+<!ENTITY title "Novo Separador">
+<!ENTITY mostVisited "Mais visitados">
+<!ENTITY menu.showOnNewTab "Mostrar em novo separador">
+<!ENTITY menu.showOnStartup "Mostrar ao iniciar">
+<!ENTITY menu.showToolbarButton "Exibir botão de barra de ferramentas">
+<!ENTITY menu.showInHistory "Exibir no histórico">
+<!ENTITY menu.bigThumbs "Miniaturas grandes">
+<!ENTITY menu.moreOptions "Mais opções...">
+<!ENTITY search.emptyText "Procurar no histórico">
+<!ENTITY recentBookmarks.recent "Recentes">
+<!ENTITY recentBookmarks.tooltip "Mais marcadores">
+<!ENTITY recentBookmarks.linkText "Marcadores">
+<!ENTITY recentlyClosed "Fechados recentemente">
+<!ENTITY search "Procurar">
+<!ENTITY search2.emptyText "Procurar no histórico">
+<!ENTITY back "Voltar a visualização de miniaturas">
+<!ENTITY notice.more_info "Mais informações">
+<!ENTITY notice.more_info_tooltip "Notas de actualização para esta versão">
+<!ENTITY notice.new_version "Nova versão instalada.">
+<!ENTITY notice.info "Melhorias e recursos, passe coo rato para mais detalhes:">
+<!ENTITY notice.bookmarks "Adicionada barra de marcadores">
+<!ENTITY notice.bookmarks_tooltip "Clique para activar/desactivar a barra de favoritos">
+<!ENTITY notice.sidebar "Painel lateral pode ser ocultado">
+<!ENTITY notice.sidebar_tooltip "Clique para exibir/ocultar o painel lateral">
+<!ENTITY notice.drag_drop "Reorganizar miniaturas">
+<!ENTITY notice.drag_drop_tooltip "Arraste e solte para reorganizá-los">
+<!ENTITY notice.statusbar_button_tooltip "Status bar button is not shown by default">
+<!ENTITY notice.statusbar_button "Status bar button">
+<!ENTITY notice.search_tooltip "Type in something in serach text box and press enter">
+<!ENTITY notice.search "Search is working">
+<!ENTITY notice.added_menu_tooltip "Hover over the menu to expand it - click this button to highlight it">
+<!ENTITY notice.added_menu "Menu on the right">
+<!ENTITY notice.added_menu_more_text "offers easier access to screen customization">
+<!ENTITY notice.and_more "Other changes:">
+<!ENTITY bar.settings "Settings">
+<!ENTITY bar.thumbs "Configure number of thumbnails">
+<!ENTITY bar.toolbar "Configure toolbars">

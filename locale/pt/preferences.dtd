@@ -1,0 +1,9 @@
+<!ENTITY title "Opções do New Tab JumpStart">
+<!ENTITY tabName "Geral">
+<!ENTITY onnewtab "Mostrar em novo separador">
+<!ENTITY showinhistory "Mostar Jumpstart no histórico">
+<!ENTITY showbutton "Mostrar botão na barra de ferramentas">
+<!ENTITY showstatusbarbutton "Show Status Bar Button">
+<!ENTITY onstartup "Mostar ao iniciar">
+<!ENTITY title.thumbs "Miniaturas">
+<!ENTITY title.info "Info">
