@@ -3,6 +3,7 @@
 <!ENTITY onnewtab "Exibir em nova aba">
 <!ENTITY showinhistory "Exibir Jumpstart no histórico">
 <!ENTITY showbutton "Exibir botão na barra de ferramentas">
+<!ENTITY showstatusbarbutton "Exibir botão na barra de status">
 <!ENTITY onstartup "Exibir ao iniciar">
 <!ENTITY title.thumbs "Miniaturas">
 <!ENTITY title.info "Informações">

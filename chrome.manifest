@@ -18,6 +18,7 @@ locale	jumpstart	he	locale/he/
 locale	jumpstart	de	locale/de/
 locale	jumpstart	fr   	locale/fr/
 locale	jumpstart	pt-BR  	locale/pt-BR/
+locale  jumpstart       pt      locale/pt/
 locale	jumpstart	vi  	locale/vi/
 locale	jumpstart	es-AR  	locale/es-AR/
 locale	jumpstart	es  	locale/es/

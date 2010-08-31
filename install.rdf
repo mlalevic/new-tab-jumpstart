@@ -155,6 +155,19 @@
     </em:localized>
 
     <em:localized>
+    <Description>
+        <em:locale>pt</em:locale>
+        <em:name>New Tab JumpStart</em:name>
+        <em:creator>Mihailo Lalevic</em:creator>
+        <em:contributor>Chris Cook</em:contributor>
+        <em:contributor>Leszek(teo)Życzkowski</em:contributor>
+        <em:translator>nzalmeida</em:translator>
+        <em:homepageURL>http://www.new-tab-jumpstart.com</em:homepageURL>
+        <em:description>Ajuda você a agilizar o uso da internet, trocando a tela vazia de cada nova aba por miniaturas dos sites que você mais usa, últimos favoritos, últimas buscas e abas fechadas recentemente.</em:description>
+    </Description>
+    </em:localized>
+
+    <em:localized>
         <Description>
             <em:locale>es-AR</em:locale>
             <em:name>New Tab JumpStart</em:name>
