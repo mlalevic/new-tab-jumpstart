@@ -1,0 +1,15 @@
+<!ENTITY title "信息">
+<!ENTITY required "必要设置">
+<!ENTITY compatibility "兼容性信息">
+<!ENTITY loglevel "日志类型:">
+<!ENTITY full "完全">
+<!ENTITY relevant "所有相关事件">
+<!ENTITY warning "错误和警告">
+<!ENTITY error "仅错误">
+<!ENTITY critical "仅严重错误">
+<!ENTITY blocked "屏蔽项目">
+<!ENTITY remove_selected "删除所选">
+<!ENTITY tacked "固定项目">
+<!ENTITY tack_block "固定/屏蔽">
+<!ENTITY block_sites "屏蔽的网站">
+<!ENTITY tack_sites "固定的网站">

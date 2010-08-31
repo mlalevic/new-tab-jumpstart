@@ -1,0 +1,9 @@
+<!ENTITY title "New Tab JumpStart 选项">
+<!ENTITY tabName "常规">
+<!ENTITY onnewtab "在新标签页显示">
+<!ENTITY showinhistory "在历史中显示">
+<!ENTITY showbutton "显示工具栏按钮">
+<!ENTITY showstatusbarbutton "显示状态栏按钮">
+<!ENTITY onstartup "启动时显示">
+<!ENTITY title.thumbs "缩略图">
+<!ENTITY title.info "信息">

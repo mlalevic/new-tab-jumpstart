@@ -1,0 +1,9 @@
+<!ENTITY title "书签 - JumpStarted">
+<!ENTITY latest "最新">
+<!ENTITY recent "最近访问">
+<!ENTITY frequent "最常访问">
+<!ENTITY tags "标签">
+<!ENTITY tagNotice "你的书签还没有标签. 给书签设置标签可以帮助你进行更好的管理. 开始使用标签">
+<!ENTITY tagsLink "http://support.mozilla.com/zh-CN/kb/bookmark+tags">
+<!ENTITY tagsNow "现在!">
+<!ENTITY tagNoticeAfterLink "">

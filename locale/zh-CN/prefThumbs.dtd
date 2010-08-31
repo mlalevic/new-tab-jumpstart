@@ -1,0 +1,11 @@
+<!ENTITY title "缩略图">
+<!ENTITY big_thumbs "大图">
+<!ENTITY small_thumbs "小图">
+<!ENTITY show_bookmarks "显示书签栏">
+<!ENTITY show_sidebar "显示侧栏">
+<!ENTITY bkg_color "背景颜色:">
+<!ENTITY bkg_color_empty "输入颜色名或代码">
+<!ENTITY bkg_img "背景图片:">
+<!ENTITY bkg_img_empty "输入图片地址或点击 -&gt;">
+<!ENTITY pick_img "选择图片">
+<!ENTITY bookmarks_top "在上方显示书签栏">
