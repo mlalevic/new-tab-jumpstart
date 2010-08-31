@@ -1,8 +1,9 @@
 <!ENTITY title "New Tab JumpStart - Einstellungen">
 <!ENTITY tabName "Allgemein">
 <!ENTITY onnewtab "In neuem Tab anzeigen">
-<!ENTITY showinhistory "Jumpstart in der Chronik anzeigen">
+<!ENTITY showinhistory "JumpStart in der Chronik anzeigen">
 <!ENTITY showbutton "Schaltfläche in der Symbolleiste anzeigen">
+<!ENTITY showstatusbarbutton "Schaltfläche in der Statusleiste anzeigen">
 <!ENTITY onstartup "Beim Starten anzeigen">
 <!ENTITY title.thumbs "Vorschaubilder">
 <!ENTITY title.info "Info">

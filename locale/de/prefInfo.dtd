@@ -9,3 +9,7 @@
 <!ENTITY critical "Nur kritische Fehler">
 <!ENTITY blocked "Blockierte Objekte">
 <!ENTITY remove_selected "Ausgewählte Einträge entfernen">
+<!ENTITY tacked "Angeheftete Objekte">
+<!ENTITY tack_block "Anheften/Blocken">
+<!ENTITY block_sites "Sites blocken">
+<!ENTITY tack_sites "Sites anheften">

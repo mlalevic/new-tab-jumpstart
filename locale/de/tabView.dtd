@@ -5,7 +5,7 @@
 <!ENTITY menu.showToolbarButton "Schaltfläche in der Symbolleiste anzeigen">
 <!ENTITY menu.showInHistory "In der Chronik anzeigen">
 <!ENTITY menu.bigThumbs "Große Vorschaubilder">
-<!ENTITY menu.moreOptions "Erweiterte Einstellungen...">
+<!ENTITY menu.moreOptions "Erweiterte Einstellungen…">
 <!ENTITY search.emptyText "Chronik durchsuchen">
 <!ENTITY recentBookmarks.recent "Kürzlich besuchte">
 <!ENTITY recentBookmarks.tooltip "Weitere Lesezeichen">
@@ -19,8 +19,19 @@
 <!ENTITY notice.new_version "Neue Version installiert.">
 <!ENTITY notice.info "Verbesserungen/Besonderheiten (für Details, Maus darüber halten):">
 <!ENTITY notice.bookmarks "Lesezeichenzeile hinzugefügt">
-<!ENTITY notice.bookmarks_tooltip "Lesezeichenzeile durch anklicken dieser Schaltfläche ein-/ausblenden">
-<!ENTITY notice.sidebar "Ausblenbares Lesezeichenmenü">
-<!ENTITY notice.sidebar_tooltip "Lesezeichenmenü durch anklicken dieser Schaltfläche ein-/ausblenden">
+<!ENTITY notice.bookmarks_tooltip "Lesezeichenzeile durch Anklicken dieser Schaltfläche ein-/ausblenden">
+<!ENTITY notice.sidebar "Ausblendbares Lesezeichenmenü">
+<!ENTITY notice.sidebar_tooltip "Lesezeichenmenü durch Anklicken dieser Schaltfläche ein-/ausblenden">
 <!ENTITY notice.drag_drop "Vorschaubilder umordnen">
 <!ENTITY notice.drag_drop_tooltip "Zum Umordnen, Vorschaubilder ziehen und ablegen">
+<!ENTITY notice.statusbar_button_tooltip "Die Schaltfläche in der Statusleiste ist standardmäßig ausgeblendet">
+<!ENTITY notice.statusbar_button "Statusleisten-Schaltfläche">
+<!ENTITY notice.search_tooltip "Geben Sie etwas in das Suchfeld ein, und drücken Sie die Enter-Taste">
+<!ENTITY notice.search "Suche funktioniert">
+<!ENTITY notice.added_menu_tooltip "Maus über das Menü halten um es einzublenden - hier klicken, um die Schaltfläche zu Markieren">
+<!ENTITY notice.added_menu "Menü auf der rechten Seite">
+<!ENTITY notice.added_menu_more_text "bietet einfacheren Zugang zu Bildschirmanpassungen">
+<!ENTITY notice.and_more "Weitere Änderungen:">
+<!ENTITY bar.settings "Einstellungen…">
+<!ENTITY bar.thumbs "Anzahl der Vorschaubilder einstellen">
+<!ENTITY bar.toolbar "Symbolleisten einstellen">
