@@ -759,9 +759,9 @@ var onInstall = {
 
 
 
-          if(!ver){ //this version is minor upgrade so show only on first install
+          //if(!ver){ //uncomment this only for small updates (when previous notice has been retained)
             clear(prefs, ['show_notice']); //show notice on upgrade
-          }
+          //}
           // Insert code if version is different here => upgrade
           if(!ver){
               //clear prefs///////////////////////////////
