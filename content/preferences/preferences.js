@@ -457,6 +457,7 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
                 if(currentIndex <=0){
                     currentIndex = 0;
                 }
+                var data = getData();
                 var updated = data.filter(function(element){return !element.pinned && element.index>=currentIndex});
                 for(var i=0; i < updated.length; i++){
                     updated[i].index = (++maxIndex);
