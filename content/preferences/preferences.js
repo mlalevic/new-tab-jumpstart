@@ -339,11 +339,19 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
 
         var propertiesToAdd = [];
         var propertiesToUpdate = [];
+        var urlregex= /^((https?|ftp):\/\/)?(([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+(:([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+)?@)?((([a-z0-9][a-z0-9-]*[a-z0-9]\.)+[a-z][a-z0-9-]*[a-z0-9]|((\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5])\.){3}(\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5]))(:\d+)?)(((\/+([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)*(\?([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?)?)?(#([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?$/i;
         for(var i = 0; i<items.length; i++){
-            if(!items[0] || items[0].length == 0)continue;
+            var anItem = items[i];
+            if(!anItem || anItem.length == 0)continue;
+
+            if(urlregex.test(anItem)){
+              if(!(/^(https?|ftp):\/\//i).test(anItem)){
+                  anItem = 'http://' + anItem; //assume http
+              }
+            }
 
             try{
-                var uri = Services.AnnoService.makeURI(items[i]);
+                var uri = Services.AnnoService.makeURI(anItem);
                 var property = null;
                 if(Services.AnnoService.hasDetails(uri)){
                     property = Services.AnnoService.getProperty(uri);
@@ -351,7 +359,7 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
                     handleProperty(property);
                     propertiesToUpdate.push(property);
                 }else{
-                    property = getProperty(items[i], uri);
+                    property = getProperty(anItem, uri);
                     propertiesToAdd.push(property);
                 }
             }catch(ex){
