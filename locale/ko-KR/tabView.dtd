@@ -24,3 +24,14 @@
 <!ENTITY notice.sidebar_tooltip "클릭하여 사이드바를 보이거나 감춥니다">
 <!ENTITY notice.drag_drop "미리보기 다시 정렬">
 <!ENTITY notice.drag_drop_tooltip "드래그와 드롭으로 미리보기를 다시 정렬합니다">
+<!ENTITY notice.statusbar_button_tooltip "Status bar button is not shown by default">
+<!ENTITY notice.statusbar_button "Status bar button">
+<!ENTITY notice.search_tooltip "Type in something in serach text box and press enter">
+<!ENTITY notice.search "Search is working">
+<!ENTITY notice.added_menu_tooltip "Hover over the menu to expand it - click this button to highlight it">
+<!ENTITY notice.added_menu "Menu on the right">
+<!ENTITY notice.added_menu_more_text "offers easier access to screen customization">
+<!ENTITY notice.and_more "Other changes:">
+<!ENTITY bar.settings "Settings">
+<!ENTITY bar.thumbs "Configure number of thumbnails">
+<!ENTITY bar.toolbar "Configure toolbars">
