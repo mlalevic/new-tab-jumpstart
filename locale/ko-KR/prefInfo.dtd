@@ -7,9 +7,9 @@
 <!ENTITY warning "에러 및 경고">
 <!ENTITY error "에러만">
 <!ENTITY critical "치명적인 에러만">
-<!ENTITY blocked "차단된 항목">
+<!ENTITY blocked "차단한 항목">
 <!ENTITY remove_selected "선택한 항목 제거">
-<!ENTITY tacked "Tacked items">
-<!ENTITY tack_block "Tack/Block">
-<!ENTITY block_sites "Block Sites">
-<!ENTITY tack_sites "Pin Sites">
+<!ENTITY tacked "고정한 항목">
+<!ENTITY tack_block "고정/차단">
+<!ENTITY block_sites "사이트 차단">
+<!ENTITY tack_sites "사이트 고정">
