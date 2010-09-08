@@ -34,6 +34,9 @@ JumpstartPrefs.prototype = {
   prefBranch : null,
   prefThumbBranch : null,
   LoadDelay : 60000,
+  SlideSpeed : 70,
+  SlideStep : 10,
+  RecentBookmarksCount : 10,
   RefreshOnStartup : false,
   HookUpNewTab : true,
   OverrideHomepage : true,
@@ -71,6 +74,9 @@ JumpstartPrefs.prototype = {
   Refresh : function(){
     this.LogLevel = this.prefBranch.get("LogLevel", this.LogLevel);
     this.LoadDelay = this.prefBranch.get("onstart_load_delay", this.LoadDelay);
+    this.SlideSpeed = this.prefBranch.get("slide_speed", this.SlideSpeed);
+    this.SlideStep = this.prefBranch.get("slide_step", this.SlideStep);
+    this.RecentBookmarksCount = this.prefBranch.get("recent_bookmarks_count", this.RecentBookmarksCount);
     this.RefreshOnStartup = this.prefBranch.get("onstart_refresh", this.RefreshOnStartup);
     this.HookUpNewTab = this.prefBranch.get("hook_up_new_tab", this.HookUpNewTab);
     this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);

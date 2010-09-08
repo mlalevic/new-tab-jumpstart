@@ -286,9 +286,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     function showBookmarksToolbar(){
         if(!toolbar) toolbar = new toolbarHandler();
         
-        if(Config.ShowBookmarksToolbar){
-            toolbar.reDraw();
-        }
+        toolbar.reDraw();
     }
 
     function toolbarHandler(){
@@ -368,9 +366,12 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             },
             reDraw : function(){
                     this.clearToolbars(this.topBar);
-                    this.showToolbars(this.topBar, this.topPlaces);
                     this.clearToolbars(this.bottomBar);
-                    this.showToolbars(this.bottomBar, this.bottomPlaces);
+                    if(Config.ShowBookmarksToolbar || this.editMode){
+                        this.showToolbars(this.topBar, this.topPlaces);
+                        this.showToolbars(this.bottomBar, this.bottomPlaces);
+                    }
+
                     if(this.editMode){
                             this.showControls();
                     }
@@ -392,6 +393,9 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                     var acceptFunction = function(){
                             Config.setBranchPref('top_toolbars', toolbar.topPlaces.join("\n"));
                             Config.setBranchPref('bottom_toolbars', toolbar.bottomPlaces.join("\n"));
+                            if(toolbar.topPlaces.length > 0 || toolbar.bottomPlaces.length > 0){
+                                Config.setBranchPref("show_bookmarks_toolbar", true);
+                            }
                             toolbar.exitEdit();
                     };
                     this.topBar.insertBefore(this.createControlBox(
@@ -582,7 +586,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     var showBookmarks = function(){
       if(!Config.ShowSidebar){return;}
 
-      var bookmarksData = services.BookmarksService.getLatestBookmarks(10);
+      var bookmarksData = services.BookmarksService.getLatestBookmarks(Config.RecentBookmarksCount);
     
       var bookmarksContainer = document.getElementById('recentBookmarksContainer');
       var bookmarksItemsContainer = document.getElementById('recentBookmarksItems');
@@ -1172,8 +1176,8 @@ window.addEventListener("unload", Unload, false);
             state : HIDDEN,
             target: null,
             height: 0,
-            step: 10,
-            speed: 100,
+            step: Config.SlideStep,
+            speed: Config.SlideSpeed,
             initialyShown: 10,
             currentLoop : null,
             init : function(){

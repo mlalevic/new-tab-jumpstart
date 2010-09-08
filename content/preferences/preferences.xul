@@ -46,6 +46,11 @@ Contributor(s):
       <preference id="showButton" name="mlalevic.jumpstart.show_toolbar_button" type="bool"/>
       <preference id="showStatusbarButton" name="mlalevic.jumpstart.show_statusbar_button" type="bool"/>
       <preference id="showInHistory" name="mlalevic.jumpstart.persist_in_history" type="bool"/>
+      <preference id="focusSearch" name="mlalevic.jumpstart.focus_on_search" type="bool"/>
+      <preference id="slideSpeed" name="mlalevic.jumpstart.slide_speed" type="int"/>
+      <preference id="slideStep" name="mlalevic.jumpstart.slide_step" type="int"/>
+      <preference id="recentlyClosed" name="browser.sessionstore.max_tabs_undo" type="int"/>
+      <preference id="recentBookmarks" name="mlalevic.jumpstart.recent_bookmarks_count" type="int"/>
     </preferences>
 
     <groupbox>
@@ -54,6 +59,26 @@ Contributor(s):
         <checkbox id="showButtonOnToolbar" preference="showButton" label="&showbutton;" />
         <checkbox id="showButtonOnStatusbar" preference="showStatusbarButton" label="&showstatusbarbutton;" />
         <checkbox id="showJumpInHistory" preference="showInHistory" label="&showinhistory;" />
+        <checkbox id="focusSearchControl" preference="focusSearch" label="&focus_search;" />
+        <groupbox>
+            <caption label="&slide_menu;" />
+            <hbox>
+                <label value="&slide_speed;" />
+                <textbox id="slideSpeedControl" preference="slideSpeed" min="10" max="1000" type="number" />
+            </hbox>
+            <hbox>
+                <label value="&slide_step;" />
+                <textbox id="slideStepControl" preference="slideStep" min="1" type="number" />
+            </hbox>
+        </groupbox>
+        <hbox>
+            <label value="&recently_closed_count;" />
+            <textbox id="recentlyClosedControl" preference="recentlyClosed" min="0" max="1000" type="number" />
+        </hbox>
+        <hbox>
+            <label value="&recent_bookmarks_count;" />
+            <textbox id="recentBookmarksControl" preference="recentBookmarks" min="0" max="100" type="number" />
+        </hbox>
     </groupbox>
   </prefpane>
 

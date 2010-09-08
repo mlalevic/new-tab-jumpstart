@@ -249,6 +249,7 @@ notification toolbarbutton {
  */
 #sideContainer {
 	width: 220px;
+        min-width: 220px;
 	margin-left: 10px;
 }
 

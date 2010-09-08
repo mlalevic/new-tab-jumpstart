@@ -7,3 +7,9 @@
 <!ENTITY onstartup "Show On Startup">
 <!ENTITY title.thumbs "Thumbs">
 <!ENTITY title.info "Info">
+<!ENTITY focus_search "Focus on Search Box" >
+<!ENTITY slide_menu "Slide Menu Options" >
+<!ENTITY slide_speed "Speed - lower is faster" >
+<!ENTITY slide_step "Number of pixels per interval - higher is faster" >
+<!ENTITY recently_closed_count "Number of Recently Closed" >
+<!ENTITY recent_bookmarks_count "Number of Recent Bookmarks to Show" >
