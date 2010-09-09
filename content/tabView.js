@@ -163,6 +163,10 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         return new mlalevic.Utils.HistoryUtility(internalHistory);
     }
 
+    function getGBrowser(){
+        return getBrowserWindow().gBrowser;
+    }
+
 
     try{
       //set this entry not to be persisted if configured so
@@ -506,11 +510,12 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         mlalevic.JumpStart.TileContainerController.drawContext.data = data;
     }
 
+    var uiUtils = getBrowserWindow().PlacesUIUtils;
+
     var drawThumbs = function(){
       var data = getData();
       var container = document.getElementById("siteTileContainer");
 
-      var uiUtils = getBrowserWindow().PlacesUIUtils;
       function handleClick(){
         uiUtils.markPageAsTyped(this.href);
       }
@@ -730,6 +735,19 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         }
     }
 
+    //copied from browser.js
+    function addToUrlbarHistory(aUrlToAdd) {
+       if (aUrlToAdd &&
+        aUrlToAdd.indexOf(" ") == -1 &&
+        !/[\x00-\x1F]/.test(aUrlToAdd)){
+          try{
+            uiUtils.markPageAsTyped(aUrlToAdd);
+          }catch(ex){
+            services.Logger.error("Error setting page typed " + aUrlToAdd, ex.message);
+          }
+       }
+    }
+
     mlalevic.JumpStart.historySearch = function(aInput) {
       var newUri = null;
       var postData = null;
@@ -746,7 +764,9 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
           if(!(/^(https?|ftp):\/\//i).test(aInput)){
               aInput = 'http://' + aInput; //assume http
           }
-          document.location = aInput;
+          getGBrowser().userTypedValue = aInput;
+          addToUrlbarHistory(aInput);
+          document.location = aInput; //maybe should use loadURI
           return;
       }
       //TODO: handle 404 - and revert back to search
