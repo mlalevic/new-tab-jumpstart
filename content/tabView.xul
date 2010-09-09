@@ -143,17 +143,17 @@ Christopher Cook (beerfan@gmail.com)
                                 enablehistory="true" showcommentcolumn="true" ontextentered="mlalevic.JumpStart.historySearch(this.value);" />
                   </vbox>
 
-                  <vbox id="recentlyClosedBox" class="contentContainer">
+                  <vbox id="recentlyClosedBox" class="contentContainer" flex="2">
                     <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>
-                    <vbox id="recentlyClosedBoxItems" />
+                    <arrowscrollbox id="recentlyClosedBoxItems" orient="vertical" flex="1" style="overflow:hidden;" />
                   </vbox>
 
-                  <vbox id="recentBookmarksContainer" class="contentContainer">
+                  <vbox id="recentBookmarksContainer" class="contentContainer" flex="2">
                     <description class="title">&recentBookmarks.recent; <html:a href="chrome://jumpstart/content/bookmarksView.xul" title="&recentBookmarks.tooltip;" >&recentBookmarks.linkText;</html:a></description>
-                    <vbox id="recentBookmarksItems" />
+                    <arrowscrollbox id="recentBookmarksItems" flex="1" orient="vertical" />
                   </vbox>
 
-                  <spacer flex="1" />
+                  <spacer flex="300" />
                 </vbox>
                 <spacer flex="1" />
               </hbox>
