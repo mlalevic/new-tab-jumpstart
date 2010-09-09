@@ -445,7 +445,7 @@
 
   <binding id="closedTabLink">
     <content>
-      <xul:hbox class="faviconSiteLink" />
+      <xul:hbox class="faviconSiteLink" flex="1" />
     </content>
     <implementation>
       <method name="draw">
@@ -465,7 +465,7 @@
 
   <binding id="recentBookmarkLink">
     <content>
-      <xul:hbox class="faviconSiteLink" />
+      <xul:hbox class="faviconSiteLink" flex="1" />
     </content>
     <implementation>
       <method name="draw">
@@ -484,9 +484,9 @@
 
   <binding id="faviconSiteLink">
     <content>
-      <xul:hbox class="faviconSiteLink">
+      <xul:hbox class="faviconSiteLink" flex="1">
         <xul:image class="favIcon" />
-        <xul:label class="label" crop="end" />
+        <xul:label class="label" crop="end" flex="1" />
       </xul:hbox>
     </content>
     <implementation>

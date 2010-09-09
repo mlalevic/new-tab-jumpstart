@@ -608,6 +608,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
           var item = bookmarksData[i];
           var box = document.createElement("hbox");
           box.setAttribute("class", "recentBookmarksItem");
+          box.setAttribute("flex", "1");
           bookmarksItemsContainer.appendChild(box);
           box.draw(item.url, item.title, item.favicon, function(){window.location=this.href});
         }

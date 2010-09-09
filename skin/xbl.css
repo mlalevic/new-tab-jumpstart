@@ -11,7 +11,7 @@
 }
 
 .recentBookmarksItem, .recentlyClosedItem {
-	width: 179px;
+	/*width: 200px;*/
 	margin-top: 2px;
 	margin-bottom: 2px;
 	-moz-margin-start: 6px;
@@ -21,7 +21,7 @@
 .faviconSiteLink {
 	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#faviconSiteLink");
 	cursor: pointer;
-	width: inherit;
+	/*width: inherit;*/
 }
 
 .faviconSiteLink image {
