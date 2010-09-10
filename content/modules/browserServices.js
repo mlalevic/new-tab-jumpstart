@@ -106,14 +106,13 @@ let BrowserServices = {
     let height = WindowFunctions.availHeight;
     let sidebarWidth = 20; //sidebar + margine - put this to config
     if(JumpstartConfiguration.ShowSidebar){
-        sidebarWidth += 225;
-
+        sidebarWidth += 220;
     }
     width -= sidebarWidth;
-    height -= 150; //for this calculation lets assume this is toolbar and menu size we can add proper calculations later
+    height -= 110; //for this calculation lets assume this is toolbar and menu size we can add proper calculations later
     
-    let thumbWidth = (thumbsConfig.ShowSmallThumbs?100:200) + 15;
-    let thumbHeight = (thumbsConfig.ShowSmallThumbs?100:200) + 25;
+    let thumbWidth = (thumbsConfig.ShowSmallThumbs?163:212) + 2;
+    let thumbHeight = (thumbsConfig.ShowSmallThumbs?137:171) + 2;
 
     
     let columnsCount = Math.floor(width / thumbWidth);
