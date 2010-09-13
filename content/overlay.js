@@ -702,7 +702,7 @@ var realTimeThumbsUpdates = {
 
 var onInstall = {
     start : function(){
-        var ver = '', version = '0.5a5.4';
+        var ver = '', version = '0.5a5.4.1';
 
         var svc = Cc["@mozilla.org/preferences-service;1"]
                    .getService(Ci.nsIPrefService);
@@ -760,7 +760,7 @@ var onInstall = {
 
 
           //if(!ver){ //uncomment this only for small updates (when previous notice has been retained)
-            clear(prefs, ['show_notice']); //show notice on upgrade
+          clear(prefs, ['show_notice']); //show notice on upgrade
           //}
           // Insert code if version is different here => upgrade
           if(!ver){
