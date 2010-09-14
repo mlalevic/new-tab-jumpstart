@@ -60,61 +60,21 @@ Christopher Cook (beerfan@gmail.com)
   </keyset>
 
   <notificationbox flex="1" id="notification">
-      <notification id="whatsNew" label="&notice.new_version;" image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice">
-          <hbox class="notificationContent" flex="1" hidden="true" >
-              <vbox class="centerContent">
-                <label value="&notice.info;" />
-              </vbox>
-              <toolbarbutton
-                       class="tabbable"
-                       tooltiptext="&notice.bookmarks_tooltip;"
-                       label="&notice.bookmarks;"
-                       oncommand="mlalevic.JumpStart.toggleBookmarksToolbar();"/>
-              <toolbarbutton
-                       class="tabbable"
-                       tooltiptext="&notice.sidebar_tooltip;"
-                       label="&notice.sidebar;"
-                       oncommand="mlalevic.JumpStart.toggleSidebar();"/>
-              <vbox class="centerContent">
-                  <label   tooltiptext="&notice.drag_drop_tooltip;"
-                           value="&notice.drag_drop;" />
-              </vbox>
-          </hbox>
-          <hbox class="notificationContent" flex="1" >
-              <vbox class="centerContent">
-                <label value="&notice.info;" />
-              </vbox>
-              <toolbarbutton
-                       class="tabbable"
-                       tooltiptext="&notice.statusbar_button_tooltip;"
-                       label="&notice.statusbar_button;"
-                       oncommand="mlalevic.JumpStart.toggleShowStatusbarButton();"/>
-              <toolbarbutton
-                       class="tabbable"
-                       tooltiptext="&notice.search_tooltip;"
-                       label="&notice.search;"
-                       oncommand="mlalevic.JumpStart.focusSearch();"/>
-            <hbox style="margin-left:10px;">
-              <toolbarbutton
-                               class="tabbable"
-                               tooltiptext="&notice.added_menu_tooltip;"
-                               label="&notice.added_menu;"
-                               oncommand="mlalevic.JumpStart.highlightMenu();"/>
-              <vbox class="centerContent">
-                      <label value="&notice.added_menu_more_text;" />
-              </vbox>
-            </hbox>
-          </hbox>
-          <hbox style="margin-left:10px;">
-              <vbox class="centerContent">
-                  <label value="&notice.and_more;" />
-              </vbox>
-          </hbox>
+      <notification id="whatsNew" label="&notice.new_version;" image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice" style="background-color:Yellow;color: Black;">
+         <toolbarbutton
+                   class="tabbable"
+                   tooltiptext="&notice.all_features_tooltip;"
+                   label="&notice.all_features;"
+                   oncommand="mlalevic.JumpStart.allFeatures();"/>
           <toolbarbutton
                    class="tabbable"
                    tooltiptext="&notice.more_info_tooltip;"
                    label="&notice.more_info;"
                    oncommand="mlalevic.JumpStart.releaseNotes();"/>
+          <toolbarbutton
+                   class="tabbable"
+                   label="&notice.close;"
+                   oncommand="mlalevic.JumpStart.hideNotice();"/>
       </notification>
 
       <deck id="theDeck" selectedIndex="0" flex="1">
@@ -134,14 +94,14 @@ Christopher Cook (beerfan@gmail.com)
                 <vbox id="sideContainer" flex="2">
 
                   <vbox id="searchContainer" class="contentContainer">
-                    <description id="searchTitle" class="title">&search;</description>
-                    <panel id="richPopup" type="autocomplete-richlistbox" noautofocus="true"/>
-                    <textbox id="search-box" tabindex="1" emptyText="&search.emptyText;"
-                                autocompletepopup="richPopup"
-                                type="autocomplete" autocompletesearch="history"
-                                completeselectedindex="true" tabscrolling="true"
-                                enablehistory="true" showcommentcolumn="true" ontextentered="mlalevic.JumpStart.historySearch(this.value);" />
-                  </vbox>
+                       <description id="searchTitle" class="title">&search;</description>
+                       <panel id="richPopup" type="autocomplete-richlistbox" noautofocus="true"/>
+                       <textbox id="search-box" tabindex="1" emptyText="&search.emptyText;"
+                            autocompletepopup="richPopup"
+                            type="autocomplete" autocompletesearch="history"
+                            completeselectedindex="true" tabscrolling="true"
+                            enablehistory="true" showcommentcolumn="true" ontextentered="mlalevic.JumpStart.historySearch(this.value);" />
+                      </vbox>
 
                   <vbox id="recentlyClosedBox" class="contentContainer" flex="2">
                     <description id="recentlyClosedTitle" class="title">&recentlyClosed;</description>

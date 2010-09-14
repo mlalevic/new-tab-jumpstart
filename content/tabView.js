@@ -103,6 +103,19 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         window.location = "http://www.new-tab-jumpstart.com/releases";
     }
 
+    mlalevic.JumpStart.hideNotice = function(){
+        Config.setBranchPref("show_notice", false);
+        var notification = document.getElementById("whatsNew");
+        if(notification){
+            notification.hidden = true;
+        }
+    }
+
+    mlalevic.JumpStart.allFeatures = function(){
+        Config.setBranchPref("show_notice", false);
+        window.location = "http://www.new-tab-jumpstart.com/features";
+    }
+
     mlalevic.JumpStart.focusSearch = function(){
         focusSearch();
     }
