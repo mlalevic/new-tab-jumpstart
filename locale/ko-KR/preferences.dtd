@@ -1,9 +1,16 @@
-<!ENTITY title "New Tab JumpStart 설정">
+﻿<!ENTITY title "New Tab JumpStart 설정">
 <!ENTITY tabName "일반">
 <!ENTITY onnewtab "새 탭에 보이기">
 <!ENTITY showinhistory "방문 기록에 보이기">
 <!ENTITY showbutton "도구 모음 아이콘을 보이기">
-<!ENTITY showstatusbarbutton "상태 표시줄 버튼 보이기">
+<!ENTITY showstatusbarbutton "상태 표시줄 버튼을 보이기">
 <!ENTITY onstartup "시작 시 보이기">
 <!ENTITY title.thumbs "미리 보기">
 <!ENTITY title.info "정보">
+<!ENTITY focus_search "검색창에 초점을 맞추기">
+<!ENTITY slide_menu "슬라이드 메뉴 설정">
+<!ENTITY slide_speed "속도 – 낮을 수록 빠름">
+<!ENTITY slide_step "간격 당 화소 수 – 높을수록 빠름">
+<!ENTITY recently_closed_count "표시할 최근에 닫은 탭의 개수">
+<!ENTITY recent_bookmarks_count "표시할 최근 북마크의 개수">
+
