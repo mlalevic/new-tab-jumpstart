@@ -523,4 +523,77 @@
     </handlers>
   </binding>
 
+  <binding id="searchEngines">
+    <resources>
+      <stylesheet src="chrome://jumpstart/skin/tabView.css"/>
+      <stylesheet src="chrome://jumpstart/skin/xbl.css"/>
+    </resources>
+    <content>
+            <xul:hbox class="searchEngines">
+                       <xul:spacer flex="1" />
+                       <xul:arrowscrollbox anonid="searchEnginesContainer" flex="1"></xul:arrowscrollbox>
+                       <xul:spacer flex="1" />
+                       <xul:label class="customlink" value="Goto JumpStart" onclick="loadURI('chrome://jumpstart/content/tabView.xul', null, null, true);" />
+            </xul:hbox>
+    </content>
+    <implementation>
+            <constructor>
+            <![CDATA[
+              if(!this.hasAttribute("term")){
+                    return;
+              }
+
+              var utils = {};
+              Components.utils.import("resource://modules/utils.js", utils);
+
+              function the_search(engineName, searchText, useNewTab) {
+                    var ss = Components.classes["@mozilla.org/browser/search-service;1"].
+                                     getService(Components.interfaces.nsIBrowserSearchService);
+
+                    var engine = ss.getEngineByName(engineName);
+                    if(!engine)return;
+                    var submission = engine.getSubmission(searchText, null); // HTML response
+
+                    // getSubmission can return null if the engine doesn't have a URL
+                    // with a text/html response type.  This is unlikely (since
+                    // SearchService._addEngineToStore() should fail for such an engine),
+                    // but let's be on the safe side.
+                    if (!submission)
+                      return;
+
+                    if (useNewTab) {
+                      gBrowser.loadOneTab(submission.uri.spec, null, null,
+                                                              submission.postData, null, false);
+                    } else
+                      loadURI(submission.uri.spec, null, submission.postData, false);
+              }
+
+              let searchText = this.getAttribute("term");
+
+              let ss = Components.classes["@mozilla.org/browser/search-service;1"].
+                        getService(Components.interfaces.nsIBrowserSearchService);
+              let output = {};
+              let engines = ss.getEngines(output);
+
+              let container = document.getAnonymousElementByAttribute(this, 'anonid', 'searchEnginesContainer');
+              //clear:
+              while (container.firstChild) {
+                container.removeChild(container.firstChild);
+              }
+
+              for(var i = 0; i < output.value; i++){
+                var e = engines[i];
+                var box = document.createElement("hbox");
+                box.setAttribute("class", "faviconSiteLinkBind");
+                container.appendChild(box);
+                var engineName = e.name;
+                box.draw(e.name, e.name, e.iconURI.spec, utils.Binder.bindArguments(this, the_search, engineName, searchText, false));
+                                //box.draw(e.name, e.name, e.iconURI.spec, function(){alert(e.name);});
+              }
+                        ]]>
+            </constructor>
+        </implementation>
+    </binding>
+
+
 </bindings>

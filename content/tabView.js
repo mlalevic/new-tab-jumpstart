@@ -799,8 +799,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       //TODO: handle 404 - and revert back to search
       //TODO: handle keywords
 
-      document.getElementById('theDeck').selectedIndex = 1;
-      showSearchData(aInput);
+      showSearchNotice(aInput);
       showDefaultSearch(aInput);
 
       /*var query = PlacesUtils.history.getNewQuery();
@@ -1163,8 +1162,6 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
           }
 
           function showDefaultSearch(searchText){
-            var bro = document.getElementById('displayFrame').webNavigation;
-
             var ss = Components.classes["@mozilla.org/browser/search-service;1"].
                  getService(Components.interfaces.nsIBrowserSearchService);
 
@@ -1180,29 +1177,40 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             if (!submission)
               return;
 
-              bro.loadURI(submission.uri.spec, 0, null, null, submission.postData);
+            getBrowserWindow().getBrowserFromContentWindow(window).loadURI(submission.uri.spec, null, submission.postData, false);
           }
 
-          function showSearchData(searchText){
-              var ss = Components.classes["@mozilla.org/browser/search-service;1"].
-                     getService(Components.interfaces.nsIBrowserSearchService);
-              var output = {};
-              var engines = ss.getEngines(output);
+          function showSearchNotice(searchTerm){
+            if(!searchTerm)return;
 
-              var container = document.getElementById('serachEnginesContainer');
-              //clear:
-              while (container.firstChild) {
-                container.removeChild(container.firstChild);
-              }
+            var nb = getBrowserWindow().getNotificationBox(window);
+            var n = nb.getNotificationWithValue('jumpstart_searchnotice');
+            if(!n){
+                nb.appendNotification('', 'jumpstart_searchnotice',
+                                         'chrome://jumpstart/skin/img/JumpStart32.png',
+                                         nb.PRIORITY_INFO_HIGH, []);
+                n = nb.getNotificationWithValue('jumpstart_searchnotice');
 
-              for(var i = 0; i < output.value; i++){
-                var e = engines[i];
-                var box = document.createElement("hbox");
-                box.setAttribute("class", "faviconSiteLinkBind");
-                container.appendChild(box);
-                var engineName = e.name;
-                box.draw(e.name, e.name, e.iconURI.spec, utils.Binder.bindArguments(this, the_search, engineName, searchText, false));
-              }
+                var p = n.ownerDocument.getAnonymousElementByAttribute(n, 'anonid', 'details');
+
+                var b = n.ownerDocument.createElement("hbox"); // create a new XUL menuitem
+                b.setAttribute('flex', '1');
+                b.setAttribute('align', 'center');
+                var img = n.ownerDocument.createElement('image');
+                img.setAttribute('src', 'chrome://jumpstart/skin/img/JumpStart32.png');
+                img.setAttribute('class', 'messageImage');
+                b.appendChild(img);
+
+                var bx = n.ownerDocument.createElement('hbox');
+                bx.setAttribute('style', '-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#searchEngines");');
+                bx.setAttribute('term', searchTerm);
+                bx.setAttribute('flex', '1');
+                b.appendChild(bx);
+
+                p.parentNode.replaceChild(b, p);
+            }
+
+            n.persistence = 2;
           }
 
 window.addEventListener("load", Show, false);
