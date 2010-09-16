@@ -198,6 +198,18 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         document.getElementById('search-box').focus();
     }
 
+    function expandSearch(e){
+        if(this.value.length > 0 || e.which == 40) //40 = down
+            this.parentNode.parentNode.style.marginLeft = '-200px';
+        else
+            this.parentNode.parentNode.style.marginLeft = '0px';
+            
+    }
+
+    var wireUpSearch = function(){
+        document.getElementById('search-box').addEventListener("keyup", expandSearch, false);
+    }
+
     var aSlide = null;
 
     var Show = function() {
@@ -209,6 +221,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         if(Config.FocusOnSearch){focusSearch();}
         positionMenu();
         aSlide = new showDown('slideMenu');
+        wireUpSearch();
     }
 
     function positionMenu(){
