@@ -4,6 +4,6 @@
 <!ENTITY frequent "Gyakran használt">
 <!ENTITY tags "Címkék">
 <!ENTITY tagNotice "A könyvjelzők jelenleg nincsenek címkézve. A könyvjelzők címkézése segít a könyvjelzők jobb kezelésében.">
-<!ENTITY tagsLink "http://support.mozilla.com/kb/bookmark+tags">
+<!ENTITY tagsLink "http://support.mozilla.com/hu-HU/kb/Bookmark+Tags">
 <!ENTITY tagsNow "A könyvjelzők címkézése mostantól!">
 <!ENTITY tagNoticeAfterLink "">
