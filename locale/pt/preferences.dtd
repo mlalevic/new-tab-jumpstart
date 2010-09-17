@@ -7,3 +7,10 @@
 <!ENTITY onstartup "Mostar ao iniciar">
 <!ENTITY title.thumbs "Miniaturas">
 <!ENTITY title.info "Info">
+<!ENTITY focus_search "Foco em pesquisa" >
+<!ENTITY slide_menu "Opções de menu" >
+<!ENTITY slide_speed "Velocidade - menor é mais rápido" >
+<!ENTITY slide_step "Número de pixels por intervalo - maior é mais rápida" >
+<!ENTITY recently_closed_count "Número de Recentemente fechado" >
+<!ENTITY recent_bookmarks_count "Número de Marcadores recentes" >
+
