@@ -1,9 +1,15 @@
-<!ENTITY title "Нови Језичак - Појачан : Подешавања">
+<!ENTITY title "New Tab JumpStart - опције">
 <!ENTITY tabName "Опште">
 <!ENTITY onnewtab "Прикажи на новом језичку">
-<!ENTITY showinhistory "Прикажи у историји">
+<!ENTITY showinhistory "Прикажи у историјату">
 <!ENTITY showbutton "Прикажи дугме на алатној траци">
 <!ENTITY showstatusbarbutton "Прикажи дугме на статусној траци">
-<!ENTITY onstartup "Прикажи при покретању фајерфокса">
+<!ENTITY onstartup "Прикажи при покретању Фајерфокса">
 <!ENTITY title.thumbs "Сличице">
 <!ENTITY title.info "Информације">
+<!ENTITY focus_search "Пребаци на траку за претраживање">
+<!ENTITY slide_menu "Опције клизећег менија">
+<!ENTITY slide_speed "Брзина - нижа вредност је бржа">
+<!ENTITY slide_step "Број пиксела по интервалу - већа вредност је бржа">
+<!ENTITY recently_closed_count "Број недавно затворених за приказивање">
+<!ENTITY recent_bookmarks_count "Број недавних забелешки за приказивање">

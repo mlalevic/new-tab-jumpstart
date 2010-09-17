@@ -7,3 +7,9 @@
 <!ENTITY onstartup "הצגה באתחול">
 <!ENTITY title.thumbs "תמונות ממוזערות">
 <!ENTITY title.info "מידע">
+<!ENTITY focus_search "התמקדות בתיבת החיפוש">
+<!ENTITY slide_menu "אפשרויות תפריט גולש">
+<!ENTITY slide_speed "מהירות - ככל שיותר נמוך יותר מהיר">
+<!ENTITY slide_step "מספר הפיקסלים עבור כל מרווח - ככל שיותר גבוה יותר מהיר">
+<!ENTITY recently_closed_count "מספר הפריטים שנסגרו לאחרונה להצגה">
+<!ENTITY recent_bookmarks_count "מספר הפריטים שהוספו לאחרונה לסימניות להצגה">

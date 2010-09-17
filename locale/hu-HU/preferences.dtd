@@ -7,3 +7,9 @@
 <!ENTITY onstartup "Megjelenítés indításkor">
 <!ENTITY title.thumbs "Gyorsnézet">
 <!ENTITY title.info "Infó">
+<!ENTITY focus_search "Keresőmező fókuszálása">
+<!ENTITY slide_menu "A felbukkanó menü beállításai">
+<!ENTITY slide_speed "Sebesség (a kisebb gyorsabb):">
+<!ENTITY slide_step "Képpont/intervallum (a nagyobb gyorsabb):">
+<!ENTITY recently_closed_count "A megjelenített nemrég bezárt lapok száma:">
+<!ENTITY recent_bookmarks_count "A megjelenített nemrég használt könyvjelzők száma:">

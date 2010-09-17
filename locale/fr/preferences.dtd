@@ -7,3 +7,9 @@
 <!ENTITY onstartup "Afficher au démarrage">
 <!ENTITY title.thumbs "Vignettes">
 <!ENTITY title.info "Informations">
+<!ENTITY focus_search "Boîte de recherche au premier plan">
+<!ENTITY slide_menu "Options du menu coulissant">
+<!ENTITY slide_speed "Vitesse - moins rapide / plus rapide">
+<!ENTITY slide_step "Nombre de pixels par intervalle - plus élevé=plus rapide">
+<!ENTITY recently_closed_count "Nombre d'onglets récemment fermés">
+<!ENTITY recent_bookmarks_count "Nombre de marque-pages récents à afficher">

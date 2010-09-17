@@ -17,21 +17,9 @@
 <!ENTITY notice.more_info "Plus d'informations">
 <!ENTITY notice.more_info_tooltip "Notes de version">
 <!ENTITY notice.new_version "Nouvelle version installée.">
-<!ENTITY notice.info "Améliorations et fonctions, davantage de détails au survol de la souris :">
-<!ENTITY notice.bookmarks "Barre de marque-pages ajoutée">
-<!ENTITY notice.bookmarks_tooltip "Cliquez pour activer/désactiver la barre de marque-pages">
-<!ENTITY notice.sidebar "Le panneau latéral peut être masqué">
-<!ENTITY notice.sidebar_tooltip "Cliquez pour masquer/montrer le panneau latéral">
-<!ENTITY notice.drag_drop "Réorganiser les vignettes">
-<!ENTITY notice.drag_drop_tooltip "Glissez déposez pour les réorganiser">
-<!ENTITY notice.statusbar_button_tooltip "Le bouton de la barre d'état n'est pas affiché par défaut">
-<!ENTITY notice.statusbar_button "Bouton de la barre d'état">
-<!ENTITY notice.search_tooltip "Saisir quelque chose dans la boîte de recherche et appuyer sur la touche Entrée">
-<!ENTITY notice.search "La recherche fonctionne">
-<!ENTITY notice.added_menu_tooltip "Passez la souris au-dessus du menu pour le déployer - cliquer sur ce bouton pour le mettre en surbrillance">
-<!ENTITY notice.added_menu "Menu sur la droite">
-<!ENTITY notice.added_menu_more_text "procure un meilleur accès à la personnalisation de l'écran">
-<!ENTITY notice.and_more "Autres changements">
+<!ENTITY notice.all_features "Toutes les fonctionnalités">
+<!ENTITY notice.all_features_tooltip "Description de toutes les fonctionnalités de New Tab JumpStart">
+<!ENTITY notice.close "Masquer ces informations">
 <!ENTITY bar.settings "Paramètres">
 <!ENTITY bar.thumbs "Configurer le nombre de vignettes">
 <!ENTITY bar.toolbar "Configurer les barres d'outils">

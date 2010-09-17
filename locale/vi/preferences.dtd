@@ -7,3 +7,9 @@
 <!ENTITY onstartup "Hiển thị khi khởi động">
 <!ENTITY title.thumbs "Ảnh nhỏ xem trước">
 <!ENTITY title.info "Thông tin">
+<!ENTITY focus_search "Tập trung vào Hộp Tìm Kiếm">
+<!ENTITY slide_menu "Tùy chọn trình đơn trượt">
+<!ENTITY slide_speed "Tốc độ - thấp hơn thì nhanh hơn">
+<!ENTITY slide_step "Số điểm ảnh mỗi khoảng - cao hơn thì nhanh hơn">
+<!ENTITY recently_closed_count "Số lượng vừa bị đóng">
+<!ENTITY recent_bookmarks_count "Số lượng Đánh Dấu Trang Mới được hiển thị">

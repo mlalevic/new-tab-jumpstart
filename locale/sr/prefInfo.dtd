@@ -1,15 +1,15 @@
 <!ENTITY title "Информације">
 <!ENTITY required "Потребна подешавања">
-<!ENTITY compatibility "Информације о усаглашености">
+<!ENTITY compatibility "Информације о подударности">
 <!ENTITY loglevel "Ниво праћења:">
-<!ENTITY full "Прати све">
-<!ENTITY relevant "Сви битни догађаји">
-<!ENTITY warning "Грешке и упозорења">
-<!ENTITY error "Само грешке">
-<!ENTITY critical "Само критичне грешке">
-<!ENTITY blocked "Блокиране адресе">
-<!ENTITY remove_selected "Избаци изабране">
-<!ENTITY tacked "Листа причвршћених">
-<!ENTITY tack_block "Причврсти/Блокирај">
+<!ENTITY full "прати све">
+<!ENTITY relevant "сви битни догађаји">
+<!ENTITY warning "грешке и упозорења">
+<!ENTITY error "само грешке">
+<!ENTITY critical "само критичне грешке">
+<!ENTITY blocked "блокиране ставке">
+<!ENTITY remove_selected "Уклони изабрано">
+<!ENTITY tacked "Причвршћене ставке">
+<!ENTITY tack_block "Причврсти/блокирај">
 <!ENTITY block_sites "Блокирај">
 <!ENTITY tack_sites "Причврсти">

@@ -9,29 +9,17 @@
 <!ENTITY search.emptyText "היסטוריית חיפוש">
 <!ENTITY recentBookmarks.recent "לאחרונה">
 <!ENTITY recentBookmarks.tooltip "סימניות נוספות">
-<!ENTITY recentBookmarks.linkText "הוסף לסימניות">
-<!ENTITY recentlyClosed "שנסגרו לאחרונה">
+<!ENTITY recentBookmarks.linkText "הוספו לסימניות">
+<!ENTITY recentlyClosed "נסגרו לאחרונה">
 <!ENTITY search "חיפוש">
 <!ENTITY search2.emptyText "היסטוריית חיפוש">
 <!ENTITY back "בחזרה אל תצוגת תמונות ממוזערות">
 <!ENTITY notice.more_info "מידע נוסף">
 <!ENTITY notice.more_info_tooltip "הערות שחרור לגרסה זו">
 <!ENTITY notice.new_version "גרסה חדשה הותקנה.">
-<!ENTITY notice.info "שיפורים ומאפיינים, מעבר מעל לפרטים נוספים:">
-<!ENTITY notice.bookmarks "התווסף סרגל כלים לסימניות">
-<!ENTITY notice.bookmarks_tooltip "לחיצה כדי לכבות/להדליק את סרגל הכלים של הסימניות">
-<!ENTITY notice.sidebar "סרגל הצד יכול להיות מוסתר">
-<!ENTITY notice.sidebar_tooltip "לחיצה כדי להציג/להסתיר את סרגל הצד">
-<!ENTITY notice.drag_drop "סידור מחדש של התמונות הממוזערות">
-<!ENTITY notice.drag_drop_tooltip "כדי לסדרן מחדש יש לגרור ולהשמיט אותן">
-<!ENTITY notice.statusbar_button_tooltip "כפתור שורת המצב אינו מוצג כברירת מחדל">
-<!ENTITY notice.statusbar_button "כפתור שורת המצב">
-<!ENTITY notice.search_tooltip "יש להקליד אל תיבת חיפוש הטקסט משהו וללחוץ הנטר (enter)">
-<!ENTITY notice.search "חיפוש בפעולה">
-<!ENTITY notice.added_menu_tooltip "יש לחלוף מעל התפריט כדי להרחיבו - לחיצה על כפתור זה כדי להדגיש אותו">
-<!ENTITY notice.added_menu "תפריט בצד ימין">
-<!ENTITY notice.added_menu_more_text "מציע גישה נוחה להתאמה אישית של המסך">
-<!ENTITY notice.and_more "שינויים אחרים:">
+<!ENTITY notice.all_features "כל המאפיינים">
+<!ENTITY notice.all_features_tooltip "תיאור כל המאפיינים של JumpStart">
+<!ENTITY notice.close "הסתרת הודעה זו">
 <!ENTITY bar.settings "הגדרות">
 <!ENTITY bar.thumbs "הגדרת מספר התמונות הממוזערות">
 <!ENTITY bar.toolbar "הגדרת סרגלי כלים">

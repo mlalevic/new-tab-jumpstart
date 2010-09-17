@@ -6,6 +6,6 @@
 <!ENTITY bkg_color "Hintergrundfarbe:">
 <!ENTITY bkg_color_empty "Farbname oder -code">
 <!ENTITY bkg_img "Hintergrundgrafik:">
-<!ENTITY bkg_img_empty "URL eingeben/klicken-&gt;">
-<!ENTITY pick_img "Grafik wählen">
+<!ENTITY bkg_img_empty "URL eingeben / klicken-&gt;">
+<!ENTITY pick_img "Grafik wählen…">
 <!ENTITY bookmarks_top "Lesezeichenzeile oben platzieren">

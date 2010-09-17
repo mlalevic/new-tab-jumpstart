@@ -1,37 +1,25 @@
-<!ENTITY title "Нови језичак - Појачан">
+<!ENTITY title "Нови језичак">
 <!ENTITY mostVisited "Најпосећеније">
 <!ENTITY menu.showOnNewTab "Прикажи на новом језичку">
 <!ENTITY menu.showOnStartup "Прикажи при покретању">
 <!ENTITY menu.showToolbarButton "Прикажи дугме на алатној траци">
 <!ENTITY menu.showInHistory "Прикажи у историјату">
 <!ENTITY menu.bigThumbs "Велике сличице">
-<!ENTITY menu.moreOptions "Још подешавања ...">
+<!ENTITY menu.moreOptions "Више подешавања ...">
 <!ENTITY search.emptyText "Претражи историјат">
 <!ENTITY recentBookmarks.recent "Најновије">
-<!ENTITY recentBookmarks.tooltip "Још забелешки">
+<!ENTITY recentBookmarks.tooltip "Више забелешки">
 <!ENTITY recentBookmarks.linkText "Забелешке">
-<!ENTITY recentlyClosed "Последње затворено">
+<!ENTITY recentlyClosed "Недавно затворено">
 <!ENTITY search "Претражи">
 <!ENTITY search2.emptyText "Претражи историјат">
-<!ENTITY back "Назад на приказ предгледа">
-<!ENTITY notice.more_info "Додатне информације">
-<!ENTITY notice.more_info_tooltip "Напомене о овом издању">
-<!ENTITY notice.new_version "Инсталирана нова верзија.">
-<!ENTITY notice.info "Побољшања и нове могућности:">
-<!ENTITY notice.bookmarks "Додата трака забелешки">
-<!ENTITY notice.bookmarks_tooltip "Прикажи/сакриј траку забележака">
-<!ENTITY notice.sidebar "Бочна трака може да се сакрије">
-<!ENTITY notice.sidebar_tooltip "Прикажи/сакриј бочну траку">
-<!ENTITY notice.drag_drop "Промена распореда сличица">
-<!ENTITY notice.drag_drop_tooltip "Превлачењем и отпуштањем промените распоред">
-<!ENTITY notice.statusbar_button_tooltip "Дугме на статусној траци није одмах приказано">
-<!ENTITY notice.statusbar_button "Дугме на статусној траци">
-<!ENTITY notice.search_tooltip "Откуцај нешто у пољу за претрагу и притисни Enter">
-<!ENTITY notice.search "Претрага ради">
-<!ENTITY notice.added_menu_tooltip "Постави курсор преко менија да се отвори - притисни овде да видиш где је">
-<!ENTITY notice.added_menu "Мени на десној страни">
-<!ENTITY notice.added_menu_more_text "омогућава лакше прилагођавање екрана">
-<!ENTITY notice.and_more "Остале измене:">
+<!ENTITY back "Назад на преглед">
+<!ENTITY notice.more_info "Измене о овој верзији">
+<!ENTITY notice.more_info_tooltip "Белешке о овом издању">
+<!ENTITY notice.new_version "Инсталирана је нова верзија.">
+<!ENTITY notice.all_features "Све могућности">
+<!ENTITY notice.all_features_tooltip "Опис свих могућности додатка New Tab JumpStart">
+<!ENTITY notice.close "Сакриј ово обавештење">
 <!ENTITY bar.settings "Подешавања">
 <!ENTITY bar.thumbs "Подешавање броја сличица">
 <!ENTITY bar.toolbar "Подешавање трака забележака">
