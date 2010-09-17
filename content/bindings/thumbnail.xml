@@ -21,7 +21,7 @@
             </xul:hbox>
             <xul:hbox anonid="slider" style="background-color:transparent; -moz-box-align: start; -moz-box-pack: center;" hidden="true">
                     <xul:hbox style="background-color:-moz-dialog;opacity: 1; margin: 10px;">
-                            <xul:scale anonid="thumbsNumberScale" flex="1" min="0" max="0" increment="1" pageincrement="3" />
+                            <xul:scale anonid="thumbsNumberScale" flex="1" min="0" max="0" increment="1" pageincrement="1" />
                             <xul:label anonid="numberOfThumbs" value="" />
                             <xul:toolbarbutton anonid="editOK" />
                             <xul:toolbarbutton anonid="editCancel" />
