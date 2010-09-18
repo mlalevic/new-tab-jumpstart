@@ -198,16 +198,33 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         document.getElementById('search-box').focus();
     }
 
+    const KEY_UP = 40;
+    const KEY_DOWN = 38;
+
     function expandSearch(e){
-        if(this.value.length > 0 || e.which == 40) //40 = down
-            this.parentNode.parentNode.style.marginLeft = '-' + Config.ExpandSearchPixels + 'px';
+        if(e.which == KEY_UP || e.which == KEY_DOWN){
+            return;
+        }
+
+        expandSearchElement(this, this.value.length > 0);
+    }
+
+    function expandSearchOnArrows(e){
+        if(e.which == KEY_UP || e.which == KEY_DOWN){
+            expandSearchElement(this, true);
+        }
+    }
+
+    function expandSearchElement(el, expand){
+        if(expand)
+            el.parentNode.parentNode.style.marginLeft = '-' + Config.ExpandSearchPixels + 'px';
         else
-            this.parentNode.parentNode.style.marginLeft = '0px';
-            
+            el.parentNode.parentNode.style.marginLeft = '0px';
     }
 
     var wireUpSearch = function(){
         document.getElementById('search-box').addEventListener("keyup", expandSearch, false);
+        document.getElementById('search-box').addEventListener("keydown", expandSearchOnArrows, false);
     }
 
     var aSlide = null;
