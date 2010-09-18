@@ -7,3 +7,9 @@
 <!ENTITY onstartup "启动时显示">
 <!ENTITY title.thumbs "缩略图">
 <!ENTITY title.info "信息">
+<!ENTITY focus_search "将光标放置在搜索栏">
+<!ENTITY slide_menu "侧边栏菜单选项">
+<!ENTITY slide_speed "速度-越低越快">
+<!ENTITY slide_step "每个间距之间的像素数-越高越快">
+<!ENTITY recently_closed_count "显示最近关闭标签的数目">
+<!ENTITY recent_bookmarks_count "显示最近使用的书签数目">

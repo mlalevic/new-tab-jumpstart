@@ -17,21 +17,9 @@
 <!ENTITY notice.more_info "更多信息">
 <!ENTITY notice.more_info_tooltip "版本说明">
 <!ENTITY notice.new_version "新版已安装.">
-<!ENTITY notice.info "改进及功能, 悬停显示更多信息:">
-<!ENTITY notice.bookmarks "增加书签栏">
-<!ENTITY notice.bookmarks_tooltip "点击打开或关闭书签栏">
-<!ENTITY notice.sidebar "侧栏可以隐藏">
-<!ENTITY notice.sidebar_tooltip "点击显示或隐藏侧栏">
-<!ENTITY notice.drag_drop "重新排列缩略图">
-<!ENTITY notice.drag_drop_tooltip "拖放缩略图以排列">
-<!ENTITY notice.statusbar_button_tooltip "默认不显示状态栏按钮">
-<!ENTITY notice.statusbar_button "状态栏按钮">
-<!ENTITY notice.search_tooltip "在搜索框输入文字并按回车键">
-<!ENTITY notice.search "搜索正在进行">
-<!ENTITY notice.added_menu_tooltip "鼠标划过菜单时,高亮菜单-单击这个按钮来高亮它">
-<!ENTITY notice.added_menu "右键菜单">
-<!ENTITY notice.added_menu_more_text "让组织缩略图更加简单">
-<!ENTITY notice.and_more "其它更改:">
+<!ENTITY notice.all_features "所有的特性">
+<!ENTITY notice.all_features_tooltip "New Tab JumpStart的所有特性介绍">
+<!ENTITY notice.close "隐藏这个提示">
 <!ENTITY bar.settings "设置">
 <!ENTITY bar.thumbs "设置缩略图数量">
 <!ENTITY bar.toolbar "确认工具栏">
