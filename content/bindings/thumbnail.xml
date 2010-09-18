@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE window SYSTEM "chrome://jumpstart/locale/thumbnails.dtd">
+<!DOCTYPE bindings [
+<!ENTITY % thumbnailsDTD SYSTEM "chrome://jumpstart/locale/thumbnails.dtd" >
+%thumbnailsDTD;
+<!ENTITY % tabViewDTD SYSTEM "chrome://jumpstart/locale/tabView.dtd">
+%tabViewDTD;
+]>
+
 
 <bindings id="thumbnail"
           xmlns="http://www.mozilla.org/xbl"
@@ -530,10 +536,10 @@
     </resources>
     <content>
             <xul:hbox class="searchEngines">
-                       <xul:spacer flex="1" />
-                       <xul:arrowscrollbox anonid="searchEnginesContainer" flex="1"></xul:arrowscrollbox>
-                       <xul:spacer flex="1" />
-                       <xul:label class="customlink" value="Goto JumpStart" onclick="loadURI('chrome://jumpstart/content/tabView.xul', null, null, true);" />
+               <xul:spacer flex="1" />
+               <xul:arrowscrollbox anonid="searchEnginesContainer" flex="1"></xul:arrowscrollbox>
+               <xul:spacer flex="1" />
+               <xul:label class="customlink" value="&back;" onclick="loadURI('chrome://jumpstart/content/tabView.xul', null, null, true);" />
             </xul:hbox>
     </content>
     <implementation>
@@ -588,7 +594,6 @@
                 container.appendChild(box);
                 var engineName = e.name;
                 box.draw(e.name, e.name, e.iconURI.spec, utils.Binder.bindArguments(this, the_search, engineName, searchText, false));
-                                //box.draw(e.name, e.name, e.iconURI.spec, function(){alert(e.name);});
               }
                         ]]>
             </constructor>
