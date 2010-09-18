@@ -60,7 +60,7 @@ Christopher Cook (beerfan@gmail.com)
   </keyset>
 
   <notificationbox flex="1" id="notification">
-      <notification id="whatsNew" label="&notice.new_version;" image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice" style="background-color:Yellow;color: Black;">
+      <notification id="whatsNew" label="&notice.new_version;" image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice">
          <toolbarbutton
                    class="tabbable"
                    tooltiptext="&notice.all_features_tooltip;"
