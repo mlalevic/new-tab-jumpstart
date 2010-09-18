@@ -200,7 +200,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
     function expandSearch(e){
         if(this.value.length > 0 || e.which == 40) //40 = down
-            this.parentNode.parentNode.style.marginLeft = '-200px';
+            this.parentNode.parentNode.style.marginLeft = '-' + Config.ExpandSearchPixels + 'px';
         else
             this.parentNode.parentNode.style.marginLeft = '0px';
             
@@ -222,6 +222,13 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         positionMenu();
         aSlide = new showDown('slideMenu');
         wireUpSearch();
+        closeSearchNotice();
+    }
+
+    function closeSearchNotice(){
+        var nb = getBrowserWindow().getNotificationBox(window);
+        var n = nb.getNotificationWithValue('jumpstart_searchnotice');
+        if(n){n.close();}
     }
 
     function positionMenu(){
@@ -1210,7 +1217,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                 p.parentNode.replaceChild(b, p);
             }
 
-            n.persistence = 2;
+            n.persistence = Config.PersistSearchNotice;
           }
 
 window.addEventListener("load", Show, false);

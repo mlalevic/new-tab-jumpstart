@@ -41,7 +41,7 @@ notification toolbarbutton {
 }
 
 .layoutContainer {
-	-moz-box-flex: 0;
+	-moz-box-flex: 1;
 	-moz-box-pack: center;
 }
 
@@ -254,11 +254,22 @@ notification toolbarbutton {
 }
 
 #sideContainer > .contentContainer  {
-	background-color: #E0EBFF;
-	width: inherit;
-	margin: 5px 0px;
-	padding: 4px;
-	-moz-border-radius: 8px;
+    background-color: #E0EBFF;
+    width: inherit;
+    margin: 5px 0px;
+    padding: 4px;
+    -moz-border-radius: 8px;
+}
+
+#sideContainer > #searchContainer{
+    padding: 0px;
+}
+
+.stackedBackground {
+    background-color: #E0EBFF;
+    width: inherit;
+    -moz-border-radius: 8px;
+    padding: 9px 4px;
 }
 
 #sideContainer .contentContainer > label {

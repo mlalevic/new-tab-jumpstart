@@ -10,6 +10,8 @@ pref("mlalevic.jumpstart.show_on_startup", true); //should show on startup if th
 pref("mlalevic.jumpstart.show_toolbar_button", false); //show toolbar button
 pref("mlalevic.jumpstart.show_statusbar_button", false); //show status bar button
 pref("mlalevic.jumpstart.focus_on_search", true); //focus on search box
+pref("mlalevic.jumpstart.expand_search_pixels", 200); //number of pixels to expand search when typing in something
+pref("mlalevic.jumpstart.persist_search_notice", 2); //how many clicks should search notice above screen survive
 
 
 pref("mlalevic.jumpstart.LogLevel", 4); //log level - critical

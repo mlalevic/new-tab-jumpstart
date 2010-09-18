@@ -492,7 +492,7 @@
     <content>
       <xul:hbox class="faviconSiteLink" flex="1">
         <xul:image class="favIcon" />
-        <xul:label class="label" crop="end" flex="1" />
+        <xul:label class="customlink" crop="end" flex="1" />
       </xul:hbox>
     </content>
     <implementation>
@@ -533,6 +533,7 @@
     <resources>
       <stylesheet src="chrome://jumpstart/skin/tabView.css"/>
       <stylesheet src="chrome://jumpstart/skin/xbl.css"/>
+      <!--<stylesheet src="chrome://jumpstart/skin/overlay.css"/>-->
     </resources>
     <content>
             <xul:hbox class="searchEngines">

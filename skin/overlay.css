@@ -32,3 +32,15 @@ toolbar[iconsize="small"] #jumpStartOpenDialButton {
 toolbar[iconsize="small"] #jumpStartOpenDialButton:hover {
 	-moz-image-region: rect(0 40px 16px 24px);
 }*/
+
+.customlink {
+	cursor: pointer;
+	color: -moz-hyperlinktext;
+	text-decoration: -moz-anchor-decoration;
+	width: inherit;
+	-moz-margin-start: 4px;
+	-moz-margin-end: 5px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	overflow: hidden;
+}

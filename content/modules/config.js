@@ -37,6 +37,8 @@ JumpstartPrefs.prototype = {
   SlideSpeed : 70,
   SlideStep : 10,
   RecentBookmarksCount : 10,
+  ExpandSearchPixels : 200,
+  PersistSearchNotice : 2,
   RefreshOnStartup : false,
   HookUpNewTab : true,
   OverrideHomepage : true,
@@ -77,6 +79,8 @@ JumpstartPrefs.prototype = {
     this.SlideSpeed = this.prefBranch.get("slide_speed", this.SlideSpeed);
     this.SlideStep = this.prefBranch.get("slide_step", this.SlideStep);
     this.RecentBookmarksCount = this.prefBranch.get("recent_bookmarks_count", this.RecentBookmarksCount);
+    this.ExpandSearchPixels = this.prefBranch.get("expand_search_pixels", this.ExpandSearchPixels);
+    this.PersistSearchNotice = this.prefBranch.get("persist_search_notice", this.PersistSearchNotice);
     this.RefreshOnStartup = this.prefBranch.get("onstart_refresh", this.RefreshOnStartup);
     this.HookUpNewTab = this.prefBranch.get("hook_up_new_tab", this.HookUpNewTab);
     this.OverrideHomepage = this.prefBranch.get("show_on_startup", this.OverrideHomepage);
