@@ -171,13 +171,17 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     function getHistorytility(){
-        var bro = getBrowserWindow().getBrowserFromContentWindow(window);
+        var bro = getMyBrowser();
         var internalHistory = bro.sessionHistory.QueryInterface(Components.interfaces.nsISHistoryInternal);
         return new mlalevic.Utils.HistoryUtility(internalHistory);
     }
 
     function getGBrowser(){
         return getBrowserWindow().gBrowser;
+    }
+
+    function getMyBrowser(){
+        return getGBrowser().getBrowserForDocument(document);
     }
 
 
@@ -804,7 +808,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
       var postData = null;
       [newUri, postData] = tryGetUrlForKeyword(aInput);
       if(newUri){
-          getBrowserWindow().getBrowserFromContentWindow(window).loadURI(newUri, null, postData, false);
+          getMyBrowser().loadURI(newUri, null, postData, false);
           return;
       }
 
@@ -1179,10 +1183,10 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
               return;
 
             if (useNewTab) {
-              gBrowser.loadOneTab(submission.uri.spec, null, null,
+              getGBrowser().loadOneTab(submission.uri.spec, null, null,
                                   submission.postData, null, false);
             } else
-              getBrowserWindow().getBrowserFromContentWindow(window).loadURI(submission.uri.spec, null, submission.postData, false);
+              getMyBrowser().loadURI(submission.uri.spec, null, submission.postData, false);
           }
 
           function showDefaultSearch(searchText){
@@ -1201,7 +1205,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
             if (!submission)
               return;
 
-            getBrowserWindow().getBrowserFromContentWindow(window).loadURI(submission.uri.spec, null, submission.postData, false);
+            getMyBrowser().loadURI(submission.uri.spec, null, submission.postData, false);
           }
 
           function showSearchNotice(searchTerm){
