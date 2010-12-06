@@ -875,10 +875,13 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
       //http://stackoverflow.com/questions/161738/what-is-the-best-regular-expression-to-check-if-a-string-is-a-valid-url
       var httpregex = /^(https?|ftp):\/\//i;
+      var aboutregex = /^about:/i;
       var urlregex= /^((https?|ftp):\/\/)?(([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+(:([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+)?@)?((([a-z0-9][a-z0-9-]*[a-z0-9]\.)+[a-z][a-z0-9-]*[a-z0-9]|((\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5])\.){3}(\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5]))(:\d+)?)(((\/+([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)*(\?([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?)?)?(#([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?$/i;
-      if(httpregex.test(aInput) || urlregex.test(aInput)){
-          if(!(/^(https?|ftp):\/\//i).test(aInput)){
-              aInput = 'http://' + aInput; //assume http
+      if(httpregex.test(aInput) || aboutregex.test(aInput) || urlregex.test(aInput)){
+          if(!httpregex.test(aInput)){
+              if(!aboutregex.test(aInput)){
+                aInput = 'http://' + aInput; //assume http
+              }
           }
           getGBrowser().userTypedValue = aInput;
           addToUrlbarHistory(aInput);
