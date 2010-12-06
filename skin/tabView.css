@@ -13,6 +13,16 @@
     margin-bottom: 5px;
 }
 
+.bookmarksToolbar
+{
+    /*-moz-box-flex: 1;*/
+    -moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#bookmarksToolbar");
+}
+
+.PlacesToolbarDropIndicator{
+    list-style-image: url("chrome://browser/skin/places/toolbarDropMarker.png");
+}
+
 .bookmarksBarContainer
 {
     margin-bottom: 15px;

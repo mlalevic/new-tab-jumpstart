@@ -23,3 +23,5 @@
 <!ENTITY bar.settings "Settings">
 <!ENTITY bar.thumbs "Configure number of thumbnails">
 <!ENTITY bar.toolbar "Configure toolbars">
+<!ENTITY bar.chevron "Show more bookmarks">
+<!ENTITY bar.button "Bookmarks Toolbar Items">

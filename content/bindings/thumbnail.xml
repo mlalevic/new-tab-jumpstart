@@ -601,5 +601,53 @@
         </implementation>
     </binding>
 
+    <binding id="bookmarksToolbar">
+        <content>
+                <xul:hbox flex="1"
+                      anonid="PlacesToolbar"
+                      context="placesContext"
+                      onclick="BookmarksEventHandler.onClick(event);"
+                      oncommand="BookmarksEventHandler.onCommand(event);"
+                      tooltip="bhTooltip"
+                      popupsinherittooltip="true">
+                  <xul:toolbarbutton class="bookmark-item bookmarks-toolbar-customize"
+                                 mousethrough="never"
+                                 label="&bar.button;"/>
+                  <xul:hbox flex="1">
+                    <xul:hbox align="center">
+                      <xul:image anonid="PlacesToolbarDropIndicator"
+                             class="PlacesToolbarDropIndicator"
+                             mousethrough="always"
+                             collapsed="true"/>
+                    </xul:hbox>
+                    <xul:scrollbox orient="horizontal"
+                               anonid="PlacesToolbarItems"
+                               flex="1"/>
+                    <xul:toolbarbutton type="menu"
+                                   anonid="PlacesChevron"
+                                   class="chevron"
+                                   mousethrough="never"
+                                   collapsed="true"
+                                   tooltiptext="&bar.chevron;"
+                                   >
+                      <xul:menupopup anonid="PlacesChevronPopup"
+                                 placespopup="true"
+                                 tooltip="bhTooltip" popupsinherittooltip="true"
+                                 context="placesContext"/>
+                    </xul:toolbarbutton>
+                  </xul:hbox>
+                </xul:hbox>
+        </content>
+        <implementation>
+          <constructor>
+            <![CDATA[
+              var chevron = document.getAnonymousElementByAttribute(this, 'anonid', 'PlacesChevron');
+              var toolbar = document.getAnonymousElementByAttribute(this, 'anonid', 'PlacesToolbar');
+              chevron.addEventListener('popupshowing', function(event){toolbar._placesView._onChevronPopupShowing(event);}, true);
+            ]]>
+          </constructor>
+        </implementation>
+    </binding>
+
 
 </bindings>
