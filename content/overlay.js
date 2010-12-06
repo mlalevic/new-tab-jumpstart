@@ -22,7 +22,7 @@ if(!mlalevic){mlalevic = {};}
 if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
 (function(){
-    var fennec = typeof(gBrowser) == "undefined";
+    var fennec = false;//typeof(gBrowser) == "undefined";
     var utils = {};
     var services = {}
     Components.utils.import("resource://modules/utils.js", utils);
@@ -631,6 +631,7 @@ var realTimeThumbsUpdates = {
         }
 
         navBar.insertItem("jumpStartOpenDialButton", document.getElementById("search-container"), null, false);
+        this._persist(navBar);
       },
 
       HideButton : function(){
@@ -641,9 +642,15 @@ var realTimeThumbsUpdates = {
         for(var i= 0; i < navBar.childNodes.length; i++){
           if(navBar.childNodes[i].id == "jumpStartOpenDialButton"){
             navBar.removeChild(navBar.childNodes[i]);
+            this._persist(navBar);
             return;
           }
         }
+      },
+      _persist : function(toolbar){
+        var currentSet = toolbar.currentSet;
+        toolbar.setAttribute("currentset", currentSet);
+        document.persist(toolbar.id, "currentset");
       }
   }
 /************************* Button Controller - End ***************************/
@@ -702,7 +709,7 @@ var realTimeThumbsUpdates = {
 
 var onInstall = {
     start : function(){
-        var ver = '', version = '0.5a5.4.1';
+        var ver = '', version = '0.5a5.4.2';
 
         var svc = Cc["@mozilla.org/preferences-service;1"]
                    .getService(Ci.nsIPrefService);
@@ -857,15 +864,3 @@ if(!fennec){
     window.setTimeout(onInstall.start, 0);
 }
 })();
-
-/*
-function ntjsOptions(){
-    try{
-        ntjsWin = window.openDialog('chrome://jumpstart/content/preferences.xul', 'JumStart Options', 'chrome,titlebar,toolbar,centerscreen,resizable');
-        ntjsWin.focus();
-    } catch (e) {
-        alert(e);
-    }
-    return true;
-}//ntjsOptions()
-*/

@@ -50,22 +50,8 @@ Contributor(s): Leszek(teo)Życzkowski
 
   <toolbarpalette id="BrowserToolbarPalette">
     <toolbarbutton id="jumpStartOpenDialButton" oncommand="mlalevic.JumpStart.onDialOpen();"
-        class="toolbarbutton-1"
+        class="toolbarbutton-1 chromeclass-toolbar-additional"
         label="&label;" tooltiptext="&tooltip;" />
-
-    <!--toolbarbutton
-      type="menu-button"
-      class="toolbarbutton-1 chromeclass-toolbar-additional"
-      label="&label;"
-      tooltiptext="&tooltip;"
-      oncommand="mlalevic.JumpStart.onDialOpen();">
-      <menupopup id="ntjs_menupopup">
-        <menuitem id="ntjs_preferences"
-          label="&options.label;"
-          tooltiptext="&options.tooltip;"
-          oncommand="ntjsOptions();"/>
-      </menupopup>
-    </toolbarbutton-->
   </toolbarpalette>
 
   <statusbar id="status-bar" class="chromeclass-status">
