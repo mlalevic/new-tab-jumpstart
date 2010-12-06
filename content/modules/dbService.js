@@ -53,14 +53,8 @@ let PlacesDb = {
   },
   
   _prepareStatement : function(aQuery){
-      var file = Components.classes["@mozilla.org/file/directory_service;1"]
-                     .getService(Components.interfaces.nsIProperties)
-                     .get("ProfD", Components.interfaces.nsIFile);
-      file.append("places.sqlite");
-
-      var storageService = Components.classes["@mozilla.org/storage/service;1"]
-                        .getService(Components.interfaces.mozIStorageService);
-      var mDBConn = storageService.openDatabase(file);
+      var mDBConn = Components.classes["@mozilla.org/browser/nav-history-service;1"].
+                    getService(Components.interfaces.nsPIPlacesDatabase).DBConnection;
 
       return mDBConn.createStatement(aQuery);
   }
