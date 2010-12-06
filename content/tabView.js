@@ -232,6 +232,45 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     var aSlide = null;
+    var newToolbars = false;
+
+    if(getBrowserWindow().PlacesViewBase){
+        newToolbars = true;
+        //var PlacesViewBase = getBrowserWindow().PlacesViewBase;
+
+        function CustomPlacesToolbar(aPlace, parent) {
+          // Add some smart getters for our elements.
+          let thisView = this;
+          [
+            ["_viewElt",              "PlacesToolbar"],
+            ["_rootElt",              "PlacesToolbarItems"],
+            ["_dropIndicator",        "PlacesToolbarDropIndicator"],
+            ["_chevron",              "PlacesChevron"],
+            ["_chevronPopup",         "PlacesChevronPopup"]
+          ].forEach(function (elementGlobal) {
+            let [name, id] = elementGlobal;
+            thisView.__defineGetter__(name, function () {
+              let element = document.getAnonymousElementByAttribute(parent, 'anonid', id);
+              if (!element)
+                return null;
+
+              delete thisView[name];
+              return thisView[name] = element;
+            });
+          });
+
+          this._viewElt._placesView = this;
+
+          this._addEventListeners(this._viewElt, this._cbEvents, false);
+          this._addEventListeners(this._rootElt, ["popupshowing", "popuphidden"], true);
+          this._addEventListeners(this._rootElt, ["overflow", "underflow"], true);
+          this._addEventListeners(window, ["resize", "unload"], false);
+
+          PlacesViewBase.call(this, aPlace);
+        }
+
+        CustomPlacesToolbar.prototype = PlacesToolbar.prototype;//getBrowserWindow().PlacesToolbar.prototype;
+    }
 
     var Show = function() {
         /*topDial.clearUrlBarForOurTab();
@@ -244,6 +283,14 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
         aSlide = new showDown('slideMenu');
         wireUpSearch();
         closeSearchNotice();
+
+        prepareEditMenu();
+    }
+
+    function prepareEditMenu(){
+        let placesContext = document.getElementById("placesContext");
+        placesContext.addEventListener("popupshowing", function(){goUpdateGlobalEditMenuItems();}, false);
+        placesContext.addEventListener("popuphiding", function(){goUpdateGlobalEditMenuItems();}, false);
     }
 
     function closeSearchNotice(){
@@ -371,17 +418,29 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                     var box = document.createElement('vbox');
                     box.setAttribute('class', 'bookmarksBar');
                     var stack = document.createElement('stack');
-                    var tlbr = document.createElement('hbox');
-                    tlbr.setAttribute('flex', '1');
-                    tlbr.setAttribute('type', 'places');
-                    tlbr.setAttribute('context', 'placesContext');
-                    tlbr.setAttribute('onclick', "BookmarksEventHandler.onClick(event);");
-                    tlbr.setAttribute('oncommand', "BookmarksEventHandler.onCommand(event);");
-                    tlbr.setAttribute('onpopupshowing', "BookmarksEventHandler.onPopupShowing(event);");
-                    tlbr.setAttribute('tooltip', "btTooltip");
-                    tlbr.setAttribute('place', place);
+                    stack.setAttribute('flex', '1');
 
-                    stack.appendChild(tlbr);
+                    if(newToolbars){
+                        var tlbr = document.createElement('hbox');
+                        tlbr.setAttribute('flex', '1');
+                        tlbr.setAttribute('class', 'bookmarksToolbar');
+                        stack.appendChild(tlbr);
+                        window.setTimeout(function(){new CustomPlacesToolbar(place, tlbr)}, 0);
+                    }
+                    else
+                    {
+                        var tlbr = document.createElement('hbox');
+                        tlbr.setAttribute('flex', '1');
+                        tlbr.setAttribute('type', 'places');
+                        tlbr.setAttribute('context', 'placesContext');
+                        tlbr.setAttribute('onclick', "BookmarksEventHandler.onClick(event);");
+                        tlbr.setAttribute('oncommand', "BookmarksEventHandler.onCommand(event);");
+                        tlbr.setAttribute('onpopupshowing', "BookmarksEventHandler.onPopupShowing(event);");
+                        tlbr.setAttribute('tooltip', "btTooltip");
+                        tlbr.setAttribute('place', place);
+
+                        stack.appendChild(tlbr);
+                    }
 
                     if(editMode){
                             var opacity = document.createElement('hbox');
@@ -408,13 +467,14 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                 var toolbar = this;
                     for(var i = 0; i < config.length; i++){
                             //utils.Binder.bindArguments(this, undoClosed, i)
-                            bar.appendChild(this.createToolbar(config[i], this.editMode,
+                            var child = this.createToolbar(config[i], this.editMode,
                                     (function(index){return function(){
                                         config.splice(index, 1);
                                         toolbar.reDraw();
                                         };
                                     })(i)
-                            ));
+                            );
+                            bar.appendChild(child);
                     }
             },
             clearToolbars : function(bar){
@@ -814,8 +874,9 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
 
       //http://stackoverflow.com/questions/161738/what-is-the-best-regular-expression-to-check-if-a-string-is-a-valid-url
+      var httpregex = /^(https?|ftp):\/\//i;
       var urlregex= /^((https?|ftp):\/\/)?(([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+(:([a-z0-9$_\.\+!\*\'\(\),;\?&=-]|%[0-9a-f]{2})+)?@)?((([a-z0-9][a-z0-9-]*[a-z0-9]\.)+[a-z][a-z0-9-]*[a-z0-9]|((\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5])\.){3}(\d|[1-9]\d|1\d{2}|2[0-4][0-9]|25[0-5]))(:\d+)?)(((\/+([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)*(\?([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?)?)?(#([a-z0-9$_\.\+!\*\'\(\),;:@&=-]|%[0-9a-f]{2})*)?$/i;
-      if(urlregex.test(aInput)){
+      if(httpregex.test(aInput) || urlregex.test(aInput)){
           if(!(/^(https?|ftp):\/\//i).test(aInput)){
               aInput = 'http://' + aInput; //assume http
           }
@@ -825,38 +886,9 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
           return;
       }
       //TODO: handle 404 - and revert back to search
-      //TODO: handle keywords
 
       showSearchNotice(aInput);
       showDefaultSearch(aInput);
-
-      /*var query = PlacesUtils.history.getNewQuery();
-      var options = PlacesUtils.history.getNewQueryOptions();
-      var historyTree = document.getElementById('historyTree');
-
-      var historyBox = document.getElementById('searchBox');
-      var mainBox = document.getElementById('mainBox');
-
-      historyBox.hidden = false;
-      mainBox.hidden = true;
-
-      const NHQO = Ci.nsINavHistoryQueryOptions;
-      var sortingMode;
-      var resultType;
-
-      if (aInput) {
-        query.searchTerms = aInput;
-        sortingMode = NHQO.SORT_BY_TITLE_ASCENDING;
-        resultType = NHQO.RESULTS_AS_URI;
-      }
-
-      options.sortingMode = sortingMode;
-      options.resultType = resultType;
-
-      // call load() on the tree manually
-      // instead of setting the place attribute in history-panel.xul
-      // otherwise, we will end up calling load() twice
-      historyTree.load([query], options);*/
     }
 
     mlalevic.JumpStart.TileContainerController = {
