@@ -23,3 +23,5 @@
 <!ENTITY bar.settings "Подешавања">
 <!ENTITY bar.thumbs "Подешавање броја сличица">
 <!ENTITY bar.toolbar "Подешавање трака забележака">
+<!ENTITY bar.chevron "Прикажи остале забелешке">
+<!ENTITY bar.button "Трака забележака">
