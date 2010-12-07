@@ -9,7 +9,6 @@ style	chrome://global/content/customizeToolbar.xul	chrome://jumpstart/skin/overl
 
 
 locale	jumpstart	en-US	locale/en-US/
-locale	jumpstart	en      locale/en/
 locale	jumpstart	sr      locale/sr/
 locale	jumpstart	ko-KR	locale/ko-KR/
 locale	jumpstart	hu-HU	locale/hu-HU/
