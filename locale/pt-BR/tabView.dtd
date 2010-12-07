@@ -17,9 +17,9 @@
 <!ENTITY notice.more_info "Mais informações">
 <!ENTITY notice.more_info_tooltip "Notas de atualização para esta versão">
 <!ENTITY notice.new_version "Nova versão instalada.">
-<!ENTITY notice.all_features "Todos feições">
-<!ENTITY notice.all_features_tooltip "Descrição de todos os New Tab JumpStart feições">
-<!ENTITY notice.close "Esconder este notícia">
+<!ENTITY notice.all_features "Todos os recursos">
+<!ENTITY notice.all_features_tooltip "Descrição de todos os recursos do New Tab JumpStart">
+<!ENTITY notice.close "Ocultar este aviso">
 <!ENTITY bar.settings "Opções">
 <!ENTITY bar.thumbs "Configura o número de miniaturas">
 <!ENTITY bar.toolbar "Configurar barras de ferramentas">
