@@ -20,9 +20,9 @@ Contributor(s):
 
 let EXPORTED_SYMBOLS = ["PlacesDb", "AnnoService", "BookmarksService", "HistoryService"];
 
-Components.utils.import("resource://modules/config.js");
-Components.utils.import("resource://modules/utils.js");
-Components.utils.import("resource://modules/window.js");
+Components.utils.import("resource://jumpstart/config.js");
+Components.utils.import("resource://jumpstart/utils.js");
+Components.utils.import("resource://jumpstart/window.js");
 
 
 let ioService = Components.classes["@mozilla.org/network/io-service;1"]

@@ -20,7 +20,7 @@ Contributor(s):
 
 let EXPORTED_SYMBOLS = ["FileService"];
 
-Components.utils.import("resource://modules/io.js");
+Components.utils.import("resource://jumpstart/io.js");
 
 let FileService = function(aFolderName, aFileName){
   var dir = DirIO.get(aFolderName);

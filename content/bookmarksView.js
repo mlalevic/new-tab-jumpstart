@@ -24,7 +24,7 @@ if (!mlalevic.JumpStart.Bookmarks) {mlalevic.JumpStart.Bookmarks = {};}
 
 (function(){
     var services = {};
-    Components.utils.import("resource://modules/dbService.js", services);
+    Components.utils.import("resource://jumpstart/dbService.js", services);
     var b = services.BookmarksService;
     var limit = 20;
 

@@ -40,7 +40,7 @@ if (!mlalevic.JumpStart.Model) {
 (function(){
     var model = mlalevic.JumpStart.Model;
     var services = {};
-    Components.utils.import("resource://modules/dbService.js", services);
+    Components.utils.import("resource://jumpstart/dbService.js", services);
 
     function makeURI(aURL, aOriginCharset, aBaseURI) {
              var ioService = Components.classes["@mozilla.org/network/io-service;1"]

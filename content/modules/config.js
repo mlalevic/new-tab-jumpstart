@@ -21,8 +21,8 @@ let EXPORTED_SYMBOLS = ["JumpstartConfiguration"];
 
 let configChanged = "mlalevic.JumpStart.configChanged";
 
-Components.utils.import("resource://modules/Preferences.js");
-Components.utils.import("resource://modules/Observers.js");
+Components.utils.import("resource://jumpstart/Preferences.js");
+Components.utils.import("resource://jumpstart/Observers.js");
 
 let JumpstartPrefs = function(){
   this.prefBranch = new Preferences('mlalevic.jumpstart.');

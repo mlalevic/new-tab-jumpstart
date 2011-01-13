@@ -27,11 +27,11 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 (function(){
     var utils = mlalevic.Utils;
     var services = {}
-    Components.utils.import("resource://modules/Observers.js", utils);
-    Components.utils.import("resource://modules/utils.js", utils);
-    Components.utils.import("resource://modules/config.js", services);
-    Components.utils.import("resource://modules/browserServices.js", services);
-    Components.utils.import("resource://modules/dbService.js", services);
+    Components.utils.import("resource://jumpstart/Observers.js", utils);
+    Components.utils.import("resource://jumpstart/utils.js", utils);
+    Components.utils.import("resource://jumpstart/config.js", services);
+    Components.utils.import("resource://jumpstart/browserServices.js", services);
+    Components.utils.import("resource://jumpstart/dbService.js", services);
 
     var Config;
     Config = services.JumpstartConfiguration;

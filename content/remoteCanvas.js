@@ -27,9 +27,9 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
     var utils = {}
     //import browserServices - we are using browserServices to load data from files
     //   we are using config and load data from database services too
-    Components.utils.import("resource://modules/config.js", services);
-    Components.utils.import("resource://modules/browserServices.js", services);
-    Components.utils.import("resource://modules/utils.js", utils);
+    Components.utils.import("resource://jumpstart/config.js", services);
+    Components.utils.import("resource://jumpstart/browserServices.js", services);
+    Components.utils.import("resource://jumpstart/utils.js", utils);
 
     //create namespaces
     //var ui = utils.Namespace.get(window, "mlalevic.JumpStart.UI");

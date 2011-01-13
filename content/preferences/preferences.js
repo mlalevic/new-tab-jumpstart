@@ -24,9 +24,9 @@ if (!mlalevic.JumpStart.Preferences) { mlalevic.JumpStart.Preferences = {}; }
 if (!mlalevic.JumpStart.Services) { mlalevic.JumpStart.Services = {}; }
 
 
-Components.utils.import("resource://modules/config.js", mlalevic.JumpStart.Services);
-Components.utils.import("resource://modules/browserServices.js", mlalevic.JumpStart.Services);
-Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Services);
+Components.utils.import("resource://jumpstart/config.js", mlalevic.JumpStart.Services);
+Components.utils.import("resource://jumpstart/browserServices.js", mlalevic.JumpStart.Services);
+Components.utils.import("resource://jumpstart/dbService.js", mlalevic.JumpStart.Services);
 
 (function() {
     var Preferences = mlalevic.JumpStart.Preferences;
@@ -251,7 +251,7 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
       },
       populateRemovedData : function(){
             var services = {};
-            Components.utils.import("resource://modules/dbService.js", services);
+            Components.utils.import("resource://jumpstart/dbService.js", services);
 
             var properties = services.AnnoService.getProperties();
             var removed = properties.filter(function(element){return element.removed;});
@@ -269,7 +269,7 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
       },
       populateTackedData : function(){
             var services = {};
-            Components.utils.import("resource://modules/dbService.js", services);
+            Components.utils.import("resource://jumpstart/dbService.js", services);
 
             var properties = services.AnnoService.getProperties();
             var pinned = properties.filter(function(element){return element.pinned;});
@@ -287,7 +287,7 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
       },
       undoRemoved : function(){
         var services = {};
-        Components.utils.import("resource://modules/dbService.js", services);
+        Components.utils.import("resource://jumpstart/dbService.js", services);
 
         var list = document.getElementById('removedItems');
         var selectedItems = list.selectedItems;
@@ -307,7 +307,7 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
       },
       undoTacked : function(){
         var services = {};
-        Components.utils.import("resource://modules/dbService.js", services);
+        Components.utils.import("resource://jumpstart/dbService.js", services);
 
         var list = document.getElementById('tackedItems');
         var selectedItems = list.selectedItems;
@@ -328,8 +328,8 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
       },
       processSitesTextBox : function(handleProperty, getProperty, postProcess){
         var Services = {};
-        Components.utils.import("resource://modules/dbService.js", Services);
-        Components.utils.import("resource://modules/browserServices.js", Services);
+        Components.utils.import("resource://jumpstart/dbService.js", Services);
+        Components.utils.import("resource://jumpstart/browserServices.js", Services);
 
         var fullText = document.getElementById('newTackedBlocked').value;
         var items = fullText.split("\r\n");
@@ -392,7 +392,7 @@ Components.utils.import("resource://modules/dbService.js", mlalevic.JumpStart.Se
       },
       tackSites : function(){
         var Services = {};
-        Components.utils.import("resource://modules/dbService.js", Services);
+        Components.utils.import("resource://jumpstart/dbService.js", Services);
         var getData = function(){
             var properties = Services.AnnoService.getProperties();
             var result = properties.filter(function(element){return !element.removed;});

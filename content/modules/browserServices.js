@@ -20,12 +20,12 @@ Contributor(s):
 
 let EXPORTED_SYMBOLS = ["BrowserServices", "Logger"];
 
-Components.utils.import("resource://modules/dbService.js");
-Components.utils.import("resource://modules/fileService.js");
-Components.utils.import("resource://modules/utils.js");
-Components.utils.import("resource://modules/window.js");
-Components.utils.import("resource://modules/Observers.js");
-Components.utils.import("resource://modules/config.js");
+Components.utils.import("resource://jumpstart/dbService.js");
+Components.utils.import("resource://jumpstart/fileService.js");
+Components.utils.import("resource://jumpstart/utils.js");
+Components.utils.import("resource://jumpstart/window.js");
+Components.utils.import("resource://jumpstart/Observers.js");
+Components.utils.import("resource://jumpstart/config.js");
 
 let ProfileDirectory = 'ProfD';
 let configChanged = "mlalevic.JumpStart.configChanged";
