@@ -25,6 +25,8 @@ if (!mlalevic.JumpStart.Bookmarks) {mlalevic.JumpStart.Bookmarks = {};}
 (function(){
     var services = {};
     Components.utils.import("resource://jumpstart/dbService.js", services);
+    Components.utils.import("resource://jumpstart/config.js", services);
+    var Config = services.JumpstartConfiguration;
     var b = services.BookmarksService;
     var limit = 20;
 
@@ -104,6 +106,21 @@ if (!mlalevic.JumpStart.Bookmarks) {mlalevic.JumpStart.Bookmarks = {};}
     var start = function(){
         showTags();
         showUnfiltered();
+        setBackgroundProperties();
+    }
+
+    function setBackgroundProperties(){
+        if(Config.BackgroundColor != ''){
+            document.getElementById("mainBox").style.backgroundColor = Config.BackgroundColor;
+        }
+
+        if(Config.BackgroundImage != ''){
+            var imageUrl = Config.BackgroundImage;
+            if(!imageUrl.match(/^url\(/i)){
+                imageUrl = "url(" + imageUrl + ")";
+            }
+            document.getElementById("mainBox").style.backgroundImage = imageUrl;
+        }
     }
 
     var TagClicked = function(tag) {

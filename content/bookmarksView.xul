@@ -34,7 +34,7 @@ Contributor(s): Leszek(teo)Życzkowski
          >
   
   <script type="application/x-javascript" src="bookmarksView.js" />
-  <vbox flex="1" style="overflow:auto;">
+  <vbox id="mainBox" flex="1" style="overflow:auto;">
       <hbox flex="1" id="content">
           <vbox id="latestBookmarksContainer" class="contentContainer">
                 <label class="title" value="&latest;" />
