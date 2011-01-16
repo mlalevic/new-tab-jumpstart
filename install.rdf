@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>jumpstart@mihailo.lalevic</em:id>
-    <em:version>0.5a5.4.2</em:version>
+    <em:version>0.5a5.4.3</em:version>
     <em:name>New Tab JumpStart</em:name>
     <em:description>Helps you jumpstart your web experience by changing the empty screen of a new tab with preview of the most frequently used sites, latest bookmarks, searches and recently closed tabs.</em:description>
     <em:creator>Mihailo Lalevic</em:creator>

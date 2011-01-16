@@ -709,7 +709,7 @@ var realTimeThumbsUpdates = {
 
 var onInstall = {
     start : function(){
-        var ver = '', version = '0.5a5.4.2';
+        var ver = '', version = '0.5a5.4.3';
 
         var svc = Cc["@mozilla.org/preferences-service;1"]
                    .getService(Ci.nsIPrefService);
