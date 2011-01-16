@@ -1,0 +1,25 @@
+<!ENTITY title "Nowa karta">
+<!ENTITY mostVisited "Często odwiedzane">
+<!ENTITY menu.showOnNewTab "Włącz JumpStart dla przycisku Otwórz w nowej karcie">
+<!ENTITY menu.showOnStartup "Wyświetlaj kartę JumpStart przy uruchamianiu">
+<!ENTITY menu.showToolbarButton "Wyświetlaj przycisk narzędziowy">
+<!ENTITY menu.showInHistory "Wyświetlaj zamkniętą kartę JumpStar w historii">
+<!ENTITY menu.bigThumbs "Duże miniatury">
+<!ENTITY menu.moreOptions "Więcej opcji…">
+<!ENTITY search.emptyText "Historia wyszukiwania">
+<!ENTITY recentBookmarks.recent "Ostatnie">
+<!ENTITY recentBookmarks.tooltip "Więcej zakładek">
+<!ENTITY recentBookmarks.linkText "Zakładki">
+<!ENTITY recentlyClosed "Ostatnio zamknięte">
+<!ENTITY search "Szukaj">
+<!ENTITY search2.emptyText "Historia wyszukiwania">
+<!ENTITY back "Wróć do widoku miniatur">
+<!ENTITY notice.more_info "Więcej informacji">
+<!ENTITY notice.more_info_tooltip "Informacje o zmianach w tej wersji">
+<!ENTITY notice.new_version "Nowa wersja została zainstalowana.">
+<!ENTITY notice.all_features "Wszystkie funkcje">
+<!ENTITY notice.all_features_tooltip "Opis wszystkich funkcji New Tab JumpStart">
+<!ENTITY notice.close "Nie wyświetlaj tej wiadomości">
+<!ENTITY bar.settings "Ustawienia">
+<!ENTITY bar.thumbs "Konfiguruj liczbę miniatur">
+<!ENTITY bar.toolbar "Konfiguruj paski">
