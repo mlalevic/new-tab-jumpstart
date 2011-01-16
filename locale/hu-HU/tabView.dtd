@@ -23,3 +23,5 @@
 <!ENTITY bar.settings "Beállítások">
 <!ENTITY bar.thumbs "Gyorskép számának beállítása">
 <!ENTITY bar.toolbar "Eszköztár beállításai">
+<!ENTITY bar.chevron "További könyvjelzők megjelenítése">
+<!ENTITY bar.button "Könyvjelzők eszköztár elemek">
