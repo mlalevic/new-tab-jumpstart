@@ -1201,6 +1201,46 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
      }
 
 
+     mlalevic.JumpStart.openInNewCandy = function(){
+        var TabView = getBrowserWindow().TabView;
+        var node = document.popupNode;
+        var placesNode = node._placesNode || node.parentNode._placesNode || null;
+        
+        if(!TabView._window){
+            TabView._initFrame(null);
+        }
+
+        var cnt = 0;
+        let Items = TabView._window.Items;
+
+        var continuation = function(){
+            while(cnt < 10 && !(Items)){
+                cnt ++;
+                Items = TabView._window.Items;
+                window.setTimeout(continuation, 100);
+                return;
+            }//effectively wait up to a second (this will only happen on the first _initFrame)
+
+            if(!Items) return;
+            var GroupItem = TabView._window.GroupItem;
+            var Rect = TabView._window.Rect;
+            var GroupItems = TabView._window.GroupItems;
+            let pageBounds = Items.getPageBounds();
+            pageBounds.inset(20, 20);
+
+            let box = new Rect(pageBounds);
+            box.width = 250;
+            box.height = 200;
+
+            var g = new GroupItem([], { bounds: box });
+            GroupItems.setActiveGroupItem(g);
+            if (placesNode && PlacesUtils.nodeIsContainer(placesNode))
+                PlacesUIUtils.openContainerNodeInTabs(placesNode, {ctrlKey : true, shiftKey : false, metaKey : false, altKey: false}); //ctrlKey = true is set to open all in a separate tab (this is passed in instead of event)
+        }
+        continuation();
+     }
+
+
 
      function the_search(engineName, searchText, useNewTab) {
             var ss = Components.classes["@mozilla.org/browser/search-service;1"].

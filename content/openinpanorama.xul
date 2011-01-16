@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://jumpstart/locale/tabView.dtd">
+
+<overlay id="openinpanorama"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <menupopup id="placesContext">
+      <menuitem id="jumpstart_placesContext_openContainerTabCandy:tabs"
+          oncommand="mlalevic.JumpStart.openInNewCandy(event);"
+          onclick="checkForMiddleClick(this, event);"
+          label="&newPanoramaGroup;"
+          accesskey="&newPanoramaGroup.accesskey;"
+          selectiontype="single"
+          selection="folder|host|query"
+          insertafter="placesContext_openContainer:tabs"
+          />
+  </menupopup>
+</overlay>

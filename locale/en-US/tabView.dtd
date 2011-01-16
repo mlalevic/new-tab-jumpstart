@@ -25,3 +25,5 @@
 <!ENTITY bar.toolbar "Configure toolbars">
 <!ENTITY bar.chevron "Show more bookmarks">
 <!ENTITY bar.button "Bookmarks Toolbar Items">
+<!ENTITY newPanoramaGroup "Open All in New Tab Group">
+<!ENTITY newPanoramaGroup.accesskey "G">

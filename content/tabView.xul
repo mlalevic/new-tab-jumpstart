@@ -61,7 +61,7 @@ Christopher Cook (beerfan@gmail.com)
   <keyset id="editMenuKeys">
   </keyset>
 
-  <menupopup id="placesContext"/>
+  <menupopup id="placesContext" />
 
   <notificationbox flex="1" id="notification">
       <notification id="whatsNew" label="&notice.new_version;" image="chrome://jumpstart/skin/img/JumpStart32.png" type="info" value="jumpstart_notice">
