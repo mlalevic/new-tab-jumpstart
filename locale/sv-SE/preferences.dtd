@@ -1,0 +1,15 @@
+<!ENTITY title "Inställningar för New Tab JumpStart">
+<!ENTITY tabName "Allmänt">
+<!ENTITY onnewtab "Visa i ny flik">
+<!ENTITY showinhistory "Visa JumpStart i Historik">
+<!ENTITY showbutton "Visa verktygsfältsknappen">
+<!ENTITY showstatusbarbutton "Visa statusfältknappen">
+<!ENTITY onstartup "Visa vid programstart">
+<!ENTITY title.thumbs "Miniatyrer">
+<!ENTITY title.info "Info">
+<!ENTITY focus_search "Fokusera på sökrutan">
+<!ENTITY slide_menu "Bildspelsmenyalternativ">
+<!ENTITY slide_speed "Hastighet (lägre är snabbare)">
+<!ENTITY slide_step "Antal pixlar per intervall (högre är snabbare)">
+<!ENTITY recently_closed_count "Antal nyligen stängda som skall visas">
+<!ENTITY recent_bookmarks_count "Antal senaste bokmärken som skall visas">

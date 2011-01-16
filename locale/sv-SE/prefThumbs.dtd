@@ -1,0 +1,11 @@
+<!ENTITY title "Miniatyrer">
+<!ENTITY big_thumbs "Stora miniatyrer">
+<!ENTITY small_thumbs "Små miniatyrer">
+<!ENTITY show_bookmarks "Visa bokmärkesfältet">
+<!ENTITY show_sidebar "Visa sidpanelen">
+<!ENTITY bkg_color "Bakgrundsfärg:">
+<!ENTITY bkg_color_empty "färgnamn eller -kod">
+<!ENTITY bkg_img "Bakgrundsbild:">
+<!ENTITY bkg_img_empty "ange bild-URL eller klicka på &quot;Välj bild&quot;">
+<!ENTITY pick_img "Välj bild">
+<!ENTITY bookmarks_top "Placera bokmärkesfältet överst">

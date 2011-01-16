@@ -1,0 +1,15 @@
+<!ENTITY title "Info">
+<!ENTITY required "Obligatorisk konfiguration">
+<!ENTITY compatibility "Kompatibilitetsinformation">
+<!ENTITY loglevel "Loggningsnivå:">
+<!ENTITY full "Fullständig loggning">
+<!ENTITY relevant "Alla relevanta händelser">
+<!ENTITY warning "Fel och varningar">
+<!ENTITY error "Endast fel">
+<!ENTITY critical "Endast allvarliga fel">
+<!ENTITY blocked "Blockerade objekt">
+<!ENTITY remove_selected "Ta bort markerade">
+<!ENTITY tacked "Fastnålade objekt">
+<!ENTITY tack_block "Nåla fast/Blockera">
+<!ENTITY block_sites "Blockera webbplatser">
+<!ENTITY tack_sites "Nåla fast webbplatser">

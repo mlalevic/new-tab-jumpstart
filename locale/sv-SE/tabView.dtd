@@ -1,0 +1,27 @@
+<!ENTITY title "Ny flik">
+<!ENTITY mostVisited "Mest besökta">
+<!ENTITY menu.showOnNewTab "Visa i ny flik">
+<!ENTITY menu.showOnStartup "Visa vid programstart">
+<!ENTITY menu.showToolbarButton "Visa verktygsfältsknappen">
+<!ENTITY menu.showInHistory "Visa i historiken">
+<!ENTITY menu.bigThumbs "Stora miniatyrer">
+<!ENTITY menu.moreOptions "Fler alternativ...">
+<!ENTITY search.emptyText "Sökhistorik">
+<!ENTITY recentBookmarks.recent "Senaste">
+<!ENTITY recentBookmarks.tooltip "Fler bokmärken">
+<!ENTITY recentBookmarks.linkText "Bokmärken">
+<!ENTITY recentlyClosed "Nyligen stängda">
+<!ENTITY search "Sök">
+<!ENTITY search2.emptyText "Sökhistorik">
+<!ENTITY back "Tillbaka till miniatyrvyn">
+<!ENTITY notice.more_info "Ändringar i den här versionen">
+<!ENTITY notice.more_info_tooltip "Versionsinformation för den här versionen">
+<!ENTITY notice.new_version "Ny version installerad.">
+<!ENTITY notice.all_features "Alla funktioner">
+<!ENTITY notice.all_features_tooltip "Beskrivning över alla New Tab JumpStarts funktioner">
+<!ENTITY notice.close "Göm det här meddelandet">
+<!ENTITY bar.settings "Inställningar">
+<!ENTITY bar.thumbs "Ställ in antalet miniatyrer">
+<!ENTITY bar.toolbar "Konfigurera verktygsfält">
+<!ENTITY bar.chevron "Visa fler bokmärken">
+<!ENTITY bar.button "Bokmärkesfältsobjekt">

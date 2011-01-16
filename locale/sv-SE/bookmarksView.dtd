@@ -1,0 +1,9 @@
+<!ENTITY title "Bokmärken - Snabbstart">
+<!ENTITY latest "Senaste">
+<!ENTITY recent "Senast besökta">
+<!ENTITY frequent "Mest använda">
+<!ENTITY tags "Taggar">
+<!ENTITY tagNotice "Du har inga bokmärkestaggar. Taggning av bokmärken hjälper dig att organisera dina bokmärken bättre. Börja tagga dina bokmärken">
+<!ENTITY tagsLink "http://support.mozilla.com/sv-SE/kb/Bookmark+Tags">
+<!ENTITY tagsNow "nu!">
+<!ENTITY tagNoticeAfterLink "">
