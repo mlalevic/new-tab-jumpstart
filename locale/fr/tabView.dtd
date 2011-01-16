@@ -23,3 +23,5 @@
 <!ENTITY bar.settings "Paramètres">
 <!ENTITY bar.thumbs "Configurer le nombre de vignettes">
 <!ENTITY bar.toolbar "Configurer les barres d'outils">
+<!ENTITY bar.chevron "Afficher davantage de marque-pages">
+<!ENTITY bar.button "Éléments de la barre des marque-pages">
