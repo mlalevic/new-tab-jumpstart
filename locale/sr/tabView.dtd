@@ -25,3 +25,5 @@
 <!ENTITY bar.toolbar "Подешавање трака забележака">
 <!ENTITY bar.chevron "Прикажи остале забелешке">
 <!ENTITY bar.button "Трака забележака">
+<!ENTITY newPanoramaGroup "Отвори све у новој групи језичака">
+<!ENTITY newPanoramaGroup.accesskey "Г">

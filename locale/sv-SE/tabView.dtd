@@ -25,3 +25,5 @@
 <!ENTITY bar.toolbar "Konfigurera verktygsfält">
 <!ENTITY bar.chevron "Visa fler bokmärken">
 <!ENTITY bar.button "Bokmärkesfältsobjekt">
+<!ENTITY newPanoramaGroup "Öppna alla i ny flikgrupp">
+<!ENTITY newPanoramaGroup.accesskey "Ö">

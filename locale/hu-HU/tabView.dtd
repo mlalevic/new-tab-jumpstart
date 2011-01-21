@@ -25,3 +25,5 @@
 <!ENTITY bar.toolbar "Eszköztár beállításai">
 <!ENTITY bar.chevron "További könyvjelzők megjelenítése">
 <!ENTITY bar.button "Könyvjelzők eszköztár elemek">
+<!ENTITY newPanoramaGroup "Mindegyik megnyitása egy Új lap csoportban">
+<!ENTITY newPanoramaGroup.accesskey "j">

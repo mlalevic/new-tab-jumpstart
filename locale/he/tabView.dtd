@@ -18,10 +18,12 @@
 <!ENTITY notice.more_info_tooltip "הערות שחרור לגרסה זו">
 <!ENTITY notice.new_version "גרסה חדשה הותקנה.">
 <!ENTITY notice.all_features "כל המאפיינים">
-<!ENTITY notice.all_features_tooltip "תיאור כל המאפיינים של JumpStart">
+<!ENTITY notice.all_features_tooltip "תיאור כל המאפיינים של New Tab JumpStart">
 <!ENTITY notice.close "הסתרת הודעה זו">
 <!ENTITY bar.settings "הגדרות">
 <!ENTITY bar.thumbs "הגדרת מספר התמונות הממוזערות">
 <!ENTITY bar.toolbar "הגדרת סרגלי כלים">
 <!ENTITY bar.chevron "הצגת סימניות נוספות">
 <!ENTITY bar.button "פריטי סרגל-כלים הסימניות">
+<!ENTITY newPanoramaGroup "פתיחת כל קבוצת הלשוניות החדשה">
+<!ENTITY newPanoramaGroup.accesskey "פ">

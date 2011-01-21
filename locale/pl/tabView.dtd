@@ -23,3 +23,7 @@
 <!ENTITY bar.settings "Ustawienia">
 <!ENTITY bar.thumbs "Konfiguruj liczbę miniatur">
 <!ENTITY bar.toolbar "Konfiguruj paski">
+<!ENTITY bar.chevron "Wyświetl więcej zakładek">
+<!ENTITY bar.button "Elementy paska zakładek">
+<!ENTITY newPanoramaGroup "Otwórz wszystkie w nowej grupie kart">
+<!ENTITY newPanoramaGroup.accesskey "G">
