@@ -308,6 +308,8 @@ var SnapshotComponent = {
 
 /**************************  New tab loader  ******************************/
     var newTabLoader = {
+        _stop : false,
+        stopOnce: function(){this._stop = true;},
         start : function(){
             var container = gBrowser.tabContainer;
             if(Config.HookUpNewTab){
@@ -316,6 +318,7 @@ var SnapshotComponent = {
         },
 
         tabAdded: function(event) {
+            if(this._stop){this._stop = false; return;}
             if (event.target.linkedBrowser.userTypedValue === null) {
                 event.target.linkedBrowser.loadURI(tabViewUrl);
             }
@@ -339,6 +342,14 @@ var SnapshotComponent = {
 
     tabClosed: function(event) {
       this.refreshClosed();
+      this.markIfLast();
+    },
+
+    markIfLast: function(){
+      if(Config.ShowOnLastTab){return;}
+      if(gBrowser.tabContainer.itemCount == 1){ //the last to be closed
+        newTabLoader.stopOnce();
+      }
     },
 
     refreshClosed: function(){

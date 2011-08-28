@@ -59,6 +59,7 @@ JumpstartPrefs.prototype = {
   BackgroundImage: '',
   TopToolbars: '',
   BottomToolbars: '',
+  ShowOnLastTab: false,
   Thumbs : {
     ShowSmallThumbs: false,
     MinCount : 6,
@@ -100,6 +101,7 @@ JumpstartPrefs.prototype = {
     this.BackgroundImage = this.prefBranch.get("bkg_image", this.BackgroundImage);
     this.TopToolbars = this.prefBranch.get("top_toolbars", this.TopToolbars);
     this.BottomToolbars = this.prefBranch.get("bottom_toolbars", this.BottomToolbars);
+    this.ShowOnLastTab = this.prefBranch.get("show_on_last_tab", this.ShowOnLastTab);
 
 
 

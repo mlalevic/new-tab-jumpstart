@@ -35,4 +35,5 @@ pref("mlalevic.jumpstart.thumbs.ShowSmallThumbs", false); //show small thumbs
 pref("mlalevic.jumpstart.permanent_properties", true); //defines whether to permanently store jumpstart properties in places db
 pref("mlalevic.jumpstart.permanent_thumbs", false); //defines whether to permanently store thumbnails
 
-pref("mlalevic.jumpstart.improved_refresh", true); //experimental improved refresh using mozafterpaint
+pref("mlalevic.jumpstart.improved_refresh", true); //improved refresh using mozafterpaint
+pref("mlalevic.jumpstart.show_on_last_tab", false); //show on last tab - this is for last tab close extension support
