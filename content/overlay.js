@@ -22,7 +22,6 @@ if(!mlalevic){mlalevic = {};}
 if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
 (function(){
-    var fennec = false;//typeof(gBrowser) == "undefined";
     var utils = {};
     var services = {}
     Components.utils.import("resource://jumpstart/utils.js", utils);
@@ -159,28 +158,6 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
             gBrowser.removeProgressListener(ClearUrlComponentListener);
         }
     }
-
-    //no need to use this
-    /*var ClearUrlComponent_fennec = {
-        start: function() {
-            var tabs = document.getElementById("tabs");
-            tabs.addEventListener("TabOpen", function(event){
-                let tab = Browser.getTabFromContent(event.originalTarget);
-                if(!tab){return;}
-                
-                let browser = tab.browser;
-                if(!browser){return;}
-
-                browser.addProgressListener(
-                    ClearUrlComponentListener,
-                    Ci.nsIWebProgress.NOTIFY_STATE_DOCUMENT
-                );
-            }, false);
-        },
-        stop: function() {
-            //still have to figure out how to fix this
-        }
-    }*/
 /***************  clear url components - End ********************/
 
 /*************** Snapshot component - refreshes thumb on visit  ***********************/
@@ -329,33 +306,6 @@ var SnapshotComponent = {
         }
     }
 
-
- var SnapshotComponent_fennec = {
-        start: function() {
-            /*gBrowser.addProgressListener(
-                SnapshotComponentListener,
-                Ci.nsIWebProgress.NOTIFY_STATE_WINDOW
-            );*/
-
-            var tabs = document.getElementById("tabs");
-            tabs.addEventListener("TabOpen", function(event){
-                let tab = Browser.getTabFromContent(event.originalTarget);
-                if(!tab){return;}
-
-                let browser = tab.browser;
-                if(!browser){return;}
-
-                browser.addProgressListener(
-                    SnapshotComponentListener,
-                    Ci.nsIWebProgress.NOTIFY_STATE_WINDOW
-                );
-            }, false);
-        },
-        stop: function() {
-            //gBrowser.removeProgressListener(SnapshotComponentListener);
-        }
-    }
-
 /**************************  New tab loader  ******************************/
     var newTabLoader = {
         start : function(){
@@ -368,28 +318,6 @@ var SnapshotComponent = {
         tabAdded: function(event) {
             if (event.target.linkedBrowser.userTypedValue === null) {
                 event.target.linkedBrowser.loadURI(tabViewUrl);
-            }
-        }
-    }
-
-    var newTabLoader_fennec = {
-        start : function(){
-            var container = document.getElementById("tabs");
-
-            if(Config.HookUpNewTab){
-                container.addEventListener("TabOpen", utils.Binder.bind(this, this.tabAdded), false);
-            }
-        },
-
-        tabAdded: function(event) {
-            let tab = Browser.getTabFromContent(event.originalTarget);
-            if(!tab){return;}
-
-            let browser = tab.browser;
-            if(!browser){return;}
-
-            if (browser.userTypedValue === null) {
-                browser.loadURI(tabViewUrl);
             }
         }
     }
@@ -825,15 +753,10 @@ var startAll = function(){
         window.removeEventListener("load", startAll, false);
 
 
-        if(fennec){
-            newTabLoader_fennec.start();
-            SnapshotComponent_fennec.start();
-        }else{
-            ClearUrlComponent.start();
-            newTabLoader.start();
-            SnapshotComponent.start();
-            closedTabState.start();
-        }
+        ClearUrlComponent.start();
+        newTabLoader.start();
+        SnapshotComponent.start();
+        closedTabState.start();
 
         if(!services.BrowserServices.initialized){
             thumbsLoader.start();
@@ -860,7 +783,5 @@ var startAll = function(){
 
 uiService.start();
 window.addEventListener("load", startAll, false);
-if(!fennec){
-    window.setTimeout(onInstall.start, 0);
-}
+window.setTimeout(onInstall.start, 0);
 })();
