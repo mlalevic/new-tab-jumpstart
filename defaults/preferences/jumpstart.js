@@ -20,7 +20,7 @@ pref("mlalevic.jumpstart.persist_in_history", false); //should we persist tabVie
 pref("mlalevic.jumpstart.on_tabview_close_purge", true); //if the last visited page is tabView should we purge history completely (true) or we should just remove the tabView if persist is false (false)
 
 pref("mlalevic.jumpstart.show_bookmarks_toolbar", true);
-pref("mlalevic.jumpstart.top_toolbars", "");
+pref("mlalevic.jumpstart.top_toolbars", "place:folder=TOOLBAR");
 pref("mlalevic.jumpstart.bottom_toolbars", "");
 pref("mlalevic.jumpstart.show_notice", true);
 pref("mlalevic.jumpstart.show_sidebar", true);
