@@ -395,6 +395,7 @@ var bookmarkListener = {
   onItemChanged: function(aBookmarkId, aProperty, aIsAnnotationProperty, aValue) {},
   onItemVisited: function(aBookmarkId, aVisitID, time) {},
   onItemMoved: function(aItemId, aOldParent, aOldIndex, aNewParent, aNewIndex) {},
+  onBeforeItemRemoved: function(){},
   QueryInterface: function(aIID) {
             if (aIID.equals(Ci.nsINavBookmarkObserver) ||
                 aIID.equals(Ci.nsISupports))
