@@ -213,10 +213,10 @@
 
   <binding id="siteTile">
     <content>
-        <xul:hbox class="head">
+        <xul:hbox class="head"><html:div>
           <html:img anonid="img" />
           <html:a anonid="url" class="thumblink" />
-        </xul:hbox>
+        </html:div></xul:hbox>
         <html:div class="image">
           <html:a href="#" class="thumbImageUrl">
             <html:img class="thumbImage" />
@@ -294,7 +294,7 @@
             a.setAttribute("title",  ((!thumbData.title) ? url : thumbData.title));
             header.setAttribute("tooltiptext", ((!thumbData.title)? url : thumbData.title));
 
-            a.addEventListener("click", followedPageHandler, true);
+            //a.addEventListener("click", followedPageHandler, true);
 
             if(thumbData.thumb != ''){
                 image.src = thumbData.thumb;
@@ -309,7 +309,7 @@
             }
             imageAnchor.href = url;
 
-            imageAnchor.addEventListener("click", followedPageHandler, true);
+            //imageAnchor.addEventListener("click", followedPageHandler, true);
 
             this.hookUpButtons();
             this.refreshButtonStatus();
@@ -446,6 +446,10 @@
       <handler event="mouseout">
         this.handleMouseOut();
       </handler>
+      <handler event="click">
+        PlacesUIUtils.markPageAsTyped(this.url);
+        window.setTimeout(window.openUILink(this.url, event), 0);
+      </handler>
     </handlers>
   </binding>
 
@@ -481,7 +485,7 @@
         <parameter name="onClickHandler" />
         <body>
           <![CDATA[
-            document.getAnonymousNodes(this)[0].draw(href, text, faviconUrl, onClickHandler);
+            document.getAnonymousNodes(this)[0].draw(href, text, faviconUrl, null);
           ]]>
         </body>
       </method>
@@ -515,13 +519,20 @@
       </method>
       <method name="clickHandler">
         <body>
-            if(this.onClick)
-                this.onClick();
+            //if(this.onClick)
+            //    this.onClick();
         </body>
       </method>
     </implementation>
     <handlers>
-      <handler event="click" action="this.clickHandler()" />
+      <handler event="click">
+          if(this.onClick){
+             this.onClick();
+          }else{
+             PlacesUIUtils.markPageAsTyped(this.href);
+             window.setTimeout(window.openUILink(this.href, event), 0);
+          }
+      </handler>
       <handler event="mouseover" action="window.status=this.href" />
       <handler event="focus" action="window.status=this.href" />
       <handler event="mouseout" action="window.status=''" />
@@ -606,8 +617,8 @@
                 <xul:hbox flex="1"
                       anonid="PlacesToolbar"
                       context="placesContext"
-                      onclick="BookmarksEventHandler.onClick(event);"
-                      oncommand="BookmarksEventHandler.onCommand(event);"
+                      onclick="BookmarksEventHandler.onClick(event, this._placesView);"
+                      oncommand="BookmarksEventHandler.onCommand(event, this._placesView);"
                       tooltip="bhTooltip"
                       popupsinherittooltip="true">
                   <xul:toolbarbutton class="bookmark-item bookmarks-toolbar-customize"

@@ -37,8 +37,6 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
     var Cc = Components.classes;
     var Ci = Components.interfaces;
 
-    var ver35 = services.BrowserServices.ver35;
-
     var Config = services.JumpstartConfiguration;
 
 
@@ -149,13 +147,10 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 
     var ClearUrlComponent = {
         start: function() {
-            gBrowser.addProgressListener(
-                ClearUrlComponentListener,
-                Ci.nsIWebProgress.NOTIFY_LOCATION
-            );
+            gBrowser.addTabsProgressListener(ClearUrlComponentListener);
         },
         stop: function() {
-            gBrowser.removeProgressListener(ClearUrlComponentListener);
+            gBrowser.removeTabsProgressListener(ClearUrlComponentListener);
         }
     }
 /***************  clear url components - End ********************/
@@ -240,29 +235,6 @@ var makeURI = function (aURL, aOriginCharset, aBaseURI) {
       }
     }
 
-var SnapshotComponentListener = {
-        QueryInterface: function(aIID) {
-            if (aIID.equals(Ci.nsIWebProgressListener) ||
-                aIID.equals(Ci.nsISupportsWeakReference) ||
-                aIID.equals(Ci.nsISupports))
-              return this;
-            throw Components.results.NS_NOINTERFACE;
-        },
-        onLocationChange: function() {},
-        onStateChange: function (aWebProgress, aRequest, aStateFlags, aStatus) {
-            // Check if page is finished loading from a network request
-            if ((aStateFlags & Ci.nsIWebProgressListener.STATE_STOP))// && (aStateFlags & (Ci.nsIWebProgressListener.STATE_IS_NETWORK | Ci.nsIWebProgressListener.STATE_IS_WINDOW)))
-            {
-                doRefresh(aRequest, aWebProgress);
-            }
-            return 0;
-        },
-        onProgressChange: function() {},
-        onStatusChange: function(){},
-        onSecurityChange: function() {},
-        onLinkIconAvailable: function() {}
-    }
-
 var SnapshotComponentListener_AllTabs = {
         QueryInterface: function(aIID) {
             if (aIID.equals(Ci.nsIWebProgressListener) ||
@@ -288,44 +260,12 @@ var SnapshotComponentListener_AllTabs = {
 
 var SnapshotComponent = {
         start: function() {
-            if(ver35){
-                gBrowser.addTabsProgressListener(SnapshotComponentListener_AllTabs);
-            }else{
-                gBrowser.addProgressListener(
-                    SnapshotComponentListener,
-                    Ci.nsIWebProgress.NOTIFY_STATE_WINDOW
-                );
-            }
+            gBrowser.addTabsProgressListener(SnapshotComponentListener_AllTabs);
         },
         stop: function() {
-            if(ver35){
-                gBrowser.removeTabsProgressListener(SnapshotComponentListener_AllTabs);
-            }else{
-                gBrowser.removeProgressListener(SnapshotComponentListener);
-            }
+            gBrowser.removeTabsProgressListener(SnapshotComponentListener_AllTabs);
         }
     }
-
-/**************************  New tab loader  ******************************/
-    var newTabLoader = {
-        _stop : false,
-        stopOnce: function(){this._stop = true;},
-        start : function(){
-            var container = gBrowser.tabContainer;
-            if(Config.HookUpNewTab){
-                container.addEventListener("TabOpen", utils.Binder.bind(this, this.tabAdded), false);
-            }
-        },
-
-        tabAdded: function(event) {
-            if(this._stop){this._stop = false; return;}
-            if (event.target.linkedBrowser.userTypedValue === null) {
-                event.target.linkedBrowser.loadURI(tabViewUrl);
-            }
-        }
-    }
-
-/**************************  New tab loader End  ******************************/
 
 /**************************  Closed state handling ****************************/
    var closedTabState = {
@@ -342,14 +282,6 @@ var SnapshotComponent = {
 
     tabClosed: function(event) {
       this.refreshClosed();
-      this.markIfLast();
-    },
-
-    markIfLast: function(){
-      if(Config.ShowOnLastTab){return;}
-      if(gBrowser.tabContainer.itemCount == 1){ //the last to be closed
-        newTabLoader.stopOnce();
-      }
     },
 
     refreshClosed: function(){
@@ -477,27 +409,6 @@ var realTimeThumbsUpdates = {
         historyService.removeObserver(historyObserver);
     }
 }
-
-/************************* Main Controller ***************************/
-  var jumpStartService = {
-      start : function() {
-        /*if (!mlalevic.JumpStart.Data.App.isInitialised) {
-          mlalevic.JumpStart.Data.App.setInitialized();
-          window.setTimeout(function() {
-            //loaded = false;
-            dialService = new Dial.Service(null, DataService);
-            dialService.loadData();
-          }, 0);
-        }
-        else {
-          //loaded = false;
-          dialService = new Dial.Service(null, DataService);
-          dialService.hookUpTabEvents();
-        }*/
-      }
-  }
-
-  /************************* Main Controller - End ***************************/
 
 /*************************** Handling UI *********************************/
   var uiService = {
@@ -649,7 +560,7 @@ var realTimeThumbsUpdates = {
 
 var onInstall = {
     start : function(){
-        var ver = '', version = '0.5a5.4.3';
+        var ver = '', version = '0.5a5.5';
 
         var svc = Cc["@mozilla.org/preferences-service;1"]
                    .getService(Ci.nsIPrefService);
@@ -664,10 +575,28 @@ var onInstall = {
 
         prefs.setCharPref("version", version);
         if (!ver){ //first run
+            if(prefs.getBoolPref('hook_up_new_tab')){
+                var newtabpref = svc.getBranch('browser.newtab.');
+                prefs.setCharPref("backup_taburl", newtabpref.getCharPref("url"));
+                newtabpref.setCharPref("url", tabViewUrl);
+            }
+
+            prefs.setCharPref('aspect_ratio', services.BrowserServices.guessAspectRatio());
             return; //nothing for now
         }
 
         if (ver != version){
+            if(prefs.getBoolPref('hook_up_new_tab')){
+                var newtabpref = svc.getBranch('browser.newtab.');
+                if(newtabpref.getCharPref("url") != tabViewUrl){
+                  prefs.setCharPref("backup_taburl", newtabpref.getCharPref("url"));
+                  newtabpref.setCharPref("url", tabViewUrl);
+                }
+            }
+
+            if(prefs.getCharPref('aspect_ratio') == ""){
+                prefs.setCharPref('aspect_ratio', services.BrowserServices.guessAspectRatio());
+            }
 
           function clear(branch, values){
             for(var i = 0; i < values.length; i++){
@@ -764,9 +693,7 @@ mlalevic.JumpStart.getClosedData = function(){
 var startAll = function(){
         window.removeEventListener("load", startAll, false);
 
-
         ClearUrlComponent.start();
-        newTabLoader.start();
         SnapshotComponent.start();
         closedTabState.start();
 
@@ -776,7 +703,6 @@ var startAll = function(){
         historyComponent.start();
 
         buttonController.start();
-        jumpStartService.start();
         bookmarkListener.start();
 
         services.BrowserServices.initialized = true;

@@ -23,6 +23,11 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
 
 (function(){
+    var RATIO_4_3 = "R43";
+    var RATIO_16_9 = "R169";
+    var RATIO_16_10 = "R1610";
+
+
     var services = {}
     var utils = {}
     //import browserServices - we are using browserServices to load data from files
@@ -35,21 +40,51 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
     //var ui = utils.Namespace.get(window, "mlalevic.JumpStart.UI");
     var ui = mlalevic.JumpStart.UI;
     var Logger = services.Logger;
+    var Config = services.JumpstartConfiguration;
   
   var Measurement = function(aContent, aCanvas, aWindow){
     if(!aContent || !aCanvas || !aWindow){
       throw new Error("Measurement arguments null.");
     }
+    this.size = Measurement.ConfiguredSize();
     this.content = aContent;
     this.canvas = aCanvas;
     this.window = aWindow;
     Logger.debug('New measurement: ', this.toString());
   }
   
-  Measurement.CANVAS_WIDTH = 294;
+  /*Measurement.CANVAS_WIDTH = 294;
   Measurement.CANVAS_HEIGHT = 204;
   Measurement.WINDOW_WIDTH = 999;
   Measurement.WINDOW_HEIGHT = 694;
+
+  Measurement.CANVAS_WIDTH = 363;
+  Measurement.CANVAS_HEIGHT = 204;
+  Measurement.WINDOW_WIDTH = 1235;
+  Measurement.WINDOW_HEIGHT = 694;*/
+
+  Measurement.Sizes = {
+    "R43":{CANVAS_WIDTH:294, CANVAS_HEIGHT: 204, WINDOW_WIDTH: 800, WINDOW_HEIGHT: 600},
+    "R169":{CANVAS_WIDTH:363, CANVAS_HEIGHT: 204, WINDOW_WIDTH: 1024, WINDOW_HEIGHT: 576},
+    "R1610":{CANVAS_WIDTH:326, CANVAS_HEIGHT: 204, WINDOW_WIDTH: 1024, WINDOW_HEIGHT: 640}
+  };
+
+  Measurement.GetConfiguredAspect = function(){
+      switch(Config.AspectRatio){
+          case RATIO_16_10:
+          case RATIO_16_9:
+          case RATIO_4_3:
+              return Config.AspectRatio;
+          default:
+              return RATIO_4_3;
+      }
+  }
+
+
+  Measurement.ConfiguredSize = function(){
+    return Measurement.Sizes[Measurement.GetConfiguredAspect()];
+  };
+
   
   Measurement.prototype = {
     content : null,
@@ -58,6 +93,7 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
     cutoff : 0,
     cutoffHalf : 0,
     offset : 0,
+    size: null,
     _heightAdjustment : function(){
       if (this.content.h < this.window.h) {
         this.cutoff = Math.round(this.window.w * (1 - this.content.h / this.window.h));
@@ -67,9 +103,9 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
     },
     //if content wider then window width - center content in window
     _widthAdjustment : function(){
-      if (this.content.w > Measurement.WINDOW_WIDTH) {
+      if (this.content.w > this.size.WINDOW_WIDTH) {
         //center it
-        this.offset = Math.round((this.content.w - Measurement.WINDOW_WIDTH) / 2);
+        this.offset = Math.round((this.content.w - this.size.WINDOW_WIDTH) / 2);
       }
     },
     calculate : function(){
@@ -200,7 +236,7 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
         var m = new Measurement(
           contentRect,
           {w: this.uiProvider.canvas.width, h: this.uiProvider.canvas.height}, 
-          {w: Measurement.WINDOW_WIDTH, h: Measurement.WINDOW_HEIGHT}
+          {w: this.uiProvider.size.WINDOW_WIDTH, h: this.uiProvider.size.WINDOW_HEIGHT}
         ).calculate();
         
         this.storage.save(new Canvas(this.uiProvider.canvas, m).draw(content));
@@ -227,10 +263,11 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
   
   var uiProvider = function(tabProvider, aDocument, url){
     this.canvas = aDocument.createElementNS("http://www.w3.org/1999/xhtml", "canvas");
-    this.canvas.style.width = Measurement.CANVAS_WIDTH + "px";
-    this.canvas.style.height = Measurement.CANVAS_HEIGHT + "px";
-    this.canvas.width = Measurement.CANVAS_WIDTH;
-    this.canvas.height = Measurement.CANVAS_HEIGHT;
+    this.size = Measurement.ConfiguredSize();
+    this.canvas.style.width = this.size.CANVAS_WIDTH + "px";
+    this.canvas.style.height = this.size.CANVAS_HEIGHT + "px";
+    this.canvas.width = this.size.CANVAS_WIDTH;
+    this.canvas.height = this.size.CANVAS_HEIGHT;
     this.tabProvider = tabProvider;
     this.url = url;
   }
@@ -242,6 +279,7 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
     tabProvider: null,
     url : "",
     coordinator: null,
+    size: null,
     Load : function(handler){
       this.coordinator = new canvasLoadCoordinator(30, 5, handler)
       this.coordinator.Start();
@@ -378,6 +416,8 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
       this.finished();
     }
   }
+
+  ui.Measurement = Measurement;
   
   ui.GetCanvasLoader = function(url, storageHandler, browserProvider){
     return new PageLoader(url, null, new uiProviderFactory(browserProvider.getBrowser(), document), storageHandler);
@@ -386,15 +426,16 @@ if(!mlalevic.JumpStart.UI){mlalevic.JumpStart.UI = {};}
   ui.GetSnapshot = function(aDocument, content){
     try{
         var canvas = aDocument.createElementNS("http://www.w3.org/1999/xhtml", "canvas");
-        canvas.style.width = Measurement.CANVAS_WIDTH + "px";
-        canvas.style.height = Measurement.CANVAS_HEIGHT + "px";
-        canvas.width = Measurement.CANVAS_WIDTH;
-        canvas.height = Measurement.CANVAS_HEIGHT;
+        var size = Measurement.ConfiguredSize();
+        canvas.style.width = size.CANVAS_WIDTH + "px";
+        canvas.style.height = size.CANVAS_HEIGHT + "px";
+        canvas.width = size.CANVAS_WIDTH;
+        canvas.height = size.CANVAS_HEIGHT;
         var m = new Measurement(
           //{w: content.document.width, h: content.document.height},
           {w: content.screen.availWidth, h: content.screen.availHeight},
           {w: canvas.width, h: canvas.height},
-          {w: Measurement.WINDOW_WIDTH, h: Measurement.WINDOW_HEIGHT}
+          {w: size.WINDOW_WIDTH, h: size.WINDOW_HEIGHT}
         ).calculate();
 
         return new Canvas(canvas, m).draw(content);

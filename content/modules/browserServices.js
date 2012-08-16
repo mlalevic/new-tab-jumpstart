@@ -30,6 +30,10 @@ Components.utils.import("resource://jumpstart/config.js");
 let ProfileDirectory = 'ProfD';
 let configChanged = "mlalevic.JumpStart.configChanged";
 
+let RATIO_4_3 = "R43";
+let RATIO_16_9 = "R169";
+let RATIO_16_10 = "R1610";
+
 
 let BrowserServices = {
 
@@ -96,12 +100,42 @@ let BrowserServices = {
       WindowFunctions.alert(ex);
     }
   },
+
+  guessAspectRatio : function(){
+    let width = WindowFunctions.availWidth;
+    let height = WindowFunctions.availHeight;
+
+    let aspect = width/height;
+    let diff169 = Math.abs(aspect - 1.78);
+    let diff1610 = Math.abs(aspect - 1.6);
+    let diff43 = Math.abs(aspect - 1.33);
+    if(diff169 < diff1610 && diff169 < diff43){
+        return RATIO_16_9;
+    }
+    if(diff1610 < diff43){
+        return RATIO_16_10;
+    }
+    return RATIO_4_3;
+  },
   
   calculateMaxThumbs : function(thumbsConfig){
     if(!thumbsConfig){
       thumbsConfig = JumpstartConfiguration.Thumbs;
     }
 
+    var getConfiguredSize = function(){
+      switch(JumpstartConfiguration.AspectRatio){
+          case RATIO_16_10:
+            return {big: {width:234, height: 171}, small: {width:179, height: 137}};
+          case RATIO_16_9:
+            return {big: {width:258, height: 171}, small: {width:197, height: 137}};
+          case RATIO_4_3:
+          default:
+            return {big: {width:212, height: 171}, small: {width:163, height: 137}};
+      }
+    }
+
+    let size = getConfiguredSize()[thumbsConfig.ShowSmallThumbs?"small":"big"];
     let width = WindowFunctions.availWidth;
     let height = WindowFunctions.availHeight;
     let sidebarWidth = 20; //sidebar + margine - put this to config
@@ -111,8 +145,8 @@ let BrowserServices = {
     width -= sidebarWidth;
     height -= 110; //for this calculation lets assume this is toolbar and menu size we can add proper calculations later
     
-    let thumbWidth = (thumbsConfig.ShowSmallThumbs?163:212) + 2;
-    let thumbHeight = (thumbsConfig.ShowSmallThumbs?137:171) + 2;
+    let thumbWidth = size.width + 2;
+    let thumbHeight = size.height + 2;
 
     
     let columnsCount = Math.floor(width / thumbWidth);
@@ -179,20 +213,3 @@ LoggerService.prototype = {
 
 
 let Logger = new LoggerService();
-
-(function(){
-  
-  var Cc = Components.classes;
-  var Ci = Components.interfaces;
-
-    var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-    var Firefox_ID = '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}';
-
-    BrowserServices.ver35 = false;
-    try{
-        BrowserServices.ver35 = (appInfo.ID == Firefox_ID) &&
-            (appInfo.version.substr(0,3) >= '3.5');
-    }catch(ex){
-        services.Logger.error("Getting version", ex);
-    }
-})();

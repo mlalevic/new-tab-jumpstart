@@ -59,7 +59,8 @@ JumpstartPrefs.prototype = {
   BackgroundImage: '',
   TopToolbars: '',
   BottomToolbars: '',
-  ShowOnLastTab: false,
+  BackupNewTabUrl: '',
+  AspectRatio: '',
   Thumbs : {
     ShowSmallThumbs: false,
     MinCount : 6,
@@ -101,7 +102,8 @@ JumpstartPrefs.prototype = {
     this.BackgroundImage = this.prefBranch.get("bkg_image", this.BackgroundImage);
     this.TopToolbars = this.prefBranch.get("top_toolbars", this.TopToolbars);
     this.BottomToolbars = this.prefBranch.get("bottom_toolbars", this.BottomToolbars);
-    this.ShowOnLastTab = this.prefBranch.get("show_on_last_tab", this.ShowOnLastTab);
+    this.BackupNewTabUrl = this.prefBranch.get("backup_taburl", this.BackupNewTabUrl);
+    this.AspectRatio = this.prefBranch.get("aspect_ratio", this.AspectRatio);
 
 
 

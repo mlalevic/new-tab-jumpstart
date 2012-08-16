@@ -81,8 +81,164 @@ notification toolbarbutton {
 	-moz-box-pack: start;
 }
 
-.tileCell{
+/* sizes */
+.R43_big .thumb .image, .R169_big .thumb .image, .R1610_big .thumb .image {
+        height: 136px;
+}
+
+.R43_small .thumb .image, .R169_small .thumb .image, .R1610_small .thumb .image {
+            height: 104px;
+}
+
+
+.R43_big{
+    height: 171px;
     width: 212px;
+}
+
+.R43_big .tileCell > .cellborder, .R43_big .thumb
+{
+    height: 156px;
+    width: 196px;
+}
+
+.R43_big .thumb .thumbImage {
+    height: 136px;
+    width : 196px;
+}
+        
+.R43_small{
+    height: 137px;
+    width: 163px;
+}
+
+.R43_small .tileCell > .cellborder, .R43_small .thumb
+{
+    height: 122px;
+    width: 147px;
+}
+
+.R43_small .thumb .thumbImage {
+    height: 102px;
+    width : 147px;
+}
+            
+.R169_big{
+    height: 171px;
+    width : 258px;
+}
+
+.R169_big .tileCell > .cellborder, .R169_big .thumb
+{
+    height: 156px;
+    width : 242px;
+}
+
+.R169_big .thumb .thumbImage {
+    height: 136px;
+    width : 242px;
+}
+
+.R169_small{
+    height: 137px;
+    width : 197px;
+}
+
+.R169_small .tileCell > .cellborder, .R169_small .thumb
+{
+    height: 122px;
+    width : 181px;
+}
+
+.R169_small .thumb .thumbImage {
+    height: 102px;
+    width : 181px;
+}
+
+.R1610_big{
+    height: 171px;
+    width: 234px;
+}
+
+.R1610_big .tileCell > .cellborder, .R1610_big .thumb
+{
+    height: 156px;
+    width: 218px;
+}
+
+.R1610_big .thumb .thumbImage {
+    height: 136px;
+    width : 218px;
+}
+
+.R1610_small{
+    height: 137px;
+    width: 179px;
+}
+
+.R1610_small .tileCell > .cellborder, .R1610_small .thumb
+{
+    height: 122px;
+    width: 163px;
+}
+
+.R1610_small .thumb .thumbImage {
+    height: 102px;
+    width : 163px;
+}
+/* end sizes */
+
+.tileCell{
+}
+
+.tileCell > .cellborder
+{
+    border: solid 1px #6B90DA;
+    margin-right: 14px;
+    margin-bottom: 10px;
+}
+
+.thumb {
+	-moz-binding: url("chrome://jumpstart/content/bindings/thumbnail.xml#siteTile");
+	width: inherit;
+	margin-right: 14px;
+	margin-bottom: 10px;
+}
+
+.thumb .thumbImageUrl {
+	border: none;
+}
+
+.thumb .thumbImage {
+	border:none;
+}
+
+.thumb .head
+{
+    width:inherit;
+    height:16px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    white-space:nowrap;
+}
+
+.thumb .head .thumblink
+{
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.thumb .image
+{
+	width:inherit;
+	border: solid 1px #6B90DA;
+	position:relative;
+}
+
+/*
+.tileCell{
+    / *width: 212px;* /
+    width: 304px;
     height: 171px;
 }
 
@@ -92,7 +248,8 @@ notification toolbarbutton {
     margin-right: 14px;
 	margin-bottom: 10px;
 	height: 156px;
-    width: 196px;
+    / *width: 196px;* /
+    width: 288px;
 }
 
 .thumb {
@@ -101,7 +258,8 @@ notification toolbarbutton {
 	margin-right: 14px;
 	margin-bottom: 10px;
 	height: 156px;
-    width: 196px;
+        / *width: 196px;* /
+    width: 288px;
 }
 
 .thumb .thumbImageUrl {
@@ -110,7 +268,8 @@ notification toolbarbutton {
 
 .thumb .thumbImage {
 	border:none;
-	width : 196px;
+	width : 288px;
+        / *width: 196px;* /
     height: 136px;
 }
 
@@ -137,7 +296,7 @@ notification toolbarbutton {
 	position:relative;
 }
 
-/* classes for small thumbs */
+/ * classes for small thumbs * /
 .smallTileCell{
     width: 163px;
     height: 137px;
@@ -192,7 +351,7 @@ notification toolbarbutton {
 	height:104px;
 	border: solid 1px #6B90DA;
 	position:relative;
-}
+}*/
 
 .thumbPin
 {
@@ -268,7 +427,7 @@ notification toolbarbutton {
     width: inherit;
     margin: 5px 0px;
     padding: 4px;
-    -moz-border-radius: 8px;
+    border-radius: 8px;
 }
 
 #sideContainer > #searchContainer{
@@ -278,7 +437,7 @@ notification toolbarbutton {
 .stackedBackground {
     background-color: #E0EBFF;
     width: inherit;
-    -moz-border-radius: 8px;
+    border-radius: 8px;
     padding: 9px 4px;
 }
 
@@ -361,8 +520,8 @@ toolbarbutton[anonid=editCancel]:hover {
     border-bottom: 1px solid #6B90DA;
     border-left: 1px solid #6B90DA;
     border-right: 1px solid #6B90DA;
-    -moz-border-radius-bottomleft: 8px;
-    -moz-border-radius-bottomright: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .removetoolbarbutton, .canceltoolbar{

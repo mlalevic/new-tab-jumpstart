@@ -36,4 +36,5 @@ pref("mlalevic.jumpstart.permanent_properties", true); //defines whether to perm
 pref("mlalevic.jumpstart.permanent_thumbs", false); //defines whether to permanently store thumbnails
 
 pref("mlalevic.jumpstart.improved_refresh", true); //improved refresh using mozafterpaint
-pref("mlalevic.jumpstart.show_on_last_tab", false); //show on last tab - this is for last tab close extension support
+pref("mlalevic.jumpstart.backup_taburl", ""); //backedup new tab url
+pref("mlalevic.jumpstart.aspect_ratio", ""); //aspect ratio of the thumbs

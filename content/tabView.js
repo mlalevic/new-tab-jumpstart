@@ -36,6 +36,20 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     var Config;
     Config = services.JumpstartConfiguration;
 
+    var RATIO_4_3 = "R43";
+    var RATIO_16_9 = "R169";
+    var RATIO_16_10 = "R1610";
+    var getConfiguredAspect = function(){
+      switch(Config.AspectRatio){
+          case RATIO_16_10:
+          case RATIO_16_9:
+          case RATIO_4_3:
+              return Config.AspectRatio;
+          default:
+              return RATIO_4_3;
+      }
+    }
+
     mlalevic.JumpStart.onMenuItemProperties = function(){
       var strbundle = document.getElementById("strings");
       window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
@@ -433,8 +447,8 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
                         tlbr.setAttribute('flex', '1');
                         tlbr.setAttribute('type', 'places');
                         tlbr.setAttribute('context', 'placesContext');
-                        tlbr.setAttribute('onclick', "BookmarksEventHandler.onClick(event);");
-                        tlbr.setAttribute('oncommand', "BookmarksEventHandler.onCommand(event);");
+                        tlbr.setAttribute('onclick', "BookmarksEventHandler.onClick(event, this._placesView);");
+                        tlbr.setAttribute('oncommand', "BookmarksEventHandler.onCommand(event, this._placesView);");
                         tlbr.setAttribute('onpopupshowing', "BookmarksEventHandler.onPopupShowing(event);");
                         tlbr.setAttribute('tooltip', "btTooltip");
                         tlbr.setAttribute('place', place);
@@ -993,15 +1007,10 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
               for (var j = 0; j < columns; j++) {
                 // Create tile container (drag-drop receiver)
                 var cell = document.createElement("box");
-                cell.setAttribute("class", config.ShowSmallThumbs?"smallTileCell": "tileCell");
+                cell.setAttribute("class", "tileCell " + getConfiguredAspect() + "_" + (config.ShowSmallThumbs?"small": "big"));
                 cell.index = count;
                 var dragDropHandler = this.dragDropHandler;
-                var ver35 = services.BrowserServices.ver35;
-                if(ver35){
-                    cell.addEventListener("drop", function(event){nsDragAndDrop.drop(event, dragDropHandler);}, false);
-                }else{
-                    cell.addEventListener("dragdrop", function(event){nsDragAndDrop.drop(event, dragDropHandler);}, false);
-                }
+                cell.addEventListener("drop", function(event){nsDragAndDrop.drop(event, dragDropHandler);}, false);
                 cell.addEventListener("dragover", function(event){nsDragAndDrop.dragOver(event, dragDropHandler);}, false);
                 cell.addEventListener("draggesture", function(event){nsDragAndDrop.startDrag(event,dragDropHandler);}, false);
 
@@ -1097,7 +1106,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
                 // Create tile
                 var tile = document.createElement("vbox");
-                tile.setAttribute("class", config.ShowSmallThumbs?"smallthumb":"thumb");
+                tile.setAttribute("class", "thumb");
                 cell.appendChild(tile);
                 tile.draw(config, translate(data[count]), onClickHandler);
                 tile.pinHandler = pinHandler;

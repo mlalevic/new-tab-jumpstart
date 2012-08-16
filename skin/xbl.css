@@ -14,8 +14,8 @@
 	/*width: 200px;*/
 	margin-top: 2px;
 	margin-bottom: 2px;
-	-moz-margin-start: 6px;
-	-moz-margin-end: 0px;
+	margin-left: 6px;
+	margin-right: 0px;
 }
 
 .faviconSiteLink {
@@ -34,8 +34,8 @@
 	color: -moz-hyperlinktext;
 	text-decoration: -moz-anchor-decoration;
 	width: inherit;
-	-moz-margin-start: 4px;
-	-moz-margin-end: 5px;
+	margin-left: 4px;
+	margin-right: 5px;
 	margin-top: 0px;
 	margin-bottom: 0px;
 	overflow: hidden;
@@ -46,5 +46,5 @@
 	cursor: pointer;
 	width: auto;
         max-width:6em;
-        box-flex:1;
+        -moz-box-flex:1;
 }

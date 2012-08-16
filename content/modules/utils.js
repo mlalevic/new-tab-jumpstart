@@ -73,22 +73,14 @@ let Converter = {
   
   fromJSONString : function(aBuffer){
     if (aBuffer != '') {
-      return Converter._getNativeJSON().decode(aBuffer);
+      return JSON.parse(aBuffer);
     }
     
     return null;
   },
   
   toJSONString : function(aObject){
-      
-      return Converter._getNativeJSON().encode(aObject);
-  },
-  
-  _getNativeJSON : function(){
-    var Ci = Components.interfaces;
-    var Cc = Components.classes;
-
-    return Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
+      return JSON.stringify(aObject);
   }
 };
 

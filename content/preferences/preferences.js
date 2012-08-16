@@ -27,11 +27,24 @@ if (!mlalevic.JumpStart.Services) { mlalevic.JumpStart.Services = {}; }
 Components.utils.import("resource://jumpstart/config.js", mlalevic.JumpStart.Services);
 Components.utils.import("resource://jumpstart/browserServices.js", mlalevic.JumpStart.Services);
 Components.utils.import("resource://jumpstart/dbService.js", mlalevic.JumpStart.Services);
+Components.utils.import("resource://jumpstart/Preferences.js", mlalevic.JumpStart.Services);
 
 (function() {
+    var tabViewUrl = 'chrome://jumpstart/content/tabView.xul';
     var Preferences = mlalevic.JumpStart.Preferences;
     var Services = mlalevic.JumpStart.Services;
     var Config = Services.JumpstartConfiguration.Thumbs;
+
+    Preferences.HandleOnHook = function(chkbox){
+        var cfg = Services.JumpstartConfiguration;
+        var prefs = new Services.Preferences('browser.newtab.');
+        if(chkbox.checked){
+            cfg.setBranchPref("backup_taburl", prefs.get("url"));
+            prefs.set("url", tabViewUrl);
+        }else{
+            prefs.set("url", Services.JumpstartConfiguration.BackupNewTabUrl);
+        }
+    }
     
    
     //ensure number is between min and max (if over max then max, if under min then min)

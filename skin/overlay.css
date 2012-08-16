@@ -38,8 +38,8 @@ toolbar[iconsize="small"] #jumpStartOpenDialButton:hover {
 	color: -moz-hyperlinktext;
 	text-decoration: -moz-anchor-decoration;
 	width: inherit;
-	-moz-margin-start: 4px;
-	-moz-margin-end: 5px;
+	margin-left: 4px;
+	margin-right: 5px;
 	margin-top: 0px;
 	margin-bottom: 0px;
 	overflow: hidden;

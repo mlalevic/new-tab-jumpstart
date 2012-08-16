@@ -54,7 +54,7 @@ Contributor(s):
     </preferences>
 
     <groupbox>
-        <checkbox id="hookupTabControl" preference="hookupTab" label="&onnewtab;" />
+        <checkbox id="hookupTabControl" preference="hookupTab" label="&onnewtab;" oncommand="mlalevic.JumpStart.Preferences.HandleOnHook(this);" />
         <checkbox id="showOnStartup" preference="overrideHomepage" label="&onstartup;" />
         <checkbox id="showButtonOnToolbar" preference="showButton" label="&showbutton;" />
         <checkbox id="showButtonOnStatusbar" preference="showStatusbarButton" label="&showstatusbarbutton;" />
