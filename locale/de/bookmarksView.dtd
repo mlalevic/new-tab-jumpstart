@@ -3,7 +3,7 @@
 <!ENTITY recent "Kürzlich besucht">
 <!ENTITY frequent "Häufig besucht">
 <!ENTITY tags "Schlagwörter">
-<!ENTITY tagNotice "Es sind keine Lesezeichen-Schlagwörter vorhanden. Lesezeichen mit Schlagwörter zu versehen, hilft sie besser zu organisieren. Hilfe zu 'Schlagwörter für Lesezeichen ' finden Sie">
+<!ENTITY tagNotice "Es sind keine Lesezeichen-Schlagwörter vorhanden. Lesezeichen mit Schlagwörter zu versehen, hilft sie besser zu organisieren. Hilfe zu 'Schlagwörter für Lesezeichen' finden Sie">
 <!ENTITY tagsLink "http://support.mozilla.com/de/kb/bookmark+tags">
 <!ENTITY tagsNow "hier.">
 <!ENTITY tagNoticeAfterLink "">

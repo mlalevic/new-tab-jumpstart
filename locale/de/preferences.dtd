@@ -9,7 +9,7 @@
 <!ENTITY title.info "Info">
 <!ENTITY focus_search "Suchfeld fokussieren">
 <!ENTITY slide_menu "Minimenü - Einstellungen">
-<!ENTITY slide_speed "Geschwindigkeit (langsamer = schneller)">
+<!ENTITY slide_speed "Geschwindigkeit (geringer = schneller)">
 <!ENTITY slide_step "Anzahl der Pixel pro Intervall (mehr = schneller)">
 <!ENTITY recently_closed_count "Anzahl der zuletzt geschlossenen Tabs">
 <!ENTITY recent_bookmarks_count "Anzahl der zuletzt verwendeten Lesezeichen">

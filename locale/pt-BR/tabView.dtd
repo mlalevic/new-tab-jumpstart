@@ -23,3 +23,7 @@
 <!ENTITY bar.settings "Opções">
 <!ENTITY bar.thumbs "Configura o número de miniaturas">
 <!ENTITY bar.toolbar "Configurar barras de ferramentas">
+<!ENTITY bar.chevron "Mostrar mais marcadores">
+<!ENTITY bar.button "Itens da barra de favoritos">
+<!ENTITY newPanoramaGroup "Abrir todos em novo grupo de abas">
+<!ENTITY newPanoramaGroup.accesskey "g">

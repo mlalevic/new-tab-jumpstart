@@ -22,8 +22,8 @@
 <!ENTITY notice.close "隐藏这个提示">
 <!ENTITY bar.settings "设置">
 <!ENTITY bar.thumbs "设置缩略图数量">
-<!ENTITY bar.toolbar "确认工具栏">
-<!ENTITY bar.chevron "显示更多的书签">
+<!ENTITY bar.toolbar "设置工具栏">
+<!ENTITY bar.chevron "显示更多书签">
 <!ENTITY bar.button "书签工具栏项目">
-<!ENTITY newPanoramaGroup "在新的TaBCandy中打开所有">
+<!ENTITY newPanoramaGroup "在新标签页组中打开全部">
 <!ENTITY newPanoramaGroup.accesskey "G">

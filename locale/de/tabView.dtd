@@ -22,4 +22,8 @@
 <!ENTITY notice.close "Diesen Hinweis ausblenden">
 <!ENTITY bar.settings "Einstellungen…">
 <!ENTITY bar.thumbs "Anzahl der Vorschaubilder einstellen">
-<!ENTITY bar.toolbar "Symbolleisten einstellen">
+<!ENTITY bar.toolbar "Symbolleisten anpassen">
+<!ENTITY bar.chevron "Weitere Lesezeichen anzeigen">
+<!ENTITY bar.button "Lesezeichen-Symbolleisten Objekte">
+<!ENTITY newPanoramaGroup "Alle in neuer Tab-Gruppe öffnen">
+<!ENTITY newPanoramaGroup.accesskey "G">
