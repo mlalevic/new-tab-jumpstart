@@ -719,6 +719,63 @@ var startAll = function(){
         };
 }
 
+
+function resetNewTabHookup(){
+    var svc = Cc["@mozilla.org/preferences-service;1"]
+                   .getService(Ci.nsIPrefService);
+    var prefs = svc.getBranch("mlalevic.jumpstart.");
+    var newtabpref = svc.getBranch('browser.newtab.');
+    if(newtabpref.getCharPref("url") != tabViewUrl){
+        return false;
+    }
+
+    newtabpref.setCharPref("url", prefs.getCharPref("backup_taburl"));
+    return true;
+}
+
+function setNewTabHookup(){
+    var svc = Cc["@mozilla.org/preferences-service;1"]
+                   .getService(Ci.nsIPrefService);
+    var newtabpref = svc.getBranch('browser.newtab.');
+    newtabpref.setCharPref("url", tabViewUrl);
+}
+
+var doRevert = false;
+
+let extlistener = {
+  onUninstalling: function(addon) {
+    if (addon.id == "jumpstart@mihailo.lalevic") {
+      if(!doRevert){
+        doRevert = resetNewTabHookup();
+      }
+    }
+  },
+  onDisabling: function(addon){
+    if (addon.id == "jumpstart@mihailo.lalevic") {
+        if(!doRevert){
+            doRevert = resetNewTabHookup();
+        }
+    }
+  },
+  onOperationCancelled: function(addon) {
+    if (addon.id != "jumpstart@mihailo.lalevic") {return;}
+    if(!doRevert){return;}
+
+    let beingUninstalled = (addon.pendingOperations & AddonManager.PENDING_UNINSTALL) != 0;
+    let beingDisabled = (addon.pendingOperations & AddonManager.PENDING_DISABLE) != 0;
+
+    if(beingUninstalled || beingDisabled){return;}
+    
+    doRevert = false;
+    setNewTabHookup();
+  }
+}
+
+try {
+  Components.utils.import("resource://gre/modules/AddonManager.jsm");
+  AddonManager.addAddonListener(extlistener);
+} catch (ex) {}
+
 uiService.start();
 window.addEventListener("load", startAll, false);
 window.setTimeout(onInstall.start, 0);
