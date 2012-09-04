@@ -188,7 +188,7 @@ Components.utils.import("resource://jumpstart/Preferences.js", mlalevic.JumpStar
         var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
                                .getService(Components.interfaces.nsINavHistoryService);
 
-        var strbundle = document.getElementById("strings");
+        var strbundle = document.getElementById("jumpstart-strings");
 
         this.extensions = [
                     /*{id: '{05BF52F6-A4F9-48B9-84ED-F8D83762E619}', src: infoIcon, text: 'New Tab Button Position - Fixed in this version' }, */

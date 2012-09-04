@@ -22,8 +22,8 @@ Copyright (C) 2010, Mihailo Lalevic. All Rights Reserved.
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <prefwindow id="BrowserPreferences">
-        <stringbundleset id="strbundles">
-            <stringbundle id="strings" src="chrome://jumpstart/locale/preferences.properties"/>
+        <stringbundleset id="jumpstart-strbundles">
+            <stringbundle id="jumpstart-strings" src="chrome://jumpstart/locale/preferences.properties"/>
         </stringbundleset>
         <script type="application/x-javascript" src="chrome://jumpstart/content/browserpreferences.js" />
     </prefwindow>

@@ -51,7 +51,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
     }
 
     mlalevic.JumpStart.onMenuItemProperties = function(){
-      var strbundle = document.getElementById("strings");
+      var strbundle = document.getElementById("jumpstart-strings");
       window.openDialog("chrome://jumpstart/content/preferences/preferences.xul", strbundle.getString("properties_title"),
       "chrome,toolbar,centerscreen").focus();
     }

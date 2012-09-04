@@ -18,7 +18,7 @@ Contributor(s):
 **** END LICENSE BLOCK **** */
 
 window.addEventListener("load", function(){
-    var strbundle = document.getElementById("strings");
+    var strbundle = document.getElementById("jumpstart-strings");
     var useCurrentButton = document.getElementById('useCurrent');
     var container = useCurrentButton.parentNode;
     var myButton = document.createElement('button');
