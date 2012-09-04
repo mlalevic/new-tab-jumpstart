@@ -121,7 +121,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
 /***************  Thumb refresh components - End ********************/
 
 /***************  Clear url components ********************/
-    var ClearUrlComponentListener = {
+     var ClearUrlComponentListener = {
         QueryInterface: function(aIID) {
             if (aIID.equals(Ci.nsIWebProgressListener) ||
                 aIID.equals(Ci.nsISupportsWeakReference) ||
@@ -131,7 +131,7 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         },
 
         onLocationChange: function(aWebProgress, aRequest, aURI) {
-            if (aURI.spec == tabViewUrl) {
+            if (gURLBar.value == tabViewUrl) {
                 gURLBar.value = "";
                 gURLBar.focus();
             }
@@ -145,12 +145,18 @@ if(!mlalevic.JumpStart){mlalevic.JumpStart = {};}
         onLinkIconAvailable: function() {}
     }
 
+    function _clearUrl(){
+        if (gURLBar.value == tabViewUrl) gURLBar.value = "";
+    }
+
     var ClearUrlComponent = {
         start: function() {
             gBrowser.addTabsProgressListener(ClearUrlComponentListener);
+            gBrowser.tabContainer.addEventListener("TabSelect", _clearUrl, false);
         },
         stop: function() {
             gBrowser.removeTabsProgressListener(ClearUrlComponentListener);
+            gBrowser.tabContainer.removeEventListener("TabSelect", _clearUrl, false);
         }
     }
 /***************  clear url components - End ********************/
@@ -560,7 +566,7 @@ var realTimeThumbsUpdates = {
 
 var onInstall = {
     start : function(){
-        var ver = '', version = '0.5a5.5';
+        var ver = '', version = '0.5a5.5.1';
 
         var svc = Cc["@mozilla.org/preferences-service;1"]
                    .getService(Ci.nsIPrefService);
@@ -585,7 +591,7 @@ var onInstall = {
             return; //nothing for now
         }
 
-        if (ver != version){
+        if (ver != version && ver != '0.5a5.5'){
             if(prefs.getBoolPref('hook_up_new_tab')){
                 var newtabpref = svc.getBranch('browser.newtab.');
                 if(newtabpref.getCharPref("url") != tabViewUrl){
