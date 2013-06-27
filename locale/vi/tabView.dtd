@@ -23,3 +23,7 @@
 <!ENTITY bar.settings "Các thiết đặt">
 <!ENTITY bar.thumbs "Điều chỉnh số lượng ảnh thu nhỏ xem trước">
 <!ENTITY bar.toolbar "Điều chỉnh các thanh công cụ">
+<!ENTITY bar.chevron "Hiện thêm các trang đánh dấu">
+<!ENTITY bar.button "Các mục của Thanh Đánh Dấu">
+<!ENTITY newPanoramaGroup "Open All in New Tab Group">
+<!ENTITY newPanoramaGroup.accesskey "G">

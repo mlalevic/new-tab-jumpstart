@@ -23,4 +23,7 @@
 <!ENTITY bar.settings "설정">
 <!ENTITY bar.thumbs "미리 보기 개수 설정">
 <!ENTITY bar.toolbar "도구 모음 설정">
-
+<!ENTITY bar.chevron "북마크 계속 보기">
+<!ENTITY bar.button "북마크 모음 항목">
+<!ENTITY newPanoramaGroup "Open All in New Tab Group">
+<!ENTITY newPanoramaGroup.accesskey "G">

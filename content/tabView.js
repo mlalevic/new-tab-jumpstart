@@ -1071,7 +1071,7 @@ var BookmarksEventHandler = null; //workaround for BookmarksEventHandler defined
 
               var faviconUrl =   Cc["@mozilla.org/browser/favicon-service;1"]
                                      .getService(Ci.nsIFaviconService)
-                                     .getFaviconImageForPage(uri).spec;
+                                     .getFaviconLinkForIcon(uri).spec;
               var thumbnailUrl;
 
               if(annoSvc.pageHasAnnotation(uri, "jumpstart/thumbs")){
